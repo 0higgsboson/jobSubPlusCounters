@@ -1,0 +1,25 @@
+#!/bin/bash
+#Usage:  S3toHdfs.sh   S3_Path  Hdfs_Path   
+# ./S3toHdfs.sh  s3://perfsherp.smallFiles/testData/ /data/
+# Assumptions:  S3Cmd utils are installed and on path
+if [ "$#" -ne 2 ]; then
+    echo "Usage:  S3toHdfs.sh   S3_Path  Hdfs_Path"
+    exit 1
+fi
+# temporary dir name
+temp="temp_dir_to_hold_s3_data_00123456"
+# S3 path
+src=$1
+# HDFS path
+dst=$2
+# create a temporary dir
+mkdir -p $temp
+echo "Copying Data From $src to $temp"
+s3cmd get --recursive $src $temp
+echo "Data Copied from S3 to local ..."
+echo "Uploading data on HDFS ..."
+hdfs  dfs -mkdir -p $dst
+hdfs  dfs -copyFromLocal $temp/* $dst
+echo "Data Copied to HDFS ..."
+rm -r $temp
+echo "Finished Task ..."

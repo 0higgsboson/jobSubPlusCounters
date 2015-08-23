@@ -1,0 +1,1 @@
+/usr/lib/jvm/java-7-oracle-cloudera/jre/bin/java -Dlog4j.configuration=file:///root/SP/log4j.properties -jar tunecore/target/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar 6 hive -f Scripts/WordCountTestsScripts/queries/hive_large.hql

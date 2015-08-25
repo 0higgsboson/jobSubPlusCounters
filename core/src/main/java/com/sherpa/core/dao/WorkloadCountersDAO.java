@@ -118,18 +118,18 @@ public class WorkloadCountersDAO extends HbaseDAO{
 
 
     private WorkloadCounters parseWorkloadCounters(Result result){
-        WorkloadCounters workloadCounters = new WorkloadCounters();
+        WorkloadCounters workloadCounters = null;
         log.info("Parsing workloadcounters");
-        if(result!=null){
+        if(result!=null && !result.isEmpty()){
             try{
 
                 /**
                  * for debugging only
                   */
-            //displayHbaseResult(result);
+            displayHbaseResult(result);
                 /*****/
 
-                workloadCounters.setWorkloadId(getWorkloadCounterID(result.getRow()));
+                workloadCounters = getWorkloadCounterFromKey(result.getRow());
                 workloadCounters.setCpu(Bytes.toString(result.getValue(Bytes.toBytes(WorkloadCountersConfigurations.DATA_COLUMN_FAMILY), Bytes.toBytes(WorkloadCountersConfigurations.CPU_COLUMN_NAME))));
                 workloadCounters.setMemory(Bytes.toString(result.getValue(Bytes.toBytes(WorkloadCountersConfigurations.DATA_COLUMN_FAMILY), Bytes.toBytes(WorkloadCountersConfigurations.MEMORY_COLUMN_NAME))));
                 workloadCounters.setElapsedTime(Bytes.toLong(result.getValue(Bytes.toBytes(WorkloadCountersConfigurations.DATA_COLUMN_FAMILY), Bytes.toBytes(WorkloadCountersConfigurations.JOB_TIME_COLUMN_NAME))));
@@ -144,18 +144,13 @@ public class WorkloadCountersDAO extends HbaseDAO{
     }
 
 
-
-
-
-
-
-
-    public  ByteBuffer getWorkloadCounterRowKey(int workloadId, long time){
-        int size=4;
+    public  ByteBuffer getWorkloadCounterRowKey(int workloadId, long time, String jobId){
+        int size=4 + 8 + jobId.length();
         ByteBuffer buffer = ByteBuffer.allocate(size);
 
         buffer.putInt(workloadId);
-        //buffer.putLong( time );
+        buffer.putLong(time);
+        buffer.put(Bytes.toBytes(jobId));
 
         buffer.rewind();
         return buffer;
@@ -163,17 +158,58 @@ public class WorkloadCountersDAO extends HbaseDAO{
     }
 
 
-    public  int getWorkloadCounterID(byte[] key){
-        ByteBuffer buffer = ByteBuffer.allocate(key.length);
-        buffer.put(key);
+
+    public  ByteBuffer getWorkloadCounterRowKey(int workloadId, long time){
+        int size=4 + 8;
+        ByteBuffer buffer = ByteBuffer.allocate(size);
+
+        buffer.putInt(workloadId);
+        buffer.putLong(time);
+
         buffer.rewind();
-        return buffer.getInt();
+        return buffer;
+
+    }
+
+
+    public  ByteBuffer getWorkloadCounterRowKey(int workloadId){
+        int size=4;
+        ByteBuffer buffer = ByteBuffer.allocate(size);
+
+        buffer.putInt(workloadId);
+        buffer.rewind();
+        return buffer;
+
     }
 
 
 
-    public static void displayHbaseResult(Result result){
+
+    public  WorkloadCounters getWorkloadCounterFromKey(byte[] key){
+        log.info("Key Length: " + key.length);
+
+        WorkloadCounters workloadCounters = new WorkloadCounters();
+        ByteBuffer buffer = ByteBuffer.allocate(key.length);
+        buffer.put(key);
+        buffer.rewind();
+        byte[] arr = new byte[key.length - 12];
+
+        log.info("Arr Length: " + arr.length);
+
+        workloadCounters.setWorkloadId(buffer.getInt());
+        workloadCounters.setTimestamp(buffer.getLong());
+        buffer.get(arr, 0, arr.length);
+        workloadCounters.setJobId(Bytes.toString(arr));
+        return workloadCounters;
+    }
+
+
+
+    public void displayHbaseResult(Result result){
         log.info("Displaying Hbase Result Values ...");
+        WorkloadCounters wc = getWorkloadCounterFromKey(result.getRow());
+        System.out.println("Row Key =>  Workload ID: " + wc.getWorkloadId()  + "\t Timestamp: " + wc.getTimestamp() + "\t Job ID: " + wc.getJobId() );
+
         for(KeyValue kv: result.raw()){
                 System.out.print("Colulm  Family: " + Bytes.toString(kv.getFamily()) );
                 System.out.print("\t Colulm  Name: " + Bytes.toString(kv.getQualifier()) );

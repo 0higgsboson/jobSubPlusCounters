@@ -27,6 +27,9 @@ public class WorkloadNameToIdMapper {
         map.put(HIVE_SMALL, 4);
         map.put(HIVE_NORMAL, 5);
         map.put(HIVE_LARGE, 6);
+
+
+
         return map;
     }
 

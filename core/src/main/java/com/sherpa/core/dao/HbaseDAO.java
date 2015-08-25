@@ -92,6 +92,20 @@ public class HbaseDAO {
     }
 
 
+    public void deleteTable(String tableName){
+
+        try {
+            if(!isTableExist(tableName))
+                return;
+
+            HBaseAdmin hbase = new HBaseAdmin(getConfiguration());
+            HTableDescriptor desc = new HTableDescriptor(tableName);
+            hbase.disableTable(tableName);
+            hbase.deleteTable(tableName);
+        }catch (IOException e){
+            log.error(e.getMessage());
+        }
+    }
 
 
 

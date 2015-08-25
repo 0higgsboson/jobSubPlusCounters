@@ -2,6 +2,7 @@ package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
+import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
@@ -152,7 +153,7 @@ public class JobExecutor extends Thread{
         if(workloadId > 0) {
             WorkloadCountersManager mgr = new WorkloadCountersManager();
             log.info("Saving Counters into Hbase ...");
-            mgr.saveWorkloadCounters(workloadId, performanceCounters);
+            mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
             log.info("Done Saving Counters into Hbase ...");
         }
 

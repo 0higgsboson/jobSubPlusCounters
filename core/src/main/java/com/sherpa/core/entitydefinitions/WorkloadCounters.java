@@ -10,7 +10,11 @@ public class WorkloadCounters {
     private String memory;
     private long elapsedTime;
 
+    // following forms the key of hbase row
     private int workloadId=0;
+    private long timestamp;
+    private String jobId;
+
 
     public String getCpu() {
         return cpu;
@@ -45,9 +49,30 @@ public class WorkloadCounters {
         this.workloadId = workloadId;
     }
 
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public static String getHeaders(){
+        return "WorkloadID,Timestamp,JobID,CPU,Memory,JobTime";
+    }
+
     @Override
     public String toString() {
-        return "Workload ID: " + workloadId + "\t CPU: " + cpu + "\t Memory: " + memory + "\t Job Time:"  + elapsedTime ;
+        return workloadId + "," + timestamp + "," +jobId + "," +cpu + "," +memory + "," +elapsedTime;
     }
 
 

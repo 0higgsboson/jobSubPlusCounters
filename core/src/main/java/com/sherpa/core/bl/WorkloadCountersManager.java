@@ -25,16 +25,29 @@ public class WorkloadCountersManager {
         workloadCountersDAO.createTable(WorkloadCountersConfigurations.TABLE_NAME);
     }
 
+    public void deleteTable(){
+        workloadCountersDAO.deleteTable(WorkloadCountersConfigurations.TABLE_NAME);
+    }
 
-    public void saveWorkloadCounters(int wid, WorkloadCounters workloadCounters)  {
-        workloadCountersDAO.saveWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, 0), workloadCounters);
+
+    public void saveWorkloadCounters(int wid, long ts, String jobId, WorkloadCounters workloadCounters)  {
+        workloadCountersDAO.saveWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, ts, jobId), workloadCounters);
+    }
+
+
+    public WorkloadCounters getWorkloadCounters(int wid, long ts, String jobId)  {
+        return workloadCountersDAO.getWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, ts, jobId));
+    }
+
+
+    public WorkloadCounters getWorkloadCounters(int wid, long ts)  {
+        return workloadCountersDAO.getWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, ts, ""));
     }
 
 
     public WorkloadCounters getWorkloadCounters(int wid)  {
-        return workloadCountersDAO.getWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, 0));
+        return workloadCountersDAO.getWorkloadCounters(WorkloadCountersConfigurations.TABLE_NAME, workloadCountersDAO.getWorkloadCounterRowKey(wid, 0, ""));
     }
-
 
 
     public List<WorkloadCounters> getAllWorkloadCounters(){

@@ -2,6 +2,7 @@ package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
+import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
@@ -62,6 +63,7 @@ public class HiveJobExecutor extends Thread{
     BigInteger CPUMSec = new BigInteger("0");
     long totalElapsedTime = 0;
 
+    private String mrJobId = "";
 
 
     public HiveJobExecutor(String cmd, String appServer, String historyServer, String storageDir, int pollInterval){
@@ -138,6 +140,9 @@ public class HiveJobExecutor extends Thread{
                 continue;
             }
 
+            if(mrJobId.isEmpty())
+                mrJobId = jobId;
+
             log.info("Processing Job: " + jobId);
 
             // waits for job/application to complete
@@ -208,7 +213,7 @@ public class HiveJobExecutor extends Thread{
         if(workloadId > 0) {
             WorkloadCountersManager mgr = new WorkloadCountersManager();
             log.info("Saving Counters into Hbase ...");
-            mgr.saveWorkloadCounters(workloadId, performanceCounters);
+            mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), mrJobId,  performanceCounters);
             log.info("Done Saving Counters into Hbase ...");
         }
 

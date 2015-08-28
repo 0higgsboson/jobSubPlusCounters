@@ -1,0 +1,9 @@
+com/sherpa/custominputformat/SherpaRecordReader.class
+com/sherpa/custominputformat/SherpaCombineFileInputFormat.class
+com/sherpa/custominputformat/DummyDataGenerator.class
+com/sherpa/custominputformat/SimpleMapper.class
+com/sherpa/custominputformat/FileInfoWritable.class
+com/sherpa/custominputformat/SmallFilesMapper.class
+com/sherpa/custominputformat/CombineInputFormatWordCountDriver.class
+com/sherpa/custominputformat/WordCountDriver.class
+com/sherpa/custominputformat/TestReducer.class

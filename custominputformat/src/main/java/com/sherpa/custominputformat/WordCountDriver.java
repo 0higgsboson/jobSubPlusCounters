@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.JobSP;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -34,7 +35,7 @@ public class WordCountDriver {
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
         job.setReducerClass(TestReducer.class);
-        //job.setNumReduceTasks(13);
+        job.setNumReduceTasks(13);
         Path out = new Path(args[1]);
         FileSystem fs = FileSystem.get(conf);
         if( fs.exists(out) )
@@ -42,6 +43,7 @@ public class WordCountDriver {
 
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         job.submit();
+
         job.waitForCompletion(true);
 
 

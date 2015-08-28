@@ -93,6 +93,8 @@ public class JobExecutor extends Thread{
             return;
         }
 
+        // start logging
+        new JobExtractorLogger(process).start();
 
         // waits for job/application to complete
         log.info("Waiting for application to complete");

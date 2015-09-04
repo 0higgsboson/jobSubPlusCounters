@@ -1,6 +1,8 @@
 package com.sherpa.core.entitydefinitions;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by akhtar on 22/08/2015.
@@ -15,6 +17,7 @@ public class WorkloadCounters {
     private long timestamp;
     private String jobId;
 
+    private Map<String, BigInteger> metricsValues = new HashMap<String, BigInteger>();
 
     public String getCpu() {
         return cpu;
@@ -68,6 +71,14 @@ public class WorkloadCounters {
 
     public static String getHeaders(){
         return "WorkloadID,Timestamp,JobID,CPU,Memory,JobTime";
+    }
+
+    public Map<String, BigInteger> getMetricsValues() {
+        return metricsValues;
+    }
+
+    public void setMetricsValues(Map<String, BigInteger> metricsValues) {
+        this.metricsValues = metricsValues;
     }
 
     @Override

@@ -34,40 +34,21 @@ public class JobExecutor extends Thread{
     // yarn command to be executed
     private String command;
     // resource manager url to track application status
-    private String applicationServerUrl;
+    private String resourceManagerUrl;
     // job history server url to pull counters data
     private String historyServerUrl;
-    // interval after which job/application status is checked
-    private int pollInterval;
-    // dir where counters data is saved in files
-    private String storageDir;
     // keeps application's run time status
     private Application app;
     // workload ID
     private int workloadId=-1;
 
-    private HistoricalTaskCounters historicalTaskCounters;
-    private HistoricalJobCounters  historicalJobCounters;
+    private int pollInterval = 5000;
 
-
-    public JobExecutor(String cmd, String appServer, String historyServer, String storageDir, int pollInterval){
+    public JobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
         this.command = cmd;
-        this.applicationServerUrl = appServer;
+        this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
-        this.storageDir = storageDir;
         this.pollInterval = pollInterval;
-        this.historicalTaskCounters = new HistoricalTaskCounters(storageDir, historyServerUrl);
-        this.historicalJobCounters  = new HistoricalJobCounters(storageDir, historyServerUrl);
-    }
-
-    public JobExecutor(String cmd, String appServer, String historyServer, String storageDir){
-        this.command = cmd;
-        this.applicationServerUrl = appServer;
-        this.historyServerUrl     = historyServer;
-        this.storageDir = storageDir;
-        this.pollInterval = 5 * 1000;  // default 5 sec
-        this.historicalTaskCounters = new HistoricalTaskCounters(storageDir, historyServerUrl);
-        this.historicalJobCounters  = new HistoricalJobCounters(storageDir, historyServerUrl);
     }
 
 
@@ -75,6 +56,7 @@ public class JobExecutor extends Thread{
      *  Implements the controlling part of the job execution, tracking and saving
      */
     public void run(){
+        log.info("Started Job Executor");
 
         // Execute the command and gets its process
         log.info("Executing command ...");
@@ -106,14 +88,6 @@ public class JobExecutor extends Thread{
             long elapsedTime = getElapsedTime();
             log.info("Elapsed Time: " + elapsedTime);
 
-           // Saves task counters
-           log.info("Saving Task Counters ...");
-           saveTaskCounters(jobId);
-
-            // Saves job counters
-            log.info("Saving Job Counters ...");
-            saveJobCounters(jobId);
-
             // Saves workload counters into hbase
             saveWorkloadCounters(jobId, elapsedTime);
 
@@ -125,39 +99,41 @@ public class JobExecutor extends Thread{
     }
 
 
-    private void saveTaskCounters(String jobId){
-        try {
-            historicalTaskCounters.getJobCounters(jobId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void saveJobCounters(String jobId){
-        try {
-            historicalJobCounters.getJobCounters(jobId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     private void saveWorkloadCounters(String jobId, long elapsedTime){
         // Collecting Performance Counters
+
+        HistoricalTaskCounters historicalTaskCounters = new HistoricalTaskCounters(historyServerUrl);
+        try {
+            historicalTaskCounters.getJobCounters(jobId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        WorkloadCountersManager mgr = new WorkloadCountersManager();
+
+
+        // to save into hbase
+/*
         WorkloadCounters performanceCounters = new WorkloadCounters();
         performanceCounters.setElapsedTime(elapsedTime);
         performanceCounters.setCpu(historicalTaskCounters.getCPUMSec().toString());
         performanceCounters.setMemory(historicalTaskCounters.getPMemBytes().toString());
         log.info("Performance Counters: " + performanceCounters.toString());
 
-        // if workload id is defined then save into bhase
-        if(workloadId > 0) {
-            WorkloadCountersManager mgr = new WorkloadCountersManager();
-            log.info("Saving Counters into Hbase ...");
-            mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
-            log.info("Done Saving Counters into Hbase ...");
-        }
+        log.info("Saving Counters into Hbase ...");
+        mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
+        log.info("Done Saving Counters into Hbase ...");
+*/
+
+
+        log.info("Saving Counters into Phoenix Table ...");
+        mgr.saveCounters(workloadId, jobId, historicalTaskCounters.getCounterValues());
+        log.info("Done Saving Counters into Phoenix ...");
+        mgr.close();
+
+
+
 
     }
 
@@ -185,6 +161,7 @@ public class JobExecutor extends Thread{
             String line = null;
 
             while( (line=br.readLine()) !=null ){
+                log.info("Log Line: " + line);
                // output contains the following words followed by job id
                if(line.contains("Running job")){
                    String[] tok = line.split(":");
@@ -200,12 +177,12 @@ public class JobExecutor extends Thread{
             log.error(e.getMessage());
         }
         finally {
-            try {
+            /*try {
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 log.error(e.getMessage());
-            }
+            }*/
         }
 
         return jobId;
@@ -219,12 +196,12 @@ public class JobExecutor extends Thread{
 
         RestTemplate restTemplate = new RestTemplate();
 
-        if(!applicationServerUrl.endsWith("/"))
-            applicationServerUrl += "/";
+        if(!resourceManagerUrl.endsWith("/"))
+            resourceManagerUrl += "/";
 
-        applicationServerUrl += applicationId;
+        resourceManagerUrl += applicationId;
 
-        app = restTemplate.getForObject(applicationServerUrl, Application.class);
+        app = restTemplate.getForObject(resourceManagerUrl, Application.class);
 
 
         log.info("Application Status: " + app);
@@ -245,7 +222,7 @@ public class JobExecutor extends Thread{
                 e.printStackTrace();
                 return false;
             }
-            app = restTemplate.getForObject(applicationServerUrl, Application.class);
+            app = restTemplate.getForObject(resourceManagerUrl, Application.class);
 
         }
         return true;
@@ -280,12 +257,12 @@ public class JobExecutor extends Thread{
 
         RestTemplate restTemplate = new RestTemplate();
 
-        if(!applicationServerUrl.endsWith("/"))
-            applicationServerUrl += "/";
+        if(!resourceManagerUrl.endsWith("/"))
+            resourceManagerUrl += "/";
 
-        applicationServerUrl += applicationId;
+        resourceManagerUrl += applicationId;
 
-        Application app = restTemplate.getForObject(applicationServerUrl, Application.class);
+        Application app = restTemplate.getForObject(resourceManagerUrl, Application.class);
         if(app!=null && app.getApp()!=null){
             try {
                 elapsedTime = Long.parseLong(app.getApp().getElapsedTime());

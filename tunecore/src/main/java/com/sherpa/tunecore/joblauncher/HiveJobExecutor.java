@@ -14,8 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by akhtar on 10/08/2015.
@@ -37,20 +36,15 @@ public class HiveJobExecutor extends Thread{
     // yarn command to be executed
     private String command;
     // resource manager url to track application status
-    private String applicationServerUrl;
+    private String resourceManagerUrl;
     // job history server url to pull counters data
     private String historyServerUrl;
     // interval after which job/application status is checked
     private int pollInterval;
-    // dir where counters data is saved in files
-    private String storageDir;
     // keeps application's run time status
     private Application app;
     // workload ID
     private int workloadId=-1;
-
-    // to collect  task counters
-    private HistoricalTaskCounters historicalTaskCounters;
 
 
     private HiveJobIdExtractor hiveJobIdExtractor;
@@ -59,30 +53,19 @@ public class HiveJobExecutor extends Thread{
     // // Hive Job Extractor Thread sets it to true once all job ids are added in the queue
     private boolean isJobsFinished=false;
 
-    BigInteger PMemBytes = new BigInteger("0");
-    BigInteger CPUMSec = new BigInteger("0");
-    long totalElapsedTime = 0;
-
+    private long totalElapsedTime = 0;
+    private Map<String, Map<String, BigInteger> > jobCountersMap = new HashMap<String, Map<String, BigInteger> >();
     private String mrJobId = "";
 
 
-    public HiveJobExecutor(String cmd, String appServer, String historyServer, String storageDir, int pollInterval){
+    public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
         this.command = cmd;
-        this.applicationServerUrl = appServer;
+        this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
-        this.storageDir = storageDir;
         this.pollInterval = pollInterval;
 
     }
 
-    public HiveJobExecutor(String cmd, String appServer, String historyServer, String storageDir){
-        this.command = cmd;
-        this.applicationServerUrl = appServer;
-        this.historyServerUrl     = historyServer;
-        this.storageDir = storageDir;
-        this.pollInterval = 5 * 1000;  // default 5 sec
-
-    }
 
 
     /**
@@ -159,10 +142,12 @@ public class HiveJobExecutor extends Thread{
 
                 // Saves task counters
                 log.info("Getting Task Counters ...");
-                getTaskCounters(jobId);
+                Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
+                if(jobCounters!=null)
+                    jobCountersMap.put(jobId, jobCounters);
 
-                log.info("Total Jobs Processed: " + jobsProcessed++);
-                log.info("Finished Getting Task Counter for job " + jobId);
+                log.info("Total Jobs Processed: " + ++jobsProcessed);
+                log.info("Finished Getting Counters for job " + jobId);
             }
 
 
@@ -179,47 +164,38 @@ public class HiveJobExecutor extends Thread{
     }
 
 
-    private void getTaskCounters(String jobId){
+    private Map<String, BigInteger> getTaskCounters(String jobId){
+        Map<String, BigInteger> counterValues = null;
         try {
-            historicalTaskCounters = new HistoricalTaskCounters(storageDir, historyServerUrl);
+            HistoricalTaskCounters historicalTaskCounters = new HistoricalTaskCounters( historyServerUrl);
             historicalTaskCounters.getJobCounters(jobId);
-
-            log.info("Adding CPU Time: " + CPUMSec.toString() + " + " + historicalTaskCounters.getCPUMSec().toString());
-            CPUMSec = CPUMSec.add(historicalTaskCounters.getCPUMSec());
-            log.info("Running CPU Time: " + CPUMSec.toString());
-
-            log.info("Adding Memory: " + PMemBytes.toString() + " + " + historicalTaskCounters.getPMemBytes().toString());
-            PMemBytes = PMemBytes.add( historicalTaskCounters.getPMemBytes());
-            log.info("Collective Memory: " +  PMemBytes.toString() );
-
+            counterValues = historicalTaskCounters.getCounterValues();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return counterValues;
     }
 
 
 
 
     private void saveWorkloadCounters(){
-        // Collecting Performance Counters
-        WorkloadCounters performanceCounters = new WorkloadCounters();
-        performanceCounters.setElapsedTime(totalElapsedTime);
-        performanceCounters.setCpu(CPUMSec.toString());
-        performanceCounters.setMemory(PMemBytes.toString());
-        log.info("Performance Counters: " + performanceCounters.toString());
+        WorkloadCountersManager mgr = new WorkloadCountersManager();
 
-        // if workload id is defined then save into bhase
-        if(workloadId > 0) {
-            WorkloadCountersManager mgr = new WorkloadCountersManager();
-            log.info("Saving Counters into Hbase ...");
-            mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), mrJobId,  performanceCounters);
-            log.info("Done Saving Counters into Hbase ...");
+        log.info("Saving Counters into Phoenix Table ...");
+        Iterator<String> iterator = jobCountersMap.keySet().iterator();
+        while(iterator.hasNext()){
+            String jobId = iterator.next();
+            Map<String, BigInteger> values = jobCountersMap.get(jobId);
+            mgr.saveCounters(workloadId, jobId, values);
         }
 
+        log.info("Done Saving Counters into Phoenix ...");
+        mgr.close();
+
     }
-
-
 
 
     private Process launchCommand(String command){
@@ -248,8 +224,8 @@ public class HiveJobExecutor extends Thread{
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = applicationServerUrl;
-        if(!applicationServerUrl.endsWith("/"))
+        String url = resourceManagerUrl;
+        if(!resourceManagerUrl.endsWith("/"))
             url += "/";
 
         url += applicationId;

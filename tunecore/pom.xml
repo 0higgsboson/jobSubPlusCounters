@@ -102,6 +102,15 @@
             <scope>test</scope>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.apache.phoenix</groupId>
+            <artifactId>phoenix-core</artifactId>
+            <version>4.5.1-HBase-1.0</version>
+        </dependency>
+
+
+
     </dependencies>
 
 

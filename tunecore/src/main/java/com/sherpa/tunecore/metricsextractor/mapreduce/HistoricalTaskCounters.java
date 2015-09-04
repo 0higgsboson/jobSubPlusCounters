@@ -1,6 +1,7 @@
 package com.sherpa.tunecore.metricsextractor.mapreduce;
 
 import com.google.gson.Gson;
+import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AggregatedTaskCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobTaskCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.TaskCounter;
@@ -17,34 +18,25 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 public class HistoricalTaskCounters {
 
 	private static final Logger log = LoggerFactory.getLogger(HistoricalTaskCounters.class);
 	String jobHistoryUrl = null;
-	String storageDir;
 	RestTemplate restTemplate = null;
-	boolean saveToDisk = true;
 
-	// private double cpuVCoreMilliSeconds, memoryMBSeconds, diskGB;
-	BigInteger PMemBytes = new BigInteger("0");
-	BigInteger CPUMSec = new BigInteger("0");
-	BigInteger VMemBytes = new BigInteger("0");
-	BigInteger CommittedHeapBytes = new BigInteger("0");
+	Map<String, BigInteger> counterValues = WorkloadCountersConfigurations.getInitialCounterValuesMap();
 
-
-	public  HistoricalTaskCounters(String storageDir, String jobHistoryUrl){
-		this.storageDir = storageDir;
+	public  HistoricalTaskCounters(String jobHistoryUrl){
 		this.jobHistoryUrl = jobHistoryUrl;
 		restTemplate = new RestTemplate();
 	}
 
 
-	public void setSaveToDisk(boolean saveToDisk) {
-		this.saveToDisk = saveToDisk;
-	}
-
 	public void getJobCounters(String JobID) throws Exception{
+		//log.info("Initial Counters Values: " + counterValues.toString());
+
 
 		if (JobID == null) {
 			AllJobs historicalJobs = restTemplate.getForObject(jobHistoryUrl, AllJobs.class);
@@ -64,8 +56,6 @@ public class HistoricalTaskCounters {
 			getJobCounterAggregateValue(JobID, null);
 		}
 					
-		//System.out.println(historicalJobs);
-		printCounterValues();
 
 	}
 
@@ -78,7 +68,7 @@ public class HistoricalTaskCounters {
 		AllTasks allTasks = restTemplate.getForObject(SPI.getJobTaskUri(jobHistoryUrl, JobId), AllTasks.class);
 		allTasks.setJobId(JobId);
 
-		new MetricsDumper().dumpToFile("TaskCounters", JobId, storageDir, new Gson().toJson(allTasks) );
+		//new MetricsDumper().dumpToFile("TaskCounters", JobId, storageDir, new Gson().toJson(allTasks) );
 
 
 		List<Task> jobTasksList = allTasks.getTasks().getTask();
@@ -86,114 +76,60 @@ public class HistoricalTaskCounters {
 		for(Task task : jobTasksList){
 			String taskId = task.getId();
 			String TaskCounterName = null;
-			getTaskCounterAggregateValue(JobId, taskId, TaskCounterName);
+			//getTaskCounterAggregateValue(JobId, taskId, TaskCounterName);
+			aggregateTaskCounters(JobId, taskId, TaskCounterName);
 		}
 
-
-		// saves counters
-		save(JobId);
 
 	}
 
 
-	private void save(String JobId) {
-		if (saveToDisk) {
-			AggregatedTaskCounters aggregatedTaskCounters = new AggregatedTaskCounters();
-			aggregatedTaskCounters.setJobId(JobId);
-			aggregatedTaskCounters.setCommittedHeapBytes(CommittedHeapBytes.toString());
-			aggregatedTaskCounters.setCPUMSec(CPUMSec.toString());
-			aggregatedTaskCounters.setPMemBytes(PMemBytes.toString());
-			aggregatedTaskCounters.setVMemBytes(VMemBytes.toString());
+	private void aggregateTaskCounters(String JobId, String TaskId, String TaskCounterName) {
 
-			new MetricsDumper().dumpToFile("Aggregated_TaskCounters", JobId, storageDir, new Gson().toJson(aggregatedTaskCounters));
-
-		}
-	}
-
-
-	private void getTaskCounterAggregateValue(String JobId
-				, String TaskId
-				, String TaskCounterName
-			) {
-
-		AllJobTaskCounters allJobTaskCounters =  restTemplate.getForObject(
-									SPI.getJobTaskCounterUri(jobHistoryUrl,JobId,TaskId)
-								  , AllJobTaskCounters.class);
-		
-		// System.out.println(" Printing Get Job counters");
-		// System.out.println();
+		AllJobTaskCounters allJobTaskCounters =  restTemplate.getForObject(SPI.getJobTaskCounterUri(jobHistoryUrl, JobId, TaskId), AllJobTaskCounters.class);
 		List<TaskCounterGroup> tcgList = allJobTaskCounters.getJobTaskCounters().getTaskCounterGroup();
-		
-		String tcgName = null;
-		// BigInteger taskCounterValue = null;
+
+		String tcgName;
+		String taskCounterGroupName;
+		if(tcgList==null)
+			return;
 
 		for (TaskCounterGroup tcg:tcgList){
 			tcgName = tcg.getCounterGroupName();
-			// System.out.println(" counter group name = " + tcgName);
-			if (tcgName.equals("org.apache.hadoop.mapreduce.TaskCounter")) {
-				// other values are-- org.apache.hadoop.mapreduce.FileSystemCounter, org.apache.hadoop.mapreduce.lib.input.FileInputFormatCounter
-				
-				// System.out.println(" inside tcgname debug");
-				List <TaskCounter> tcList = tcg.getCounter();
-				// Use hadoop's taskcounter class.  Refactor in future.
-				
-				for (TaskCounter tc:tcList) {
-					// System.out.println(" Counter name = " + tc.getName() + " Counter value = " + tc.getValue());
-					// taskCounterName = tc.getName();
-					// taskCounterValue = tc.getValue();
-					if (tc.getName().equals("CPU_MILLISECONDS")) {
-						// System.out.println(" Counter name = " + tc.getName() + " Counter value = " + tc.getValue());
-						CPUMSec = CPUMSec.add(tc.getValue());
-						// System.out.println(" Printing Counters CPUMSec " + CPUMSec.toString());		
+			if(tcgName!=null && !tcgName.isEmpty()) {
+				//log.info("Task Group Name: " + tcgName);
+				String tok[] = tcgName.split("\\.");
+				if(tok.length==1)
+					taskCounterGroupName = tok[0];
+				else
+					taskCounterGroupName = tok[tok.length - 1];
+
+				List<TaskCounter> tcList = tcg.getCounter();
+
+				for (TaskCounter tc : tcList) {
+					//log.info("Counter Name: " + tc.getName() + "\t Counter Value: " + tc.getValue());
+
+					if(taskCounterGroupName.equalsIgnoreCase("Shuffle Errors"))
+						taskCounterGroupName = "ShuffleErrors";
+
+					String column = taskCounterGroupName + "_" + tc.getName();
+					//log.info("Column: " + column);
+					if (counterValues.containsKey(column)) {
+						BigInteger tmp = counterValues.get(column).add(tc.getValue());
+						counterValues.put(column, tmp);
+					} else {
+						log.info("\n\nError: Column does not exist in column names map: " + column);
 					}
-					else if (tc.getName().equals("PHYSICAL_MEMORY_BYTES")) {
-						PMemBytes = PMemBytes.add(tc.getValue());
-					}
-					else if (tc.getName().equals("VIRTUAL_MEMORY_BYTES")) {
-						VMemBytes = VMemBytes.add(tc.getValue());
-					}
-					else if (tc.getName().equals("COMMITTED_HEAP_BYTES")) {
-						CommittedHeapBytes = CommittedHeapBytes.add(tc.getValue());
-					}
-					// PMemBytes = CPUMSec = VMemBytes = CommittedHeapBytes = 0;
+
 				}
 			}
+
 		}
 
 	}
-	
-	private void printCounterValues(){
-		System.out.println(" Printing Counter Values:");
-		
-		System.out.println(" PMemBytes " + PMemBytes.toString() );
-		System.out.println(" VMemBytes " + VMemBytes.toString() );
-		System.out.println(" CommittedHeapBytes " + CommittedHeapBytes.toString() );
-		System.out.println(" CPUMSec " + CPUMSec.toString() );
-		
-		// PMemBytes = CPUMSec = VMemBytes = CommittedHeapBytes = 0;		
 
+
+	public Map<String, BigInteger> getCounterValues() {
+		return counterValues;
 	}
-
-
-	public BigInteger getCommittedHeapBytes() {
-		return CommittedHeapBytes;
-	}
-
-	public BigInteger getCPUMSec() {
-		return CPUMSec;
-	}
-
-	public BigInteger getPMemBytes() {
-		return PMemBytes;
-	}
-
-	public BigInteger getVMemBytes() {
-		return VMemBytes;
-	}
-
-
-
-
-
-
 }

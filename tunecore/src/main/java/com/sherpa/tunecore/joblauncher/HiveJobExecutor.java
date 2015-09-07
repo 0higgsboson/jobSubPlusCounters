@@ -1,6 +1,7 @@
 package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
+import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
 import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
@@ -196,6 +197,19 @@ public class HiveJobExecutor extends Thread{
         mgr.close();
 
     }
+
+
+    public Map<String, BigInteger> getAggregatedCounters(){
+        Map<String, BigInteger> aggs = WorkloadCountersConfigurations.getInitialCounterValuesMap();
+
+
+
+
+
+    }
+
+
+
 
 
     private Process launchCommand(String command){

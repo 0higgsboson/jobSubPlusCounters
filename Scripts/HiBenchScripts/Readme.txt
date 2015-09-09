@@ -23,11 +23,8 @@ hibench.spark.version          spark1.3
 Step 2)
 run.sh
 -------------------------------
-Set the appropriate values for the following variables
-
-HADOOP_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/hadoop/
-SPARK_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/spark/
-HIVE_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/hive/
+Define CDH Version
+CDH_VERSION=CDH-5.4.5-1.cdh5.4.5.p0.7
 
 
 Step 3)

@@ -7,7 +7,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,9 +15,9 @@ import java.util.List;
 /**
  * Created by akhtar on 22/08/2015.
  */
-public class WorkloadCountersDAO extends HbaseDAO{
+public class WorkloadCountersHbaseDAO extends HbaseDAO{
 
-    private static final Logger log = LoggerFactory.getLogger(WorkloadCountersDAO.class);
+    private static final Logger log = LoggerFactory.getLogger(WorkloadCountersHbaseDAO.class);
 
 
 

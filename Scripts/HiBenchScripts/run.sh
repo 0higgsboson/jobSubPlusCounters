@@ -1,9 +1,12 @@
 #!/bin/bash
 
-HADOOP_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/hadoop/
-SPARK_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/spark/
-HIVE_DIR=/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/hive/
-export JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/"
+CDH_VERSION=CDH-5.4.5-1.cdh5.4.5.p0.7
+HADOOP_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/hadoop/
+SPARK_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/spark/
+HIVE_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/hive/
+#export JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/"
+
+
 
 # Fix 1: Define Java_Home
 # URL: https://github.com/intel-hadoop/HiBench/issues/93
@@ -28,7 +31,7 @@ cp ${HADOOP_DIR}/../../jars/*.jar ${HADOOP_DIR}/share/hadoop/mapreduce2/
 # http://stackoverflow.com/questions/30343932/run-spark-sql-on-chd5-4-1-noclassdeffounderror
 echo "Copying hive config files into spark home"
 cp "${HIVE_DIR}"/conf/hive-site.xml  "${SPARK_DIR}"/conf/
-echo "CLASSPATH=\"\$CLASSPATH:/opt/cloudera/parcels/CDH-5.4.4-1.cdh5.4.4.p0.4/lib/hive/lib/*\"" >> "${SPARK_DIR}"/bin/compute-classpath.sh
+echo "CLASSPATH=\"\$CLASSPATH:/opt/cloudera/parcels/${CDH_VERSION}/lib/hive/lib/*\"" >> "${SPARK_DIR}"/bin/compute-classpath.sh
 
 
 # Fix 4: HiBench.NutchData ERROR: number of words should be greater than 0

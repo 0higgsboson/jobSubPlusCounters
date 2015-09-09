@@ -9,6 +9,10 @@ import java.util.Map;
  */
 public class WorkloadCountersConfigurations {
 
+    public static final String JOB_TYPE_HIVE="hive";
+    public static final String JOB_TYPE_MR="mr";
+    public static final String JOB_TYPE_SPARK="spark";
+
 
     public static final String MEMORY_COLUMN_NAME="memory";
     public static final String CPU_COLUMN_NAME="cpu";
@@ -16,9 +20,11 @@ public class WorkloadCountersConfigurations {
 
 
     public static final String TABLE_NAME = "workloadCounters";
-    public static final String PHOENIX_TABLE_NAME = "counters";
     public static final String DATA_COLUMN_FAMILY = "counters";
 
+
+    public static final String COUNTERS_TABLE_NAME = "counters";
+    public static final String WORKLOAD_IDS_TABLE_NAME = "workloadIds";
 
 
 
@@ -65,25 +71,39 @@ public class WorkloadCountersConfigurations {
 
 
 
-    public static String getCreateTableSchema(){
+    public static String getCountersTableSchema(){
         String tok[];
-        String schema = "CREATE TABLE IF NOT EXISTS " + PHOENIX_TABLE_NAME + " ( WORKLOAD_ID INTEGER not null, JOB_ID VARCHAR not null ";
-
+        String schema = "CREATE TABLE IF NOT EXISTS " +
+                COUNTERS_TABLE_NAME +
+                " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR  not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR ";
 
         for(int i=0; i<columnNamesTypesList.length; i++){
             tok = columnNamesTypesList[i].split(":");
             schema += "," + tok[0] + " " + tok[1] + " ";
         }
 
-        schema += " CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID, JOB_ID) )";
+        schema += " CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID, DATE_TIME, JOB_ID) )";
 
         return schema;
     }
 
 
 
+    public static String getWorkloadIdsTableSchema(){
+        String schema = "CREATE TABLE IF NOT EXISTS " +
+                WORKLOAD_IDS_TABLE_NAME +
+                " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date, HASH BIGINT ";
+
+        schema += " CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID) )";
+
+        return schema;
+    }
+
+
+
+
     public static void main(String[] args){
-        System.out.print(getCreateTableSchema());
+        System.out.print(getWorkloadIdsTableSchema());
     }
 
 

@@ -2,18 +2,13 @@ package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
-import com.sherpa.core.entitydefinitions.WorkloadCounters;
-import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
-import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -57,6 +52,10 @@ public class HiveJobExecutor extends Thread{
     private long totalElapsedTime = 0;
     private Map<String, Map<String, BigInteger> > jobCountersMap = new HashMap<String, Map<String, BigInteger> >();
     private String mrJobId = "";
+    private String aggregateJobId = "";
+
+    WorkloadCountersManager workloadManager;
+    Date date;
 
 
     public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
@@ -65,6 +64,8 @@ public class HiveJobExecutor extends Thread{
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
 
+        date = new Date();
+        workloadManager = new WorkloadCountersManager();
     }
 
 
@@ -74,8 +75,23 @@ public class HiveJobExecutor extends Thread{
      */
     public void run(){
 
+        log.info("Command: " + command);
+        String hiveQueryFilePath = getFilePath(this.command);
+        log.info("Hive File Path: " + hiveQueryFilePath);
+        if(hiveQueryFilePath.isEmpty()){
+            log.error("Error: Hive file path for queries not found ...");
+            workloadManager.close();
+            System.exit(1);
+        }
+        workloadId = workloadManager.getFileWorkloadID(hiveQueryFilePath);
+        if(workloadId<0){
+            log.error("Error: could not generate worklod id ...");
+            workloadManager.close();
+            System.exit(1);
+        }
+
         // Execute the command and gets its process
-        log.info("Executing command ...");
+        log.info("Executing command: " + this.command);
         Process process = launchCommand(this.command);
         if(process==null){
             log.info("Could not execute job, please check your command");
@@ -144,8 +160,16 @@ public class HiveJobExecutor extends Thread{
                 // Saves task counters
                 log.info("Getting Task Counters ...");
                 Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
-                if(jobCounters!=null)
+                if(jobCounters!=null) {
                     jobCountersMap.put(jobId, jobCounters);
+                    saveWorkloadCounters(jobId, elapsedTime, jobCounters);
+                }
+
+                if(aggregateJobId.isEmpty())
+                    aggregateJobId=jobId;
+                else
+                    aggregateJobId += ":" + jobId;
+
 
                 log.info("Total Jobs Processed: " + ++jobsProcessed);
                 log.info("Finished Getting Counters for job " + jobId);
@@ -155,14 +179,34 @@ public class HiveJobExecutor extends Thread{
 
         }// main while loop
 
-
-        // Saves workload counters into hbase
-        if(jobsProcessed > 0)
-              saveWorkloadCounters();
+        log.info("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
+        Map<String, BigInteger> aggCounters = getAggregatedCounters();
+        saveWorkloadCounters(aggregateJobId, totalElapsedTime, aggCounters);
+        workloadManager.close();
         log.info("Finished All Tasks ... " + jobsProcessed);
 
-
     }
+
+
+    private String getFilePath(String command){
+        if(command==null || command.isEmpty())
+            return "";
+
+        String filePath = "";
+        String[] cmdTokens = command.split(" ");
+        for(int i=0; i<cmdTokens.length; i++){
+            if(cmdTokens[i].equalsIgnoreCase("-f")){
+                if( (i+1)<cmdTokens.length ){
+                    filePath = cmdTokens[i+1];
+                    log.info("Hive Query File Path Found: " + filePath);
+                    break;
+                }
+            }
+        }
+        return filePath;
+    }
+
+
 
 
     private Map<String, BigInteger> getTaskCounters(String jobId){
@@ -182,30 +226,32 @@ public class HiveJobExecutor extends Thread{
 
 
 
-    private void saveWorkloadCounters(){
-        WorkloadCountersManager mgr = new WorkloadCountersManager();
-
-        log.info("Saving Counters into Phoenix Table ...");
-        Iterator<String> iterator = jobCountersMap.keySet().iterator();
-        while(iterator.hasNext()){
-            String jobId = iterator.next();
-            Map<String, BigInteger> values = jobCountersMap.get(jobId);
-            mgr.saveCounters(workloadId, jobId, values);
-        }
-
-        log.info("Done Saving Counters into Phoenix ...");
-        mgr.close();
-
+    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
+        log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters);
+        log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        workloadManager.close();
     }
 
 
     public Map<String, BigInteger> getAggregatedCounters(){
         Map<String, BigInteger> aggs = WorkloadCountersConfigurations.getInitialCounterValuesMap();
 
+        Iterator<String> counters = aggs.keySet().iterator();
+        while(counters.hasNext()){
+            String counterName = counters.next();
+            BigInteger counterSumValue = aggs.get(counterName);
 
+            for(Map.Entry<String, Map<String, BigInteger>> jobCounters: jobCountersMap.entrySet()){
+                if(jobCounters.getValue().containsKey(counterName))
+                     counterSumValue = counterSumValue.add(jobCounters.getValue().get(counterName));
+            }
 
+            aggs.put(counterName, counterSumValue);
 
+        }
 
+        return aggs;
     }
 
 

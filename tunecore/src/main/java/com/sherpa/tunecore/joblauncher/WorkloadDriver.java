@@ -5,6 +5,7 @@ package com.sherpa.tunecore.joblauncher;
  */
 
 
+import com.sherpa.core.utils.ConfigurationLoader;
 import org.apache.hadoop.conf.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,31 +17,44 @@ public class WorkloadDriver {
 
 
     public static void main(String args[]) {
+        //System.out.print(ConfigurationLoader.getJobHistoryUrl());
         parseArgsAndRunJob(args);
     }
 
 
     public static void parseArgsAndRunJob(String[] args){
-        if(args==null || args.length <=1) {
-            log.info("Error: Minimum two parameters are required");
-            log.info("Usage: WorkloadId YARN_Command");
+        if(args==null || args.length ==0) {
+            log.info("Error: Minimum one parameter is required");
+            log.info("Usage: Command");
             System.exit(1);
         }
 
         String cmd = "";
 
-        int wid = 0;
-        try {
-            wid = Integer.parseInt(args[0]);
-            if (wid < 0) {
-                log.info("Workload ID should be greater than 0");
-                System.exit(1);
+        int wid = -1;
+        boolean hiveCmd = false;
+        for(String arg: args){
+            if(arg.contains("hive")){
+                hiveCmd=true;
+                break;
             }
-        }catch (NumberFormatException e){
-            log.info("Workload ID should be an integer");
-            System.exit(1);
         }
 
+
+        if(!hiveCmd) {
+            try {
+                wid = Integer.parseInt(args[0]);
+                if (wid < 0) {
+                    log.info("Workload ID should be greater than 0");
+                    System.exit(1);
+                }
+            } catch (NumberFormatException e) {
+                log.info("Workload ID should be an integer");
+                System.exit(1);
+            }
+        }
+        else
+            cmd += args[0] + " ";
 
         System.out.println("Workload ID: " + wid);
         if(args.length > 2 ){
@@ -62,12 +76,10 @@ public class WorkloadDriver {
 
 
     public static void run(String cmd, int wid){
-        ConfigurationLoader configs = new ConfigurationLoader();
-        configs.loadDefaultConfigurations();
 
-        String appServer = configs.getApplicationServerUrl();
-        String jobHistoryServer = configs.getJobHistoryUrl();
-        int pollInterval = configs.getPollInterval();
+        String appServer = ConfigurationLoader.getApplicationServerUrl();
+        String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
+        int pollInterval = ConfigurationLoader.getPollInterval();
 
         if(cmd.contains("hive")) {
             HiveJobExecutor executor = new HiveJobExecutor(cmd, appServer, jobHistoryServer, pollInterval);

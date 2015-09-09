@@ -1,6 +1,7 @@
 package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
+import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
 import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
@@ -13,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by akhtar on 10/08/2015.
@@ -122,13 +125,14 @@ public class JobExecutor extends Thread{
         log.info("Performance Counters: " + performanceCounters.toString());
 
         log.info("Saving Counters into Hbase ...");
-        mgr.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
+        workloadManager.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
         log.info("Done Saving Counters into Hbase ...");
 */
 
 
+
         log.info("Saving Counters into Phoenix Table ...");
-        mgr.saveCounters(workloadId, jobId, historicalTaskCounters.getCounterValues());
+        mgr.saveCounters(workloadId, new Date(), (int)elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_MR, historicalTaskCounters.getCounterValues());
         log.info("Done Saving Counters into Phoenix ...");
         mgr.close();
 

@@ -1,16 +1,17 @@
 package com.sherpa.core.bl;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 
 import com.sherpa.core.dao.PhoenixDAO;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
-import com.sherpa.core.dao.WorkloadCountersDAO;
+import com.sherpa.core.dao.WorkloadCountersHbaseDAO;
+import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
-import org.apache.hadoop.hbase.util.Bytes;
+import com.sherpa.core.utils.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,23 +22,37 @@ import org.slf4j.LoggerFactory;
 public class WorkloadCountersManager {
     private static final Logger log = LoggerFactory.getLogger(WorkloadCountersManager.class);
 
-    private WorkloadCountersDAO workloadCountersDAO;
-    private PhoenixDAO phoenixDAO;
+    private WorkloadCountersHbaseDAO workloadCountersDAO;
+    private WorkloadCountersPhoenixDAO phoenixDAO;
+    private WorkloadIdGenerator workloadIdGenerator;
 
     public WorkloadCountersManager(){
-        workloadCountersDAO = new WorkloadCountersDAO();
+        workloadCountersDAO = new WorkloadCountersHbaseDAO();
         workloadCountersDAO.createTable(WorkloadCountersConfigurations.TABLE_NAME);
 
-        // will be loaded from properties file later
-        phoenixDAO = new PhoenixDAO("104.197.42.30");
-        phoenixDAO.createCountersTable();
+
+        phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
+        workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
     }
 
 
-    public void saveCounters(int workloadId, String jobId, Map<String, BigInteger> values) {
-        phoenixDAO.saveCounters(workloadId, jobId, values);
+
+    // For Phoenix
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values) {
+        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values);
     }
 
+
+    public int getFileWorkloadID(String filePath){
+        return workloadIdGenerator.getFileWorkloadID(filePath);
+    }
+
+
+
+
+
+
+    // For Hbase
 
     public void deleteTable(){
         workloadCountersDAO.deleteTable(WorkloadCountersConfigurations.TABLE_NAME);

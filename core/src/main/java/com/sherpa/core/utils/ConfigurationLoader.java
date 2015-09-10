@@ -45,7 +45,7 @@ public class ConfigurationLoader {
     private static final String ZOOKEEPER_PORT = "hbase.zookeeper.property.clientPort";
 
 
-    private static final int DEFAULT_POLL_INTERVAL = 5000;
+    private static final int DEFAULT_POLL_INTERVAL = 10000;
 
     @Deprecated
     public void loadConfigurations(String propFileName){
@@ -67,12 +67,14 @@ public class ConfigurationLoader {
         String hadoopHome = System.getenv("HADOOP_HOME");
         if(hadoopHome==null){
             log.error("Error: HADOOP_HOME is not defined ...");
+            System.out.println("Error: HADOOP_HOME is not defined ...");
             System.exit(1);
         }
 
         String hbaseHome = System.getenv("HBASE_HOME");
         if(hbaseHome==null){
             log.error("Error: HBASE_HOME is not defined ...");
+            System.out.println("Error: HBASE_HOME is not defined ...");
             System.exit(1);
         }
 
@@ -85,6 +87,9 @@ public class ConfigurationLoader {
 
         log.info("Hadoop Home: " + hadoopHome);
         log.info("Hbase Home: " + hbaseHome);
+        System.out.println("Hadoop Home: " + hadoopHome);
+        System.out.println("Hbase Home: " + hbaseHome);
+
         Configuration conf = new Configuration();
         conf.addResource(new Path(hadoopHome + MAPREDUCE_CONF_FILE));
         conf.addResource(new Path(hadoopHome + YARN_CONF_FILE));
@@ -93,16 +98,19 @@ public class ConfigurationLoader {
 
         if(conf.get(JOB_HISTORY_URL)==null){
             log.error("Error: Could not find job history url ...");
+            System.out.println("Error: Could not find job history url ...");
             System.exit(1);
         }
 
         if(conf.get(RESOURCE_MANAGER_URL)==null){
             log.error("Error: Could not find resource manager url ...");
+            System.out.println("Error: Could not find resource manager url ...");
             System.exit(1);
         }
 
         if(conf.get(ZOOKEEPER)==null){
             log.error("Error: Could not find zookeeper host ...");
+            System.out.println("Error: Could not find zookeeper host ...");
             System.exit(1);
         }
 
@@ -184,7 +192,7 @@ public class ConfigurationLoader {
             ;
         }
 
-        return 5*1000;  // defaults to 5 sec
+        return 10*1000;  // defaults to 5 sec
     }
 
 

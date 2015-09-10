@@ -16,51 +16,28 @@ public class HiveCliJobIdExtractor{
 
     private static final Logger log = LoggerFactory.getLogger(HiveCliJobIdExtractor.class);
 
-    private HiveCliJobExecutor hiveJobExecutor;
-    int totalJobsCount = 0;
-    int jobIdsFetched = 0;
+    public static void  extractJobIdFromLogLine(String line){
+        // output contains the following words followed by job id
+        if(line.contains("Total jobs")){
+            if(HiveCliFactory.getHiveCliJobExecutorInstance() != null )
+                HiveCliFactory.getHiveCliJobExecutorInstance().setTotalJobs(getTotalJobsCount(line));
+        }
 
-
-
-    public HiveCliJobIdExtractor(){
-        this.hiveJobExecutor = HiveCliFactory.getHiveCliJobExecutorInstance();
-    }
-
-
-    public String extractJobIdFromLogLine(String line){
-        String jobId="";
-
-        if(hiveJobExecutor!=null){
-            log.info("Sherpa Log Line: " + line);
-            //System.out.println("************** Sherpa Log Line: " + line);
-            // output contains the following words followed by job id
-            if(line.contains("Total jobs")){
-                totalJobsCount = getTotalJobsCount(line);
-                hiveJobExecutor.setTotalJobs(totalJobsCount);
-            }
-
-            if(line.contains("Starting Job")){
-                jobId = parseJobId(line);
+        if(line.contains("Starting Job")){
+            if(HiveCliFactory.getHiveCliJobExecutorInstance() != null ) {
+                String jobId = parseJobId(line);
                 log.info("Sherpa Log Line: Found Job ID " + jobId);
                 System.out.println("************* Sherpa Log Line: Found Job ID " + jobId);
-                hiveJobExecutor.getJobQueue().add(jobId);
-                jobIdsFetched++;
-                //log.info("Hive Log Line Parsed Jobs " + jobIdsFetched + " out of " + totalJobsCount);
-                //System.out.println("************* Sherpa Log Line: Parsed Jobs " + jobIdsFetched + " out of " + totalJobsCount);
-                if(jobIdsFetched == totalJobsCount){
-                    System.out.println("********** Sherpa Log Line: Parsed All Jobs " + jobIdsFetched + " out of " + totalJobsCount);
-                    log.info("Sherpa Log Line: Parsed All Jobs " + jobIdsFetched + " out of " + totalJobsCount);
-                    hiveJobExecutor.setIsJobsFinished(true);
-                }
+                HiveCliFactory.getHiveCliJobExecutorInstance().getJobQueue().add(jobId);
             }
         }
-        return jobId;
+
     }
 
 
 
 
-    private int getTotalJobsCount(String line){
+    private static int getTotalJobsCount(String line){
         int totalJobsCount = 0;
         log.info("Parsing Total Jobs from line: " + line);
         String[] tok = line.split("=");
@@ -79,7 +56,7 @@ public class HiveCliJobIdExtractor{
 
 
 
-    private String parseJobId(String line){
+    private static String parseJobId(String line){
         String jobId = "";
         log.info("Parsing Job ID From Line : " + line);
         String[] tok = line.split("=");

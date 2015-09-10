@@ -89,4 +89,9 @@ hdfs dfs -copyToLocal /data/large /root/TestsData/
 echo "Starting sample workload ..."
 ./apache-hive-1.1.1-bin/bin/hive -f query.hql
 
+
+# To run with parameters file, use the following command
+# Parameter file should be located at /root/sherpa.properties
+#./apache-hive-1.1.1-bin/bin/hive  -f query.hql -hiveconf PSManaged=true
+
 echo "Done Testing ..."

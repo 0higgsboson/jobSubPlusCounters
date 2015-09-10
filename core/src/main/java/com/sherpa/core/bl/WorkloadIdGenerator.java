@@ -1,5 +1,6 @@
 package com.sherpa.core.bl;
 
+import com.google.common.collect.Lists;
 import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
 import com.sherpa.core.entitydefinitions.WorkloadIdDto;
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ public class WorkloadIdGenerator {
 
         log.info("WorkloadIdGenerator Initialized: " + workloadHashToIdMap.keySet().size());
         log.info("Hash To ID Map: " + workloadHashToIdMap);
+        System.out.println("Hash To ID Map: " + workloadHashToIdMap);
     }
 
 
@@ -53,14 +55,17 @@ public class WorkloadIdGenerator {
 
         if(workloadHashToIdMap.containsKey(hash)) {
             log.info("Workload ID found for Workload: " + workload);
+            System.out.println("Workload ID found for Workload: " + workload);
             wid = workloadHashToIdMap.get(hash);
         }
         else{
             wid = nextWorkLoadId++;
             log.info("Adding new Workload ID in DB: " + wid);
+            System.out.println("Adding new Workload ID in DB: " + wid);
             phoenixDAO.addWorkloadId(wid, new Date(), hash);
             workloadHashToIdMap.put(hash, wid);
             log.info("New Workload ID Saved in DB: " + wid);
+            System.out.println("New Workload ID Saved in DB: " + wid);
         }
 
         log.info("Workload ID: " + wid);
@@ -85,6 +90,25 @@ public class WorkloadIdGenerator {
         return getWorkloadId(workload);
 
     }
+
+
+    public int getWorkloadIDFromFileContents(String fileContents){
+        String workload = "";
+        List<String> lines = Arrays.asList(fileContents.split("\n"));
+        if(lines.size()==0){
+            log.info("Error: cant assign workflow id to empty workload");
+            return -1;
+        }
+
+        lines = getWorkloadLines(lines);
+        for(String line: lines){
+            workload += line;
+        }
+
+        return getWorkloadId(workload);
+
+    }
+
 
 
 

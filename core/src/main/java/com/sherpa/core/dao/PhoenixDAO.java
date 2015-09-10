@@ -33,6 +33,7 @@ public class PhoenixDAO {
                 connection = DriverManager.getConnection("jdbc:phoenix:" + zookeeper);
                 log.info("Connected to Phoenix: " + zookeeper);
             } catch (SQLException e) {
+                System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         }

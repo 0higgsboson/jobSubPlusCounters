@@ -6,13 +6,21 @@
 
     <groupId>com.sherpa</groupId>
     <artifactId>sherpa-performance</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
-        <module>tunecore</module>
-        <module>custominputformat</module>
         <module>core</module>
+        <module>custominputformat</module>
+        <module>tunecore</module>
+
     </modules>
     <packaging>pom</packaging>
+
+    <repositories>
+        <repository>
+            <id>Cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+        </repository>
+    </repositories>
 
 
     <dependencyManagement>
@@ -23,13 +31,13 @@
             <dependency>
                 <groupId>com.sherpa</groupId>
                 <artifactId>custominputformat</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0</version>
             </dependency>
 
             <dependency>
                 <groupId>com.sherpa</groupId>
                 <artifactId>core</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0</version>
             </dependency>
 
 
@@ -89,6 +97,73 @@
                 <version>2.8.1</version>
             </dependency>
 
+
+            <!-- testing jars -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Spring Test Jars -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>3.2.4.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+
+
+
+
+
+
+
+
+<!--
+            &lt;!&ndash; hadoop jars &ndash;&gt;
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-mapreduce-client-core</artifactId>
+                <version>2.6.0-cdh5.4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>2.6.0-cdh5.4.5</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-core</artifactId>
+                <version>2.6.0-mr1-cdh5.4.5</version>
+            </dependency>
+
+
+            &lt;!&ndash;hbase jars  &ndash;&gt;
+
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-common</artifactId>
+                <version>1.0.0-cdh5.4.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-client</artifactId>
+                <version>1.0.0-cdh5.4.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-server</artifactId>
+                <version>1.0.0-cdh5.4.4</version>
+            </dependency>
+-->
+
+
+
             <!-- hadoop jars -->
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -107,23 +182,6 @@
                 <artifactId>hadoop-core</artifactId>
                 <version>1.2.1</version>
             </dependency>
-
-
-            <!-- testing jars -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.11</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- Spring Test Jars -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>3.2.4.RELEASE</version>
-                <scope>test</scope>
-            </dependency>
-
 
             <!--hbase jars  -->
 
@@ -144,7 +202,6 @@
                 <artifactId>hbase-server</artifactId>
                 <version>1.0.0</version>
             </dependency>
-
 
 
 

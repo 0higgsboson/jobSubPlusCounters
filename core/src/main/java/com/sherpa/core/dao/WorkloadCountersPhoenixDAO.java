@@ -49,7 +49,8 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             }
             statement.close();
 
-            log.info("Found "  + list.size() + " Workload ID's");
+            log.info("Found " + list.size() + " Workload ID's");
+            System.out.println("Found "  + list.size() + " Workload ID's");
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
@@ -73,10 +74,11 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            stmt.executeUpdate(sql );
+            stmt.executeUpdate(sql);
             con.commit();
             stmt.close();
             log.info("New Workload ID Added: ..." + workloadId);
+            System.out.println("New Workload ID Added: ..." + workloadId);
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
@@ -116,6 +118,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             con.commit();
             stmt.close();
             log.info("Record Saved ...");
+            System.out.println("Record Saved ...");
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);

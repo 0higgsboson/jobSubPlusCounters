@@ -47,7 +47,9 @@ public class WorkloadCountersManager {
         return workloadIdGenerator.getFileWorkloadID(filePath);
     }
 
-
+    public int getWorkloadIDFromFileContents(String fileContents){
+        return workloadIdGenerator.getWorkloadIDFromFileContents(fileContents);
+    }
 
 
 

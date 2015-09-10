@@ -18,9 +18,6 @@ import java.util.*;
 
 
 
-
-
-
 public class HiveCliJobExecutor extends Thread{
     private static final Logger log = LoggerFactory.getLogger(HiveCliJobExecutor.class);
     // resource manager url to track application status
@@ -42,8 +39,8 @@ public class HiveCliJobExecutor extends Thread{
     private boolean isJobsFinished=false;
 
     private long totalElapsedTime = 0;
-    private Map<String, Map<String, BigInteger> > jobCountersMap = new HashMap<String, Map<String, BigInteger> >();
-    private String mrJobId = "";
+    private Map<String, BigInteger > jobCountersMap = WorkloadCountersConfigurations.getInitialCounterValuesMap();
+
     private String aggregateJobId = "";
 
     WorkloadCountersManager workloadManager;
@@ -124,9 +121,6 @@ public class HiveCliJobExecutor extends Thread{
                 continue;
             }
 
-            if(mrJobId.isEmpty())
-                mrJobId = jobId;
-
             log.info("Processing Job: " + jobId);
             System.out.println("Processing Job: " + jobId);
 
@@ -153,8 +147,8 @@ public class HiveCliJobExecutor extends Thread{
 
                 Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
                 if(jobCounters!=null) {
-                    jobCountersMap.put(jobId, jobCounters);
                     saveWorkloadCounters(jobId, elapsedTime, jobCounters);
+                    addToCounters(jobCounters);
                 }
 
                 if(aggregateJobId.isEmpty())
@@ -179,35 +173,14 @@ public class HiveCliJobExecutor extends Thread{
             log.info("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 
-            Map<String, BigInteger> aggCounters = getAggregatedCounters();
-            saveWorkloadCounters(aggregateJobId, totalElapsedTime, aggCounters);
+
+            saveWorkloadCounters(aggregateJobId, totalElapsedTime, jobCountersMap);
             workloadManager.close();
             log.info("Finished All Tasks ... " + jobsProcessed);
             System.out.println("Finished All Tasks ... " + jobsProcessed);
         }
 
     }
-
-
-    private String getFilePath(String command){
-        if(command==null || command.isEmpty())
-            return "";
-
-        String filePath = "";
-        String[] cmdTokens = command.split(" ");
-        for(int i=0; i<cmdTokens.length; i++){
-            if(cmdTokens[i].equalsIgnoreCase("-f")){
-                if( (i+1)<cmdTokens.length ){
-                    filePath = cmdTokens[i+1];
-                    log.info("Hive Query File Path Found: " + filePath);
-                    break;
-                }
-            }
-        }
-        return filePath;
-    }
-
-
 
 
     private Map<String, BigInteger> getTaskCounters(String jobId){
@@ -238,24 +211,17 @@ public class HiveCliJobExecutor extends Thread{
     }
 
 
-    public Map<String, BigInteger> getAggregatedCounters(){
-        Map<String, BigInteger> aggs = WorkloadCountersConfigurations.getInitialCounterValuesMap();
-
-        Iterator<String> counters = aggs.keySet().iterator();
+    public void addToCounters(Map<String, BigInteger> jobCounters){
+        Iterator<String> counters = jobCounters.keySet().iterator();
         while(counters.hasNext()){
             String counterName = counters.next();
-            BigInteger counterSumValue = aggs.get(counterName);
-
-            for(Map.Entry<String, Map<String, BigInteger>> jobCounters: jobCountersMap.entrySet()){
-                if(jobCounters.getValue().containsKey(counterName))
-                     counterSumValue = counterSumValue.add(jobCounters.getValue().get(counterName));
+            try {
+                BigInteger counterSumValue = jobCounters.get(counterName).add(jobCountersMap.get(counterName));
+                jobCountersMap.put(counterName, counterSumValue);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-
-            aggs.put(counterName, counterSumValue);
-
         }
-
-        return aggs;
     }
 
 

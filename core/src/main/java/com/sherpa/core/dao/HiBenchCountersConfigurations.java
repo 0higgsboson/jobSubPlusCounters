@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by akhtar on 22/08/2015.
  */
-public class WorkloadCountersConfigurations {
+public class HiBenchCountersConfigurations {
 
     public static final String JOB_TYPE_HIVE="hive";
     public static final String JOB_TYPE_MR="mr";
@@ -23,33 +23,29 @@ public class WorkloadCountersConfigurations {
     public static final String DATA_COLUMN_FAMILY = "counters";
 
 
-    public static final String COUNTERS_TABLE_NAME = "counters";
-    public static final String WORKLOAD_IDS_TABLE_NAME = "workloadIds";
+    public static final String COUNTERS_TABLE_NAME = "hibench";
+    public static final String WORKLOAD_IDS_TABLE_NAME = "hibenchIds";
 
 
 
     public static final String[] columnNamesTypesList = new String[]{
 
-            "FileSystemCounter_FILE_BYTES_READ:BIGINT", "FileSystemCounter_FILE_BYTES_WRITTEN:BIGINT",
-            "FileSystemCounter_FILE_READ_OPS:BIGINT", "FileSystemCounter_FILE_LARGE_READ_OPS:BIGINT",
-            "FileSystemCounter_FILE_WRITE_OPS:BIGINT", "FileSystemCounter_HDFS_BYTES_READ:BIGINT",
-            "FileSystemCounter_HDFS_BYTES_WRITTEN:BIGINT", "FileSystemCounter_HDFS_READ_OPS:BIGINT",
-            "FileSystemCounter_HDFS_LARGE_READ_OPS:BIGINT", "FileSystemCounter_HDFS_WRITE_OPS:BIGINT",
+            "CONFIG_REDUCERS:BIGINT", "CONFIG_MAPPERS:BIGINT",
+            "CONFIG_REDUCERS_MEMORY:BIGINT", "CONFIG_MAPPERS_MEMORY:BIGINT",
+            "CONFIG_REDUCE_CORES:BIGINT", "CONFIG_MAP_CORES:BIGINT",
 
-            "TaskCounter_COMBINE_INPUT_RECORDS:BIGINT", "TaskCounter_COMBINE_OUTPUT_RECORDS:BIGINT",
-            "TaskCounter_REDUCE_INPUT_GROUPS:BIGINT", "TaskCounter_REDUCE_SHUFFLE_BYTES:BIGINT",
-            "TaskCounter_REDUCE_INPUT_RECORDS:BIGINT", "TaskCounter_REDUCE_OUTPUT_RECORDS:BIGINT",
-            "TaskCounter_SPILLED_RECORDS:BIGINT", "TaskCounter_SHUFFLED_MAPS:BIGINT",
-            "TaskCounter_FAILED_SHUFFLE:BIGINT", "TaskCounter_MERGED_MAP_OUTPUTS:BIGINT",
-            "TaskCounter_GC_TIME_MILLIS:BIGINT", "TaskCounter_CPU_MILLISECONDS:BIGINT",
-            "TaskCounter_PHYSICAL_MEMORY_BYTES:BIGINT", "TaskCounter_VIRTUAL_MEMORY_BYTES:BIGINT",
-            "TaskCounter_MAP_INPUT_RECORDS:BIGINT", "TaskCounter_MAP_OUTPUT_RECORDS:BIGINT",
-            "TaskCounter_MAP_OUTPUT_BYTES:BIGINT", "TaskCounter_MAP_OUTPUT_MATERIALIZED_BYTES:BIGINT",
-            "TaskCounter_COMMITTED_HEAP_BYTES:BIGINT","TaskCounter_SPLIT_RAW_BYTES:BIGINT",
+            "AVG_REDUCE_TIME:BIGINT", "AVG_MAP_TIME:BIGINT",
 
-            "ShuffleErrors_BAD_ID:BIGINT", "ShuffleErrors_CONNECTION:BIGINT",
-            "ShuffleErrors_IO_ERROR:BIGINT", "ShuffleErrors_WRONG_LENGTH:BIGINT",
-            "ShuffleErrors_WRONG_MAP:BIGINT", "ShuffleErrors_WRONG_REDUCE:BIGINT"
+
+            "TOTAL_REDUCERS:BIGINT", "TOTAL_MAPPERS:BIGINT",
+            "REDUCE_TIME:BIGINT", "MAP_TIME:BIGINT",
+            "REDUCE_VCORE_TIME:BIGINT", "MAP_VCORE_TIME:BIGINT",
+            "MAP_PHYSICAL_MEM_BYTES:BIGINT", "MAP_PHYSICAL_MEM_MB:BIGINT",
+            "MAP_VIRTUAL_MEM_BYTES:BIGINT", "MAP_VIRTUAL_MEM_MB:BIGINT",
+            "REDUCE_VIRTUAL_MEM:BIGINT", "REDUCE_PHYSICAL_MEM:BIGINT",
+
+
+            "NUMBER_OF_FILES:BIGINT", "AVG_FILE_SIZE:BIGINT"
 
     };
 

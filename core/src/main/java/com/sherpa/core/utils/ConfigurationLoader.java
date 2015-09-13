@@ -192,7 +192,7 @@ public class ConfigurationLoader {
             ;
         }
 
-        return 10*1000;  // defaults to 5 sec
+        return 2*1000;  // defaults to 5 sec
     }
 
 

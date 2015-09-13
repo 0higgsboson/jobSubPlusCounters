@@ -1,10 +1,10 @@
 #!/bin/bash
 
-CDH_VERSION=CDH-5.4.5-1.cdh5.4.5.p0.7
+export CDH_VERSION=CDH-5.4.5-1.cdh5.4.5.p0.7
 HADOOP_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/hadoop/
 SPARK_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/spark/
 HIVE_DIR=/opt/cloudera/parcels/${CDH_VERSION}/lib/hive/
-#export JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/"
+export JAVA_HOME="/usr/lib/jvm/java-7-oracle-cloudera/"
 
 
 

@@ -18,6 +18,16 @@ public class SPI {
     private static final Logger log = LoggerFactory.getLogger(SPI.class);
 
 
+    public static String getJobUri(String jobHistoryUrl, String jobId){
+        if(!jobHistoryUrl.endsWith("/"))
+            jobHistoryUrl += "/";
+
+        String url = jobHistoryUrl + jobId;
+        log.info("SPI getJobUri URL: " + url);
+        return url;
+    }
+
+
     public static String getJobTaskUri(String jobHistoryUrl, String jobId){
         if(!jobHistoryUrl.endsWith("/"))
             jobHistoryUrl += "/";
@@ -47,6 +57,9 @@ public class SPI {
         log.info("SPI getJobCountersUri URL: " + url);
         return url;
     }
+
+
+
 
 
 

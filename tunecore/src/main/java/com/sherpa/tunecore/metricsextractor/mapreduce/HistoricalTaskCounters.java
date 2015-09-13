@@ -6,10 +6,7 @@ import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AggregatedTaskCou
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobTaskCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.TaskCounter;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.TaskCounterGroup;
-import com.sherpa.tunecore.entitydefinitions.job.mapreduce.AllJobs;
-import com.sherpa.tunecore.entitydefinitions.job.mapreduce.AllTasks;
-import com.sherpa.tunecore.entitydefinitions.job.mapreduce.Job;
-import com.sherpa.tunecore.entitydefinitions.job.mapreduce.Task;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.*;
 import com.sherpa.tunecore.joblauncher.MetricsDumper;
 import com.sherpa.tunecore.joblauncher.SPI;
 import org.slf4j.Logger;
@@ -89,6 +86,8 @@ public class HistoricalTaskCounters {
 		AllJobTaskCounters allJobTaskCounters =  restTemplate.getForObject(SPI.getJobTaskCounterUri(jobHistoryUrl, JobId, TaskId), AllJobTaskCounters.class);
 		List<TaskCounterGroup> tcgList = allJobTaskCounters.getJobTaskCounters().getTaskCounterGroup();
 
+
+
 		String tcgName;
 		String taskCounterGroupName;
 		if(tcgList==null)
@@ -132,4 +131,16 @@ public class HistoricalTaskCounters {
 	public Map<String, BigInteger> getCounterValues() {
 		return counterValues;
 	}
+
+
+
+	public static void main(String[] args) throws Exception {
+		RestTemplate restTemplate = new RestTemplate();
+		MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/", "job_1441908739430_0068"), MRJobCounters.class);
+		System.out.println(c);
+
+
+	}
+
+
 }

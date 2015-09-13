@@ -138,7 +138,7 @@
 
                     <archive>
                         <manifest>
-                            <mainClass>com.sherpa.tunecore.joblauncher.WorkloadDriver</mainClass>
+                            <mainClass>com.sherpa.tunecore.joblauncher.HiBenchDriver</mainClass>
 
                         </manifest>
                     </archive>

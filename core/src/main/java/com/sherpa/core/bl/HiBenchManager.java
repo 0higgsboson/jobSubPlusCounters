@@ -1,0 +1,56 @@
+package com.sherpa.core.bl;
+
+import com.sherpa.core.dao.HiBenchCountersPhoenixDAO;
+import com.sherpa.core.dao.WorkloadCountersConfigurations;
+import com.sherpa.core.dao.WorkloadCountersHbaseDAO;
+import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
+import com.sherpa.core.entitydefinitions.WorkloadCounters;
+import com.sherpa.core.utils.ConfigurationLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * Created by akhtar on 22/08/2015.
+ */
+public class HiBenchManager {
+    private static final Logger log = LoggerFactory.getLogger(HiBenchManager.class);
+
+    private HiBenchCountersPhoenixDAO phoenixDAO;
+    private HiBenchIdGenerator workloadIdGenerator;
+
+    public HiBenchManager(){
+        phoenixDAO = new HiBenchCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
+        workloadIdGenerator = new HiBenchIdGenerator(phoenixDAO);
+    }
+
+
+    // For Phoenix
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values) {
+        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values);
+    }
+
+
+    public int getFileWorkloadID(String filePath){
+        return workloadIdGenerator.getFileWorkloadID(filePath);
+    }
+
+    public int getWorkloadIDFromFileContents(String fileContents){
+        return workloadIdGenerator.getWorkloadIDFromFileContents(fileContents);
+    }
+
+
+    public void close(){
+        if(phoenixDAO!=null)
+            phoenixDAO.closeConnection();
+    }
+
+
+
+
+    }

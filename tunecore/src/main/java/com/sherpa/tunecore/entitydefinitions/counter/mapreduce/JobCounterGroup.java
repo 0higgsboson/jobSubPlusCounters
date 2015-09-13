@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class JobCounterGroup {
 	private String counterGroupName;
-	private List<JobCounter> jobCounterList;
+	private List<JobCounter> counter;
 	
 	public String getCounterGroupName() {
 		return counterGroupName;
@@ -22,9 +22,9 @@ public class JobCounterGroup {
 	}
 	
 	public List<JobCounter> getJobCounterList() {
-		return jobCounterList;
+		return counter;
 	}
 	public void setJobCounterList(List<JobCounter> jobCounterList) {
-		this.jobCounterList = jobCounterList;
+		this.counter = jobCounterList;
 	}
 }

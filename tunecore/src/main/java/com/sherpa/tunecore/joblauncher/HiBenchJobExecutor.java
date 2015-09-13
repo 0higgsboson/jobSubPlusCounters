@@ -158,7 +158,7 @@ public class HiBenchJobExecutor {
                 Map<String, BigInteger> jobCounters = getAllCounters(jobId);
                 if(jobCounters!=null) {
                     jobCountersMap.put(jobId, jobCounters);
-                    saveWorkloadCounters(historyServerUrl + jobId, elapsedTime, jobCounters);
+                    saveWorkloadCounters(historyServerUrl + "/" + jobId, elapsedTime, jobCounters);
                 }
 
                 if(aggregateJobId.isEmpty())

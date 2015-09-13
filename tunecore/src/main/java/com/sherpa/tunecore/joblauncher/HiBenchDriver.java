@@ -134,7 +134,7 @@ public class HiBenchDriver {
 
                 String config = "--hiveconf mapred.max.split.size=" + splitSize + " --hiveconf mapreduce.job.reduces="+ HiBenchDriver.numberOfReducers[i];
                 System.out.print("\n\n\n Starting Executor with config: " + config);
-                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile);
+                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, HiBenchDriver.numberOfMappers[i]);
                 executor.setWorkloadId(-1);
                 executor.run();
             }
@@ -146,7 +146,7 @@ public class HiBenchDriver {
 
                 String config = "--hiveconf mapreduce.map.memory.mb=" + HiBenchDriver.mapperMem[i] + " --hiveconf mapreduce.reduce.memory.mb="+ HiBenchDriver.reducerMem[i];
                 System.out.print("\n\n\n Starting Executor with config: " + config);
-                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile);
+                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, 0);
                 executor.setWorkloadId(-1);
                 executor.run();
             }
@@ -157,7 +157,7 @@ public class HiBenchDriver {
 
                 String config = "--hiveconf mapreduce.map.cpu.vcores=" + HiBenchDriver.mapperCores[i] + " --hiveconf mapreduce.reduce.cpu.vcores="+ HiBenchDriver.reducerCores[i];
                 System.out.print("\n\n\n Starting Executor with config: " + config);
-                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile);
+                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, 0);
                 executor.setWorkloadId(-1);
                 executor.run();
             }

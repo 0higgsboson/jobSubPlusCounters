@@ -51,17 +51,20 @@ public class HiBenchJobExecutor {
     private String aggregateJobId = "";
     private String config;
     private String filePath;
+
+    private int noOfmappers=0;
     HiBenchManager workloadManager;
     Date date;
 
 
-    public HiBenchJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval, String config, String filePath){
+    public HiBenchJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval, String config, String filePath, int mappers){
         this.command = cmd;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
         this.config = config;
         this.filePath = filePath;
+        this.noOfmappers = mappers;
 
         date = new Date();
         workloadManager = new HiBenchManager();
@@ -276,7 +279,7 @@ public class HiBenchJobExecutor {
             String kv[] = param.split("=");
             if(kv!=null && kv.length==2){
                 if(kv[0].contains("mapred.max.split.size"))
-                    map.put("CONFIG_MAPPERS", BigInteger.valueOf(Long.parseLong(kv[1])));
+                    map.put("CONFIG_MAPPERS", BigInteger.valueOf(noOfmappers));
                 else if(kv[0].contains("mapreduce.job.reduces"))
                     map.put("CONFIG_REDUCERS", BigInteger.valueOf(Long.parseLong(kv[1])));
                 else if(kv[0].contains("mapreduce.map.memory.mb"))

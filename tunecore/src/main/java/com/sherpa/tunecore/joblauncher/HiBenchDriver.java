@@ -26,8 +26,9 @@ public class HiBenchDriver {
 
     public static final int[] numberOfReducers  = new int[]{1,3,6,9,12,15,6,6,6,6,6,6};
     // public static final int[] numberOfMappers  = new int[]{1,3,6,9,12,15,6,6,6,6,6,6};
-    public static final int[] numberOfMappers = new int[]{18,18,18,18,18,18,1,3,9,18,27,81};
-
+    //public static final int[] numberOfMappers = new int[]{18,18,18,18,18,18,1,3,9,18,27,81};
+    //EK: Changed to more appropriate numbers on 9/14
+    public static final int[] numberOfMappers = new int[]{4,8,16,32,64,128,256,512,768,1024};
     public static final int[] mapperMem  = new int[]{
             64,
             128,

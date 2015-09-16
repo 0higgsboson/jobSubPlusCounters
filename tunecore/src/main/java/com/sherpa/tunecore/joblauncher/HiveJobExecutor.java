@@ -54,8 +54,8 @@ public class HiveJobExecutor extends Thread{
     private String mrJobId = "";
     private String aggregateJobId = "";
 
-    WorkloadCountersManager workloadManager;
-    Date date;
+    private WorkloadCountersManager workloadManager;
+    private Date date;
 
 
     public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){

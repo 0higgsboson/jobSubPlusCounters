@@ -17,7 +17,6 @@ import java.util.*;
 public class HiBenchIdGenerator {
     private static final Logger log = LoggerFactory.getLogger(HiBenchIdGenerator.class);
 
-
     private Map<Long, Integer> workloadHashToIdMap;
     private HiBenchCountersPhoenixDAO phoenixDAO;
     private int nextWorkLoadId = 1;
@@ -31,15 +30,16 @@ public class HiBenchIdGenerator {
 
     private void init(){
         List<WorkloadIdDto> list = phoenixDAO.loadAllWorkloadIds();
+        
         for(WorkloadIdDto dto: list){
             workloadHashToIdMap.put(dto.getHash(), dto.getWorkloadId());
             if(dto.getWorkloadId() >= nextWorkLoadId)
                 nextWorkLoadId = dto.getWorkloadId() + 1;
         }
-
+        
         log.info("WorkloadIdGenerator Initialized: " + workloadHashToIdMap.keySet().size());
         log.info("Hash To ID Map: " + workloadHashToIdMap);
-        System.out.println("Hash To ID Map: " + workloadHashToIdMap);
+        //System.out.println("Hash To ID Map: " + workloadHashToIdMap);
     }
 
 
@@ -55,17 +55,17 @@ public class HiBenchIdGenerator {
 
         if(workloadHashToIdMap.containsKey(hash)) {
             log.info("Workload ID found for Workload: " + workload);
-            System.out.println("Workload ID found for Workload: " + workload);
+            //System.out.println("Workload ID found for Workload: " + workload);
             wid = workloadHashToIdMap.get(hash);
         }
         else{
             wid = nextWorkLoadId++;
             log.info("Adding new Workload ID in DB: " + wid);
-            System.out.println("Adding new Workload ID in DB: " + wid);
+            //System.out.println("Adding new Workload ID in DB: " + wid);
             phoenixDAO.addWorkloadId(wid, new Date(), hash);
             workloadHashToIdMap.put(hash, wid);
             log.info("New Workload ID Saved in DB: " + wid);
-            System.out.println("New Workload ID Saved in DB: " + wid);
+            //System.out.println("New Workload ID Saved in DB: " + wid);
         }
 
         log.info("Workload ID: " + wid);
@@ -96,7 +96,7 @@ public class HiBenchIdGenerator {
         String workload = "";
         List<String> lines = Arrays.asList(fileContents.split("\n"));
         if(lines.size()==0){
-            log.info("Error: cant assign workflow id to empty workload");
+            log.error("Error: cant assign workflow id to empty workload");
             return -1;
         }
 
@@ -108,10 +108,6 @@ public class HiBenchIdGenerator {
         return getWorkloadId(workload);
 
     }
-
-
-
-
 
     private List<String> getWorkloadLines(List<String> lines){
         List<String> res = new ArrayList<String>();
@@ -160,14 +156,18 @@ public class HiBenchIdGenerator {
 
 
     public long hashCode(String workload){
-        log.info("Finding hash for: " + workload);
-        int hash = 0;
-        for (int i = 0; i < workload.length(); i++) {
-            hash = (hash << 5) - hash + workload.charAt(i);
-        }
-
-        log.info("Hash is: " + hash);
-        return hash;
+        log.info("Finding hash for: [" + workload.substring(0, 12)+"...]");
+        
+        //int hash = 0;
+        //for (int i = 0; i < workload.length(); i++) {
+        //    hash = (hash << 5) - hash + workload.charAt(i);
+        //}
+        
+        // EK 9/15/15
+        // commented the above code as the String class has a proper hash function already
+        
+        //log.info("Hash is: " + workload.hashCode());
+        return workload.hashCode();
     }
 
 

@@ -12,24 +12,19 @@ import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class HiBenchDriver {
-    private static final Logger log = LoggerFactory.getLogger(JobExecutor.class);
+    private static final Logger log = LoggerFactory.getLogger(HiBenchDriver.class);
 
-    public static final int[] numberOfReducers  = new int[]{1,3,6,9,12,15,6,6,6,6,6,6};
-    // public static final int[] numberOfMappers  = new int[]{1,3,6,9,12,15,6,6,6,6,6,6};
+    private static final int[] numberOfReducers  = {1,3,6,9,12,15,6,6,6,6};
+    //public static final int[] numberOfMappers  = new int[]{1,3,6,9,12,15,6,6,6,6,6,6};
     //public static final int[] numberOfMappers = new int[]{18,18,18,18,18,18,1,3,9,18,27,81};
+    
     //EK: Changed to more appropriate numbers on 9/14
-    public static final int[] numberOfMappers = new int[]{4,8,16,32,64,128,256,512,768,1024};
-    public static final int[] mapperMem  = new int[]{
+    private static final int[] numberOfMappers = {4,8,16,32,64,128,256,512,768,1024};
+    private static final int[] mapperMem  = {
             64,
             128,
             256,
@@ -45,7 +40,7 @@ public class HiBenchDriver {
             1024,
             1024
     };
-    public static final int[] reducerMem = new int[]{
+    private static final int[] reducerMem = {
             1024,
             1024,
             1024,
@@ -61,10 +56,7 @@ public class HiBenchDriver {
             2048,
             4096
     };
-
-
-
-    public static final int[] mapperCores  = new int[]{
+    private static final int[] mapperCores  = {
             1,
             2,
             3,
@@ -74,7 +66,7 @@ public class HiBenchDriver {
             1,
             1
     };
-    public static final int[] reducerCores = new int[]{
+    public static final int[] reducerCores = {
             1,
             1,
             1,
@@ -86,8 +78,6 @@ public class HiBenchDriver {
     };
 
 
-
-
     public HiBenchDriver(){
 
     }
@@ -96,8 +86,6 @@ public class HiBenchDriver {
     public static void main(String args[]) {
         //System.out.print(ConfigurationLoader.getJobHistoryUrl());
         parseArgsAndRunJob(args);
-
-
     }
 
 
@@ -106,7 +94,7 @@ public class HiBenchDriver {
             log.info("Usage: SQL_File  Input_Size_In_Bytes HDFS_Output_Dir");
             System.exit(1);
         }
-        HiBenchDriver driver = new HiBenchDriver();
+        //HiBenchDriver driver = new HiBenchDriver();
 
         String sqlFile = args[0];
         long inputSize = Long.parseLong(args[1]);
@@ -124,61 +112,56 @@ public class HiBenchDriver {
             fs = FileSystem.get(new Configuration());
         } catch (IOException e) {
             e.printStackTrace();
+            log.debug("Error in opening config file: "+e);
         }
 
         try {
+        	String config;
+        	
+        	log.info("==============================================");
+            log.info("Launching Jobs For Mapper & Reducer Settings Numbers...");
+            for(int i=0; i< numberOfMappers.length; i++) {
+                long splitSize = inputSize / numberOfMappers[i];
 
-
-
-            System.out.println("\n\n\n Launching Jobs For Mapper & Reducer Settings Numbers");
-            for(int i=0; i<HiBenchDriver.numberOfMappers.length; i++) {
-                long splitSize = inputSize / HiBenchDriver.numberOfMappers[i];
-
-                String config = "--hiveconf mapred.max.split.size=" + splitSize + " --hiveconf mapreduce.job.reduces="+ HiBenchDriver.numberOfReducers[i];
-                System.out.print("\n\n\n Starting Executor with config: " + config);
-                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, HiBenchDriver.numberOfMappers[i]);
+                config = "--hiveconf mapred.max.split.size=" + splitSize + " --hiveconf mapreduce.job.reduces="+ numberOfReducers[i];
+                log.info("...Starting Executor with config: " + config);
+                HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, numberOfMappers[i]);
                 executor.setWorkloadId(-1);
                 executor.run();
             }
+            log.info("Done with Jobs For Mapper & Reducer Settings Numbers");
 
 
+            log.info("==============================================");
+            log.info("Launching Jobs For Mapper & Reducer Memory...");
+            for(int i=0; i<mapperMem.length; i++) {
 
-            System.out.println("\n\n\n Launching Jobs For Mapper & Reducer Memory");
-            for(int i=0; i<HiBenchDriver.mapperMem.length; i++) {
-
-                String config = "--hiveconf mapreduce.map.memory.mb=" + HiBenchDriver.mapperMem[i] + " --hiveconf mapreduce.reduce.memory.mb="+ HiBenchDriver.reducerMem[i];
-                System.out.print("\n\n\n Starting Executor with config: " + config);
+                config = "--hiveconf mapreduce.map.memory.mb=" + HiBenchDriver.mapperMem[i] + " --hiveconf mapreduce.reduce.memory.mb="+ reducerMem[i];
+                log.info("...Starting Executor with config: " + config);
                 HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, 0);
                 executor.setWorkloadId(-1);
                 executor.run();
             }
+            log.info("Done with Jobs For Mapper & Reducer Memory");
 
+            log.info("==============================================");
+            log.info("Launching Jobs For Mapper & Reducer Core...");
+            for(int i=0; i<mapperCores.length; i++) {
 
-            System.out.println("\n\n\n Launching Jobs For Mapper & Reducer Core");
-            for(int i=0; i<HiBenchDriver.mapperCores.length; i++) {
-
-                String config = "--hiveconf mapreduce.map.cpu.vcores=" + HiBenchDriver.mapperCores[i] + " --hiveconf mapreduce.reduce.cpu.vcores="+ HiBenchDriver.reducerCores[i];
-                System.out.print("\n\n\n Starting Executor with config: " + config);
+                config = "--hiveconf mapreduce.map.cpu.vcores=" + HiBenchDriver.mapperCores[i] + " --hiveconf mapreduce.reduce.cpu.vcores="+ reducerCores[i];
+                log.info("...Starting Executor with config: " + config);
                 HiBenchJobExecutor executor = new HiBenchJobExecutor("", appServer, jobHistoryServer, pollInterval, config, sqlFile, 0);
                 executor.setWorkloadId(-1);
                 executor.run();
             }
-
-
-
-
-
+            log.info("Done with Jobs For Mapper & Reducer Core");
 
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("Error in executing: "+e);
         }
 
-
-
-
     }
-
-
 
 
     public static void run(String cmd, int wid){

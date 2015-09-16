@@ -37,7 +37,6 @@ public class HiBenchDriver {
             1024,
             1024,
             1024,
-            1024,
             1024
     };
     private static final int[] reducerMem = {
@@ -52,7 +51,6 @@ public class HiBenchDriver {
             128,
             256,
             512,
-            1024,
             2048,
             4096
     };
@@ -63,11 +61,9 @@ public class HiBenchDriver {
             4,
             1,
             1,
-            1,
             1
     };
     public static final int[] reducerCores = {
-            1,
             1,
             1,
             1,

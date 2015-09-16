@@ -53,8 +53,8 @@ public class HiBenchJobExecutor {
     private String filePath;
 
     private int noOfmappers=0;
-    HiBenchManager workloadManager;
-    Date date;
+    private HiBenchManager workloadManager;
+    private Date date;
 
 
     public HiBenchJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval, String config, String filePath, int mappers){
@@ -66,10 +66,9 @@ public class HiBenchJobExecutor {
         this.filePath = filePath;
         this.noOfmappers = mappers;
 
-        date = new Date();
-        workloadManager = new HiBenchManager();
+        this.date = new Date();
+        this.workloadManager = new HiBenchManager();
     }
-
 
 
     /**
@@ -92,7 +91,7 @@ public class HiBenchJobExecutor {
         log.info("Executing command: " + this.command);
         Process process = launchCommand(this.command);
         if(process==null){
-            log.info("Could not execute job, please check your command");
+            log.info("Could not execute job, please check your command: "+command);
             return;
         }
 
@@ -101,7 +100,6 @@ public class HiBenchJobExecutor {
         hibenchJobIdExtractor.start();
 
         int jobsProcessed = 0;
-
 
         // process until job id extractor is terminated and job queue is empty
         while( isJobsFinished==false || !jobQueue.isEmpty() ) {
@@ -144,10 +142,10 @@ public class HiBenchJobExecutor {
             log.info("Processing Job: " + jobId);
 
             // waits for job/application to complete
-            log.info("Waiting for application to complete");
+            log.info("Waiting for application to complete...");
             boolean appStatus = waitForCompletion(jobId);
 
-            // Saves counters data only when job is successfull
+            // Saves counters data only when job is successful
             if (appStatus) {
                 long elapsedTime = getElapsedTime();
                 log.info("Elapsed Time: " + elapsedTime);
@@ -155,13 +153,14 @@ public class HiBenchJobExecutor {
                 totalElapsedTime += elapsedTime;
                 log.info("Running Elapsed Time:  " + totalElapsedTime);
 
-
                 // Saves task counters
                 log.info("Getting Task Counters ...");
                 Map<String, BigInteger> jobCounters = getAllCounters(jobId);
-                if(jobCounters!=null) {
+                if(jobCounters != null) {
                     jobCountersMap.put(jobId, jobCounters);
                     saveWorkloadCounters(historyServerUrl + "/" + jobId, elapsedTime, jobCounters);
+                }else{
+                	log.debug(" Got null from : getAllCounters(): "+jobId);
                 }
 
                 if(aggregateJobId.isEmpty())
@@ -169,22 +168,32 @@ public class HiBenchJobExecutor {
                 else
                     aggregateJobId += ":" + jobId;
 
-
                 log.info("Total Jobs Processed: " + ++jobsProcessed);
                 log.info("Finished Getting Counters for job " + jobId);
+            }else{
+            	log.error("Job termination status was not ERROR, FAIL, or SUCCESS. Got "+app.getApp().getState()+" instead for job: "+jobId);
             }
 
-
-
         }// main while loop
-/*
-
+        
+        /*
         log.info("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
         Map<String, BigInteger> aggCounters = getAggregatedCounters();
         saveWorkloadCounters(aggregateJobId, totalElapsedTime, aggCounters);
-*/
+        */
+        
         workloadManager.close();
         log.info("Finished All Tasks ... " + jobsProcessed);
+        
+        // EK: 9/16/15 added the section below
+        try{
+        	log.info("Hive Process exit status: "+process.exitValue());
+        }catch(Exception e){
+        	log.error("Runtime error: "+e);
+        }finally{
+        	if (process != null)
+				process.destroy();
+        }
 
     }
 
@@ -339,7 +348,7 @@ public class HiBenchJobExecutor {
                     command);
 
             return hiveProcessBuilder.start();
-*/
+          */
              //process = Runtime.getRuntime().exec(new String[]{"hive", "-e", command});
             process = Runtime.getRuntime().exec(command);
         } catch (IOException e) {
@@ -374,19 +383,19 @@ public class HiBenchJobExecutor {
         // All possible states: NEW, NEW_SAVING, SUBMITTED, ACCEPTED, RUNNING, FINISHED, FAILED, KILLED
         while(  !app.getApp().getState().equalsIgnoreCase("FINISHED") &&
                 !app.getApp().getState().equalsIgnoreCase("FAILED") &&
-                !app.getApp().getState().equalsIgnoreCase("KILLED")
-
-                ){
-            log.info("Application Status: " + app.getApp().getState());
-            try {
-                log.info("Waiting for " + pollInterval + " milli sec");
-                Thread.sleep(pollInterval);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return false;
-            }
-            app = restTemplate.getForObject(url, Application.class);
-
+                !app.getApp().getState().equalsIgnoreCase("KILLED")){
+        	
+        	log.info("Application Status: " + app.getApp().getState());
+        	
+        	try {
+        		log.info("Waiting for " + pollInterval + " milli sec");
+       			Thread.sleep(pollInterval);
+       		} catch (InterruptedException e) {
+       			e.printStackTrace();
+       			return false;
+       		}
+        	
+       		app = restTemplate.getForObject(url, Application.class);
         }
         return true;
     }
@@ -418,6 +427,17 @@ public class HiBenchJobExecutor {
     public Queue<String> getJobQueue() {
         return jobQueue;
     }
+    
+    public void addToJobQueue(String jobId) {
+    	try{
+    		log.info("Adding job "+jobId+" the the hive job tracker queue");
+    		jobQueue.add(jobId);
+    	}catch(Exception e){
+    		log.error("*** Failed to add job "+jobId+" to the hive job queue "+e);
+    	}
+    	log.info("job "+jobId+" added successfully");
+    }
+
 
     public boolean isJobsFinished() {
         return isJobsFinished;

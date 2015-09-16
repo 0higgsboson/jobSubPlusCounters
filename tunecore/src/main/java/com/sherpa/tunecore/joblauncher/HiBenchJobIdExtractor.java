@@ -30,22 +30,26 @@ public class HiBenchJobIdExtractor extends  Thread{
         int jobIdsFetched = 0;
         BufferedReader br = null;
 
-
         try {
+        	
             br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             String line = null;
-
+            //String jobId;
+            
             while( (line=br.readLine()) !=null ){
 
                 log.info("Hive Log Line: " + line);
                 // output contains the following words followed by job id
                 if(line.contains("Total jobs")){
                     totalJobsCount = getTotalJobsCount(line);
+                    log.info("Hive Found total jobs count: " + totalJobsCount);
                 }
 
                 if(line.contains("Starting Job")){
-                    String jobId = parseJobId(line);
-                    hiveJobExecutor.getJobQueue().add(jobId);
+                    //jobId = parseJobId(line);
+                    //hiveJobExecutor.getJobQueue().add(jobId);
+                    //EK 9/16/15 commented the above line and replaced with the one below
+                    hiveJobExecutor.addToJobQueue(parseJobId(line));
                     log.info("*** Parsed Jobs " + jobIdsFetched + " out of " + totalJobsCount);
                     jobIdsFetched++;
 
@@ -58,10 +62,6 @@ public class HiBenchJobIdExtractor extends  Thread{
                 }
 
             } // ends while loop
-
-
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

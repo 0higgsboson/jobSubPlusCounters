@@ -72,6 +72,18 @@ public class HiveJobExecutor extends Thread{
         date = new Date();
         workloadManager = new WorkloadCountersManager();
     }
+    
+    public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
+        this.command = cmd;
+        this.resourceManagerUrl = rmUrl;
+        this.historyServerUrl     = historyServer;
+        this.pollInterval = pollInterval;
+        //this.hivesql = hivesql;
+        //this.sherpaParams = params;
+
+        date = new Date();
+        workloadManager = new WorkloadCountersManager();
+    }
 
 
 

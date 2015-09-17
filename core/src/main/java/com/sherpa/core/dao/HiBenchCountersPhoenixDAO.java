@@ -85,7 +85,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             }
             log.info("Current max record count: "+curr);
            
-            return curr++;
+            return curr+=1;
             
         }catch(Exception e){
         	log.error("Failed to query database for max counter seq number: "+e);

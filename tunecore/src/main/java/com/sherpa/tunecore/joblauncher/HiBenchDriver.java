@@ -96,10 +96,10 @@ public class HiBenchDriver {
         String benchmarkType, tag;
         // Benchmark type (scan, aggregate, join, ...)
         // Tag is any unique identifier of current run
-        if(args[3] != null)
-        	benchmarkType = args[3];
-        if(args[4] != null)
-        	tag = args[4];
+        //if(args[3] != null)
+        //	benchmarkType = args[3];
+        //if(args[4] != null)
+        //	tag = args[4];
 
         String appServer = ConfigurationLoader.getApplicationServerUrl();
         String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();

@@ -29,13 +29,13 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
     }
 
 
-
     public List<WorkloadIdDto> loadAllWorkloadIds(){
         List<WorkloadIdDto> list = new ArrayList<WorkloadIdDto>();
         ResultSet rset = null;
 
         String sql = "select * from " + HiBenchCountersConfigurations.WORKLOAD_IDS_TABLE_NAME;
         log.info("Loading Workload ID's ... " + sql);
+        
         Connection con = createConnection();
         PreparedStatement statement = null;
         try {
@@ -48,13 +48,20 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
                 dto.setDate(rset.getString("DATE_TIME"));
                 list.add(dto);
             }
-            statement.close();
 
             log.info("Found " + list.size() + " Workload ID's");
-            System.out.println("Found "  + list.size() + " Workload ID's");
+            
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
+        }finally{
+        	try{
+        		statement.close();
+        		rset.close();
+        		con.close();
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
         }
 
         return list;
@@ -85,6 +92,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         }finally{
         	try{
         		stmt.close();
+        		rset.close();
         		con.close();
         	}catch(Exception e){
         		e.printStackTrace();
@@ -107,16 +115,22 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             con.commit();
-            stmt.close();
+            
             log.info("New Workload ID Added: ..." + workloadId);
-            //System.out.println("New Workload ID Added: ..." + workloadId);
+           
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
+        }finally{
+        	try{
+        		stmt.close();
+        		con.close();
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
         }
 
     }
-
 
 
     public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values,
@@ -139,8 +153,9 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             	sqlB.append("0").append(",");
         }
         // New columns to add:: RECORD_ID, QUERY, PARAMETERS
-        sqlB.append("0").append(",");// RECORD_ID defaulted to zero for now
-        sqlB.append("'"+"NA"+"'").append(",");
+        //sqlB.append("0").append(",");// RECORD_ID defaulted to zero for now
+        sqlB.append(getMaxIdPlusOneForCounterTable()).append(",");
+        sqlB.append("'"+"Join"+"'").append(",");
         sqlB.append("'"+config+"'").append(",");
         		
         sql = sqlB.toString();
@@ -156,7 +171,6 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             con.commit();
             
             log.info("Record Saved ...");
-           // System.out.println("Record Saved ...");
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);

@@ -74,7 +74,7 @@ public class WorkloadCountersConfigurations {
         String tok[];
         String schema = "CREATE TABLE IF NOT EXISTS " +
                 COUNTERS_TABLE_NAME +
-                " ( RECORD_ID INTEGER not null, WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR";
+                " ( RECORD_ID INTEGER, WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR";
 
         for(int i=0; i<columnNamesTypesList.length; i++){
             tok = columnNamesTypesList[i].split(":");

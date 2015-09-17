@@ -9,7 +9,7 @@ fi
 
 
 # temporary dir name
-temp="temp_dir_to_hold_s3_data_00123456"
+temp=/root/TestsData/
 # S3 path
 src=$1
 # HDFS path
@@ -29,5 +29,5 @@ echo "Uploading data on HDFS ..."
 hdfs  dfs -mkdir -p $dst
 hdfs  dfs -copyFromLocal $temp/* $dst
 echo "Data Copied to HDFS ..."
-rm -r $temp
+#rm -r $temp
 echo "Finished Task ..."

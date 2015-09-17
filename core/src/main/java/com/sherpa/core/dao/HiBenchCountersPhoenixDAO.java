@@ -140,8 +140,8 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         }
         // New columns to add:: RECORD_ID, QUERY, PARAMETERS
         sqlB.append("0").append(",");// RECORD_ID defaulted to zero for now
-        sqlB.append(hivesql).append(",");
-        sqlB.append(config).append(",");
+        sqlB.append("'"+"NA"+"'").append(",");
+        sqlB.append("'"+config+"'").append(",");
         		
         sql = sqlB.toString();
         

@@ -192,6 +192,7 @@ public class HiBenchJobExecutor {
         
         // EK: 9/16/15 added the section below
         try{
+        	process.waitFor();
         	log.info("Hive Process exit status: "+process.exitValue());
         }catch(Exception e){
         	log.error("Runtime error: "+e);

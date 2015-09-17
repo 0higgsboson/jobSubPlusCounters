@@ -62,11 +62,18 @@ public class PhoenixDAO {
             stmt = con.createStatement();
             stmt.executeUpdate(tableSchema );
             con.commit();
-            stmt.close();
+            
             log.info("Table created ...");
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+        	try{
+        		stmt.close();
+        		con.close();
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
         }
     }
 

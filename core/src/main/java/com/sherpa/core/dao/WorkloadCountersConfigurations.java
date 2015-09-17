@@ -26,7 +26,9 @@ public class WorkloadCountersConfigurations {
     public static final String COUNTERS_TABLE_NAME = "counters";
     public static final String WORKLOAD_IDS_TABLE_NAME = "workloadIds";
 
-
+    public static final String RECORD_ID = "RECORD_ID";
+    public static final String PARAMETERS = "PARAMETERS";
+    public static final String QUERY = "QUERY";
 
     public static final String[] columnNamesTypesList = new String[]{
 
@@ -72,7 +74,7 @@ public class WorkloadCountersConfigurations {
         String tok[];
         String schema = "CREATE TABLE IF NOT EXISTS " +
                 COUNTERS_TABLE_NAME +
-                " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR  not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR ";
+                " ( RECORD_ID INTEGER not null, WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR";
 
         for(int i=0; i<columnNamesTypesList.length; i++){
             tok = columnNamesTypesList[i].split(":");
@@ -96,19 +98,8 @@ public class WorkloadCountersConfigurations {
         return schema;
     }
 
-
-
-
-    public static void main(String[] args){
-        System.out.print(getWorkloadIdsTableSchema());
-    }
-
-
-
-
-
-
-
-
+    //public static void main(String[] args){
+     //   System.out.print(getWorkloadIdsTableSchema());
+    //}
 
 }

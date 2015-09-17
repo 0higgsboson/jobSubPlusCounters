@@ -27,14 +27,17 @@ public class HiBenchManager {
     public HiBenchManager(){
         phoenixDAO = new HiBenchCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
         workloadIdGenerator = new HiBenchIdGenerator(phoenixDAO);
+        
+        // Get unique ID number 
     }
 
 
     // For Phoenix
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values) {
-        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values);
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, 
+    		String config, String sql) {
+        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values, config, sql);
     }
-
+    
 
     public int getFileWorkloadID(String filePath){
         return workloadIdGenerator.getFileWorkloadID(filePath);

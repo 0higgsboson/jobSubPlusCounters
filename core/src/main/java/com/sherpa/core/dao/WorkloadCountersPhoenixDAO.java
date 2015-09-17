@@ -18,8 +18,8 @@ import java.util.Map;
 public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
     private static final Logger log = LoggerFactory.getLogger(WorkloadCountersPhoenixDAO.class);
-
-
+    
+    
     public WorkloadCountersPhoenixDAO(String zookeeper){
         super(zookeeper);
 
@@ -87,16 +87,14 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
     }
 
 
-
-
-
-
-
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, String query, String sherpaParams){
+       
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date2 = format.format(date);
+        
         String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
                 " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',";
+        
         String tok[];
 
         String[] columnNames = WorkloadCountersConfigurations.columnNamesTypesList;
@@ -107,9 +105,11 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             else
                 sql +=  "0" + ",";
         }
+       
         sql = sql.substring(0, sql.length()-1) + ")";
 
         log.info("Saving Record ... " + sql);
+        
         Connection con = createConnection();
         Statement stmt = null;
         try {

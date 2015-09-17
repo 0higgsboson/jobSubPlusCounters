@@ -42,7 +42,10 @@ public class HiBenchIdGenerator {
         //System.out.println("Hash To ID Map: " + workloadHashToIdMap);
     }
 
-
+    private int getNextIdForCounterTable(){
+    	return phoenixDAO.getMaxIdPlusOneForCounterTable();
+    }
+    
     private int getWorkloadId(String workload){
 
         if(workload.isEmpty()){

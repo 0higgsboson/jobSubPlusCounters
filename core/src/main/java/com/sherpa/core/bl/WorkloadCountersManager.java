@@ -36,10 +36,9 @@ public class WorkloadCountersManager {
     }
 
 
-
     // For Phoenix
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values) {
-        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values);
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, String query, String sherpaParams) {
+        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values, query, sherpaParams);
     }
 
 

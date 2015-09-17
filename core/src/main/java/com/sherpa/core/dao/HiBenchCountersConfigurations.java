@@ -26,26 +26,42 @@ public class HiBenchCountersConfigurations {
     public static final String COUNTERS_TABLE_NAME = "hibench";
     public static final String WORKLOAD_IDS_TABLE_NAME = "hibenchIds";
 
-
+    public static final String RECORD_ID = "RECORD_ID";
+    public static final String PARAMETERS = "PARAMETERS";
+    public static final String QUERY = "QUERY";
 
     public static final String[] columnNamesTypesList = new String[]{
+    	
+            "CONFIG_REDUCERS:BIGINT", 
+            "CONFIG_MAPPERS:BIGINT",
+            "CONFIG_REDUCERS_MEMORY:BIGINT", 
+            "CONFIG_MAPPERS_MEMORY:BIGINT",
+            "CONFIG_REDUCE_CORES:BIGINT", 
+            "CONFIG_MAP_CORES:BIGINT",
+            
+            "AVG_REDUCE_TIME:BIGINT", 
+            "AVG_MAP_TIME:BIGINT",
 
-            "CONFIG_REDUCERS:BIGINT", "CONFIG_MAPPERS:BIGINT",
-            "CONFIG_REDUCERS_MEMORY:BIGINT", "CONFIG_MAPPERS_MEMORY:BIGINT",
-            "CONFIG_REDUCE_CORES:BIGINT", "CONFIG_MAP_CORES:BIGINT",
-
-            "AVG_REDUCE_TIME:BIGINT", "AVG_MAP_TIME:BIGINT",
-
-
-            "TOTAL_REDUCERS:BIGINT", "TOTAL_MAPPERS:BIGINT",
-            "REDUCE_TIME:BIGINT", "MAP_TIME:BIGINT",
-            "REDUCE_VCORE_TIME:BIGINT", "MAP_VCORE_TIME:BIGINT",
-            "MAP_PHYSICAL_MEM_BYTES:BIGINT", "MAP_PHYSICAL_MEM_MB:BIGINT",
-            "MAP_VIRTUAL_MEM_BYTES:BIGINT", "MAP_VIRTUAL_MEM_MB:BIGINT",
-            "REDUCE_VIRTUAL_MEM:BIGINT", "REDUCE_PHYSICAL_MEM:BIGINT",
-
-
-            "NUMBER_OF_FILES:BIGINT", "AVG_FILE_SIZE:BIGINT"
+            "TOTAL_REDUCERS:BIGINT", 
+            "TOTAL_MAPPERS:BIGINT",
+            "REDUCE_TIME:BIGINT", 
+            "MAP_TIME:BIGINT",
+            "REDUCE_VCORE_TIME:BIGINT", 
+            "MAP_VCORE_TIME:BIGINT",
+            "MAP_PHYSICAL_MEM_BYTES:BIGINT", 
+            "MAP_PHYSICAL_MEM_MB:BIGINT",
+            "MAP_VIRTUAL_MEM_BYTES:BIGINT", 
+            "MAP_VIRTUAL_MEM_MB:BIGINT",
+            "REDUCE_VIRTUAL_MEM:BIGINT", 
+            "REDUCE_PHYSICAL_MEM:BIGINT",
+            /* EK: Would like to see these counters
+            "MB_MILLIS_MAPS:BIGINT", 
+            "MB_MILLIS_REDUCES:BIGINT",
+            "VCORES_MILLIS_MAPS:BIGINT",
+            "VCORES_MILLIS_REDUCES:BIGINT",
+            */
+            "NUMBER_OF_FILES:BIGINT", 
+            "AVG_FILE_SIZE:BIGINT"
 
     };
 
@@ -92,19 +108,9 @@ public class HiBenchCountersConfigurations {
         return schema;
     }
 
-
-
-
-    public static void main(String[] args){
-        System.out.print(getWorkloadIdsTableSchema());
-    }
-
-
-
-
-
-
-
+    //public static void main(String[] args){
+     //   System.out.print(getWorkloadIdsTableSchema());
+    //}
 
 
 }

@@ -1,5 +1,6 @@
 package com.sherpa.tunecore.joblauncher;
 
+import com.sherpa.core.bl.HiBenchIdGenerator;
 import com.sherpa.core.bl.HiBenchManager;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
@@ -7,10 +8,13 @@ import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
@@ -79,6 +83,7 @@ public class HiBenchJobExecutor {
         command = "hive -f " + filePath + " " + config;
         log.info("Command: " + command);
         String hiveQueryFilePath = filePath;
+        String sql = getSQLFileContent(filePath); 
 
         workloadId = workloadManager.getFileWorkloadID(hiveQueryFilePath);
         if(workloadId<0){
@@ -158,7 +163,7 @@ public class HiBenchJobExecutor {
                 Map<String, BigInteger> jobCounters = getAllCounters(jobId);
                 if(jobCounters != null) {
                     jobCountersMap.put(jobId, jobCounters);
-                    saveWorkloadCounters(historyServerUrl + "/" + jobId, elapsedTime, jobCounters);
+                    saveWorkloadCounters(historyServerUrl + "/" + jobId, elapsedTime, jobCounters, config, sql);
                 }else{
                 	log.debug(" Got null from : getAllCounters(): "+jobId);
                 }
@@ -191,6 +196,7 @@ public class HiBenchJobExecutor {
         }catch(Exception e){
         	log.error("Runtime error: "+e);
         }finally{
+        	log.info("Destroying the Hive process...");
         	if (process != null)
 				process.destroy();
         }
@@ -302,17 +308,20 @@ public class HiBenchJobExecutor {
 
             }
         }
-
+        
         log.info("Configs Map: " + map);
         return map;
     }
 
 
 
-    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
+    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, String config, String sql){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters);
+       
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters, config, sql);
+        
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        
         workloadManager.close();
     }
 
@@ -336,9 +345,6 @@ public class HiBenchJobExecutor {
 
         return aggs;
     }
-
-
-
 
 
     private Process launchCommand(String command){
@@ -397,9 +403,10 @@ public class HiBenchJobExecutor {
         	
        		app = restTemplate.getForObject(url, Application.class);
         }
+        log.info("Application Status: " +app.getApp().getState());
+        
         return true;
     }
-
 
 
     public long getElapsedTime(){
@@ -417,8 +424,32 @@ public class HiBenchJobExecutor {
     }
 
 
+    private String getSQLFileContent(String filePath){
+        BufferedReader br = null;
+        //List<String> fileLines = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        
+        try{
+            br = new BufferedReader(new FileReader(filePath));
+            String line ="";
+            while ( (line=br.readLine()) !=null ){
+                sb.append(line).append('\n');
+            }
 
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+        finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        return sb.toString();
 
+    }
+    
     public void setWorkloadId(int workloadId) {
         this.workloadId = workloadId;
     }

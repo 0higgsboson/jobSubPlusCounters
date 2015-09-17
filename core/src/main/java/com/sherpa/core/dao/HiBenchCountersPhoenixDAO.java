@@ -1,6 +1,7 @@
 package com.sherpa.core.dao;
 
 import com.sherpa.core.entitydefinitions.WorkloadIdDto;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +59,39 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
 
         return list;
     }
-
-
-
+    
+    public int getMaxIdPlusOneForCounterTable(){
+    	ResultSet rset = null;
+    	
+    	int curr = 0;
+        String sql = "select max(RECORD_ID) from " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME;
+        log.info("Getting a max id number... ");
+       
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            rset = stmt.executeQuery(sql);
+            
+            while (rset.next()) {
+            	curr = rset.getInt("RECORD_ID");
+            }
+            log.info("Current max record count: "+curr);
+           
+            return curr++;
+            
+        }catch(Exception e){
+        	log.error("Failed to query database for max counter seq number: "+e);
+        }finally{
+        	try{
+        		stmt.close();
+        		con.close();
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
+        }
+        return curr;
+    }
 
 
     public void addWorkloadId(int workloadId, Date date, long hash){
@@ -78,7 +109,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             con.commit();
             stmt.close();
             log.info("New Workload ID Added: ..." + workloadId);
-            System.out.println("New Workload ID Added: ..." + workloadId);
+            //System.out.println("New Workload ID Added: ..." + workloadId);
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
@@ -88,25 +119,32 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-
-
-
-
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values){
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values,
+    		String config, String hivesql){
+    	
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String date2 = format.format(date);
-        String sql = "upsert into " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME +
-                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',";
+        String sql;
+        
+        StringBuilder sqlB = new StringBuilder("upsert into " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME +
+                " values (" + workloadId + ",'" + format.format(date) + "','" +jobId + "'," + executionTime + ",'" + jobType + "',");
+        
         String tok[];
 
         String[] columnNames = HiBenchCountersConfigurations.columnNamesTypesList;
         for(int i=0; i< columnNames.length; i++){
             tok = columnNames[i].split(":");
             if(values.containsKey(tok[0]))
-                sql +=  values.get(tok[0]).toString() + ",";
+                sqlB.append(values.get(tok[0]).toString() + ",");
             else
-                sql +=  "0" + ",";
+            	sqlB.append("0").append(",");
         }
+        // New columns to add:: RECORD_ID, QUERY, PARAMETERS
+        sqlB.append("0").append(",");// RECORD_ID defaulted to zero for now
+        sqlB.append(hivesql).append(",");
+        sqlB.append(config).append(",");
+        		
+        sql = sqlB.toString();
+        
         sql = sql.substring(0, sql.length()-1) + ")";
 
         log.info("Saving Record ... " + sql);
@@ -116,12 +154,20 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             stmt = con.createStatement();
             stmt.executeUpdate(sql );
             con.commit();
-            stmt.close();
+            
             log.info("Record Saved ...");
-            System.out.println("Record Saved ...");
+           // System.out.println("Record Saved ...");
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
+        }finally{
+        	try{
+        		stmt.close();
+        		con.close();
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
+        	
         }
 
     }

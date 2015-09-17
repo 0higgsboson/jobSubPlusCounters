@@ -53,16 +53,21 @@ public class HiveJobExecutor extends Thread{
     private Map<String, Map<String, BigInteger> > jobCountersMap = new HashMap<String, Map<String, BigInteger> >();
     private String mrJobId = "";
     private String aggregateJobId = "";
+    private String hivesql;
+    private String sherpaParams;
 
     private WorkloadCountersManager workloadManager;
     private Date date;
 
 
-    public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
+    public HiveJobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval, String hivesql,
+    		String params){
         this.command = cmd;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
+        this.hivesql = hivesql;
+        this.sherpaParams = params;
 
         date = new Date();
         workloadManager = new WorkloadCountersManager();
@@ -99,7 +104,7 @@ public class HiveJobExecutor extends Thread{
         }
 
         // start a new thread to parse job id's from hive command logs
-        hiveJobIdExtractor          = new HiveJobIdExtractor(this, process);
+        hiveJobIdExtractor  = new HiveJobIdExtractor(this, process);
         hiveJobIdExtractor.start();
 
         int jobsProcessed = 0;
@@ -228,7 +233,7 @@ public class HiveJobExecutor extends Thread{
 
     private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters);
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters, hivesql, sherpaParams);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }

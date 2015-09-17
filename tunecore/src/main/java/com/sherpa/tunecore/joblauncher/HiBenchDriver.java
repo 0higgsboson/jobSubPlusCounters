@@ -205,7 +205,7 @@ public class HiBenchDriver {
         log.info("====Done with entire run=======");
     }
 
-
+   /*
     public static void run(String cmd, int wid){
 
         String appServer = ConfigurationLoader.getApplicationServerUrl();
@@ -224,7 +224,7 @@ public class HiBenchDriver {
         }
 
 
-    }
+    }*/
 
 
 

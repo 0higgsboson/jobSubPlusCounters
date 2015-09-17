@@ -85,6 +85,45 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         }
 
     }
+    
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values){
+        
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String date2 = format.format(date);
+        
+        String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
+                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',";
+        
+        String tok[];
+
+        String[] columnNames = WorkloadCountersConfigurations.columnNamesTypesList;
+        for(int i=0; i< columnNames.length; i++){
+            tok = columnNames[i].split(":");
+            if(values.containsKey(tok[0]))
+                sql +=  values.get(tok[0]).toString() + ",";
+            else
+                sql +=  "0" + ",";
+        }
+       
+        sql = sql.substring(0, sql.length()-1) + ")";
+
+        log.info("Saving Record ... " + sql);
+        
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeUpdate(sql );
+            con.commit();
+            stmt.close();
+            log.info("Record Saved ...");
+            System.out.println("Record Saved ...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }
+
+    }
 
 
     public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, String query, String sherpaParams){

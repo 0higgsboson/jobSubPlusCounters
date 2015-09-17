@@ -40,6 +40,10 @@ public class WorkloadCountersManager {
     public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, String query, String sherpaParams) {
         phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values, query, sherpaParams);
     }
+    
+    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values) {
+        phoenixDAO.saveCounters(workloadId, date, executionTime, jobId, jobType, values);
+    }
 
 
     public int getFileWorkloadID(String filePath){

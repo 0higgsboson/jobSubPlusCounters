@@ -71,7 +71,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
     	ResultSet rset = null;
     	
     	int curr = 0;
-        String sql = "select max(RECORD_ID) from " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME;
+        String sql = "select max(RECORD_ID) RECORD_ID from " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME;
         log.info("Getting a max id number... ");
        
         Connection con = createConnection();

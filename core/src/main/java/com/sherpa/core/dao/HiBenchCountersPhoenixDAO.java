@@ -155,7 +155,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         // New columns to add:: RECORD_ID, QUERY, PARAMETERS
         //sqlB.append("0").append(",");// RECORD_ID defaulted to zero for now
         sqlB.append(getMaxIdPlusOneForCounterTable()).append(",");
-        sqlB.append("'"+"Join"+"'").append(",");
+        sqlB.append("'"+"NA"+"'").append(",");
         sqlB.append("'"+config+"'").append(",");
         		
         sql = sqlB.toString();

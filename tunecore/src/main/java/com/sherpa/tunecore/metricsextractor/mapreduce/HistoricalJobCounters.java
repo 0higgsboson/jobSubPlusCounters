@@ -2,6 +2,7 @@ package com.sherpa.tunecore.metricsextractor.mapreduce;
 
 import com.google.gson.Gson;
 import com.sherpa.core.dao.HiBenchCountersConfigurations;
+import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounter;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounterGroup;
@@ -45,7 +46,7 @@ public class HistoricalJobCounters {
 			   , String JobCounterName
 			) {
 
-		Map<String, BigInteger> map = HiBenchCountersConfigurations.getInitialCounterValuesMap();
+		Map<String, BigInteger> map = WorkloadCountersConfigurations.getInitialCounterValuesMap();
 
 
 		String jobCountersURI = SPI.getJobCountersUri(jobHistoryUrl, JobId);
@@ -53,41 +54,33 @@ public class HistoricalJobCounters {
 
 		AllJobCounters jobCounters = restTemplate.getForObject(jobCountersURI, AllJobCounters.class);
 
-		/*if(saveToDisk) {
-			new MetricsDumper().dumpToFile("JobCounters", JobId, storageDir, new Gson().toJson(jobCounters));
-		}
-*/
-
 		List<JobCounterGroup> jobCounterGroupList = jobCounters.getJobCounters().getJobCounterGroupList();
 		List<JobCounter> jobCounterList = null;
-
-
 
 		for(JobCounterGroup jobCounterGroup : jobCounterGroupList){
 				if(jobCounterGroup!=null) {
 					jobCounterList = jobCounterGroup.getJobCounterList();
 					if (jobCounterList != null) {
 						for (JobCounter jobCounter : jobCounterList) {
-							//System.out.println("Counter Name = " + jobCounter.getName() + " " + jobCounter);
 
-							if(jobCounter.getName().equalsIgnoreCase("TOTAL_LAUNCHED_MAPS")){
-								map.put("TOTAL_MAPPERS", BigInteger.valueOf(jobCounter.getTotalCounterValue()));
+							String cn = jobCounter.getName() + WorkloadCountersConfigurations.MAP_SUFFIX;
+							if(map.containsKey(cn)){
+								map.put(cn, BigInteger.valueOf(jobCounter.getMapCounterValue()));
 							}
-							else if(jobCounter.getName().equalsIgnoreCase("TOTAL_LAUNCHED_REDUCES")){
-								map.put("TOTAL_REDUCERS", BigInteger.valueOf(jobCounter.getTotalCounterValue()));
-							}
-							else if(jobCounter.getName().equalsIgnoreCase("VCORES_MILLIS_MAPS")){
-								map.put("MAP_VCORE_TIME", BigInteger.valueOf(jobCounter.getTotalCounterValue()));
-							}
-							else if(jobCounter.getName().equalsIgnoreCase("VCORES_MILLIS_REDUCES")){
-								map.put("REDUCE_VCORE_TIME", BigInteger.valueOf(jobCounter.getTotalCounterValue()));
-							}
-							else if(jobCounter.getName().equalsIgnoreCase("CPU_MILLISECONDS")){
-								map.put("REDUCE_TIME", BigInteger.valueOf(jobCounter.getReduceCounterValue()));
-								map.put("MAP_TIME", BigInteger.valueOf(jobCounter.getMapCounterValue()));
 
+							cn = jobCounter.getName() + WorkloadCountersConfigurations.REDUCE_SUFFIX;
+							if(map.containsKey(cn)){
+								map.put(cn, BigInteger.valueOf(jobCounter.getReduceCounterValue()));
 							}
-							else if(jobCounter.getName().equalsIgnoreCase("PHYSICAL_MEMORY_BYTES")){
+
+							cn = jobCounter.getName() + WorkloadCountersConfigurations.TOTAL_SUFFIX;
+							if(map.containsKey(cn)){
+								map.put(cn, BigInteger.valueOf(jobCounter.getTotalCounterValue()));
+							}
+
+
+
+							/*if(jobCounter.getName().equalsIgnoreCase("PHYSICAL_MEMORY_BYTES")){
 								long mb = jobCounter.getMapCounterValue()/(1000*1000);
 								map.put("MAP_PHYSICAL_MEM_BYTES", BigInteger.valueOf(jobCounter.getMapCounterValue()));
 								map.put("MAP_PHYSICAL_MEM_MB", BigInteger.valueOf(mb));
@@ -101,7 +94,7 @@ public class HistoricalJobCounters {
 
 								map.put("REDUCE_VIRTUAL_MEM", BigInteger.valueOf(jobCounter.getReduceCounterValue()));
 
-							}
+							}*/
 
 
 						}
@@ -110,6 +103,12 @@ public class HistoricalJobCounters {
 
 		}
 
+/*
+
+		String counterTypes = stringBuilder.toString();
+		System.out.println(counterTypes);
+*/
+
 	return map;
 
 	}
@@ -117,16 +116,21 @@ public class HistoricalJobCounters {
 
 
 
+/*
 	public static void main(String[] args) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		//	MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/", "job_1441908739430_0068"), MRJobCounters.class);
 		//	System.out.println(c);
 
 		HistoricalJobCounters h = new HistoricalJobCounters("http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/");
-		h.getJobCounters("job_1441908739430_0068");
+		Map<String, BigInteger> counters = h.getJobCounters("job_1441908739430_0068");
+		System.out.print(counters);
+
+
 
 	}
 
+*/
 
 
 

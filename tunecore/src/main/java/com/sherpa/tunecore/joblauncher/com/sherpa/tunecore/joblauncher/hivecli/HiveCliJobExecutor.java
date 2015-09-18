@@ -3,6 +3,7 @@ package com.sherpa.tunecore.joblauncher.com.sherpa.tunecore.joblauncher.hivecli;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
+import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,12 +49,15 @@ public class HiveCliJobExecutor extends Thread{
 
     private String fileLines;
     private int totalJobs=-1;
+    private String params="";
 
-    public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval){
+
+    public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval, String params){
         this.fileLines = fileLines;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
+        this.params = params;
 
         date = new Date();
         workloadManager = new WorkloadCountersManager();
@@ -145,7 +149,8 @@ public class HiveCliJobExecutor extends Thread{
                 log.info("Getting Task Counters ...");
                 System.out.println("Getting Task Counters ...");
 
-                Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
+                //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
+                Map<String, BigInteger> jobCounters = getJobCounters(jobId);
                 if(jobCounters!=null) {
                     saveWorkloadCounters(jobId, elapsedTime, jobCounters);
                     addToCounters(jobCounters);
@@ -183,6 +188,26 @@ public class HiveCliJobExecutor extends Thread{
     }
 
 
+    private Map<String, BigInteger> getJobCounters(String jobId){
+
+        Map<String, BigInteger> counterValues = null;
+        try {
+            log.info("Getting Job Counters");
+            HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
+            countersObj.getJobCounters(jobId);
+            counterValues = countersObj.getJobCounters(jobId);
+            log.info("Done Getting Job Counters ...");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return counterValues;
+    }
+
+
+
+
     private Map<String, BigInteger> getTaskCounters(String jobId){
         Map<String, BigInteger> counterValues = null;
         try {
@@ -204,7 +229,7 @@ public class HiveCliJobExecutor extends Thread{
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
         System.out.println("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE, jobCounters);
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE, jobCounters, "", params);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         System.out.println("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();

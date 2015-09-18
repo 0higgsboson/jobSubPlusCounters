@@ -92,7 +92,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         String date2 = format.format(date);
         
         String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
-                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',";
+                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',"   ;
         
         String tok[];
 
@@ -132,7 +132,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         String date2 = format.format(date);
         
         String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
-                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',";
+                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "','" + sherpaParams + "'," ;
         
         String tok[];
 

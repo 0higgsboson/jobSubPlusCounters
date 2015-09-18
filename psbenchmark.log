@@ -1,0 +1,25 @@
+2015-09-17 21:57:49 INFO  SPI:57 - SPI getJobCountersUri URL: http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters
+2015-09-17 21:57:49 DEBUG RestTemplate:78 - Created GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters"
+2015-09-17 21:57:49 DEBUG RestTemplate:673 - Setting request Accept header to [application/json, application/*+json]
+2015-09-17 21:57:50 DEBUG RestTemplate:573 - GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters" resulted in 200 (OK)
+2015-09-17 21:57:50 DEBUG RestTemplate:92 - Reading [class com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters] as "application/json" using [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter@6e1c51b4]
+2015-09-17 22:00:34 INFO  SPI:57 - SPI getJobCountersUri URL: http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters
+2015-09-17 22:00:34 DEBUG RestTemplate:78 - Created GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters"
+2015-09-17 22:00:34 DEBUG RestTemplate:673 - Setting request Accept header to [application/json, application/*+json]
+2015-09-17 22:00:35 DEBUG RestTemplate:573 - GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters" resulted in 200 (OK)
+2015-09-17 22:00:35 DEBUG RestTemplate:92 - Reading [class com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters] as "application/json" using [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter@53838e6]
+2015-09-17 22:04:41 INFO  SPI:57 - SPI getJobCountersUri URL: http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters
+2015-09-17 22:04:41 DEBUG RestTemplate:78 - Created GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters"
+2015-09-17 22:04:41 DEBUG RestTemplate:673 - Setting request Accept header to [application/json, application/*+json]
+2015-09-17 22:04:42 DEBUG RestTemplate:573 - GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters" resulted in 200 (OK)
+2015-09-17 22:04:42 DEBUG RestTemplate:92 - Reading [class com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters] as "application/json" using [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter@53838e6]
+2015-09-17 23:00:26 INFO  SPI:57 - SPI getJobCountersUri URL: http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters
+2015-09-17 23:00:26 DEBUG RestTemplate:78 - Created GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters"
+2015-09-17 23:00:26 DEBUG RestTemplate:673 - Setting request Accept header to [application/json, application/*+json]
+2015-09-17 23:00:27 DEBUG RestTemplate:573 - GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters" resulted in 200 (OK)
+2015-09-17 23:00:27 DEBUG RestTemplate:92 - Reading [class com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters] as "application/json" using [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter@56e6f983]
+2015-09-18 02:35:44 INFO  SPI:57 - SPI getJobCountersUri URL: http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters
+2015-09-18 02:35:44 DEBUG RestTemplate:78 - Created GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters"
+2015-09-18 02:35:44 DEBUG RestTemplate:673 - Setting request Accept header to [application/json, application/*+json]
+2015-09-18 02:35:45 DEBUG RestTemplate:573 - GET request for "http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/job_1441908739430_0068/counters" resulted in 200 (OK)
+2015-09-18 02:35:45 DEBUG RestTemplate:92 - Reading [class com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters] as "application/json" using [org.springframework.http.converter.json.MappingJackson2HttpMessageConverter@329b81d5]

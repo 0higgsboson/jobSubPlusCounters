@@ -61,16 +61,16 @@ tar -xzvf apache-hive-1.1.1-bin.tar.gz
 
 # Sets up custom Hive Code
 echo "Setting up custom Hive Code"
-git clone https://github.com/akhtar-m-din/Hive-Client.git
-cd Hive-Client
+git clone https://github.com/0higgsboson/hiveClientSherpa.git
+cd hiveClientSherpa
 mvn clean install -pl ql,cli  -Phadoop-2  -DskipTests
 cd ..
 
 
 # Copies our jars into Hive's lib dir
 echo "Copying jars into Hive's lib dir ..."
-cp Hive-Client/cli/target/hive-cli-1.1.0.jar apache-hive-1.1.1-bin/lib/hive-cli-1.1.1.jar
-cp Hive-Client/ql/target/hive-exec-1.1.0.jar apache-hive-1.1.1-bin/lib/hive-exec-1.1.1.jar
+cp hiveClientSherpa/cli/target/hive-cli-1.1.0.jar apache-hive-1.1.1-bin/lib/hive-cli-1.1.1.jar
+cp hiveClientSherpa/ql/target/hive-exec-1.1.0.jar apache-hive-1.1.1-bin/lib/hive-exec-1.1.1.jar
 cp jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  apache-hive-1.1.1-bin/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 

@@ -90,6 +90,16 @@ public class HiBenchDriver {
         String sqlFile = args[0];
         long inputSize = Long.parseLong(args[1]);
         String outputDir = args[2];
+        
+        // TODO Use a more sophisticated command line handler and process lib
+        // optional params
+        String benchmarkType, tag;
+        // Benchmark type (scan, aggregate, join, ...)
+        // Tag is any unique identifier of current run
+        //if(args[3] != null)
+        //	benchmarkType = args[3];
+        //if(args[4] != null)
+        //	tag = args[4];
 
         String appServer = ConfigurationLoader.getApplicationServerUrl();
         String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();

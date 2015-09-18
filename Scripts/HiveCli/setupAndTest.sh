@@ -45,26 +45,34 @@ update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/java-7-oracle
 update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/java-7-oracle-cloudera/bin/javac" 50000
 
 
-# Sets up Sherpa Performance Project
-echo "Setting up Sherpa Performance Project"
+# Cloning Sherpa Performance Project
+echo "Cloning Sherpa Performance Project"
 git clone https://github.com/0higgsboson/jobSubPlusCounters.git
+
+
+# Cloning custom Hive Code
+echo "Cloning custom Hive Code"
+git clone https://github.com/0higgsboson/hiveClientSherpa.git
+
+
+# Compiling Sherpa Project
+echo "Compiling Sherpa Performance Project"
 cd jobSubPlusCounters/
 mvn clean install -DskipTests
 cd ..
+
+# Compiling custom Hive Code
+echo "Compiling custom Hive Code"
+cd hiveClientSherpa
+mvn clean install -pl ql,cli  -Phadoop-2  -DskipTests
+cd ..
+
 
 
 # Downloads Apache Hive's Distribution 1.1.1
 echo "Downloading Apache Hive ..."
 wget http://www.eu.apache.org/dist/hive/hive-1.1.1/apache-hive-1.1.1-bin.tar.gz
 tar -xzvf apache-hive-1.1.1-bin.tar.gz
-
-
-# Sets up custom Hive Code
-echo "Setting up custom Hive Code"
-git clone https://github.com/0higgsboson/hiveClientSherpa.git
-cd hiveClientSherpa
-mvn clean install -pl ql,cli  -Phadoop-2  -DskipTests
-cd ..
 
 
 # Copies our jars into Hive's lib dir
@@ -78,6 +86,10 @@ cp jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  ap
 echo "Creating a sample workload ..."
 echo "drop table if exists docs_large;CREATE TABLE docs_large (line STRING);LOAD DATA LOCAL INPATH '/root/TestsData/large' OVERWRITE INTO TABLE docs_large;drop table if exists wc_large;CREATE TABLE wc_large AS SELECT word, count(1) AS count FROM (SELECT explode(split(line, '\s')) AS word FROM docs_large) w GROUP BY word ORDER BY word;" >> query.hql
 
+
+sudo printf "mapred.max.split.size=300000\n" >> /opt/sherpa.properties
+sudo printf "mapreduce.job.reduces=12" >> /opt/sherpa.properties
+sudo chmod 777 /opt/sherpa.properties
 
 # Copies data from HDFS, Assumption is data is placed at on HDFS /data/large
 echo "Copying data from HDFS to local ..."

@@ -19,10 +19,6 @@ export HBASE_HOME=/opt/cloudera/parcels/${CDH_VERSION}/lib/hbase/
 # Change as per your system's settings, java version be should >=  1.7
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle-cloudera/
 
-# Creates a temporary dir
-mkdir SherpaHiveTest
-cd    SherpaHiveTest
-
 
 # Installs Maven if not installed already
 echo "Checking maven install.."
@@ -81,15 +77,23 @@ cp hiveClientSherpa/cli/target/hive-cli-1.1.0.jar apache-hive-1.1.1-bin/lib/hive
 cp hiveClientSherpa/ql/target/hive-exec-1.1.0.jar apache-hive-1.1.1-bin/lib/hive-exec-1.1.1.jar
 cp jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  apache-hive-1.1.1-bin/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
 
+# create the config file to be used later in Sherpa managed testing
+sudo touch /opt/sherpa.properties
+sudo chmod 777 /opt/sherpa.properties
+sudo printf "mapreduce.max.split.size=3000000\n" >> /opt/sherpa.properties
+sudo printf "mapreduce.job.reduces=12" >> /opt/sherpa.properties
+
+# Creates a temporary dir 
+mkdir SherpaHiveTest
+cd SherpaHiveTest
+cd ..
+
 
 # Creates a sample workload
 echo "Creating a sample workload ..."
+cat /dev/null > query.hql
 echo "drop table if exists docs_large;CREATE TABLE docs_large (line STRING);LOAD DATA LOCAL INPATH '/root/TestsData/large' OVERWRITE INTO TABLE docs_large;drop table if exists wc_large;CREATE TABLE wc_large AS SELECT word, count(1) AS count FROM (SELECT explode(split(line, '\s')) AS word FROM docs_large) w GROUP BY word ORDER BY word;" >> query.hql
 
-
-sudo printf "mapred.max.split.size=300000\n" >> /opt/sherpa.properties
-sudo printf "mapreduce.job.reduces=12" >> /opt/sherpa.properties
-sudo chmod 777 /opt/sherpa.properties
 
 # Copies data from HDFS, Assumption is data is placed at on HDFS /data/large
 echo "Copying data from HDFS to local ..."
@@ -99,11 +103,12 @@ hdfs dfs -copyToLocal /data/large /root/TestsData/
 
 # Runs the test
 echo "Starting sample workload ..."
-#./apache-hive-1.1.1-bin/bin/hive -f query.hql
-
+./apache-hive-1.1.1-bin/bin/hive -f SherpaHiveTest/query.hql
+cd ..
 
 # To run with parameters file, use the following command
 # Parameter file should be located at /root/sherpa.properties
-./apache-hive-1.1.1-bin/bin/hive  -f query.hql -hiveconf PSManaged=true
+echo "Running with Shepa's manager"
+./apache-hive-1.1.1-bin/bin/hive  -f SherpaHiveTest/query.hql -hiveconf PSManaged=true
 
 echo "Done Testing ..."

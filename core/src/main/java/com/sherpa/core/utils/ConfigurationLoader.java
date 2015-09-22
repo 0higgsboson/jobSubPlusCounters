@@ -125,7 +125,7 @@ public class ConfigurationLoader {
 
         log.info("Job History Server URL: " + jobHistoryUrl);
         log.info("ResourceManager URL: " + resourceManagerUrl);
-        log.info("Zookeeper: " + ZOOKEEPER+":"+zookeeperPort);
+        log.info("Zookeeper: " + zookeeper+":"+zookeeperPort);
 
         prop = new Properties();
         prop.put(JOB_HISTORY_URL, jobHistoryUrl);
@@ -134,6 +134,7 @@ public class ConfigurationLoader {
         prop.put(ZOOKEEPER_PORT,zookeeperPort);
         prop.put(POLL_INTERVAL_KEY, DEFAULT_POLL_INTERVAL);
 
+        System.out.println("Properties: " + prop);
     }
 
 
@@ -153,6 +154,7 @@ public class ConfigurationLoader {
         if(prop==null)
             loadDefaultConfigurations();
 
+        System.out.println("Zookeeper: " + prop.getProperty(ZOOKEEPER));
         return prop.getProperty(ZOOKEEPER);
 
     }

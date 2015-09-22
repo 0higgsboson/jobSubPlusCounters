@@ -48,7 +48,26 @@ public class HiBenchManager {
     }
 
 
-    public void close(){
+
+    public void importHiBenchIds(String filePath) {
+        phoenixDAO.importHiBenchIds(filePath);
+    }
+
+    public void exportHiBenchIds(String filePath) {
+        phoenixDAO.exportHiBenchIds(filePath);
+    }
+
+    public void exportHiBench(String filePath) {
+        phoenixDAO.exportHiBench(filePath);
+    }
+
+
+    public void importHiBench(String filePath) {
+        phoenixDAO.importHiBench(filePath);
+    }
+
+
+        public void close(){
         if(phoenixDAO!=null)
             phoenixDAO.closeConnection();
     }

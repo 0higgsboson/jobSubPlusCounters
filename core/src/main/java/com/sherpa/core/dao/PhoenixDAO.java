@@ -30,9 +30,10 @@ public class PhoenixDAO {
         log.info("Opening Connection to Phoenix: " + zookeeper);
         if(connection==null) {
             try {
+                Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
                 connection = DriverManager.getConnection("jdbc:phoenix:" + zookeeper);
                 log.info("Connected to Phoenix: " + zookeeper);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }

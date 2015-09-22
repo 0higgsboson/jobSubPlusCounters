@@ -1,0 +1,4 @@
+To run these scripts, make sure you have authenticated yourself using `gcloud auth login`
+and have set correct default project i.e. 01-Dev-Build-Sherpa
+
+

@@ -135,6 +135,7 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
 
+<!--
 
                     <archive>
                         <manifest>
@@ -142,6 +143,7 @@
 
                         </manifest>
                     </archive>
+-->
 
                 </configuration>
 

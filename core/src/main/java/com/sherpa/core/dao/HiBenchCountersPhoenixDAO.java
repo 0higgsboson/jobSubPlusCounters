@@ -5,13 +5,15 @@ import com.sherpa.core.entitydefinitions.WorkloadIdDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by akhtar on 07/09/2015.
@@ -33,7 +35,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         List<WorkloadIdDto> list = new ArrayList<WorkloadIdDto>();
         ResultSet rset = null;
 
-        String sql = "select * from " + HiBenchCountersConfigurations.WORKLOAD_IDS_TABLE_NAME;
+        String sql = "select * from " + HiBenchCountersConfigurations.HIBENCH_IDS_TABLE_NAME;
         log.info("Loading Workload ID's ... " + sql);
         
         Connection con = createConnection();
@@ -71,7 +73,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
     	ResultSet rset = null;
     	
     	int curr = 0;
-        String sql = "select max(RECORD_ID) RECORD_ID from " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME;
+        String sql = "select max(RECORD_ID) RECORD_ID from " + HiBenchCountersConfigurations.HIBENCH_TABLE_NAME;
         log.info("Getting a max id number... ");
        
         Connection con = createConnection();
@@ -105,7 +107,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
     public void addWorkloadId(int workloadId, Date date, long hash){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date2 = format.format(date);
-        String sql = "upsert into " + HiBenchCountersConfigurations.WORKLOAD_IDS_TABLE_NAME +
+        String sql = "upsert into " + HiBenchCountersConfigurations.HIBENCH_IDS_TABLE_NAME +
                 " values (" + workloadId + ",'" + date2 + "'," +hash + ")";
 
         log.info("Adding New Workload ID ... " + sql);
@@ -139,7 +141,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String sql;
         
-        StringBuilder sqlB = new StringBuilder("upsert into " + HiBenchCountersConfigurations.COUNTERS_TABLE_NAME +
+        StringBuilder sqlB = new StringBuilder("upsert into " + HiBenchCountersConfigurations.HIBENCH_TABLE_NAME +
                 " values (" + workloadId + ",'" + format.format(date) + "','" +jobId + "'," + executionTime + ",'" + jobType + "',");
         
         String tok[];
@@ -185,6 +187,249 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         }
 
     }
+
+
+
+
+
+
+
+
+    public void exportHiBench(String filePath){
+
+        ResultSet rset = null;
+        PrintWriter writer = null;
+
+        String sql = "select * from " + HiBenchCountersConfigurations.HIBENCH_TABLE_NAME;
+        log.info("Loading HiBench table ... " + sql);
+
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> counters = new ArrayList<String>();
+
+        // list of all counters
+        Map<String, BigInteger> map = HiBenchCountersConfigurations.getInitialCounterValuesMap();
+
+        // getting counters names
+        Iterator<String> iterator = map.keySet().iterator();
+        while(iterator.hasNext()){
+             counters.add(iterator.next());
+        }
+
+        // forming header
+        stringBuilder.append("WORKLOAD_ID").append(",").append("DATE_TIME").append(",").append("JOB_ID").append(",").append("EXECUTION_TIME").append(",").append("JOB_TYPE");
+        for(String counter: counters)
+             stringBuilder.append(",").append(counter);
+
+        stringBuilder.append(",").append("RECORD_ID").append(",").append("QUERY").append(",").append("PARAMETERS");
+
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+
+
+        int count=0;
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                stringBuilder.append("\n");
+                stringBuilder.append(rset.getInt("WORKLOAD_ID")).append(",");
+                stringBuilder.append(rset.getString("DATE_TIME")).append(",");
+                stringBuilder.append(rset.getString("JOB_ID")).append(",");
+                stringBuilder.append(rset.getInt("EXECUTION_TIME")).append(",");
+                stringBuilder.append(rset.getString("JOB_TYPE"));
+
+                for(String counter: counters)
+                    stringBuilder.append(",").append( rset.getString(counter)  );
+
+                stringBuilder.append(",");
+                stringBuilder.append(rset.getInt("RECORD_ID")).append(",");
+                stringBuilder.append(rset.getString("QUERY")).append(",");
+                stringBuilder.append(rset.getString("PARAMETERS"));
+
+                count++;
+            }
+            writer = new PrintWriter(new FileWriter(filePath));
+            writer.println(stringBuilder.toString());
+            writer.flush();
+            log.info("Exported Records: " + count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        log.info("Done Exporting HiBenchIds");
+
+    }
+
+
+
+    public void importHiBench(String filePath){
+
+        StringBuilder headerBuilder = new StringBuilder();
+
+
+        BufferedReader reader = null;
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            reader = new BufferedReader(new FileReader(filePath));
+
+
+            // use the header to insert values in the same order
+            String line = reader.readLine();
+            String headers[] = line.split(",");
+
+            for(String columnName: headers)
+                headerBuilder.append(columnName).append(",");
+
+            String header = headerBuilder.substring(0,headerBuilder.length()-1);
+            log.info("Header: " + header);
+
+            int count = 0;
+            while( (line=reader.readLine()) != null ){
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("upsert into ").append(HiBenchCountersConfigurations.HIBENCH_TABLE_NAME).append(" (").append(header).append(")").append(" values (");
+
+                String[] tok = line.split(",");
+
+                for(int i=0; i<tok.length; i++){
+                    //  adding single qoutes for datetime, Job_ID, Job_Type, Query, Parameters columns
+                    if(i==1 || i==2 || i==4 || (i==tok.length-2) || (i==tok.length-1) )
+                       stringBuilder.append("'").append(tok[i]).append("',");
+                    else
+                        stringBuilder.append(tok[i]).append(",");
+                }
+
+                String sql = stringBuilder.substring(0, stringBuilder.length()-1) + ")";
+
+                stmt.executeUpdate(sql);
+                con.commit();
+                count++;
+
+
+
+            }
+            log.info("Imported Records: " + count);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                con.close();
+                reader.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        log.info("Done Importing HiBenchIds");
+    }
+
+
+
+
+
+
+
+    public void exportHiBenchIds(String filePath){
+        ResultSet rset = null;
+        PrintWriter writer = null;
+
+        String sql = "select * from " + HiBenchCountersConfigurations.HIBENCH_IDS_TABLE_NAME;
+        log.info("Loading HiBench ID's ... " + sql);
+
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("WORKLOAD_ID").append(",").append("DATE_TIME").append(",").append("HASH");
+
+        int count=0;
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                stringBuilder.append("\n");
+                stringBuilder.append(rset.getInt("WORKLOAD_ID")).append(",");
+                stringBuilder.append(rset.getString("DATE_TIME")).append(",");
+                stringBuilder.append(rset.getLong("HASH"));
+                count++;
+            }
+            writer = new PrintWriter(new FileWriter(filePath));
+            writer.println(stringBuilder.toString());
+            writer.flush();
+            log.info("Exported Records: " + count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        log.info("Done Exporting HiBenchIds");
+    }
+
+
+
+    public void importHiBenchIds(String filePath){
+        BufferedReader reader = null;
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            reader = new BufferedReader(new FileReader(filePath));
+
+            // ignore the header
+            String line = reader.readLine();
+
+            int count = 0;
+            while( (line=reader.readLine()) != null ){
+                String[] tok = line.split(",");
+                if(tok.length !=3 )
+                    continue;
+                String sql = "upsert into " + HiBenchCountersConfigurations.HIBENCH_IDS_TABLE_NAME +
+                        " values (" + tok[0] + ",'" + tok[1] + "'," + tok[2] + ")";
+
+                stmt.executeUpdate(sql);
+                con.commit();
+                count++;
+            }
+            log.info("Imported Records: " + count);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                con.close();
+                reader.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        log.info("Done Importing HiBenchIds");
+    }
+
+
+
 
 
 

@@ -23,8 +23,8 @@ public class HiBenchCountersConfigurations {
     public static final String DATA_COLUMN_FAMILY = "counters";
 
 
-    public static final String COUNTERS_TABLE_NAME = "hibench";
-    public static final String WORKLOAD_IDS_TABLE_NAME = "hibenchIds";
+    public static final String HIBENCH_TABLE_NAME = "hibench";
+    public static final String HIBENCH_IDS_TABLE_NAME = "hibenchIds";
 
     public static final String RECORD_ID = "RECORD_ID";
     public static final String PARAMETERS = "PARAMETERS";
@@ -83,13 +83,16 @@ public class HiBenchCountersConfigurations {
     public static String getCountersTableSchema(){
         String tok[];
         String schema = "CREATE TABLE IF NOT EXISTS " +
-                COUNTERS_TABLE_NAME +
+                HIBENCH_TABLE_NAME +
                 " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date not null, JOB_ID VARCHAR  not null, EXECUTION_TIME INTEGER, JOB_TYPE VARCHAR ";
 
         for(int i=0; i<columnNamesTypesList.length; i++){
             tok = columnNamesTypesList[i].split(":");
             schema += "," + tok[0] + " " + tok[1] + " ";
         }
+
+        schema += " ,RECORD_ID INTEGER, QUERY VARCHAR, PARAMETERS VARCHAR ";
+
 
         schema += " CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID, DATE_TIME, JOB_ID) )";
 
@@ -100,7 +103,7 @@ public class HiBenchCountersConfigurations {
 
     public static String getWorkloadIdsTableSchema(){
         String schema = "CREATE TABLE IF NOT EXISTS " +
-                WORKLOAD_IDS_TABLE_NAME +
+                HIBENCH_IDS_TABLE_NAME +
                 " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date, HASH BIGINT ";
 
         schema += " CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID) )";

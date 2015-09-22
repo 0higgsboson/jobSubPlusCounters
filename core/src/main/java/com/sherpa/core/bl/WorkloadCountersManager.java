@@ -27,9 +27,9 @@ public class WorkloadCountersManager {
     private WorkloadIdGenerator workloadIdGenerator;
 
     public WorkloadCountersManager(){
-        workloadCountersDAO = new WorkloadCountersHbaseDAO();
+     /*   workloadCountersDAO = new WorkloadCountersHbaseDAO();
         workloadCountersDAO.createTable(WorkloadCountersConfigurations.TABLE_NAME);
-
+*/
 
         phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
         workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
@@ -53,6 +53,28 @@ public class WorkloadCountersManager {
     public int getWorkloadIDFromFileContents(String fileContents){
         return workloadIdGenerator.getWorkloadIDFromFileContents(fileContents);
     }
+
+
+    public void importWorkloadCountersIds(String filePath) {
+        phoenixDAO.importWorkloadCountersIds(filePath);
+    }
+
+    public void exportWorkloadCountersIds(String filePath) {
+        phoenixDAO.exportWorkloadCountersIds(filePath);
+    }
+
+    public void exportWorkloadCounters(String filePath) {
+        phoenixDAO.exportWorkloadCounters(filePath);
+    }
+
+
+    public void importWorkloadCounters(String filePath) {
+        phoenixDAO.importWorkloadCounters(filePath);
+    }
+
+
+
+
 
 
 

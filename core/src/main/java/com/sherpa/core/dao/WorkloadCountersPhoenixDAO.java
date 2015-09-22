@@ -4,13 +4,15 @@ import com.sherpa.core.entitydefinitions.WorkloadIdDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by akhtar on 07/09/2015.
@@ -164,6 +166,254 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         }
 
     }
+
+
+
+
+    public void exportWorkloadCounters(String filePath){
+
+        ResultSet rset = null;
+        PrintWriter writer = null;
+
+        String sql = "select * from " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME;
+        log.info("Loading WorkloadCounters table ... " + sql);
+
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> counters = new ArrayList<String>();
+
+        // list of all counters
+        Map<String, BigInteger> map = WorkloadCountersConfigurations.getInitialCounterValuesMap();
+
+        // getting counters names
+        Iterator<String> iterator = map.keySet().iterator();
+        while(iterator.hasNext()){
+            counters.add(iterator.next());
+        }
+
+
+
+        // forming header
+        stringBuilder.append("WORKLOAD_ID").append(",").append("DATE_TIME").append(",").append("JOB_ID").append(",").append("EXECUTION_TIME").append(",")
+                .append("JOB_TYPE").append(",").append("PARAMETERS");
+
+        for(String counter: counters)
+            stringBuilder.append(",").append(counter);
+
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+
+
+        int count=0;
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                stringBuilder.append("\n");
+                stringBuilder.append(rset.getInt("WORKLOAD_ID")).append(",");
+                stringBuilder.append(rset.getString("DATE_TIME")).append(",");
+                stringBuilder.append(rset.getString("JOB_ID")).append(",");
+                stringBuilder.append(rset.getInt("EXECUTION_TIME")).append(",");
+                stringBuilder.append(rset.getString("JOB_TYPE")).append(",");
+                stringBuilder.append(rset.getString("PARAMETERS"));
+
+
+                for(String counter: counters)
+                    stringBuilder.append(",").append( rset.getString(counter)  );
+
+                count++;
+            }
+            writer = new PrintWriter(new FileWriter(filePath));
+            writer.println(stringBuilder.toString());
+            writer.flush();
+            log.info("Exported Records: " + count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        log.info("Done Exporting WorkloadCounters");
+
+    }
+
+
+
+    public void importWorkloadCounters(String filePath){
+
+        StringBuilder headerBuilder = new StringBuilder();
+
+
+        BufferedReader reader = null;
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            reader = new BufferedReader(new FileReader(filePath));
+
+
+            // use the header to insert values in the same order
+            String line = reader.readLine();
+            String headers[] = line.split(",");
+
+            for(String columnName: headers)
+                headerBuilder.append(columnName).append(",");
+
+            String header = headerBuilder.substring(0,headerBuilder.length()-1);
+            log.info("Header: " + header);
+
+            int count = 0;
+            while( (line=reader.readLine()) != null ){
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("upsert into ").append(WorkloadCountersConfigurations.COUNTERS_TABLE_NAME).append(" (").append(header).append(")").append(" values (");
+
+                String[] tok = line.split(",");
+
+                for(int i=0; i<tok.length; i++){
+                    //  adding single qoutes for datetime, Job_ID, Job_Type, Query, Parameters columns
+                    if(i==1 || i==2 || i==4 || i==5 )
+                        stringBuilder.append("'").append(tok[i]).append("',");
+                    else
+                        stringBuilder.append(tok[i]).append(",");
+                }
+
+                String sql = stringBuilder.substring(0, stringBuilder.length()-1) + ")";
+
+                stmt.executeUpdate(sql);
+                con.commit();
+                count++;
+
+
+
+            }
+            log.info("Imported Records: " + count);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                con.close();
+                reader.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        log.info("Done Importing WorkloadCounters");
+    }
+
+
+
+
+
+
+
+    public void exportWorkloadCountersIds(String filePath){
+        ResultSet rset = null;
+        PrintWriter writer = null;
+
+        String sql = "select * from " + WorkloadCountersConfigurations.WORKLOAD_IDS_TABLE_NAME;
+        log.info("Loading Workload ID's ... " + sql);
+
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("WORKLOAD_ID").append(",").append("DATE_TIME").append(",").append("HASH");
+
+        int count=0;
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                stringBuilder.append("\n");
+                stringBuilder.append(rset.getInt("WORKLOAD_ID")).append(",");
+                stringBuilder.append(rset.getString("DATE_TIME")).append(",");
+                stringBuilder.append(rset.getLong("HASH"));
+                count++;
+            }
+            writer = new PrintWriter(new FileWriter(filePath));
+            writer.println(stringBuilder.toString());
+            writer.flush();
+            log.info("Exported Records: " + count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        log.info("Done Exporting Workload Ids");
+    }
+
+
+
+    public void importWorkloadCountersIds(String filePath){
+        BufferedReader reader = null;
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            reader = new BufferedReader(new FileReader(filePath));
+
+            // ignore the header
+            String line = reader.readLine();
+
+            int count = 0;
+            while( (line=reader.readLine()) != null ){
+                String[] tok = line.split(",");
+                if(tok.length !=3 )
+                    continue;
+                String sql = "upsert into " + WorkloadCountersConfigurations.WORKLOAD_IDS_TABLE_NAME +
+                        " values (" + tok[0] + ",'" + tok[1] + "'," + tok[2] + ")";
+
+                stmt.executeUpdate(sql);
+                con.commit();
+                count++;
+            }
+            log.info("Imported Records: " + count);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                con.close();
+                reader.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        log.info("Done Importing Workload Ids");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

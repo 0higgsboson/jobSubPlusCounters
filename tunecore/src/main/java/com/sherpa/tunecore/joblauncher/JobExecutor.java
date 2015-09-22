@@ -14,8 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by akhtar on 10/08/2015.
@@ -47,11 +49,20 @@ public class JobExecutor extends Thread{
 
     private int pollInterval = 5000;
 
+    private WorkloadCountersManager workloadManager;
+    private Date date;
+
+    private String params="";
+
+
     public JobExecutor(String cmd, String rmUrl, String historyServer, int pollInterval){
         this.command = cmd;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
+
+        date = new Date();
+        workloadManager = new WorkloadCountersManager();
     }
 
 
@@ -91,8 +102,12 @@ public class JobExecutor extends Thread{
             long elapsedTime = getElapsedTime();
             log.info("Elapsed Time: " + elapsedTime);
 
-            // Saves workload counters into hbase
-            saveWorkloadCounters(jobId, elapsedTime);
+
+            //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
+            Map<String, BigInteger> jobCounters = getJobCounters(jobId);
+            if(jobCounters!=null) {
+                saveWorkloadCounters(jobId, elapsedTime, jobCounters);
+            }
 
             log.info("Finished Saving Data ...");
         }
@@ -103,43 +118,35 @@ public class JobExecutor extends Thread{
 
 
 
+    private Map<String, BigInteger> getJobCounters(String jobId){
 
-    private void saveWorkloadCounters(String jobId, long elapsedTime){
-        // Collecting Performance Counters
-
-        HistoricalTaskCounters historicalTaskCounters = new HistoricalTaskCounters(historyServerUrl);
+        Map<String, BigInteger> counterValues = null;
         try {
-            historicalTaskCounters.getJobCounters(jobId);
-        }catch (Exception e){
+            log.info("Getting Job Counters");
+            HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
+            countersObj.getJobCounters(jobId);
+            counterValues = countersObj.getJobCounters(jobId);
+            log.info("Done Getting Job Counters ...");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        WorkloadCountersManager mgr = new WorkloadCountersManager();
 
-
-        // to save into hbase
-/*
-        WorkloadCounters performanceCounters = new WorkloadCounters();
-        performanceCounters.setElapsedTime(elapsedTime);
-        performanceCounters.setCpu(historicalTaskCounters.getCPUMSec().toString());
-        performanceCounters.setMemory(historicalTaskCounters.getPMemBytes().toString());
-        log.info("Performance Counters: " + performanceCounters.toString());
-
-        log.info("Saving Counters into Hbase ...");
-        workloadManager.saveWorkloadCounters(workloadId, DateTimeUtils.convertDateTimeStringToTimestamp(DateTimeUtils.getCurrentDateTime()), jobId, performanceCounters);
-        log.info("Done Saving Counters into Hbase ...");
-*/
-
-
-
-        log.info("Saving Counters into Phoenix Table ...");
-        mgr.saveCounters(workloadId, new Date(), (int)elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_MR, historicalTaskCounters.getCounterValues());
-        log.info("Done Saving Counters into Phoenix ...");
-        mgr.close();
-
-
-
-
+        return counterValues;
     }
+
+
+
+    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
+        log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
+        System.out.println("Saving Counters into Phoenix Table For Job ID: " + jobId);
+
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE, jobCounters, "", params);
+        log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        System.out.println("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        workloadManager.close();
+    }
+
 
 
 

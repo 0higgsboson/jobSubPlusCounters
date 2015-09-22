@@ -1,0 +1,9 @@
+To run these scripts, make sure you have authenticated yourself using `gcloud auth login`
+and have set correct default project i.e. 01-Dev-Build-Sherpa
+
+
+
+Warning !!!!
+------------
+Export script copy Phoenix's Meta table too and on restore some of the user's data may be overwritten, please make sure you understand its implications
+before restoring or importing data back

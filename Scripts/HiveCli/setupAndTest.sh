@@ -80,8 +80,9 @@ cp jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  ap
 # create the config file to be used later in Sherpa managed testing
 sudo touch /opt/sherpa.properties
 sudo chmod 777 /opt/sherpa.properties
+cat /dev/null > /opt/sherpa.properties
 sudo printf "mapreduce.max.split.size=3000000\n" >> /opt/sherpa.properties
-sudo printf "mapreduce.job.reduces=12" >> /opt/sherpa.properties
+sudo printf "mapreduce.job.reduces=12\n" >> /opt/sherpa.properties
 
 # Creates a temporary dir 
 mkdir SherpaHiveTest

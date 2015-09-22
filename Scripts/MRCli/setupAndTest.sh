@@ -67,7 +67,7 @@ cd ..
 sudo mv  /opt/cloudera/parcels/${CDH_VERSION}/jars/hadoop-mapreduce-client-core-${MR_CLIENT_VER}-${CDH_END_VER}.jar /opt/cloudera/parcels/${CDH_VERSION}/jars/hadoop-mapreduce-client-core-${MR_CLIENT_VER}-${CDH_END_VER}.org 
 
 cd mrClient
-sudo cp target/hadoop-mapreduce-client-core-MR-${MR_CLIENT_VER}.jar /opt/cloudera/parcels/${CDH_VERSION}/jars/hadoop-mapreduce-client-core-${MR_CLIENT_VER}-${CDH_END_VER}.jar
+sudo cp target/hadoop-mapreduce-client-core-${MR_CLIENT_VER}.jar /opt/cloudera/parcels/${CDH_VERSION}/jars/hadoop-mapreduce-client-core-${MR_CLIENT_VER}-${CDH_END_VER}.jar
 cd ..
 
 # Creates a sample workload
@@ -78,8 +78,9 @@ echo "Creating a sample workload ..."
 # Generating a parameter configuration file
 sudo touch /opt/sherpa.properties
 sudo chmod 777 /opt/sherpa.properties
-sudo printf "mapreduce.max.split.size=3000000\n" >> /opt/sherpa.properties
-sudo printf "mapreduce.job.reduces=12" >> /opt/sherpa.properties
+cat /dev/null > /opt/sherpa.properties
+sudo printf "mapreduce.max.split.size=300000000\n" >> /opt/sherpa.properties
+sudo printf "mapreduce.job.reduces=12\n" >> /opt/sherpa.properties
 
 
 # Copies data from HDFS, Assumption is that data is placed on HDFS /data/large location
@@ -99,8 +100,12 @@ yarn jar custominputformat/target/custominputformat-1.0.jar com.sherpa.custominp
 #  echo "FAILED: PS MR test with large data input"
 #fi
 
-# Run test without manager first??
-echo "Small files test with Sherpa manager..."
-yarn jar custominputformat/target/custominputformat-1.0.jar com.sherpa.custominputformat.WordCountDriver /data/small /output/small PSManaged=true
+# Run test without manager first
+echo "Small files test without Sherpa manager..."
+yarn jar custominputformat/target/custominputformat-1.0.jar com.sherpa.custominputformat.WordCountDriver /data/small /output/small
+
+# Run test with manager
+echo "Small files test WITH Sherpa manager..."
+yarn jar custominputformat/target/custominputformat-1.0.jar com.sherpa.custominputformat.CombineInputFormatWordCountDriver /data/small /output/small PSManaged=true
 
 echo "Done Testing ..."

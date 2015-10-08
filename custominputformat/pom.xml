@@ -100,7 +100,7 @@
 
                     <archive>
                         <manifest>
-                            <mainClass>com.sherpa.custominputformat.WordCountDriver</mainClass>
+                            <mainClass></mainClass>
 
                         </manifest>
                     </archive>

@@ -170,7 +170,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-    public void exportWorkloadCounters(String filePath){
+    public int exportWorkloadCounters(String filePath){
 
         ResultSet rset = null;
         PrintWriter writer = null;
@@ -243,12 +243,12 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         }
 
         log.info("Done Exporting WorkloadCounters");
-
+        return  count;
     }
 
 
 
-    public void importWorkloadCounters(String filePath){
+    public int importWorkloadCounters(String filePath){
 
         StringBuilder headerBuilder = new StringBuilder();
 
@@ -256,6 +256,8 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         BufferedReader reader = null;
         Connection con = createConnection();
         Statement stmt = null;
+        int count = 0;
+
         try {
             stmt = con.createStatement();
             reader = new BufferedReader(new FileReader(filePath));
@@ -271,7 +273,6 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             String header = headerBuilder.substring(0,headerBuilder.length()-1);
             log.info("Header: " + header);
 
-            int count = 0;
             while( (line=reader.readLine()) != null ){
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("upsert into ").append(WorkloadCountersConfigurations.COUNTERS_TABLE_NAME).append(" (").append(header).append(")").append(" values (");
@@ -309,6 +310,8 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             }
         }
         log.info("Done Importing WorkloadCounters");
+        return  count;
+
     }
 
 
@@ -317,7 +320,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-    public void exportWorkloadCountersIds(String filePath){
+    public int exportWorkloadCountersIds(String filePath){
         ResultSet rset = null;
         PrintWriter writer = null;
 
@@ -359,14 +362,17 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         }
 
         log.info("Done Exporting Workload Ids");
+        return  count;
     }
 
 
 
-    public void importWorkloadCountersIds(String filePath){
+    public int importWorkloadCountersIds(String filePath){
         BufferedReader reader = null;
         Connection con = createConnection();
         Statement stmt = null;
+        int count = 0;
+
         try {
             stmt = con.createStatement();
             reader = new BufferedReader(new FileReader(filePath));
@@ -374,7 +380,6 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             // ignore the header
             String line = reader.readLine();
 
-            int count = 0;
             while( (line=reader.readLine()) != null ){
                 String[] tok = line.split(",");
                 if(tok.length !=3 )
@@ -400,6 +405,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             }
         }
         log.info("Done Importing Workload Ids");
+        return  count;
     }
 
 

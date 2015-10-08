@@ -55,21 +55,21 @@ public class WorkloadCountersManager {
     }
 
 
-    public void importWorkloadCountersIds(String filePath) {
-        phoenixDAO.importWorkloadCountersIds(filePath);
+    public int importWorkloadCountersIds(String filePath) {
+        return phoenixDAO.importWorkloadCountersIds(filePath);
     }
 
-    public void exportWorkloadCountersIds(String filePath) {
-        phoenixDAO.exportWorkloadCountersIds(filePath);
+    public int exportWorkloadCountersIds(String filePath) {
+        return phoenixDAO.exportWorkloadCountersIds(filePath);
     }
 
-    public void exportWorkloadCounters(String filePath) {
-        phoenixDAO.exportWorkloadCounters(filePath);
+    public int exportWorkloadCounters(String filePath) {
+        return phoenixDAO.exportWorkloadCounters(filePath);
     }
 
 
-    public void importWorkloadCounters(String filePath) {
-        phoenixDAO.importWorkloadCounters(filePath);
+    public int importWorkloadCounters(String filePath) {
+        return phoenixDAO.importWorkloadCounters(filePath);
     }
 
 

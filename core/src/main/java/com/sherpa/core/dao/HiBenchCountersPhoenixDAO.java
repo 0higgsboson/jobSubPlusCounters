@@ -195,7 +195,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-    public void exportHiBench(String filePath){
+    public int exportHiBench(String filePath){
 
         ResultSet rset = null;
         PrintWriter writer = null;
@@ -269,12 +269,12 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         }
 
         log.info("Done Exporting HiBenchIds");
-
+        return count;
     }
 
 
 
-    public void importHiBench(String filePath){
+    public int importHiBench(String filePath){
 
         StringBuilder headerBuilder = new StringBuilder();
 
@@ -282,6 +282,8 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         BufferedReader reader = null;
         Connection con = createConnection();
         Statement stmt = null;
+        int count = 0;
+
         try {
             stmt = con.createStatement();
             reader = new BufferedReader(new FileReader(filePath));
@@ -297,7 +299,6 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             String header = headerBuilder.substring(0,headerBuilder.length()-1);
             log.info("Header: " + header);
 
-            int count = 0;
             while( (line=reader.readLine()) != null ){
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("upsert into ").append(HiBenchCountersConfigurations.HIBENCH_TABLE_NAME).append(" (").append(header).append(")").append(" values (");
@@ -335,6 +336,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             }
         }
         log.info("Done Importing HiBenchIds");
+        return count;
     }
 
 
@@ -343,7 +345,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-    public void exportHiBenchIds(String filePath){
+    public int exportHiBenchIds(String filePath){
         ResultSet rset = null;
         PrintWriter writer = null;
 
@@ -385,14 +387,17 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
         }
 
         log.info("Done Exporting HiBenchIds");
+        return count;
     }
 
 
 
-    public void importHiBenchIds(String filePath){
+    public int importHiBenchIds(String filePath){
         BufferedReader reader = null;
         Connection con = createConnection();
         Statement stmt = null;
+        int count = 0;
+
         try {
             stmt = con.createStatement();
             reader = new BufferedReader(new FileReader(filePath));
@@ -400,7 +405,6 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             // ignore the header
             String line = reader.readLine();
 
-            int count = 0;
             while( (line=reader.readLine()) != null ){
                 String[] tok = line.split(",");
                 if(tok.length !=3 )
@@ -426,6 +430,7 @@ public class HiBenchCountersPhoenixDAO extends  PhoenixDAO{
             }
         }
         log.info("Done Importing HiBenchIds");
+        return  count;
     }
 
 

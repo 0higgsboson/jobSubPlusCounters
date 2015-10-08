@@ -17,7 +17,7 @@ import java.util.Properties;
 
 
 /**
- * Loads configurations
+ * Loads configurations from cluster's environment
  */
 
 public class ConfigurationLoader {
@@ -79,10 +79,10 @@ public class ConfigurationLoader {
         }
 
         if(!hadoopHome.endsWith(File.separator))
-            hadoopHome = File.separator;
+            hadoopHome += File.separator;
 
         if(!hbaseHome.endsWith(File.separator))
-            hbaseHome = File.separator;
+            hbaseHome += File.separator;
 
 
         log.info("Hadoop Home: " + hadoopHome);
@@ -194,7 +194,7 @@ public class ConfigurationLoader {
             ;
         }
 
-        return 2*1000;  // defaults to 5 sec
+        return 2*1000;
     }
 
 

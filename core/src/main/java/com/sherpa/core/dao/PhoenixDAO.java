@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class PhoenixDAO {
     private String zookeeper;
-    private static Connection connection = null;
+    private Connection connection = null;
     public static final String CONNECTION_STRING = "jdbc:phoenix:";
 
     private static final Logger log = LoggerFactory.getLogger(PhoenixDAO.class);

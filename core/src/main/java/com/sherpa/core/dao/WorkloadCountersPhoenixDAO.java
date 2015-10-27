@@ -120,6 +120,8 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         } catch (SQLException e) {
             e.printStackTrace();
             log.error("SQL: " + sql);
+            System.out.println(e.getMessage());
+            System.out.println("Error SQL: " + sql);
         }
 
     }

@@ -29,6 +29,11 @@ public class WorkloadCountersManager {
         workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
     }
 
+    public WorkloadCountersManager(String zookeeperIp){
+        phoenixDAO = new WorkloadCountersPhoenixDAO(zookeeperIp);
+        workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
+    }
+
 
     // For Phoenix
     public void saveCounters(int workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){

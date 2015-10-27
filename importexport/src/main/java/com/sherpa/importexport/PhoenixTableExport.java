@@ -31,36 +31,29 @@ public class PhoenixTableExport {
             System.exit(1);
         }
 
-        String dirPath = args[0];
+        new PhoenixTableExport().run(args[0], args[1]);
+    }
+
+
+
+    public String run(String path, String dateTime){
+        String dirPath = path;
         if(!dirPath.endsWith(File.separator))
-            dirPath = dirPath + File.separator;
+            dirPath = dirPath + File.separator ;
+
+        dirPath +=  "Export" + File.separator;
 
         File file = new File(dirPath);
         if(!file.exists()){
             file.mkdirs();
-            System.out.println("Created output dir ...");
+            System.out.println("Created output dir ..." + dirPath);
         }
 
         Map<String, Integer> stats = new HashMap<String, Integer>();
 
         int recordsCount = 0;
         String filePath;
-      /*  System.out.println("\n\n\nExporting HiBench IDs");
-        System.out.println("**********************************************************");
-        String filePath = dirPath + HIBENCH_IDS_FILE_NAME;
-        HiBenchManager hiBenchManager = new HiBenchManager();
-        recordsCount = hiBenchManager.exportHiBenchIds(filePath);
-        stats.put(HIBENCH_IDS_TABLE_NAME, recordsCount);
 
-        System.out.println("\n\n\nExporting HiBench");
-        System.out.println("**********************************************************");
-        filePath = dirPath + HIBENCH_FILE_NAME;
-        recordsCount =hiBenchManager.exportHiBench(filePath);
-        stats.put(HIBENCH_TABLE_NAME, recordsCount);
-        hiBenchManager.close();
-        System.out.println("Done Exporting HiBench");
-
-*/
         System.out.println("\n\n\nExporting WorkloadCounters IDs");
         System.out.println("**********************************************************");
         filePath = dirPath + WORKLOAD_COUNTERS_IDS_FILE_NAME;
@@ -76,11 +69,11 @@ public class PhoenixTableExport {
         workloadCountersManager.close();
         System.out.println("Done Exporting WorkloadCounters");
 
-        new EmailUtils().sendEmail(EmailUtils.EXPORT_SUBJECT, "Export", args[1], stats);
+        new EmailUtils().sendEmail(EmailUtils.EXPORT_SUBJECT, "Export", dateTime, stats);
         System.out.println("Export email notification sent");
+
+        return dirPath;
     }
-
-
 
 
 

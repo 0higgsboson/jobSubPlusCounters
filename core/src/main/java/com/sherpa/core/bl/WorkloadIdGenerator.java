@@ -39,7 +39,7 @@ public class WorkloadIdGenerator {
 
         log.info("WorkloadIdGenerator Initialized: " + workloadHashToIdMap.keySet().size());
         log.info("Hash To ID Map: " + workloadHashToIdMap);
-        System.out.println("Hash To ID Map: " + workloadHashToIdMap);
+        System.out.println("\n\n\n\n\n ************** Hash To ID Map: " + workloadHashToIdMap);
     }
 
 

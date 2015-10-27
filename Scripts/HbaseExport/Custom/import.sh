@@ -3,7 +3,7 @@
 
 # DateTime Of Export
 # Has to be a valid Backup DateTime, Check on Google Cloud Backup Dir
-DT=2015-09-22-14
+DT=2015-10-27-16-37
 
 
 printf "Preparing dir strcuture ..."
@@ -14,7 +14,7 @@ cd $tempDir
 CURRENT_DIR=`pwd`
 
 
-JAR_PATH=/home/ubuntu/SP/importexport/target/importexport-1.0-jar-with-dependencies.jar
+JAR_PATH=/root/sherpa/jobSubPub_src/jobSubPlusCounters/importexport/target/importexport-1.0-jar-with-dependencies.jar
 
 printf "\nDownloading Data From Google Cloud Storage ..."
 gsutil cp -r gs://hbase-backup/$DT/export/* ${CURRENT_DIR}/import/

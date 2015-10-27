@@ -6,7 +6,7 @@
 
 
 ###############################################  Configurations #######################################################
-host_name=tenzing-red
+host_name=tenzing-green
 
   # define following directories without ending slash /
 yarn_data_dir=/mnt/yarn

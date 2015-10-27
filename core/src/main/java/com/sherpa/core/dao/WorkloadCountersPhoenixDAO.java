@@ -262,8 +262,10 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
                     count++;
 
                 }
-                else
+                else {
                     errors++;
+                    System.out.println();
+                }
 
 
             }

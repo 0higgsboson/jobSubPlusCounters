@@ -37,7 +37,7 @@ public class Utils {
             str= str.replaceAll("\'", "");
 
 
-            builder.append(e.getKey()).append("=").append(e.getValue()).append("\n");
+            builder.append(e.getKey()).append("=").append(e.getValue()).append("#");
         }
         return  builder.toString();
     }
@@ -46,7 +46,7 @@ public class Utils {
     public static synchronized String toString2(Map<String, BigInteger> map){
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String, BigInteger> e: map.entrySet()){
-            builder.append(e.getKey()).append("=").append(e.getValue()).append("\n");
+            builder.append(e.getKey()).append("=").append(e.getValue()).append("#");
         }
         return  builder.toString();
     }

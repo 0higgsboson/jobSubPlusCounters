@@ -6,7 +6,7 @@
 
 
 ###############################################  Configurations #######################################################
-host_name=tenzing-green
+host_name=tenzing-red
 
   # define following directories without ending slash /
 yarn_data_dir=/mnt/yarn
@@ -450,8 +450,22 @@ grep -q -F 'export SPARK_HOME=$SPARK_HOME' /etc/environment || echo "export SPAR
 grep -q -F 'export MAVEN_OPTS="-Xmx1024m -Xms512m -Xss20m"' /etc/environment || echo 'export MAVEN_OPTS="-Xmx1024m -Xms512m -Xss20m"' >> /etc/environment
 
 source /etc/environment
+
 grep -q -F 'source /etc/environment' /root/.bashrc || echo "source /etc/environment" >> /root/.bashrc
-grep -q -F 'source /etc/environment' /root/.profile || echo "source /etc/environment" >> /root/.profile
+grep -q -F 'source /etc/environment' /root/.bashrc || echo "source /etc/environment" >> /root/.bashrc
+
+
+echo "source /etc/environment" >> /root/.bashrc
+echo "source /etc/environment" >> /root/.profile
+
+
+
+# Hive Error Fix
+# http://stackoverflow.com/questions/28997441/hive-startup-error-terminal-initialization-failed-falling-back-to-unsupporte
+# https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started
+rm ${HADOOP_HOME}/share/hadoop/yarn/lib/jline-0.9.94.jar
+
+
 
 
 jps

@@ -22,10 +22,12 @@ public class SmallFilesMapper extends Mapper<FileInfoWritable, Text, Text, IntWr
 
     public void map (FileInfoWritable key, Text val, Context context) throws IOException, InterruptedException{
 
-        System.out.println(key.toString());
+        //System.out.println(key.toString());
         StringTokenizer st = new StringTokenizer(val.toString());
         while (st.hasMoreTokens()){
-            txt.set(st.nextToken());
+            txt.set(st.nextToken().trim());
+
+            //System.out.println("Key=" + txt.toString() + "\t Value=" + count.get() );
             context.write(txt, count);
         }
     }

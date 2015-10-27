@@ -245,7 +245,7 @@ public class HiveJobExecutor extends Thread{
 
     private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters, hivesql, sherpaParams);
+       // workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE,jobCounters, hivesql, sherpaParams);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }

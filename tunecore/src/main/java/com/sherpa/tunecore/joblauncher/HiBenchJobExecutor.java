@@ -1,13 +1,10 @@
 package com.sherpa.tunecore.joblauncher;
 
-import com.sherpa.core.bl.HiBenchIdGenerator;
 import com.sherpa.core.bl.HiBenchManager;
-import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
-import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -319,7 +316,7 @@ public class HiBenchJobExecutor {
     private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, String config, String sql){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
        
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE,jobCounters, config, sql);
+        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE,jobCounters, config, sql);
         
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         

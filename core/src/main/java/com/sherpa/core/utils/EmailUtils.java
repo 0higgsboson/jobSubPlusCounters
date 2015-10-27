@@ -1,9 +1,8 @@
 package com.sherpa.core.utils;
 
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -11,12 +10,8 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.net.smtp.SmtpClient;
-import java.io.*;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -58,7 +53,7 @@ public class EmailUtils {
             builder.append("<strong> Task: </strong> ").append(taskName).append("  <br />");
             builder.append("<strong> Date Time: </strong> ").append(dateTime).append("  <br />");
 
-            for (java.util.Map.Entry<String, Integer> e : map.entrySet()) {
+            for (Map.Entry<String, Integer> e : map.entrySet()) {
                 builder.append("<strong> Records Count ( " + e.getKey() + " ) :</strong>").append(e.getValue()).append(" <br />");
             }
 

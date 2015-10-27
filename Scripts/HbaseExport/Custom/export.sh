@@ -7,10 +7,10 @@ mkdir $tempDir
 cd $tempDir 
 CURRENT_DIR=`pwd`
 
-JAR_PATH=/root/tunecore-1.0-jar-with-dependencies.jar
+JAR_PATH=/home/ubuntu/SP/importexport/target/importexport-1.0-jar-with-dependencies.jar
 
 printf "\n\nExporting Tables ..."
-java -cp $JAR_PATH com.sherpa.tunecore.PhoenixTableExport  ${CURRENT_DIR}/export/  $NOW
+java -cp $JAR_PATH com.sherpa.importexport.PhoenixTableExport  ${CURRENT_DIR}/export/  $NOW
 printf "\nDone Exporting Tables ..."
 
 printf "\nUploading Data on Google Cloud Storage ..."

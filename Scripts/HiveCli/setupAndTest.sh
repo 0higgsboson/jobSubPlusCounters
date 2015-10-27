@@ -36,7 +36,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 
-# Its a fix to use java vesion 7 on GCloud machines, comment that out if you are already using java 7
+# Its a fix to use java version 7 on GCloud machines, comment that out if you are already using java 7
 update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/java-7-oracle-cloudera/bin/java" 50000
 update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/java-7-oracle-cloudera/bin/javac" 50000
 
@@ -96,7 +96,7 @@ cat /dev/null > query.hql
 echo "drop table if exists docs_large;CREATE TABLE docs_large (line STRING);LOAD DATA LOCAL INPATH '/root/TestsData/large' OVERWRITE INTO TABLE docs_large;drop table if exists wc_large;CREATE TABLE wc_large AS SELECT word, count(1) AS count FROM (SELECT explode(split(line, '\s')) AS word FROM docs_large) w GROUP BY word ORDER BY word;" >> query.hql
 
 
-# Copies data from HDFS, Assumption is data is placed at on HDFS /data/large
+# Copies data from HDFS, Assumption is data is placed on HDFS /data/large
 echo "Copying data from HDFS to local ..."
 mkdir /root/TestsData/
 hdfs dfs -copyToLocal /data/large /root/TestsData/

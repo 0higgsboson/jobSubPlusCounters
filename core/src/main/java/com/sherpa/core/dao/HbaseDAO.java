@@ -70,7 +70,7 @@ public class HbaseDAO {
     }
 
     public void createTable(String tableName){
-        createTable(tableName, WorkloadCountersConfigurations.DATA_COLUMN_FAMILY);
+        //createTable(tableName, WorkloadCountersConfigurations.DATA_COLUMN_FAMILY);
     }
 
 

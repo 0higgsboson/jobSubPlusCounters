@@ -7,9 +7,9 @@ public class HiveCliFactory {
     private static HiveCliJobExecutor hiveCliJobExecutor = null;
 
 
-    public static HiveCliJobExecutor getHiveCliJobExecutorInstance(String fileContents, String rmUrl, String historyServer, int pollInterval, String params){
+    public static HiveCliJobExecutor getHiveCliJobExecutorInstance(String fileContents, String rmUrl, String historyServer, int pollInterval){
         if(hiveCliJobExecutor==null)
-            hiveCliJobExecutor = new HiveCliJobExecutor(fileContents, rmUrl, historyServer, pollInterval, params);
+            hiveCliJobExecutor = new HiveCliJobExecutor(fileContents, rmUrl, historyServer, pollInterval);
 
         return  hiveCliJobExecutor;
     }

@@ -1,3 +1,4 @@
+/*
 package com.sherpa.core.dao;
 
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+*/
 /**
  * Created by akhtar on 22/08/2015.
- */
+ *//*
+
 public class WorkloadCountersHbaseDAO extends HbaseDAO{
 
     private static final Logger log = LoggerFactory.getLogger(WorkloadCountersHbaseDAO.class);
@@ -122,11 +125,15 @@ public class WorkloadCountersHbaseDAO extends HbaseDAO{
         if(result!=null && !result.isEmpty()){
             try{
 
-                /**
+                */
+/**
                  * for debugging only
-                  */
+                  *//*
+
             displayHbaseResult(result);
-                /*****/
+                */
+/*****//*
+
 
                 workloadCounters = getWorkloadCounterFromKey(result.getRow());
                 workloadCounters.setCpu(Bytes.toString(result.getValue(Bytes.toBytes(WorkloadCountersConfigurations.DATA_COLUMN_FAMILY), Bytes.toBytes(WorkloadCountersConfigurations.CPU_COLUMN_NAME))));
@@ -221,3 +228,4 @@ public class WorkloadCountersHbaseDAO extends HbaseDAO{
 
 
 }
+*/

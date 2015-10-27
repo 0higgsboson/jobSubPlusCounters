@@ -1,0 +1,577 @@
+2015-10-25 01:50:23 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 01:50:23 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 01:51:39 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 01:51:39 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 02:29:18 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 02:29:18 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 02:29:19 DEBUG Groups:139 -  Creating new Groups object
+2015-10-25 02:29:19 DEBUG Groups:59 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+2015-10-25 02:29:19 DEBUG UserGroupInformation:147 - hadoop login
+2015-10-25 02:29:19 DEBUG UserGroupInformation:96 - hadoop login commit
+2015-10-25 02:29:19 DEBUG UserGroupInformation:126 - using local user:UnixPrincipal: root
+2015-10-25 02:29:19 DEBUG UserGroupInformation:558 - UGI loginUser:root
+2015-10-25 02:29:19 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x31b4b8fc connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:host.name=akhtars-mbp
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.version=1.7.0_75
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.vendor=Oracle Corporation
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.class.path=target/tunecore-1.0-jar-with-dependencies.jar
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.io.tmpdir=/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:java.compiler=<NA>
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:os.name=Mac OS X
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:os.arch=x86_64
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:os.version=10.10
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:user.name=root
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:user.home=/var/root
+2015-10-25 02:29:19 INFO  ZooKeeper:100 - Client environment:user.dir=/Users/akhtar/Downloads/Freelancing/Clients/Sadiq_Shaik/SherpaPerformance/tunecore
+2015-10-25 02:29:19 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x31b4b8fc0x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:29:19 DEBUG ClientCnxn:102 - zookeeper.disableAutoWatchReset is false
+2015-10-25 02:29:19 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:29:19 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:29:19 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:29:20 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41001a, negotiated timeout = 90000
+2015-10-25 02:29:20 DEBUG ZooKeeperWatcher:312 - hconnection-0x31b4b8fc0x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:29:20 DEBUG ZooKeeperWatcher:396 - hconnection-0x31b4b8fc-0x15091436f41001a connected
+2015-10-25 02:29:20 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001a, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1250,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:29:21 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001a, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1250,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:29:21 DEBUG FileSystem:1441 - Creating filesystem for file:///
+2015-10-25 02:29:21 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@53b10504, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:29:21 INFO  ConnectionManager$HConnectionImplementation:1682 - Closing zookeeper sessionid=0x15091436f41001a
+2015-10-25 02:29:21 DEBUG ZooKeeper:673 - Closing session: 0x15091436f41001a
+2015-10-25 02:29:21 DEBUG ClientCnxn:1306 - Closing client for session: 0x15091436f41001a
+2015-10-25 02:29:21 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001a, packet:: clientPath:null serverPath:null finished:false header:: 3,-11  replyHeader:: 3,1251,0  request:: null response:: null
+2015-10-25 02:29:21 DEBUG ClientCnxn:1290 - Disconnecting client for session: 0x15091436f41001a
+2015-10-25 02:29:21 DEBUG ClientCnxn:1086 - An exception was thrown while closing send thread for session 0x15091436f41001a : Unable to read additional data from server sessionid 0x15091436f41001a, likely server has closed socket
+2015-10-25 02:29:21 INFO  ClientCnxn:512 - EventThread shut down
+2015-10-25 02:29:21 INFO  ZooKeeper:684 - Session: 0x15091436f41001a closed
+2015-10-25 02:29:21 DEBUG AbstractRpcClient:1100 - Stopping rpc client
+2015-10-25 02:29:21 DEBUG FileSystem:284 - Starting clear of FileSystem cache with 1 elements.
+2015-10-25 02:29:21 DEBUG FileSystem:1290 - Removing filesystem for file:///
+2015-10-25 02:29:21 DEBUG FileSystem:1290 - Removing filesystem for file:///
+2015-10-25 02:29:21 DEBUG FileSystem:287 - Done clearing cache
+2015-10-25 02:30:36 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 02:30:36 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 02:30:36 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginSuccess with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Rate of successful kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:36 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginFailure with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Rate of failed kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:36 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.getGroups with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[GetGroups], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:36 DEBUG MetricsSystemImpl:231 - UgiMetrics, User and group related metrics
+2015-10-25 02:30:36 DEBUG KerberosName:88 - Kerberos krb5 configuration not found, setting default realm to empty
+2015-10-25 02:30:36 DEBUG Groups:278 -  Creating new Groups object
+2015-10-25 02:30:36 DEBUG NativeCodeLoader:46 - Trying to load the custom-built native-hadoop library...
+2015-10-25 02:30:36 DEBUG NativeCodeLoader:55 - Failed to load native-hadoop with error: java.lang.UnsatisfiedLinkError: no hadoop in java.library.path
+2015-10-25 02:30:36 DEBUG NativeCodeLoader:56 - java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:30:36 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2015-10-25 02:30:36 DEBUG PerformanceAdvisory:41 - Falling back to shell based
+2015-10-25 02:30:36 DEBUG JniBasedUnixGroupsMappingWithFallback:45 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping
+2015-10-25 02:30:36 DEBUG Shell:392 - setsid is not available on this machine. So not using it.
+2015-10-25 02:30:36 DEBUG Shell:396 - setsid exited with exit code 0
+2015-10-25 02:30:36 DEBUG Groups:91 - Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+2015-10-25 02:30:36 DEBUG UserGroupInformation:209 - hadoop login
+2015-10-25 02:30:36 DEBUG UserGroupInformation:144 - hadoop login commit
+2015-10-25 02:30:36 DEBUG UserGroupInformation:174 - using local user:UnixPrincipal: root
+2015-10-25 02:30:36 DEBUG UserGroupInformation:180 - Using user: "UnixPrincipal: root" with name root
+2015-10-25 02:30:36 DEBUG UserGroupInformation:190 - User entry: "root"
+2015-10-25 02:30:36 DEBUG UserGroupInformation:799 - UGI loginUser:root (auth:SIMPLE)
+2015-10-25 02:30:36 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x1f7ce10d connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:host.name=akhtars-mbp
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.version=1.7.0_75
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.vendor=Oracle Corporation
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.class.path=target/tunecore-1.0-jar-with-dependencies.jar
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.io.tmpdir=/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:java.compiler=<NA>
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:os.name=Mac OS X
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:os.arch=x86_64
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:os.version=10.10
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:user.name=root
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:user.home=/var/root
+2015-10-25 02:30:36 INFO  ZooKeeper:100 - Client environment:user.dir=/Users/akhtar/Downloads/Freelancing/Clients/Sadiq_Shaik/SherpaPerformance/tunecore
+2015-10-25 02:30:36 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x1f7ce10d0x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:30:36 DEBUG ClientCnxn:102 - zookeeper.disableAutoWatchReset is false
+2015-10-25 02:30:36 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:30:37 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:30:37 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:30:37 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41001b, negotiated timeout = 90000
+2015-10-25 02:30:37 DEBUG ZooKeeperWatcher:312 - hconnection-0x1f7ce10d0x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:30:37 DEBUG ZooKeeperWatcher:396 - hconnection-0x1f7ce10d-0x15091436f41001b connected
+2015-10-25 02:30:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001b, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1252,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:30:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001b, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1252,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:30:37 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@d13283f, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:30:37 INFO  Metrics:44 - Initializing metrics system: phoenix
+2015-10-25 02:30:37 DEBUG MetricsSystemImpl:619 - from system property: null
+2015-10-25 02:30:37 DEBUG MetricsSystemImpl:620 - from environment variable: null
+2015-10-25 02:30:37 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2-phoenix.properties
+2015-10-25 02:30:37 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2.properties
+2015-10-25 02:30:37 WARN  MetricsConfig:124 - Cannot locate configuration: tried hadoop-metrics2-phoenix.properties,hadoop-metrics2.properties
+2015-10-25 02:30:37 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: period
+2015-10-25 02:30:37 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.snapshotStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Snapshot, Snapshot stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:37 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.publishStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Publish, Publishing stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:37 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableCounterLong org.apache.hadoop.metrics2.impl.MetricsSystemImpl.droppedPubAll with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Dropped updates by all sinks], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:30:37 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:30:37 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:30:37 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=10
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sources, name=NumActiveSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sources, name=NumAllSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sinks, name=NumActiveSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sinks, name=NumAllSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for snapshot stats, name=SnapshotNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for snapshot stats, name=SnapshotAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for publishing stats, name=PublishNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for publishing stats, name=PublishAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Dropped updates by all sinks, name=DroppedPubAll, type=java.lang.Long, read-only, descriptor={}]]
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:30:38 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Stats
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:222 - MBean for source MetricsSystem,sub=Stats registered.
+2015-10-25 02:30:38 INFO  MetricsSystemImpl:376 - Scheduled snapshot period at 10 second(s).
+2015-10-25 02:30:38 INFO  MetricsSystemImpl:191 - phoenix metrics system started
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=8
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for getGroups, name=GetGroupsNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for getGroups, name=GetGroupsAvgTime, type=java.lang.Double, read-only, descriptor={}]]
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:30:38 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=UgiMetrics
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:222 - MBean for source UgiMetrics registered.
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:270 - Registered source UgiMetrics
+2015-10-25 02:30:38 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Control
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:231 - tracing, Phoenix call tracing
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=2
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=num spans, name=tag.stat, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}]]
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:30:38 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=tracing
+2015-10-25 02:30:38 DEBUG MetricsSourceAdapter:222 - MBean for source tracing registered.
+2015-10-25 02:30:38 DEBUG MetricsSystemImpl:270 - Registered source tracing
+2015-10-25 02:30:38 DEBUG ReadOnlyProps:303 - Creating new ReadOnlyProps due to CurrentSCN with null!=8
+2015-10-25 02:30:38 DEBUG ConnectionQueryServicesImpl:820 - Found quorum: 104.130.29.25:2181:/hbase
+2015-10-25 02:30:38 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x74bdfd63 connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:30:38 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x74bdfd630x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:30:38 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:30:38 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:30:38 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:30:39 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41001c, negotiated timeout = 90000
+2015-10-25 02:30:39 DEBUG ZooKeeperWatcher:312 - hconnection-0x74bdfd630x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:30:39 DEBUG ZooKeeperWatcher:396 - hconnection-0x74bdfd63-0x15091436f41001c connected
+2015-10-25 02:30:39 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1253,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:30:39 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1253,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:30:39 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@5c161337, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:30:40 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 3,3  replyHeader:: 3,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:40 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 4,4  replyHeader:: 4,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:40 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 5,3  replyHeader:: 5,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:41 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 6,4  replyHeader:: 6,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:41 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 7,3  replyHeader:: 7,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:42 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 8,4  replyHeader:: 8,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:43 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 9,3  replyHeader:: 9,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:43 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 10,4  replyHeader:: 10,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:44 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 11,3  replyHeader:: 11,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:45 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 12,4  replyHeader:: 12,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:47 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 13,3  replyHeader:: 13,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:47 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 14,4  replyHeader:: 14,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:30:52 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 15,3  replyHeader:: 15,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:30:52 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 16,4  replyHeader:: 16,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:02 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 17,3  replyHeader:: 17,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:31:02 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 277ms
+2015-10-25 02:31:03 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 18,4  replyHeader:: 18,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:07 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001b after 377ms
+2015-10-25 02:31:13 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 19,3  replyHeader:: 19,1253,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:31:13 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 325ms
+2015-10-25 02:31:13 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 20,4  replyHeader:: 20,1253,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:24 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 21,3  replyHeader:: 21,1254,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:31:24 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 401ms
+2015-10-25 02:31:24 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 22,4  replyHeader:: 22,1254,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:35 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 23,3  replyHeader:: 23,1254,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:31:35 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 268ms
+2015-10-25 02:31:35 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 24,4  replyHeader:: 24,1254,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:35 INFO  RpcRetryingCaller:132 - Call exception, tries=10, retries=35, started=55542 ms ago, cancelled=false, msg=
+2015-10-25 02:31:37 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001b after 281ms
+2015-10-25 02:31:55 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 25,3  replyHeader:: 25,1255,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:31:55 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 276ms
+2015-10-25 02:31:55 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 26,4  replyHeader:: 26,1255,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:31:55 INFO  RpcRetryingCaller:132 - Call exception, tries=11, retries=35, started=76108 ms ago, cancelled=false, msg=
+2015-10-25 02:32:07 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001b after 284ms
+2015-10-25 02:32:16 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 27,3  replyHeader:: 27,1255,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:32:16 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 282ms
+2015-10-25 02:32:16 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 28,4  replyHeader:: 28,1255,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:32:16 INFO  RpcRetryingCaller:132 - Call exception, tries=12, retries=35, started=96736 ms ago, cancelled=false, msg=
+2015-10-25 02:32:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 29,3  replyHeader:: 29,1255,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:32:37 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 329ms
+2015-10-25 02:32:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 30,4  replyHeader:: 30,1255,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:32:37 INFO  RpcRetryingCaller:132 - Call exception, tries=13, retries=35, started=117688 ms ago, cancelled=false, msg=
+2015-10-25 02:32:37 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001b after 274ms
+2015-10-25 02:32:57 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 31,3  replyHeader:: 31,1256,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:32:57 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001c after 272ms
+2015-10-25 02:32:58 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41001c, packet:: clientPath:null serverPath:null finished:false header:: 32,4  replyHeader:: 32,1256,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:32:58 INFO  RpcRetryingCaller:132 - Call exception, tries=14, retries=35, started=138281 ms ago, cancelled=false, msg=
+2015-10-25 02:33:07 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41001b after 264ms
+2015-10-25 02:33:42 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 02:33:42 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 02:33:42 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginSuccess with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[Rate of successful kerberos logins and latency (milliseconds)], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:42 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginFailure with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[Rate of failed kerberos logins and latency (milliseconds)], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:42 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.getGroups with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[GetGroups], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:42 DEBUG MetricsSystemImpl:231 - UgiMetrics, User and group related metrics
+2015-10-25 02:33:42 DEBUG KerberosName:88 - Kerberos krb5 configuration not found, setting default realm to empty
+2015-10-25 02:33:42 DEBUG Groups:278 -  Creating new Groups object
+2015-10-25 02:33:42 DEBUG NativeCodeLoader:46 - Trying to load the custom-built native-hadoop library...
+2015-10-25 02:33:42 DEBUG NativeCodeLoader:55 - Failed to load native-hadoop with error: java.lang.UnsatisfiedLinkError: no hadoop in java.library.path
+2015-10-25 02:33:42 DEBUG NativeCodeLoader:56 - java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:33:42 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2015-10-25 02:33:42 DEBUG PerformanceAdvisory:41 - Falling back to shell based
+2015-10-25 02:33:42 DEBUG JniBasedUnixGroupsMappingWithFallback:45 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping
+2015-10-25 02:33:42 DEBUG Shell:392 - setsid is not available on this machine. So not using it.
+2015-10-25 02:33:42 DEBUG Shell:396 - setsid exited with exit code 0
+2015-10-25 02:33:42 DEBUG Groups:91 - Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+2015-10-25 02:33:42 DEBUG UserGroupInformation:209 - hadoop login
+2015-10-25 02:33:42 DEBUG UserGroupInformation:144 - hadoop login commit
+2015-10-25 02:33:42 DEBUG UserGroupInformation:174 - using local user:UnixPrincipal: root
+2015-10-25 02:33:42 DEBUG UserGroupInformation:180 - Using user: "UnixPrincipal: root" with name root
+2015-10-25 02:33:42 DEBUG UserGroupInformation:190 - User entry: "root"
+2015-10-25 02:33:42 DEBUG UserGroupInformation:799 - UGI loginUser:root (auth:SIMPLE)
+2015-10-25 02:33:42 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x702557dd connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:host.name=akhtars-mbp
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.version=1.7.0_75
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.vendor=Oracle Corporation
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.class.path=target/tunecore-1.0-jar-with-dependencies.jar
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.io.tmpdir=/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:java.compiler=<NA>
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:os.name=Mac OS X
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:os.arch=x86_64
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:os.version=10.10
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:user.name=root
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:user.home=/var/root
+2015-10-25 02:33:42 INFO  ZooKeeper:100 - Client environment:user.dir=/Users/akhtar/Downloads/Freelancing/Clients/Sadiq_Shaik/SherpaPerformance/tunecore
+2015-10-25 02:33:42 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x702557dd0x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:33:42 DEBUG ClientCnxn:102 - zookeeper.disableAutoWatchReset is false
+2015-10-25 02:33:43 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:33:43 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:33:43 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:33:43 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f410028, negotiated timeout = 90000
+2015-10-25 02:33:43 DEBUG ZooKeeperWatcher:312 - hconnection-0x702557dd0x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:33:43 DEBUG ZooKeeperWatcher:396 - hconnection-0x702557dd-0x15091436f410028 connected
+2015-10-25 02:33:43 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410028, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1275,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:33:44 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410028, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1275,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:33:44 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@3c897063, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:33:44 INFO  Metrics:44 - Initializing metrics system: phoenix
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:619 - from system property: null
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:620 - from environment variable: null
+2015-10-25 02:33:44 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2-phoenix.properties
+2015-10-25 02:33:44 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2.properties
+2015-10-25 02:33:44 WARN  MetricsConfig:124 - Cannot locate configuration: tried hadoop-metrics2-phoenix.properties,hadoop-metrics2.properties
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: period
+2015-10-25 02:33:44 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.snapshotStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[Snapshot, Snapshot stats], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:44 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.publishStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[Publish, Publishing stats], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:44 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableCounterLong org.apache.hadoop.metrics2.impl.MetricsSystemImpl.droppedPubAll with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, value=[Dropped updates by all sinks], about=, always=false, type=DEFAULT, sampleName=Ops)
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=10
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sources, name=NumActiveSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sources, name=NumAllSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sinks, name=NumActiveSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sinks, name=NumAllSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for snapshot stats, name=SnapshotNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for snapshot stats, name=SnapshotAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for publishing stats, name=PublishNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for publishing stats, name=PublishAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Dropped updates by all sinks, name=DroppedPubAll, type=java.lang.Long, read-only, descriptor={}]]
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:33:44 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Stats
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:222 - MBean for source MetricsSystem,sub=Stats registered.
+2015-10-25 02:33:44 INFO  MetricsSystemImpl:376 - Scheduled snapshot period at 10 second(s).
+2015-10-25 02:33:44 INFO  MetricsSystemImpl:191 - phoenix metrics system started
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=8
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for getGroups, name=GetGroupsNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for getGroups, name=GetGroupsAvgTime, type=java.lang.Double, read-only, descriptor={}]]
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:33:44 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=UgiMetrics
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:222 - MBean for source UgiMetrics registered.
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:270 - Registered source UgiMetrics
+2015-10-25 02:33:44 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Control
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:231 - tracing, Phoenix call tracing
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=2
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=num spans, name=tag.stat, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}]]
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:33:44 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=tracing
+2015-10-25 02:33:44 DEBUG MetricsSourceAdapter:222 - MBean for source tracing registered.
+2015-10-25 02:33:44 DEBUG MetricsSystemImpl:270 - Registered source tracing
+2015-10-25 02:33:44 DEBUG ReadOnlyProps:303 - Creating new ReadOnlyProps due to CurrentSCN with null!=8
+2015-10-25 02:33:44 DEBUG ConnectionQueryServicesImpl:820 - Found quorum: 104.130.29.25:2181:/hbase
+2015-10-25 02:33:44 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x3545503b connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:33:44 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x3545503b0x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:33:44 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:33:45 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:33:45 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:33:45 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f410029, negotiated timeout = 90000
+2015-10-25 02:33:45 DEBUG ZooKeeperWatcher:312 - hconnection-0x3545503b0x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:33:45 DEBUG ZooKeeperWatcher:396 - hconnection-0x3545503b-0x15091436f410029 connected
+2015-10-25 02:33:45 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1276,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:33:46 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1276,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:33:46 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@584eff2, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:33:46 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 3,3  replyHeader:: 3,1276,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:33:47 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 4,4  replyHeader:: 4,1276,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:33:47 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 5,3  replyHeader:: 5,1276,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:33:48 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 6,4  replyHeader:: 6,1276,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:33:48 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 7,3  replyHeader:: 7,1276,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:33:49 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 8,4  replyHeader:: 8,1276,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:33:50 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 9,3  replyHeader:: 9,1276,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:33:50 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f410029, packet:: clientPath:null serverPath:null finished:false header:: 10,4  replyHeader:: 10,1276,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:32 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 02:36:32 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 02:36:32 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginSuccess with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Rate of successful kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:32 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginFailure with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Rate of failed kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:32 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.getGroups with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[GetGroups], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:32 DEBUG MetricsSystemImpl:231 - UgiMetrics, User and group related metrics
+2015-10-25 02:36:32 DEBUG KerberosName:88 - Kerberos krb5 configuration not found, setting default realm to empty
+2015-10-25 02:36:32 DEBUG Groups:278 -  Creating new Groups object
+2015-10-25 02:36:32 DEBUG NativeCodeLoader:46 - Trying to load the custom-built native-hadoop library...
+2015-10-25 02:36:32 DEBUG NativeCodeLoader:55 - Failed to load native-hadoop with error: java.lang.UnsatisfiedLinkError: no hadoop in java.library.path
+2015-10-25 02:36:32 DEBUG NativeCodeLoader:56 - java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:36:32 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2015-10-25 02:36:32 DEBUG PerformanceAdvisory:41 - Falling back to shell based
+2015-10-25 02:36:32 DEBUG JniBasedUnixGroupsMappingWithFallback:45 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping
+2015-10-25 02:36:32 DEBUG Shell:392 - setsid is not available on this machine. So not using it.
+2015-10-25 02:36:32 DEBUG Shell:396 - setsid exited with exit code 0
+2015-10-25 02:36:32 DEBUG Groups:91 - Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+2015-10-25 02:36:32 DEBUG UserGroupInformation:209 - hadoop login
+2015-10-25 02:36:32 DEBUG UserGroupInformation:144 - hadoop login commit
+2015-10-25 02:36:32 DEBUG UserGroupInformation:174 - using local user:UnixPrincipal: root
+2015-10-25 02:36:32 DEBUG UserGroupInformation:180 - Using user: "UnixPrincipal: root" with name root
+2015-10-25 02:36:32 DEBUG UserGroupInformation:190 - User entry: "root"
+2015-10-25 02:36:32 DEBUG UserGroupInformation:799 - UGI loginUser:root (auth:SIMPLE)
+2015-10-25 02:36:32 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x1bd665a3 connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:host.name=akhtars-mbp
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.version=1.7.0_75
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.vendor=Oracle Corporation
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.class.path=target/tunecore-1.0-jar-with-dependencies.jar
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.io.tmpdir=/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:java.compiler=<NA>
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:os.name=Mac OS X
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:os.arch=x86_64
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:os.version=10.10
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:user.name=root
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:user.home=/var/root
+2015-10-25 02:36:32 INFO  ZooKeeper:100 - Client environment:user.dir=/Users/akhtar/Downloads/Freelancing/Clients/Sadiq_Shaik/SherpaPerformance/tunecore
+2015-10-25 02:36:32 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x1bd665a30x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:36:32 DEBUG ClientCnxn:102 - zookeeper.disableAutoWatchReset is false
+2015-10-25 02:36:32 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:36:33 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:36:33 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:36:33 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41002a, negotiated timeout = 90000
+2015-10-25 02:36:33 DEBUG ZooKeeperWatcher:312 - hconnection-0x1bd665a30x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:36:33 DEBUG ZooKeeperWatcher:396 - hconnection-0x1bd665a3-0x15091436f41002a connected
+2015-10-25 02:36:33 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002a, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1282,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:36:34 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002a, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1282,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:36:34 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@3f279e56, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:36:34 INFO  Metrics:44 - Initializing metrics system: phoenix
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:619 - from system property: null
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:620 - from environment variable: null
+2015-10-25 02:36:34 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2-phoenix.properties
+2015-10-25 02:36:34 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2.properties
+2015-10-25 02:36:34 WARN  MetricsConfig:124 - Cannot locate configuration: tried hadoop-metrics2-phoenix.properties,hadoop-metrics2.properties
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: period
+2015-10-25 02:36:34 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.snapshotStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Snapshot, Snapshot stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:34 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.publishStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Publish, Publishing stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:34 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableCounterLong org.apache.hadoop.metrics2.impl.MetricsSystemImpl.droppedPubAll with annotation @org.apache.hadoop.metrics2.annotation.Metric(valueName=Time, about=, value=[Dropped updates by all sinks], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=10
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sources, name=NumActiveSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sources, name=NumAllSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sinks, name=NumActiveSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sinks, name=NumAllSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for snapshot stats, name=SnapshotNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for snapshot stats, name=SnapshotAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for publishing stats, name=PublishNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for publishing stats, name=PublishAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Dropped updates by all sinks, name=DroppedPubAll, type=java.lang.Long, read-only, descriptor={}]]
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:36:34 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Stats
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:222 - MBean for source MetricsSystem,sub=Stats registered.
+2015-10-25 02:36:34 INFO  MetricsSystemImpl:376 - Scheduled snapshot period at 10 second(s).
+2015-10-25 02:36:34 INFO  MetricsSystemImpl:191 - phoenix metrics system started
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=8
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for getGroups, name=GetGroupsNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for getGroups, name=GetGroupsAvgTime, type=java.lang.Double, read-only, descriptor={}]]
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:36:34 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=UgiMetrics
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:222 - MBean for source UgiMetrics registered.
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:270 - Registered source UgiMetrics
+2015-10-25 02:36:34 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Control
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:231 - tracing, Phoenix call tracing
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=2
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=num spans, name=tag.stat, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}]]
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 02:36:34 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=tracing
+2015-10-25 02:36:34 DEBUG MetricsSourceAdapter:222 - MBean for source tracing registered.
+2015-10-25 02:36:34 DEBUG MetricsSystemImpl:270 - Registered source tracing
+2015-10-25 02:36:34 DEBUG ReadOnlyProps:303 - Creating new ReadOnlyProps due to CurrentSCN with null!=8
+2015-10-25 02:36:34 DEBUG ConnectionQueryServicesImpl:820 - Found quorum: 104.130.29.25:2181:/hbase
+2015-10-25 02:36:34 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x1c84e4f3 connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 02:36:34 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x1c84e4f30x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 02:36:34 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 02:36:35 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 02:36:35 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 02:36:35 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41002b, negotiated timeout = 90000
+2015-10-25 02:36:35 DEBUG ZooKeeperWatcher:312 - hconnection-0x1c84e4f30x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 02:36:35 DEBUG ZooKeeperWatcher:396 - hconnection-0x1c84e4f3-0x15091436f41002b connected
+2015-10-25 02:36:35 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1283,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:36:36 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1283,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 02:36:36 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@6aba64e6, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 02:36:36 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 3,3  replyHeader:: 3,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:36 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 4,4  replyHeader:: 4,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 5,3  replyHeader:: 5,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:37 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 6,4  replyHeader:: 6,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:38 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 7,3  replyHeader:: 7,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:38 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 8,4  replyHeader:: 8,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:39 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 9,3  replyHeader:: 9,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:39 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 10,4  replyHeader:: 10,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:41 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 11,3  replyHeader:: 11,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:41 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 12,4  replyHeader:: 12,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:44 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 13,3  replyHeader:: 13,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:44 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 14,4  replyHeader:: 14,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:48 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 15,3  replyHeader:: 15,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:49 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 16,4  replyHeader:: 16,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:36:59 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 17,3  replyHeader:: 17,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:36:59 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41002b after 274ms
+2015-10-25 02:37:00 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 18,4  replyHeader:: 18,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:37:04 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41002a after 281ms
+2015-10-25 02:37:10 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 19,3  replyHeader:: 19,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:37:10 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41002b after 278ms
+2015-10-25 02:37:10 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 20,4  replyHeader:: 20,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 02:37:21 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 21,3  replyHeader:: 21,1283,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 02:37:21 DEBUG ClientCnxn:717 - Got ping response for sessionid: 0x15091436f41002b after 345ms
+2015-10-25 02:37:21 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002b, packet:: clientPath:null serverPath:null finished:false header:: 22,4  replyHeader:: 22,1283,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 19:04:48 INFO  PhoenixDAO:59 - Creating Table: CREATE TABLE IF NOT EXISTS counters ( WORKLOAD_ID INTEGER not null,CONFIGURATIONS VARCHAR,PHYSICAL_MEMORY_BYTES_MAP BIGINT,COUNTERS VARCHAR,CPU_MILLISECONDS_REDUCE BIGINT,MAP_SPLIT_SIZE INTEGER,PHYSICAL_MEMORY_BYTES_REDUCE BIGINT,NUMBER_OF_REDUCERS INTEGER,START_TIME VARCHAR not null,JOB_ID VARCHAR not null,JOB_URL VARCHAR,EXECUTION_TIME INTEGER,REDUCE_CPU BIGINT,MAP_CPU BIGINT,MAPPER_MEMORY BIGINT,END_TIME VARCHAR,COMPUTE_ENGINE_TYPE VARCHAR,CPU_MILLISECONDS_MAP BIGINT,REDUCER_MEMORY BIGINT CONSTRAINT pk PRIMARY KEY (WORKLOAD_ID,START_TIME,JOB_ID))
+2015-10-25 19:04:48 INFO  PhoenixDAO:30 - Opening Connection to Phoenix: 104.130.29.25
+2015-10-25 19:04:49 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginSuccess with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[Rate of successful kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:49 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginFailure with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[Rate of failed kerberos logins and latency (milliseconds)], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:49 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.getGroups with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[GetGroups], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:49 DEBUG MetricsSystemImpl:231 - UgiMetrics, User and group related metrics
+2015-10-25 19:04:49 DEBUG KerberosName:88 - Kerberos krb5 configuration not found, setting default realm to empty
+2015-10-25 19:04:49 DEBUG Groups:278 -  Creating new Groups object
+2015-10-25 19:04:49 DEBUG NativeCodeLoader:46 - Trying to load the custom-built native-hadoop library...
+2015-10-25 19:04:49 DEBUG NativeCodeLoader:55 - Failed to load native-hadoop with error: java.lang.UnsatisfiedLinkError: no hadoop in java.library.path
+2015-10-25 19:04:49 DEBUG NativeCodeLoader:56 - java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 19:04:49 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2015-10-25 19:04:49 DEBUG PerformanceAdvisory:41 - Falling back to shell based
+2015-10-25 19:04:49 DEBUG JniBasedUnixGroupsMappingWithFallback:45 - Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping
+2015-10-25 19:04:49 DEBUG Shell:392 - setsid is not available on this machine. So not using it.
+2015-10-25 19:04:49 DEBUG Shell:396 - setsid exited with exit code 0
+2015-10-25 19:04:49 DEBUG Groups:91 - Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+2015-10-25 19:04:49 DEBUG UserGroupInformation:209 - hadoop login
+2015-10-25 19:04:49 DEBUG UserGroupInformation:144 - hadoop login commit
+2015-10-25 19:04:49 DEBUG UserGroupInformation:174 - using local user:UnixPrincipal: root
+2015-10-25 19:04:49 DEBUG UserGroupInformation:180 - Using user: "UnixPrincipal: root" with name root
+2015-10-25 19:04:49 DEBUG UserGroupInformation:190 - User entry: "root"
+2015-10-25 19:04:49 DEBUG UserGroupInformation:799 - UGI loginUser:root (auth:SIMPLE)
+2015-10-25 19:04:49 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x13c427b3 connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:host.name=akhtars-mbp
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.version=1.7.0_75
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.vendor=Oracle Corporation
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home/jre
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.class.path=target/tunecore-1.0-jar-with-dependencies.jar
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.library.path=/var/root/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.io.tmpdir=/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:java.compiler=<NA>
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:os.name=Mac OS X
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:os.arch=x86_64
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:os.version=10.10
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:user.name=root
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:user.home=/var/root
+2015-10-25 19:04:49 INFO  ZooKeeper:100 - Client environment:user.dir=/Users/akhtar/Downloads/Freelancing/Clients/Sadiq_Shaik/SherpaPerformance/tunecore
+2015-10-25 19:04:49 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x13c427b30x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 19:04:49 DEBUG ClientCnxn:102 - zookeeper.disableAutoWatchReset is false
+2015-10-25 19:04:49 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 19:04:49 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 19:04:49 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 19:04:50 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41002c, negotiated timeout = 90000
+2015-10-25 19:04:50 DEBUG ZooKeeperWatcher:312 - hconnection-0x13c427b30x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 19:04:50 DEBUG ZooKeeperWatcher:396 - hconnection-0x13c427b3-0x15091436f41002c connected
+2015-10-25 19:04:50 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002c, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1287,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 19:04:51 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002c, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1287,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 19:04:51 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@715b8e6c, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 19:04:51 INFO  Metrics:44 - Initializing metrics system: phoenix
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:619 - from system property: null
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:620 - from environment variable: null
+2015-10-25 19:04:51 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2-phoenix.properties
+2015-10-25 19:04:51 DEBUG ConfigurationUtils:447 - ConfigurationUtils.locate(): base is null, name is hadoop-metrics2.properties
+2015-10-25 19:04:51 WARN  MetricsConfig:124 - Cannot locate configuration: tried hadoop-metrics2-phoenix.properties,hadoop-metrics2.properties
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: period
+2015-10-25 19:04:51 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.snapshotStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[Snapshot, Snapshot stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:51 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableStat org.apache.hadoop.metrics2.impl.MetricsSystemImpl.publishStat with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[Publish, Publishing stats], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:51 DEBUG MutableMetricsFactory:42 - field org.apache.hadoop.metrics2.lib.MutableCounterLong org.apache.hadoop.metrics2.impl.MetricsSystemImpl.droppedPubAll with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, valueName=Time, value=[Dropped updates by all sinks], type=DEFAULT, always=false, sampleName=Ops)
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=10
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sources, name=NumActiveSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sources, name=NumAllSources, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of active metrics sinks, name=NumActiveSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of all registered metrics sinks, name=NumAllSinks, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for snapshot stats, name=SnapshotNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for snapshot stats, name=SnapshotAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for publishing stats, name=PublishNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for publishing stats, name=PublishAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Dropped updates by all sinks, name=DroppedPubAll, type=java.lang.Long, read-only, descriptor={}]]
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 19:04:51 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Stats
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:222 - MBean for source MetricsSystem,sub=Stats registered.
+2015-10-25 19:04:51 INFO  MetricsSystemImpl:376 - Scheduled snapshot period at 10 second(s).
+2015-10-25 19:04:51 INFO  MetricsSystemImpl:191 - phoenix metrics system started
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=8
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of successful kerberos logins and latency (milliseconds), name=LoginSuccessAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for rate of failed kerberos logins and latency (milliseconds), name=LoginFailureAvgTime, type=java.lang.Double, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Number of ops for getGroups, name=GetGroupsNumOps, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Average time for getGroups, name=GetGroupsAvgTime, type=java.lang.Double, read-only, descriptor={}]]
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 19:04:51 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=UgiMetrics
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:222 - MBean for source UgiMetrics registered.
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:270 - Registered source UgiMetrics
+2015-10-25 19:04:51 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=MetricsSystem,sub=Control
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:231 - tracing, Phoenix call tracing
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'MetricsConfig' for key: source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsConfig:179 - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:245 - Updating attr cache...
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:259 - Done. # tags & metrics=2
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:239 - Updating info cache...
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:109 - [javax.management.MBeanAttributeInfo[description=num spans, name=tag.stat, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}]]
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:241 - Done
+2015-10-25 19:04:51 DEBUG MBeans:58 - Registered Hadoop:service=phoenix,name=tracing
+2015-10-25 19:04:51 DEBUG MetricsSourceAdapter:222 - MBean for source tracing registered.
+2015-10-25 19:04:51 DEBUG MetricsSystemImpl:270 - Registered source tracing
+2015-10-25 19:04:51 DEBUG ReadOnlyProps:303 - Creating new ReadOnlyProps due to CurrentSCN with null!=8
+2015-10-25 19:04:51 DEBUG ConnectionQueryServicesImpl:820 - Found quorum: 104.130.29.25:2181:/hbase
+2015-10-25 19:04:51 INFO  RecoverableZooKeeper:121 - Process identifier=hconnection-0x5150252 connecting to ZooKeeper ensemble=104.130.29.25:2181
+2015-10-25 19:04:51 INFO  ZooKeeper:438 - Initiating client connection, connectString=104.130.29.25:2181 sessionTimeout=90000 watcher=hconnection-0x51502520x0, quorum=104.130.29.25:2181, baseZNode=/hbase
+2015-10-25 19:04:51 INFO  ClientCnxn:975 - Opening socket connection to server 104.130.29.25/104.130.29.25:2181. Will not attempt to authenticate using SASL (unknown error)
+2015-10-25 19:04:52 INFO  ClientCnxn:852 - Socket connection established to 104.130.29.25/104.130.29.25:2181, initiating session
+2015-10-25 19:04:52 DEBUG ClientCnxn:892 - Session establishment request sent on 104.130.29.25/104.130.29.25:2181
+2015-10-25 19:04:52 INFO  ClientCnxn:1235 - Session establishment complete on server 104.130.29.25/104.130.29.25:2181, sessionid = 0x15091436f41002d, negotiated timeout = 90000
+2015-10-25 19:04:52 DEBUG ZooKeeperWatcher:312 - hconnection-0x51502520x0, quorum=104.130.29.25:2181, baseZNode=/hbase Received ZooKeeper Event, type=None, state=SyncConnected, path=null
+2015-10-25 19:04:52 DEBUG ZooKeeperWatcher:396 - hconnection-0x5150252-0x15091436f41002d connected
+2015-10-25 19:04:52 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 1,3  replyHeader:: 1,1288,0  request:: '/hbase/hbaseid,F  response:: s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 19:04:53 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 2,4  replyHeader:: 2,1288,0  request:: '/hbase/hbaseid,F  response:: #ffffffff000146d61737465723a31363032306dffffff94ffffffb5ffffffdfffffff89ffffffb2625150425546a2437366164666432382d613934332d346163612d396237642d396535323162383334336132,s{17,89,1445546034931,1445546133237,1,0,0,0,67,0,17} 
+2015-10-25 19:04:53 DEBUG AbstractRpcClient:105 - Codec=org.apache.hadoop.hbase.codec.KeyValueCodec@636c823d, compressor=null, tcpKeepAlive=true, tcpNoDelay=true, connectTO=10000, readTO=20000, writeTO=60000, minIdleTimeBeforeClose=120000, maxRetries=0, fallbackAllowed=false, bind address=null
+2015-10-25 19:04:53 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 3,3  replyHeader:: 3,1288,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 19:04:53 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 4,4  replyHeader:: 4,1288,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 19:04:55 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 5,3  replyHeader:: 5,1288,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 19:04:55 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 6,4  replyHeader:: 6,1288,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 19:04:56 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 7,3  replyHeader:: 7,1288,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 19:04:56 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 8,4  replyHeader:: 8,1288,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 
+2015-10-25 19:04:57 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 9,3  replyHeader:: 9,1288,0  request:: '/hbase,F  response:: s{2,2,1445546031971,1445546031971,0,22,0,0,0,16,106} 
+2015-10-25 19:04:57 DEBUG ClientCnxn:818 - Reading reply sessionid:0x15091436f41002d, packet:: clientPath:null serverPath:null finished:false header:: 10,4  replyHeader:: 10,1288,0  request:: '/hbase/master,F  response:: #ffffffff000146d61737465723a31363032306fffffffbd38ffffffbeffffffe328ffffff83ffffffd650425546a16aa6761796c61792d72656410ffffff947d18ffffffa8fffffff0ffffff8dffffff8affffff892a10018ffffff8a7d,s{85,85,1445546132658,1445546132658,0,0,0,94735310990147584,58,0,85} 

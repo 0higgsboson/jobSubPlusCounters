@@ -14,7 +14,7 @@ cd $tempDir
 CURRENT_DIR=`pwd`
 
 
-JAR_PATH=/root/tunecore-1.0-jar-with-dependencies.jar
+JAR_PATH=/home/ubuntu/SP/importexport/target/importexport-1.0-jar-with-dependencies.jar
 
 printf "\nDownloading Data From Google Cloud Storage ..."
 gsutil cp -r gs://hbase-backup/$DT/export/* ${CURRENT_DIR}/import/
@@ -22,7 +22,7 @@ gsutil cp -r gs://hbase-backup/$DT/export/* ${CURRENT_DIR}/import/
 
 
 printf "\n\nImporting Tables ..."
-java -cp $JAR_PATH com.sherpa.tunecore.PhoenixTableImport  ${CURRENT_DIR}/import/   $NOW
+java -cp $JAR_PATH com.sherpa.importexport.PhoenixTableImport  ${CURRENT_DIR}/import/   $NOW
 printf "\nDone Importing Tables ..."
 
 

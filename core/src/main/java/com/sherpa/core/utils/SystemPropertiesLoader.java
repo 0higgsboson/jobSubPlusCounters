@@ -1,7 +1,5 @@
 package com.sherpa.core.utils;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +17,7 @@ import java.util.Properties;
 
 public class SystemPropertiesLoader {
     private static final Logger log = LoggerFactory.getLogger(SystemPropertiesLoader.class);
-    private static final String PROPERTIES_FILE_NAME="configs.properties";
+    private static final String PROPERTIES_FILE_NAME= "sherpa.properties";
 
 
     private static Properties prop = null;

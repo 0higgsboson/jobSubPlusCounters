@@ -15,14 +15,16 @@ public class TestReducer extends Reducer<Text, IntWritable, Text, IntWritable>{
 
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-        super.reduce(key, values, context);
 
+        int count = 0;
         int sum=0;
         Iterator<IntWritable> iterator =  values.iterator();
         while(iterator.hasNext()){
-            sum++;
+            sum +=  iterator.next().get();
+            count++;
         }
 
+        //System.out.println("Key: " + key.toString() + " Count:" + sum + "\t Values Size: " + count);
         context.write(new Text(key.toString()), new IntWritable(sum));
     }
 }

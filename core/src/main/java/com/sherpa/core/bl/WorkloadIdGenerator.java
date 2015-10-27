@@ -54,8 +54,8 @@ public class WorkloadIdGenerator {
         long hash = hashCode(workload);
 
         if(workloadHashToIdMap.containsKey(hash)) {
-            log.info("Workload ID found for Workload: " + workload);
-            System.out.println("Workload ID found for Workload: " + workload);
+           // log.info("Workload ID found for Workload: " + workload);
+           // System.out.println("Workload ID found for Workload: " + workload);
             wid = workloadHashToIdMap.get(hash);
         }
         else{
@@ -160,7 +160,7 @@ public class WorkloadIdGenerator {
 
 
     public long hashCode(String workload){
-        log.info("Finding hash for: " + workload);
+       // log.info("Finding hash for: " + workload);
         int hash = 0;
         for (int i = 0; i < workload.length(); i++) {
             hash = (hash << 5) - hash + workload.charAt(i);

@@ -1,4 +1,4 @@
-package com.sherpa.tunecore;
+package com.sherpa.importexport;
 
 import com.sherpa.core.bl.HiBenchManager;
 import com.sherpa.core.bl.WorkloadCountersManager;
@@ -25,8 +25,9 @@ public class PhoenixTableImport {
 
         int recordsCount = 0;
         Map<String, Integer> stats = new HashMap<String, Integer>();
+        String filePath ;
 
-        System.out.println("\n\n\nImporting HiBench IDs Table");
+       /* System.out.println("\n\n\nImporting HiBench IDs Table");
         System.out.println("**********************************************************");
         String filePath = dirPath + PhoenixTableExport.HIBENCH_IDS_FILE_NAME;
         HiBenchManager hiBenchManager = new HiBenchManager();
@@ -40,7 +41,7 @@ public class PhoenixTableImport {
         stats.put(PhoenixTableExport.HIBENCH_TABLE_NAME, recordsCount);
         hiBenchManager.close();
         System.out.println("Done Importing HiBench");
-
+*/
 
         System.out.println("\n\n\nImporting WorkloadCounter IDs");
         System.out.println("**********************************************************");

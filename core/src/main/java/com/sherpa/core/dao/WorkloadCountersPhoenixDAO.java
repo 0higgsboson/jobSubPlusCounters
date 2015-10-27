@@ -61,10 +61,6 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         return list;
     }
 
-
-
-
-
     public void addWorkloadId(int workloadId, Date date, long hash){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date2 = format.format(date);
@@ -88,34 +84,35 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
     }
     
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values){
-        
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String date2 = format.format(date);
-        
-        String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
-                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "',"   ;
-        
-        String tok[];
+    public void saveCounters(int workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
 
-        String[] columnNames = WorkloadCountersConfigurations.columnNamesTypesList;
-        for(int i=0; i< columnNames.length; i++){
-            tok = columnNames[i].split(":");
-            if(values.containsKey(tok[0]))
-                sql +=  values.get(tok[0]).toString() + ",";
-            else
-                sql +=  "0" + ",";
+        StringBuilder header = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+        StringBuilder sql    = new StringBuilder();
+
+        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( ");
+
+        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
+        values.append(workloadId).append(",").append(executionTime);
+
+        for(Map.Entry<String,String> e:  configurations.entrySet()){
+            header.append(",").append(e.getKey());
+            values.append(",'").append(e.getValue()).append("'");
         }
-       
-        sql = sql.substring(0, sql.length()-1) + ")";
 
-        log.info("Saving Record ... " + sql);
+        for(Map.Entry<String,BigInteger> e:  counters.entrySet()){
+            header.append(",").append(e.getKey());
+            values.append(",").append(e.getValue());
+        }
+
+        sql.append(header.toString()).append(" ) ").append("values (").append(values.toString()).append(")");
+        //log.info("Saving Record ... " + sql);
         
         Connection con = createConnection();
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            stmt.executeUpdate(sql );
+            stmt.executeUpdate(sql.toString() );
             con.commit();
             stmt.close();
             log.info("Record Saved ...");
@@ -128,44 +125,6 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
     }
 
 
-    public void saveCounters(int workloadId, Date date, int executionTime, String jobId, String jobType, Map<String, BigInteger> values, String query, String sherpaParams){
-       
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String date2 = format.format(date);
-        
-        String sql = "upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME +
-                " values (" + workloadId + ",'" + date2 + "','" +jobId + "'," + executionTime + ",'" + jobType + "','" + sherpaParams + "'," ;
-        
-        String tok[];
-
-        String[] columnNames = WorkloadCountersConfigurations.columnNamesTypesList;
-        for(int i=0; i< columnNames.length; i++){
-            tok = columnNames[i].split(":");
-            if(values.containsKey(tok[0]))
-                sql +=  values.get(tok[0]).toString() + ",";
-            else
-                sql +=  "0" + ",";
-        }
-       
-        sql = sql.substring(0, sql.length()-1) + ")";
-
-        log.info("Saving Record ... " + sql);
-        
-        Connection con = createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            stmt.executeUpdate(sql );
-            con.commit();
-            stmt.close();
-            log.info("Record Saved ...");
-            System.out.println("Record Saved ...");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            log.error("SQL: " + sql);
-        }
-
-    }
 
 
 
@@ -181,29 +140,21 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
 
         StringBuilder stringBuilder = new StringBuilder();
-        List<String> counters = new ArrayList<String>();
+        List<String> columnNames = WorkloadCountersConfigurations.getColumnNames();
 
-        // list of all counters
-        Map<String, BigInteger> map = WorkloadCountersConfigurations.getInitialCounterValuesMap();
+        boolean isFirstAppend = true;
+        for(String s: columnNames){
+            if(isFirstAppend){
+                stringBuilder.append(s);
+                isFirstAppend=false;
+            }
+            else
+                stringBuilder.append(",").append(s);
 
-        // getting counters names
-        Iterator<String> iterator = map.keySet().iterator();
-        while(iterator.hasNext()){
-            counters.add(iterator.next());
         }
-
-
-
-        // forming header
-        stringBuilder.append("WORKLOAD_ID").append(",").append("DATE_TIME").append(",").append("JOB_ID").append(",").append("EXECUTION_TIME").append(",")
-                .append("JOB_TYPE").append(",").append("PARAMETERS");
-
-        for(String counter: counters)
-            stringBuilder.append(",").append(counter);
 
         Connection con = createConnection();
         PreparedStatement statement = null;
-
 
         int count=0;
         try {
@@ -211,16 +162,26 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             rset = statement.executeQuery();
             while (rset.next()) {
                 stringBuilder.append("\n");
-                stringBuilder.append(rset.getInt("WORKLOAD_ID")).append(",");
-                stringBuilder.append(rset.getString("DATE_TIME")).append(",");
-                stringBuilder.append(rset.getString("JOB_ID")).append(",");
-                stringBuilder.append(rset.getInt("EXECUTION_TIME")).append(",");
-                stringBuilder.append(rset.getString("JOB_TYPE")).append(",");
-                stringBuilder.append(rset.getString("PARAMETERS"));
 
+                isFirstAppend = true;
+                for(String colName: columnNames){
+                    if(!isFirstAppend)
+                        stringBuilder.append(",");
 
-                for(String counter: counters)
-                    stringBuilder.append(",").append( rset.getString(counter)  );
+                    if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))
+                        stringBuilder.append(rset.getInt(colName));
+
+                    else if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_URL) ||
+                            colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_START_TIME) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_END_TIME) ||
+                            colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COUNTERS) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS) ||
+                            colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE)   ) {
+                        stringBuilder.append(rset.getString(colName));
+                    }
+                    else
+                        stringBuilder.append(rset.getString(colName));
+
+                    isFirstAppend = false;
+                }
 
                 count++;
             }
@@ -257,6 +218,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         Connection con = createConnection();
         Statement stmt = null;
         int count = 0;
+        int errors = 0;
 
         try {
             stmt = con.createStatement();
@@ -273,30 +235,40 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
             String header = headerBuilder.substring(0,headerBuilder.length()-1);
             log.info("Header: " + header);
 
+            String[] headerTok = header.split(",");
             while( (line=reader.readLine()) != null ){
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("upsert into ").append(WorkloadCountersConfigurations.COUNTERS_TABLE_NAME).append(" (").append(header).append(")").append(" values (");
 
                 String[] tok = line.split(",");
+                if(tok.length == headerTok.length){
+                    for(int i=0; i<tok.length; i++){
+                        String colName = headerTok[i];
 
-                for(int i=0; i<tok.length; i++){
-                    //  adding single qoutes for datetime, Job_ID, Job_Type, Query, Parameters columns
-                    if(i==1 || i==2 || i==4 || i==5 )
-                        stringBuilder.append("'").append(tok[i]).append("',");
-                    else
-                        stringBuilder.append(tok[i]).append(",");
+                        if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_URL) ||
+                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_START_TIME) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_END_TIME) ||
+                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COUNTERS) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS) ||
+                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE)   ) {
+                            stringBuilder.append("'").append(tok[i]).append("',");
+                        }
+                        else
+                            stringBuilder.append(tok[i]).append(",");
+                    }
+
+                    String sql = stringBuilder.substring(0, stringBuilder.length()-1) + ")";
+
+                    stmt.executeUpdate(sql);
+                    con.commit();
+                    count++;
+
                 }
-
-                String sql = stringBuilder.substring(0, stringBuilder.length()-1) + ")";
-
-                stmt.executeUpdate(sql);
-                con.commit();
-                count++;
-
+                else
+                    errors++;
 
 
             }
             log.info("Imported Records: " + count);
+            log.info("Error Records: " + errors);
 
         } catch (Exception e) {
             e.printStackTrace();

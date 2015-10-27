@@ -2,11 +2,8 @@ package com.sherpa.tunecore.joblauncher;
 
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
-import com.sherpa.core.entitydefinitions.WorkloadCounters;
-import com.sherpa.core.utils.DateTimeUtils;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
-import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -15,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -141,7 +137,7 @@ public class JobExecutor extends Thread{
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
         System.out.println("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE, jobCounters, "", params);
+       // workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE, jobCounters, "", params);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         System.out.println("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();

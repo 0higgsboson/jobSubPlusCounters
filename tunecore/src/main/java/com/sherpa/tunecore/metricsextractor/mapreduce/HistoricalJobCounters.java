@@ -46,8 +46,8 @@ public class HistoricalJobCounters {
 			   , String JobCounterName
 			) {
 
-		Map<String, BigInteger> map = WorkloadCountersConfigurations.getInitialCounterValuesMap();
-
+		//Map<String, BigInteger> map = WorkloadCountersConfigurations.getInitialCounterValuesMap();
+		Map<String, BigInteger> map = new HashMap<String, BigInteger>();
 
 		String jobCountersURI = SPI.getJobCountersUri(jobHistoryUrl, JobId);
 		System.out.println("Job Counters URL:" + jobCountersURI);
@@ -62,52 +62,14 @@ public class HistoricalJobCounters {
 					jobCounterList = jobCounterGroup.getJobCounterList();
 					if (jobCounterList != null) {
 						for (JobCounter jobCounter : jobCounterList) {
-
-							String cn = jobCounter.getName() + WorkloadCountersConfigurations.MAP_SUFFIX;
-							if(map.containsKey(cn)){
-								map.put(cn, BigInteger.valueOf(jobCounter.getMapCounterValue()));
-							}
-
-							cn = jobCounter.getName() + WorkloadCountersConfigurations.REDUCE_SUFFIX;
-							if(map.containsKey(cn)){
-								map.put(cn, BigInteger.valueOf(jobCounter.getReduceCounterValue()));
-							}
-
-							cn = jobCounter.getName() + WorkloadCountersConfigurations.TOTAL_SUFFIX;
-							if(map.containsKey(cn)){
-								map.put(cn, BigInteger.valueOf(jobCounter.getTotalCounterValue()));
-							}
-
-
-
-							/*if(jobCounter.getName().equalsIgnoreCase("PHYSICAL_MEMORY_BYTES")){
-								long mb = jobCounter.getMapCounterValue()/(1000*1000);
-								map.put("MAP_PHYSICAL_MEM_BYTES", BigInteger.valueOf(jobCounter.getMapCounterValue()));
-								map.put("MAP_PHYSICAL_MEM_MB", BigInteger.valueOf(mb));
-
-								map.put("REDUCE_PHYSICAL_MEM", BigInteger.valueOf(jobCounter.getReduceCounterValue()));
-							}
-							else if(jobCounter.getName().equalsIgnoreCase("VIRTUAL_MEMORY_BYTES")){
-								long mb = jobCounter.getMapCounterValue()/(1000*1000);
-								map.put("MAP_VIRTUAL_MEM_BYTES", BigInteger.valueOf(jobCounter.getMapCounterValue()));
-								map.put("MAP_VIRTUAL_MEM_MB", BigInteger.valueOf(mb));
-
-								map.put("REDUCE_VIRTUAL_MEM", BigInteger.valueOf(jobCounter.getReduceCounterValue()));
-
-							}*/
-
-
+							map.put(jobCounter.getName() + WorkloadCountersConfigurations.MAP_SUFFIX, BigInteger.valueOf(jobCounter.getMapCounterValue()));
+							map.put(jobCounter.getName() + WorkloadCountersConfigurations.REDUCE_SUFFIX, BigInteger.valueOf(jobCounter.getReduceCounterValue()));
+							map.put(jobCounter.getName() + WorkloadCountersConfigurations.TOTAL_SUFFIX, BigInteger.valueOf(jobCounter.getTotalCounterValue()));
 						}
 					}
 				}
 
 		}
-
-/*
-
-		String counterTypes = stringBuilder.toString();
-		System.out.println(counterTypes);
-*/
 
 	return map;
 

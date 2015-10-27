@@ -1,8 +1,12 @@
 package com.sherpa.tunecore.joblauncher.com.sherpa.tunecore.joblauncher.hivecli;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
+import com.sherpa.tunecore.joblauncher.SPI;
+import com.sherpa.tunecore.joblauncher.Utils;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.slf4j.Logger;
@@ -49,15 +53,15 @@ public class HiveCliJobExecutor extends Thread{
 
     private String fileLines;
     private int totalJobs=-1;
-    private String params="";
+    private Map<String, BigInteger> params = null;
+    private String configurations= null;
 
 
-    public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval, String params){
+    public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval){
         this.fileLines = fileLines;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
-        this.params = params;
 
         date = new Date();
         workloadManager = new WorkloadCountersManager();
@@ -194,7 +198,7 @@ public class HiveCliJobExecutor extends Thread{
         try {
             log.info("Getting Job Counters");
             HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
-            countersObj.getJobCounters(jobId);
+            //countersObj.getJobCounters(jobId);
             counterValues = countersObj.getJobCounters(jobId);
             log.info("Done Getting Job Counters ...");
 
@@ -227,22 +231,63 @@ public class HiveCliJobExecutor extends Thread{
 
     private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
-        System.out.println("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
-        workloadManager.saveCounters(workloadId, date, (int) elapsedTime, jobId, WorkloadCountersConfigurations.JOB_TYPE_HIVE, jobCounters, "", params);
+        //String json = new Gson().toJson(jobCounters);
+        String json = Utils.toString2(jobCounters);
+        Map<String, String> configurationValues = new HashMap<String, String>();
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_URL, SPI.getJobCountersUri(historyServerUrl, jobId));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, app.getApp().getStartTimeAsString());
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, app.getApp().getFinishTimeAsString());
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
+
+
+       // System.out.println("\n\nCounters: " + json);
+       // System.out.println("\n\nConfigurations: " + configurations);
+
+
+        if(jobCounters.containsKey("PHYSICAL_MEMORY_BYTES_MAP"))
+            params.put("PHYSICAL_MEMORY_BYTES_MAP", jobCounters.get("PHYSICAL_MEMORY_BYTES_MAP"));
+        else
+            params.put("PHYSICAL_MEMORY_BYTES_MAP", new BigInteger("0"));
+
+        if(jobCounters.containsKey("PHYSICAL_MEMORY_BYTES_REDUCE"))
+            params.put("PHYSICAL_MEMORY_BYTES_REDUCE", jobCounters.get("PHYSICAL_MEMORY_BYTES_REDUCE"));
+        else
+            params.put("PHYSICAL_MEMORY_BYTES_REDUCE", new BigInteger("0"));
+
+        if(jobCounters.containsKey("CPU_MILLISECONDS_MAP"))
+            params.put("CPU_MILLISECONDS_MAP", jobCounters.get("CPU_MILLISECONDS_MAP"));
+        else
+            params.put("CPU_MILLISECONDS_MAP", new BigInteger("0"));
+
+
+        if(jobCounters.containsKey("CPU_MILLISECONDS_REDUCE"))
+            params.put("CPU_MILLISECONDS_REDUCE", jobCounters.get("CPU_MILLISECONDS_REDUCE"));
+        else
+            params.put("CPU_MILLISECONDS_REDUCE", new BigInteger("0"));
+
+
+        System.out.println("\n\nParameters: " + params);
+
+        workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
-        System.out.println("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }
 
 
     public void addToCounters(Map<String, BigInteger> jobCounters){
-        Iterator<String> counters = jobCounters.keySet().iterator();
+        Iterator<String> counters = jobCountersMap.keySet().iterator();
         while(counters.hasNext()){
             String counterName = counters.next();
             try {
-                BigInteger counterSumValue = jobCounters.get(counterName).add(jobCountersMap.get(counterName));
-                jobCountersMap.put(counterName, counterSumValue);
+                if(jobCounters.containsKey(counterName)){
+                    BigInteger counterSumValue = jobCounters.get(counterName).add(jobCountersMap.get(counterName));
+                    jobCountersMap.put(counterName, counterSumValue);
+                }
+
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -360,5 +405,22 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setTotalJobs(int totalJobs) {
         this.totalJobs = totalJobs;
+    }
+
+
+    public String getConfigurations() {
+        return configurations;
+    }
+
+    public void setConfigurations(String configurations) {
+        this.configurations = configurations;
+    }
+
+    public Map<String, BigInteger> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, BigInteger> params) {
+        this.params = params;
     }
 }

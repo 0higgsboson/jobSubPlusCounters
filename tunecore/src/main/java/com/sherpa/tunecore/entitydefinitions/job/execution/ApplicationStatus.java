@@ -1,7 +1,11 @@
 package com.sherpa.tunecore.entitydefinitions.job.execution;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sherpa.tunecore.joblauncher.Utils;
 import lombok.Data;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by akhtar on 10/08/2015.
@@ -26,6 +30,9 @@ public class ApplicationStatus {
     private String finalStatus;
     // number of milli seconds took to complete job or job finish time
     private String elapsedTime;
+
+    private long startedTime;
+    private long finishedTime;
 
 
     public String getName() {
@@ -69,4 +76,31 @@ public class ApplicationStatus {
     public void setElapsedTime(String elapsedTime) {
         this.elapsedTime = elapsedTime;
     }
+
+    public long getFinishedTime() {
+        return finishedTime;
+    }
+
+    public void setFinishedTime(long finishedTime) {
+        this.finishedTime = finishedTime;
+    }
+
+    public long getStartedTime() {
+        return startedTime;
+    }
+
+    public void setStartedTime(long startedTime) {
+        this.startedTime = startedTime;
+    }
+
+
+    public String getStartTimeAsString(){
+        return Utils.convertTimeToString(getStartedTime());
+    }
+
+    public String getFinishTimeAsString(){
+        return Utils.convertTimeToString(getFinishedTime());
+    }
+
+
 }

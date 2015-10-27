@@ -2,7 +2,6 @@ package com.sherpa.core.bl;
 
 import com.sherpa.core.dao.HiBenchCountersPhoenixDAO;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
-import com.sherpa.core.dao.WorkloadCountersHbaseDAO;
 import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
 import com.sherpa.core.utils.ConfigurationLoader;

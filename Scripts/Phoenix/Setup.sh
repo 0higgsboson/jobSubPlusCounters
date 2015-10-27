@@ -8,6 +8,10 @@
 # Change machine numbers and prefix, this script assumes node1, node2, .... node29
 
 
+# Setup
+
+
+
 # Defines Cloudera's CDH Version
 CDH_VERSION=CDH-5.4.5-1.cdh5.4.5.p0.7
 

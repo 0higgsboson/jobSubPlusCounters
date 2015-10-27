@@ -1,6 +1,5 @@
-package com.sherpa.tunecore;
+package com.sherpa.tunecore.export;
 
-import com.sherpa.core.bl.HiBenchManager;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.utils.EmailUtils;
 
@@ -26,6 +25,7 @@ public class PhoenixTableExport {
 
 
     public static void main(String[] args){
+
         if(args.length!=2){
             System.out.println("Usage: outputDirName dateTime");
             System.exit(1);
@@ -44,7 +44,8 @@ public class PhoenixTableExport {
         Map<String, Integer> stats = new HashMap<String, Integer>();
 
         int recordsCount = 0;
-        System.out.println("\n\n\nExporting HiBench IDs");
+        String filePath;
+      /*  System.out.println("\n\n\nExporting HiBench IDs");
         System.out.println("**********************************************************");
         String filePath = dirPath + HIBENCH_IDS_FILE_NAME;
         HiBenchManager hiBenchManager = new HiBenchManager();
@@ -59,7 +60,7 @@ public class PhoenixTableExport {
         hiBenchManager.close();
         System.out.println("Done Exporting HiBench");
 
-
+*/
         System.out.println("\n\n\nExporting WorkloadCounters IDs");
         System.out.println("**********************************************************");
         filePath = dirPath + WORKLOAD_COUNTERS_IDS_FILE_NAME;

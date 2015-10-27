@@ -10,7 +10,7 @@ CURRENT_DIR=`pwd`
 JAR_PATH=/root/sherpa/jobSubPub_src/jobSubPlusCounters/importexport/target/importexport-1.0-jar-with-dependencies.jar
 
 printf "\n\nExporting Tables ..."
-java -cp $JAR_PATH com.sherpa.importexport.PhoenixTableExport  ${CURRENT_DIR}/export/  $NOW
+java -cp $JAR_PATH com.sherpa.importexport.ImportExportDriver  ${CURRENT_DIR}/export/  $NOW
 printf "\nDone Exporting Tables ..."
 
 printf "\nUploading Data on Google Cloud Storage ..."

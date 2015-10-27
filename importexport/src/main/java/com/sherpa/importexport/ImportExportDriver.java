@@ -20,7 +20,6 @@ public class ImportExportDriver {
             System.exit(1);
         }
 
-
         String dirPath = args[0];
         if(!dirPath.endsWith(File.separator))
             dirPath = dirPath + File.separator;
@@ -28,11 +27,11 @@ public class ImportExportDriver {
         File file = new File(dirPath);
         if(!file.exists()){
             file.mkdirs();
-            System.out.println("Created output dir ...");
+            System.out.println("Created output dir ..." + dirPath);
         }
 
-
-
+        dirPath = new PhoenixTableExport().run(dirPath, args[1]);
+        new PhoenixTableImport().run(dirPath, args[1]);
 
 
     }

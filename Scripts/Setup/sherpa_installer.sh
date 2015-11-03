@@ -12,7 +12,7 @@ installation_base_dir=/root/sherpa
 hive_home=/root/cluster/hive/apache-hive-1.2.1-bin
 hadoop_home=/root/cluster/hadoop/hadoop-2.6.0
 scripts_home=/root/scripts
-
+export PATH=$PATH:$hadoop_home/bin
 #######################################################################################################################
 
 

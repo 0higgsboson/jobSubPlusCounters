@@ -183,7 +183,7 @@ protoc --version
 
 
 print "Compiling Hadoop ..."
-cd hadoop-2.6.0-src
+cd ../hadoop-2.6.0-src
 mvn clean install -Pdist -DskipTests
 
 

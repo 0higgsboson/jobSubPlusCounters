@@ -3,6 +3,7 @@
 # Assumptions
 # 1. Use root account
 # 2. Default host name is tenzing-red.  If different, update the script to reflect this before running it.
+# 3. Run source /etc/environment right after running the hadoop cluster installer
 
 
 ###############################################  Configurations #######################################################

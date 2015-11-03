@@ -3,6 +3,7 @@
 # Assumptions
 # 1. Use root account
 # 2. Run source /etc/environment to initialize $X_HOME variables.
+# 3. Copy ssh public key into github
 
 
 ###############################################  Configurations #######################################################

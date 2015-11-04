@@ -7,6 +7,7 @@
     <groupId>com.sherpa</groupId>
     <artifactId>sherpa-performance</artifactId>
     <version>1.0</version>
+
     <modules>
         <module>core</module>
         <module>custominputformat</module>

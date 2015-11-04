@@ -52,7 +52,7 @@
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-hdfs:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: commons-daemon:commons-daemon:1.0.13" level="project" />
     <orderEntry type="library" name="Maven: com.google.appengine.tools:appengine-gcs-client:0.5" level="project" />
-    <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.9.27" level="project" />
+    <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.9.28" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0-rc2" level="project" />
     <orderEntry type="library" name="Maven: com.google.apis:google-api-services-storage:v1-rev15-1.19.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.19.0" level="project" />

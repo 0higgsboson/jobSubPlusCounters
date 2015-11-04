@@ -87,17 +87,17 @@ printHeader "Cloning Repo's"
 # Cloning Sherpa Performance Project
 print "Cloning Sherpa Performance Project"
 cd $sherpa_src_dir
-git clone git@github.com:0higgsboson/jobSubPlusCounters.git
+git clone https://github.com/0higgsboson/jobSubPlusCounters.git
 
 # Cloning custom Hive Code
 print "Cloning custom Hive Code"
 cd $hive_client_src_dir
-git clone git@github.com:0higgsboson/hiveClientSherpa.git
+git clone https://github.com/0higgsboson/hiveClientSherpa.git
 
 # Cloning custom MR Code
 print "Cloning custom MR Code"
 cd $mr_client_src_dir
-git clone git@github.com:0higgsboson/mrClient.git
+git clone https://github.com/0higgsboson/mrClient.git
 
 # Cloning Hadoop 2.6.0 Code
 print "Cloning Hadoop 2.6.0 Code"

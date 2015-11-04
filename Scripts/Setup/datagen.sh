@@ -17,3 +17,4 @@ hadoop fs -ls
 source /etc/environment 
 cat /etc/environment 
 hadoop fs -ls
+cd ~/jobSubPlusCounters/Scripts/Setup/

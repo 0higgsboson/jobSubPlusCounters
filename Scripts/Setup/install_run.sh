@@ -8,4 +8,4 @@ sudo -i
 ./hadoop_cluster_installer.sh
 source /etc/environment
 ./sherpa_installer.sh
-
+./datagen.sh

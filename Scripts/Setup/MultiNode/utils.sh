@@ -38,11 +38,11 @@ function installPdsh(){
 
   # Setting up pdsh utility
   print "Setting up PDSH command on all hosts"
-  sudo apt-get install pdsh
+  sudo apt-get -y install pdsh
   export PDSH_RCMD_TYPE=ssh
 
   # installs on all nodes excluding master
-  pdsh -w ^${hosts_list} -x ${master_node}  "apt-get install pdsh"
+  pdsh -w ^${hosts_list} -x ${master_node}  "apt-get -y install pdsh"
   pdsh -w ^${hosts_list} -x ${master_node}  "export PDSH_RCMD_TYPE=ssh"
 
 }

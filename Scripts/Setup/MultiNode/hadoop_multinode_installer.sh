@@ -125,6 +125,16 @@ echo "<configuration>
 
 rm etc/hadoop/yarn-site.xml
 echo "<configuration>
+<property>
+      <name>yarn.node-labels.enabled</name>
+            <value>true</value>
+      </property>
+
+        <property>
+            <name>yarn.node-labels.fs-store.root-dir</name>
+            <value>hdfs://${master}:9000/yarn/node-labels/</value>
+        </property>
+
       <property>
               <name>yarn.nodemanager.aux-services</name>
               <value>mapreduce_shuffle</value>

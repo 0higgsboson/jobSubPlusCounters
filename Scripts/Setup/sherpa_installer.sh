@@ -199,7 +199,7 @@ mvn clean install -Pdist -DskipTests
 print "Stopping Hadoop services ..."
 ${scripts_home}/hadoop_stop.sh
 
-print "Copying Jars ..."
+print "Copying Hadoop Jars ..."
 cp ${mr_client_src_dir}/mrClient/target/hadoop-mapreduce-client-core-2.6.0.jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.0.jar
 cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
 
@@ -214,9 +214,11 @@ mapreduce.job.reduces=4
 threshold=100
  " >> /opt/sherpa.properties
 
+# Creates data to process
 hdfs dfs -mkdir /input
 hdfs dfs -copyFromLocal ${sherpa_src_dir}/jobSubPlusCounters/core/src/main/java/com/sherpa/core/dao/WorkloadCountersPhoenixDAO.java /input/
 
+# Runs sample workloads-- pi and word count
 yarn jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar pi 10 100
 
 yarn jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount -D PSManaged=true /input/ /output

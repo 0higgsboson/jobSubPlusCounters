@@ -5,6 +5,8 @@
 # 2. Copy ssh public key into github
 
 sudo -i
+cd ~/jobSubPlusCounters/Scripts/Setup
+
 ./hadoop_cluster_installer.sh
 source /etc/environment
 ./sherpa_installer.sh

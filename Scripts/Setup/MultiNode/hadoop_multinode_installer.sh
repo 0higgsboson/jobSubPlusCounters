@@ -123,6 +123,7 @@ echo "<configuration>
 " >> etc/hadoop/mapred-site.xml
 
 
+
 rm etc/hadoop/yarn-site.xml
 echo "<configuration>
 <property>
@@ -134,6 +135,20 @@ echo "<configuration>
             <name>yarn.node-labels.fs-store.root-dir</name>
             <value>hdfs://${master}:9000/yarn/node-labels/</value>
         </property>
+
+
+        <property>
+            <name>yarn.resourcemanager.scheduler.monitor.enable  </name>
+            <value> true  </value>
+        </property>
+
+        <property>
+            <name>yarn.resourcemanager.scheduler.monitor.policies  </name>
+            <value> org.apache.hadoop.yarn.server.resourcemanager.monitor.capacity.ProportionalCapacityPreemptionPolicy  </value>
+        </property>
+
+
+
 
       <property>
               <name>yarn.nodemanager.aux-services</name>

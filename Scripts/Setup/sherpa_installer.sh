@@ -1,10 +1,11 @@
 #!/bin/bash
-
+#
 # Assumptions
 # 1. Use root account
 # 2. Run source /etc/environment to initialize $X_HOME variables.
 # 3. Copy ssh public key into github
-
+# 4. Comment out java7 installation steps if this has been already set correctly
+# 
 
 ###############################################  Configurations #######################################################
 

@@ -150,6 +150,7 @@ echo "<configuration>
 
 
 #cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml
+rm etc/hadoop/mapred-site.xml
 echo "<configuration>
       <property>
               <name>mapreduce.framework.name</name>

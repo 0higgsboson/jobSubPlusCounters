@@ -126,7 +126,7 @@ echo "<configuration>
 
 rm etc/hadoop/yarn-site.xml
 echo "<configuration>
-<property>
+     <property>
       <name>yarn.node-labels.enabled</name>
             <value>true</value>
       </property>
@@ -260,11 +260,15 @@ touch ${scripts_dir}/hadoop_start.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/start-dfs.sh"                                 >> ${scripts_dir}/hadoop_start.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/start-yarn.sh"                                >> ${scripts_dir}/hadoop_start.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/mr-jobhistory-daemon.sh start historyserver"  >> ${scripts_dir}/hadoop_start.sh
+echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/yarn-daemon.sh start timelineserver"  >> ${scripts_dir}/hadoop_start.sh
+
+
 echo "hadoop dfsadmin -safemode leave"                                              >> ${scripts_dir}/hadoop_start.sh
 chmod +x ${scripts_dir}/hadoop_start.sh
 
 rm ${scripts_dir}/hadoop_stop.sh
 touch ${scripts_dir}/hadoop_stop.sh
+echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/yarn-daemon.sh stop timelineserver"  >> ${scripts_dir}/hadoop_start.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/mr-jobhistory-daemon.sh stop historyserver"  >> ${scripts_dir}/hadoop_stop.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/stop-yarn.sh"                                >> ${scripts_dir}/hadoop_stop.sh
 echo "${hadoop_dir}/hadoop-${HADOOP_VERSION}/sbin/stop-dfs.sh"                                 >> ${scripts_dir}/hadoop_stop.sh
@@ -280,7 +284,7 @@ defineEnvironmentVar "HADOOP_HOME" "${hadoop_dir}/hadoop-${HADOOP_VERSION}"
 
 # adds Hadoop bin to Path variable
 addToPath "${hadoop_dir}/hadoop-${HADOOP_VERSION}/bin"
-
+addToPath "${scripts_dir}/"
 
 jps
 print "All Services Installed ..."

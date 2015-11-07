@@ -4,6 +4,7 @@
 # 1. Use root account
 # 2. Default host name is tenzing-red.  If different, update the script to reflect this before running it.
 # 3. Run source /etc/environment right after running the hadoop cluster installer
+# 4. Root user must be able to login to the same machine without password
 
 
 ###############################################  Configurations #######################################################
@@ -62,6 +63,10 @@ fi
 print "Installing Java ..."
 sudo apt-get install openjdk-7-jre
 sudo apt-get install openjdk-7-jdk
+
+# Install ssh server and client
+sudo apt-get install openssh-client
+sudo apt-get install openssh-server
 
 
 # Its a fix to use java version 7 on GCloud machines, comment that out if you are already using java 7

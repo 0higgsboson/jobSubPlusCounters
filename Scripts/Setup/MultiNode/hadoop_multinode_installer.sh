@@ -104,7 +104,7 @@ echo "<configuration>
        </configuration>
 " >> etc/hadoop/hdfs-site.xml
 
-
+rm etc/hadoop/mapred-site.xml
 echo "<configuration>
       <property>
               <name>mapreduce.framework.name</name>

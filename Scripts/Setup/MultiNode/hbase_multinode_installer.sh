@@ -70,6 +70,11 @@ echo "<configuration>
       </property>
 
       <property>
+        <name>hbase.regionserver.port</name>
+        <value>60020</value>
+      </property>
+
+      <property>
         <name>hbase.rootdir</name>
         <value>hdfs://${master}:9000/hbase</value>
       </property>

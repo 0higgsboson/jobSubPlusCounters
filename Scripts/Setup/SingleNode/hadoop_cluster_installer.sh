@@ -66,8 +66,8 @@ sudo apt-get install openjdk-7-jre
 sudo apt-get install openjdk-7-jdk
 
 # Install ssh server and client
-sudo apt-get install ssh-client
-sudo apt-get install ssh-server
+sudo apt-get install openssh-client
+sudo apt-get install openssh-server
 
 
 # Its a fix to use java version 7 on GCloud machines, comment that out if you are already using java 7

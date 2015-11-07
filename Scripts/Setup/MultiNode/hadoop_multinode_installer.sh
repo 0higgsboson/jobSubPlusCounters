@@ -168,6 +168,14 @@ echo "<configuration>
         <value>true</value>
       </property>
 
+
+      <property>
+        <name>yarn.timeline-service.hostname</name>
+        <value>${master}</value>
+      </property>
+
+
+
       <property>
         <description>The setting that controls whether yarn system metrics is
         published on the timeline server or not by RM.</description>

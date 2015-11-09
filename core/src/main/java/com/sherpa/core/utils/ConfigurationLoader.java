@@ -159,6 +159,25 @@ public class ConfigurationLoader {
 
     }
 
+
+    public static String getPhoenixHost(){
+        String isRemoteDW  = SystemPropertiesLoader.getProperty("remote.dw");
+        String phoenixHost = SystemPropertiesLoader.getProperty("phoenix.host");
+        if( isRemoteDW!=null && phoenixHost!=null && isRemoteDW.equalsIgnoreCase("true") ){
+             System.out.println("Using Phoenix Host From Property File: " + phoenixHost);
+             return phoenixHost;
+        }
+        else {
+            if (prop == null)
+                loadDefaultConfigurations();
+
+            System.out.println("Setting Phoenix Host To Be Same As Zookeeper IP : " + prop.getProperty(ZOOKEEPER));
+            System.out.println("Phoenix Host: " + prop.getProperty(ZOOKEEPER));
+            return prop.getProperty(ZOOKEEPER);
+        }
+    }
+
+
     public static String getZookeeperPort(){
         if(prop==null)
             loadDefaultConfigurations();

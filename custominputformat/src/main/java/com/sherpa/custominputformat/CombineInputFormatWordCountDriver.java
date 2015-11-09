@@ -66,6 +66,57 @@ public class CombineInputFormatWordCountDriver extends Configured implements Too
 
 
 
+/*
+    public int run(boolean useCustomInputFormat, long maxInputSplitSize, Configuration conf) throws Exception {
+
+        System.out.println("\n\n Custom File Format Driver ...");
+
+
+        Job job = new Job(conf);
+        job.setJobName("Small Files Demo");
+        job.setJarByClass(CombineInputFormatWordCountDriver.class);
+
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+
+        job.setInputFormatClass(SherpaCombineFileInputFormat.class);
+
+        job.setMapperClass(SmallFilesMapper.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(IntWritable.class);
+
+        job.setReducerClass(TestReducer.class);
+        job.setCombinerClass(TestReducer.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        job.setNumReduceTasks(1);
+
+        Path out = new Path(args[1]);
+        FileSystem fs = FileSystem.get(conf);
+        if( fs.exists(out) )
+            fs.delete(out);
+
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        job.submit();
+        return job.waitForCompletion(true) ? 0 : 1;
+
+    }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

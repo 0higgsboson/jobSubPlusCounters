@@ -24,7 +24,7 @@ public class HiBenchManager {
     private HiBenchIdGenerator workloadIdGenerator;
 
     public HiBenchManager(){
-        phoenixDAO = new HiBenchCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
+        phoenixDAO = new HiBenchCountersPhoenixDAO(ConfigurationLoader.getPhoenixHost());
         workloadIdGenerator = new HiBenchIdGenerator(phoenixDAO);
         
         // Get unique ID number 

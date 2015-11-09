@@ -25,7 +25,7 @@ public class WorkloadCountersManager {
     private WorkloadIdGenerator workloadIdGenerator;
 
     public WorkloadCountersManager(){
-        phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getZookeeper());
+        phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getPhoenixHost());
         workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
     }
 

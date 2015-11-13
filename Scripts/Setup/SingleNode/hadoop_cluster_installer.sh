@@ -2,13 +2,13 @@
 
 # Assumptions
 # 1. Use root account
-# 2. Default host name is tenzing-red.  If different, update the script to reflect this before running it.
+# 2. Host name is obtained automatically using the "hostname" command.  If a different host name is desired, edit the command below.
 # 3. Run source /etc/environment right after running the hadoop cluster installer
 # 4. Root user must be able to login to the same machine without password
 
 
 ###############################################  Configurations #######################################################
-host_name=tenzing-red
+host_name=`hostname`
 
   # define following directories without ending slash /
 yarn_data_dir=/mnt/yarn

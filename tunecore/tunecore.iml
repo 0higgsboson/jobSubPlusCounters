@@ -51,22 +51,6 @@
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-mapreduce-client-jobclient:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-hdfs:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: commons-daemon:commons-daemon:1.0.13" level="project" />
-    <orderEntry type="library" name="Maven: com.google.appengine.tools:appengine-gcs-client:0.5" level="project" />
-    <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.9.28" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:19.0-rc2" level="project" />
-    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-storage:v1-rev15-1.19.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.19.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.19.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client-appengine:1.20.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client-appengine:1.20.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client-servlet:1.20.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jdo:1.20.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client-servlet:1.20.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.jdo:jdo2-api:2.3-eb" level="project" />
-    <orderEntry type="library" name="Maven: javax.transaction:transaction-api:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client:1.19.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-appengine:1.19.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jackson2:1.20.0" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.5.0-b01" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:javax.mail-api:1.5.4" level="project" />
@@ -105,6 +89,7 @@
     <orderEntry type="library" name="Maven: com.google.inject.extensions:guice-servlet:3.0" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty:3.6.2.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.hadoop:hadoop-common:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:11.0.2" level="project" />
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-math3:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: xmlenc:xmlenc:0.52" level="project" />

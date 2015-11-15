@@ -7,6 +7,7 @@ import com.sherpa.core.utils.ConfigurationLoader;
 import com.sherpa.tunecore.joblauncher.SPI;
 import com.sherpa.tunecore.joblauncher.Utils;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
+import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +82,9 @@ public class MRCountersManager {
         else
             params.put("CPU_MILLISECONDS_REDUCE", new BigInteger("0"));
 
+
+        params.put("reserved_memory", getReservedMemory(jobId, jobHistoryServer, jobCounters));
+
         workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
@@ -95,7 +99,7 @@ public class MRCountersManager {
         try {
             System.out.println("Getting Job Counters");
             HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
-            countersObj.getJobCounters(jobId);
+            //countersObj.getJobCounters(jobId);
             counterValues = countersObj.getJobCounters(jobId);
             System.out.println("Done Getting Job Counters ...");
 
@@ -106,6 +110,26 @@ public class MRCountersManager {
         return counterValues;
     }
 
+
+
+
+    public static synchronized BigInteger getReservedMemory(String jobId, String historyServerUrl, Map<String, BigInteger> counters){
+        BigInteger reservedMemory = new BigInteger("0");
+        BigInteger mbConvertor = new BigInteger("1048576");
+        try {
+            System.out.println("Computing Reserved Memory");
+            HistoricalTaskCounters taskCounters = new HistoricalTaskCounters( historyServerUrl);
+            BigInteger mapMem = counters.get("PHYSICAL_MEMORY_BYTES_MAP").divide(mbConvertor);
+            BigInteger redMem = counters.get("PHYSICAL_MEMORY_BYTES_REDUCE").divide(mbConvertor);
+            reservedMemory = taskCounters.computeReservedMemory(jobId, mapMem, redMem);
+            System.out.println("Computed Reserved Memory: " + reservedMemory);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reservedMemory;
+    }
 
 
 

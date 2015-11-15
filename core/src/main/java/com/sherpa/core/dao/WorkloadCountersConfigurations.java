@@ -51,7 +51,8 @@ public class WorkloadCountersConfigurations {
                 "mapreduce_map_memory_mb:BIGINT",
                 "mapreduce_reduce_memory_mb:BIGINT",
                 "mapreduce_map_cpu_vcores:BIGINT",
-                "mapreduce_reduce_cpu_vcores:BIGINT"
+                "mapreduce_reduce_cpu_vcores:BIGINT",
+                "reserved_memory:BIGINT"
         };
 
 

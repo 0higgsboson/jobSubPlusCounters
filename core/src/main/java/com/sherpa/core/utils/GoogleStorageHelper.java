@@ -1,13 +1,17 @@
+/*
 package com.sherpa.core.utils;
 
+*/
 /**
  * Created by akhtar on 21/09/2015.
- */
+ *//*
+
 
 
 
 
 //[START all]
+*/
 /*
  * Copyright (c) 2014 Google Inc.
  *
@@ -20,7 +24,8 @@ package com.sherpa.core.utils;
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
- */
+ *//*
+
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -44,32 +49,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+*/
 /**
  * Main class for the Cloud Storage JSON API sample.
  *
  * Demonstrates how to make an authenticated API call using the Google Cloud Storage API client
  * library for java, with Application Default Credentials.
- */
+ *//*
+
 
 
 public class GoogleStorageHelper {
 
-    /**
+    */
+/**
      * Be sure to specify the name of your application. If the application name is {@code null} or
      * blank, the application will log a warning. Suggested format is "MyCompany-ProductName/1.0".
-     */
+     *//*
+
     private static final String APPLICATION_NAME = "[[02-QE-Perf-Sherpa]]";
 
-    /** Global instance of the JSON factory. */
+    */
+/** Global instance of the JSON factory. *//*
+
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TEST_FILENAME = "/root/a.txt";
 
     // [START get_service]
     private static Storage storageService;
 
-    /**
+    */
+/**
      * Returns an authenticated Storage object used to make service calls to Cloud Storage.
-     */
+     *//*
+
     private static Storage getService() throws IOException, GeneralSecurityException {
         if (null == storageService) {
             GoogleCredential credential = GoogleCredential.getApplicationDefault();
@@ -88,12 +101,14 @@ public class GoogleStorageHelper {
     // [END get_service]
 
     // [START list_bucket]
-    /**
+    */
+/**
      * Fetch a list of the objects within the given bucket.
      *
      * @param bucketName the name of the bucket to list.
      * @return a list of the contents of the specified bucket.
-     */
+     *//*
+
     public static List<StorageObject> listBucket(String bucketName)
             throws IOException, GeneralSecurityException {
         Storage client = getService();
@@ -117,12 +132,14 @@ public class GoogleStorageHelper {
     // [END list_bucket]
 
     // [START get_bucket]
-    /**
+    */
+/**
      * Fetches the metadata for the given bucket.
      *
      * @param bucketName the name of the bucket to get metadata about.
      * @return a Bucket containing the bucket's metadata.
-     */
+     *//*
+
     public static Bucket getBucket(String bucketName) throws IOException, GeneralSecurityException {
         Storage client = getService();
 
@@ -134,14 +151,16 @@ public class GoogleStorageHelper {
     // [END get_bucket]
 
     // [START upload_stream]
-    /**
+    */
+/**
      * Uploads data to an object in a bucket.
      *
      * @param name the name of the destination object.
      * @param contentType the MIME type of the data.
      * @param stream the data - for instance, you can use a FileInputStream to upload a file.
      * @param bucketName the name of the bucket to create the object in.
-     */
+     *//*
+
     public static void uploadStream(
             String name, String contentType, InputStream stream, String bucketName)
             throws IOException, GeneralSecurityException {
@@ -163,12 +182,14 @@ public class GoogleStorageHelper {
     // [END upload_stream]
 
     // [START delete_object]
-    /**
+    */
+/**
      * Deletes an object in a bucket.
      *
      * @param path the path to the object to delete.
      * @param bucketName the bucket the object is contained in.
-     */
+     *//*
+
     public static void deleteObject(String path, String bucketName)
             throws IOException, GeneralSecurityException {
         Storage client = getService();
@@ -176,11 +197,13 @@ public class GoogleStorageHelper {
     }
     // [END delete_object]
 
-    /**
+    */
+/**
      * Exercises the class's functions - gets and lists a bucket, uploads and deletes an object.
      *
      * @param args the command-line arguments. The first argument should be the bucket name.
-     */
+     *//*
+
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("Usage: StorageSample <bucket-name>");
@@ -198,7 +221,8 @@ public class GoogleStorageHelper {
             System.out.println("owner: " + bucket.getOwner());
 
 
-         /*   // List the contents of the bucket.
+         */
+/*   // List the contents of the bucket.
             List<StorageObject> bucketContents = listBucket(bucketName);
             if (null == bucketContents) {
                 System.out.println(
@@ -208,7 +232,8 @@ public class GoogleStorageHelper {
                 System.out.println(object.getName() + " (" + object.getSize() + " bytes)");
             }
 
-*/
+*//*
+
             // Upload a stream to the bucket. This could very well be a file.
             uploadStream(
                     TEST_FILENAME, "text/plain",
@@ -230,3 +255,4 @@ public class GoogleStorageHelper {
 
 
 }
+*/

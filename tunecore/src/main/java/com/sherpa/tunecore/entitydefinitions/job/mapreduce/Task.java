@@ -12,7 +12,7 @@ public class Task {
 
 	private DateTime startTime;
 	private DateTime finishTime;
-	private DateTime elapsedTime;
+	private String elapsedTime;
 	
 	private float progress;
 	private String id;
@@ -37,11 +37,11 @@ public class Task {
 		this.finishTime = finishTime;
 	}
 
-	public DateTime getElapsedTime() {
+	public String getElapsedTime() {
 		return elapsedTime;
 	}
 
-	public void setElapsedTime(DateTime elapsedTime) {
+	public void setElapsedTime(String elapsedTime) {
 		this.elapsedTime = elapsedTime;
 	}
 

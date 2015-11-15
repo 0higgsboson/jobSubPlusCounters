@@ -134,10 +134,46 @@ public class HistoricalTaskCounters {
 
 
 
+
+	public BigInteger computeReservedMemory(String JobId, BigInteger mapMemory, BigInteger reduceMemory) {
+		BigInteger reservedMemory = new BigInteger("0");
+		BigInteger productResult;
+		AllTasks allTasks = restTemplate.getForObject(SPI.getJobTaskUri(jobHistoryUrl, JobId), AllTasks.class);
+
+
+		List<Task> jobTasksList = allTasks.getTasks().getTask();
+
+		for(Task task : jobTasksList){
+			if(task.getType().equalsIgnoreCase("MAP")){
+				productResult = mapMemory.multiply(new BigInteger(task.getElapsedTime()));
+				reservedMemory = reservedMemory.add(productResult);
+			}
+			else if(task.getType().equalsIgnoreCase("REDUCE")){
+				productResult = reduceMemory.multiply(new BigInteger(task.getElapsedTime()));
+				reservedMemory = reservedMemory.add(productResult);
+			}
+		}
+
+		return reservedMemory;
+	}
+
+
+
+
+
+
 	public static void main(String[] args) throws Exception {
-		RestTemplate restTemplate = new RestTemplate();
-		MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://master.c.test-sherpa-1015.internal:19888/ws/v1/history/mapreduce/jobs/", "job_1441908739430_0068"), MRJobCounters.class);
-		System.out.println(c);
+	//	RestTemplate restTemplate = new RestTemplate();
+//		MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://104.197.176.154:19888/ws/v1/history/mapreduce/jobs/", "job_1447069154965_0002"), MRJobCounters.class);
+//		System.out.println(c);
+
+	/*	HistoricalTaskCounters tc = new HistoricalTaskCounters("http://104.197.176.154:19888/ws/v1/history/mapreduce/jobs/");
+		BigInteger r = tc.computeReservedMemory("job_1447069154965_0002", new BigInteger("10"), new BigInteger("1"));
+		System.out.println(r);*/
+
+
+		BigInteger a = new BigInteger("30");
+		System.out.println(a.divide(new BigInteger("3")));
 
 
 	}

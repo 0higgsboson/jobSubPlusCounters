@@ -7,6 +7,7 @@ import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.joblauncher.SPI;
 import com.sherpa.tunecore.joblauncher.Utils;
+import com.sherpa.tunecore.joblauncher.mr.MRCountersManager;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalJobCounters;
 import com.sherpa.tunecore.metricsextractor.mapreduce.HistoricalTaskCounters;
 import org.slf4j.Logger;
@@ -156,7 +157,7 @@ public class HiveCliJobExecutor extends Thread{
                 //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
                 if(jobCounters!=null) {
-                    saveWorkloadCounters(jobId, elapsedTime, jobCounters);
+                    saveWorkloadCounters(jobId, elapsedTime, jobCounters, false);
                     addToCounters(jobCounters);
                 }
 
@@ -183,7 +184,7 @@ public class HiveCliJobExecutor extends Thread{
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 
 
-            saveWorkloadCounters(aggregateJobId, totalElapsedTime, jobCountersMap);
+            saveWorkloadCounters(aggregateJobId, totalElapsedTime, jobCountersMap, true);
             workloadManager.close();
             log.info("Finished All Tasks ... " + jobsProcessed);
             System.out.println("Finished All Tasks ... " + jobsProcessed);
@@ -229,7 +230,7 @@ public class HiveCliJobExecutor extends Thread{
 
 
 
-    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters){
+    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, boolean isAggregate){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
         //String json = new Gson().toJson(jobCounters);
@@ -270,6 +271,11 @@ public class HiveCliJobExecutor extends Thread{
             params.put("CPU_MILLISECONDS_REDUCE", new BigInteger("0"));
 
 
+        if(!isAggregate) {
+            BigInteger rm = MRCountersManager.getReservedMemory(jobId, historyServerUrl, jobCounters);
+            params.put("reserved_memory", rm);
+            jobCounters.put("reserved_memory", rm);
+        }
         System.out.println("\n\nParameters: " + params);
 
         workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);

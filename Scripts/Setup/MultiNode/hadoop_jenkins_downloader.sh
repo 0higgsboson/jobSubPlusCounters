@@ -2,6 +2,7 @@
 
 # Assumptions
 # 1. Uses jenkins account
+#
 
 installation_base_dir=~jenkins/jobs/Sherpa/workspace
 hadoop_dir=$installation_base_dir/hadoop

@@ -256,7 +256,7 @@ pdcp -r -w ^${hosts_file} -x ${master} ${hadoop_dir}/hadoop-${HADOOP_VERSION}/ $
 export PATH=$PATH:${hadoop_dir}/hadoop-${HADOOP_VERSION}/bin/
 
 print "Formatting Namenode ..."
-hadoop namenode -format
+hadoop namenode -format -nonInteractive
 
 
 print "Creating Start/Stop Scripts ..."

@@ -19,15 +19,15 @@ source configurations.sh
 
 
 
-./scripts/hadoop_multinode_installer.sh     ${hosts_file}
+./hadoop_multinode_installer.sh     ${hosts_file}
 
-./scripts/hbase_multinode_installer.sh      ${hosts_file}
+./hbase_multinode_installer.sh      ${hosts_file}
 
-./scripts/phoenix_multinode_installer.sh    ${hosts_file}
+./phoenix_multinode_installer.sh    ${hosts_file}
 
-./scripts/hive_multinode_installer.sh       ${hosts_file}
+./hive_multinode_installer.sh       ${hosts_file}
 
-./scripts/spark_multinode_installer.sh      ${hosts_file}
+./spark_multinode_installer.sh      ${hosts_file}
 
 
 printf "\n\n Installed All Services "

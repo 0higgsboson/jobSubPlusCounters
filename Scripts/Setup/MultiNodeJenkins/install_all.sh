@@ -19,15 +19,15 @@ source configurations.sh
 
 
 
-${sherpa_repo_dir}/scripts/hadoop_multinode_installer.sh     ${hosts_file}
+./scripts/hadoop_multinode_installer.sh     ${hosts_file}
 
-${sherpa_repo_dir}/scripts/hbase_multinode_installer.sh      ${hosts_file}
+./scripts/hbase_multinode_installer.sh      ${hosts_file}
 
-${sherpa_repo_dir}/scripts/phoenix_multinode_installer.sh    ${hosts_file}
+./scripts/phoenix_multinode_installer.sh    ${hosts_file}
 
-${sherpa_repo_dir}/scripts/hive_multinode_installer.sh       ${hosts_file}
+./scripts/hive_multinode_installer.sh       ${hosts_file}
 
-${sherpa_repo_dir}/scripts/spark_multinode_installer.sh      ${hosts_file}
+./scripts/spark_multinode_installer.sh      ${hosts_file}
 
 
 printf "\n\n Installed All Services "

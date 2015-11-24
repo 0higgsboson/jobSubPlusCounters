@@ -18,6 +18,9 @@ public class MRCounters{
     private int avgShuffleTime;
     private int avgMergeTime;
 
+    private String user;
+    private String queue;
+
 
     public int getMapsTotal() {
         return mapsTotal;
@@ -65,5 +68,22 @@ public class MRCounters{
 
     public void setAvgMergeTime(int avgMergeTime) {
         this.avgMergeTime = avgMergeTime;
+    }
+
+
+    public String getQueue() {
+        return queue;
+    }
+
+    public void setQueue(String queue) {
+        this.queue = queue;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

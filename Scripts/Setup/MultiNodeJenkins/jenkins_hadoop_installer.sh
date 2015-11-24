@@ -8,7 +8,7 @@
 if [ "$#" -ne 2 ]; then
     echo "Usage: hosts_file_path script_dir_path"
     echo "Example:"
-    echo "./run.sh  /root/hosts /home/ubuntu/SP/Scripts/Setup/MultiNodeJenkins/"
+    echo "./jenkins_hadoop_installer.sh  /root/hosts /home/ubuntu/SP/Scripts/Setup/MultiNodeJenkins/"
     exit
 fi
 

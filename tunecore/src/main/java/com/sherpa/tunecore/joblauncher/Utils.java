@@ -63,13 +63,13 @@ public class Utils {
             return map;
 
         for(String str: tok){
-            String[] keyValue = str.split("=");
+            String[] keyValue = str.trim().split("=");
             if(keyValue.length==2){
                 String name = keyValue[0].replaceAll("\\.", "_");
                 map.put(name, new BigInteger(keyValue[1]));
             }
             else{
-                System.out.println("Error: parameter not defined correctly ...");
+                System.out.println("Error: parameter not defined correctly:   Parameter=" +  str + "\t Length: " + keyValue.length + "\t Msg: Length was required to be 2");
             }
 
 

@@ -6,6 +6,8 @@ import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounter;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounterGroup;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRCounters;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobCounters;
 import com.sherpa.tunecore.joblauncher.MetricsDumper;
 import com.sherpa.tunecore.joblauncher.SPI;
 import org.slf4j.Logger;
@@ -28,6 +30,13 @@ public class HistoricalJobCounters {
 		this.jobHistoryUrl = jobHistoryUrl;
 		restTemplate = new RestTemplate();
 	}
+
+
+	public MRJobCounters getJobDetails(String jobId){
+		MRJobCounters counters = restTemplate.getForObject(SPI.getJobUri(jobHistoryUrl, jobId), MRJobCounters.class);
+		return  counters;
+	}
+
 
 
 	public Map<String, BigInteger> getJobCounters(String JobID) throws Exception{

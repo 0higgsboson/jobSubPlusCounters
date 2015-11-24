@@ -8,7 +8,7 @@
 if [ "$#" -ne 2 ]; then
     echo "Usage: master_host script_dir_path"
     echo "Example:"
-    echo "./run.sh  master /home/ubuntu/SP/Scripts/Setup/MultiNodeJenkins/"
+    echo "./jenkins_sherpa_installer.sh  master /home/ubuntu/SP/Scripts/Setup/MultiNodeJenkins/"
     exit
 fi
 

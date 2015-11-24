@@ -38,6 +38,7 @@ public class HiveCliJobExecutor extends Thread{
     private int workloadId=-1;
 
 
+    private MRCountersManager mrCountersManager;
     private HiveCliJobIdExtractor hiveJobIdExtractor;
     // Hive Job Extractor Thread adds jobs id in that queue
     private Queue<String> jobQueue = new LinkedList<String>();
@@ -54,8 +55,12 @@ public class HiveCliJobExecutor extends Thread{
 
     private String fileLines;
     private int totalJobs=-1;
+
+    // these are set from hive client using setter functions
     private Map<String, BigInteger> params = null;
     private String configurations= null;
+    private String clusterID= "sherpa-default";
+    private String sherpaTuned= "No";
 
 
     public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval){
@@ -66,6 +71,7 @@ public class HiveCliJobExecutor extends Thread{
 
         date = new Date();
         workloadManager = new WorkloadCountersManager();
+        mrCountersManager = new MRCountersManager();
     }
 
 
@@ -233,7 +239,6 @@ public class HiveCliJobExecutor extends Thread{
     private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, boolean isAggregate){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
-        //String json = new Gson().toJson(jobCounters);
         String json = Utils.toString2(jobCounters);
         Map<String, String> configurationValues = new HashMap<String, String>();
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
@@ -243,38 +248,19 @@ public class HiveCliJobExecutor extends Thread{
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterID);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
+        mrCountersManager.addJobDetails(jobId, historyServerUrl, configurationValues);
 
 
-       // System.out.println("\n\nCounters: " + json);
-       // System.out.println("\n\nConfigurations: " + configurations);
+        mrCountersManager.addCounters(jobCounters, params);
 
-
-        if(jobCounters.containsKey("PHYSICAL_MEMORY_BYTES_MAP"))
-            params.put("PHYSICAL_MEMORY_BYTES_MAP", jobCounters.get("PHYSICAL_MEMORY_BYTES_MAP"));
-        else
-            params.put("PHYSICAL_MEMORY_BYTES_MAP", new BigInteger("0"));
-
-        if(jobCounters.containsKey("PHYSICAL_MEMORY_BYTES_REDUCE"))
-            params.put("PHYSICAL_MEMORY_BYTES_REDUCE", jobCounters.get("PHYSICAL_MEMORY_BYTES_REDUCE"));
-        else
-            params.put("PHYSICAL_MEMORY_BYTES_REDUCE", new BigInteger("0"));
-
-        if(jobCounters.containsKey("CPU_MILLISECONDS_MAP"))
-            params.put("CPU_MILLISECONDS_MAP", jobCounters.get("CPU_MILLISECONDS_MAP"));
-        else
-            params.put("CPU_MILLISECONDS_MAP", new BigInteger("0"));
-
-
-        if(jobCounters.containsKey("CPU_MILLISECONDS_REDUCE"))
-            params.put("CPU_MILLISECONDS_REDUCE", jobCounters.get("CPU_MILLISECONDS_REDUCE"));
-        else
-            params.put("CPU_MILLISECONDS_REDUCE", new BigInteger("0"));
 
 
         if(!isAggregate) {
-            BigInteger rm = MRCountersManager.getReservedMemory(jobId, historyServerUrl, jobCounters);
-            params.put("reserved_memory", rm);
-            jobCounters.put("reserved_memory", rm);
+            BigInteger rm = mrCountersManager.getReservedMemory(jobId, historyServerUrl, params);
+            params.put("RESERVED_MEMORY", rm);
+            jobCounters.put("RESERVED_MEMORY", rm);
         }
         System.out.println("\n\nParameters: " + params);
 
@@ -428,5 +414,21 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setParams(Map<String, BigInteger> params) {
         this.params = params;
+    }
+
+    public String getClusterID() {
+        return clusterID;
+    }
+
+    public void setClusterID(String clusterID) {
+        this.clusterID = clusterID;
+    }
+
+    public String getSherpaTuned() {
+        return sherpaTuned;
+    }
+
+    public void setSherpaTuned(String sherpaTuned) {
+        this.sherpaTuned = sherpaTuned;
     }
 }

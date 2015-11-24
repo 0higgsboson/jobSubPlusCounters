@@ -17,7 +17,6 @@ public class WorkloadCountersConfigurations {
         public static final String WORKLOAD_IDS_TABLE_NAME = "workloadIds";
 
         public static final String RECORD_ID = "RECORD_ID";
-        public static final String PARAMETERS = "PARAMETERS";
         public static final String QUERY = "QUERY";
 
         public static final String MAP_SUFFIX = "_MAP";
@@ -32,54 +31,81 @@ public class WorkloadCountersConfigurations {
         public static final String COLUMN_START_TIME        = "START_TIME";
         public static final String COLUMN_END_TIME          = "END_TIME";
         public static final String COLUMN_COUNTERS          = "COUNTERS";
+        public static final String COLUMN_USER              = "USER";
+        public static final String COLUMN_QUEUE             = "QUEUE";
+        public static final String COLUMN_CLUSTER_ID        = "CLUSTER_ID";
+        public static final String COLUMN_SHERPA_TUNED      = "SHERPA_TUNED";
         public static final String COLUMN_CONFIGURATIONS    = "CONFIGURATIONS";
         public static final String COLUMN_COMPUTE_ENGINE_TYPE            = "COMPUTE_ENGINE_TYPE";
 
 
 
+        public static final String[] PARAMETERS = new String[]{
+            "mapreduce_max_split_size:BIGINT",
+            "mapreduce_job_reduces:BIGINT",
+            "mapreduce_map_memory_mb:BIGINT",
+            "mapreduce_reduce_memory_mb:BIGINT",
+            "mapreduce_map_cpu_vcores:BIGINT",
+            "mapreduce_reduce_cpu_vcores:BIGINT",
+        };
 
-        public static final String[] COUNTERS_NAMES = new String[]{
-                 "PHYSICAL_MEMORY_BYTES_MAP:BIGINT"
-                ,"PHYSICAL_MEMORY_BYTES_REDUCE:BIGINT"
-       /*         ,"VIRTUAL_MEMORY_BYTES_MAP:BIGINT"
-                ,"VIRTUAL_MEMORY_BYTES_REDUCE:BIGINT" */
-                ,"CPU_MILLISECONDS_MAP:BIGINT"
-                ,"CPU_MILLISECONDS_REDUCE:BIGINT"
 
-                ,"mapred_max_split_size:BIGINT",
-                "mapreduce_job_reduces:BIGINT",
-                "mapreduce_map_memory_mb:BIGINT",
-                "mapreduce_reduce_memory_mb:BIGINT",
-                "mapreduce_map_cpu_vcores:BIGINT",
-                "mapreduce_reduce_cpu_vcores:BIGINT",
-                "reserved_memory:BIGINT"
+
+         public static final String[] COUNTERS = new String[]{
+             "PHYSICAL_MEMORY_BYTES_MAP:BIGINT"
+            ,"PHYSICAL_MEMORY_BYTES_REDUCE:BIGINT"
+             ,"MB_MILLIS_MAPS:BIGINT"
+             ,"MB_MILLIS_REDUCES:BIGINT"
+            ,"CPU_MILLISECONDS_MAP:BIGINT"
+            ,"CPU_MILLISECONDS_REDUCE:BIGINT"
+             ,"HDFS_BYTES_READ:BIGINT"
+             ,"HDFS_BYTES_WRITTEN:BIGINT"
+
+             ,"RESERVED_MEMORY:BIGINT"
         };
 
 
 
 
         public static Map<String, String> getColumnNameTypeMap(){
-                Map<String, String> map = new HashMap<String, String>();
-                map.put(COLUMN_WORKLOAD_ID,"INTEGER not null");
-                map.put(COLUMN_JOB_ID,"VARCHAR not null");
-                map.put(COLUMN_EXECUTION_TIME,"INTEGER");
-                map.put(COLUMN_JOB_URL,"VARCHAR");
-                map.put(COLUMN_START_TIME,"VARCHAR not null");
-                map.put(COLUMN_END_TIME,"VARCHAR");
-                map.put(COLUMN_COUNTERS,"VARCHAR");
-                map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
-                map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(COLUMN_WORKLOAD_ID,"INTEGER not null");
+            map.put(COLUMN_START_TIME,"VARCHAR not null");
+            map.put(COLUMN_JOB_ID,"VARCHAR not null");
+            map.put(COLUMN_EXECUTION_TIME,"INTEGER");
+            map.put(COLUMN_JOB_URL,"VARCHAR");
+            map.put(COLUMN_END_TIME,"VARCHAR");
+            map.put(COLUMN_COUNTERS,"VARCHAR");
 
-                String tok[];
-                for(int i=0; i< COUNTERS_NAMES.length; i++){
-                        tok = COUNTERS_NAMES[i].split(":");
-                        if(tok!=null && tok.length==2) {
-                                map.put(tok[0], tok[1]);
-                        }
+            map.put(COLUMN_USER,"VARCHAR");
+            map.put(COLUMN_QUEUE,"VARCHAR");
+            map.put(COLUMN_CLUSTER_ID,"VARCHAR");
+            map.put(COLUMN_SHERPA_TUNED,"VARCHAR");
+
+            map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
+            map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");
+
+
+
+            String tok[];
+
+            for(int i=0; i< PARAMETERS.length; i++){
+                tok = PARAMETERS[i].split(":");
+                if(tok!=null && tok.length==2) {
+                    map.put(tok[0], tok[1]);
                 }
+            }
+
+            for(int i=0; i< COUNTERS.length; i++){
+                    tok = COUNTERS[i].split(":");
+                    if(tok!=null && tok.length==2) {
+                            map.put(tok[0], tok[1]);
+                    }
+            }
 
 
-                return map;
+
+            return map;
         }
 
 
@@ -95,20 +121,11 @@ public class WorkloadCountersConfigurations {
 
         public static Map<String, BigInteger> getInitialCounterValuesMap(){
                 Map<String, BigInteger> map = new HashMap<String, BigInteger>();
-             /*   map.put(COLUMN_WORKLOAD_ID, new BigInteger("0"));
-                map.put(COLUMN_JOB_ID, new BigInteger("0"));
-                map.put(COLUMN_EXECUTION_TIME, new BigInteger("0"));
-                map.put(COLUMN_JOB_URL, new BigInteger("0"));
-                map.put(COLUMN_START_TIME, new BigInteger("0"));
-                map.put(COLUMN_END_TIME, new BigInteger("0"));
-                map.put(COLUMN_COUNTERS, new BigInteger("0"));
-                map.put(COLUMN_CONFIGURATIONS, new BigInteger("0"));
-                map.put(COLUMN_COMPUTE_ENGINE_TYPE, new BigInteger("0"));*/
 
                 String tok[];
 
-                for(int i=0; i< COUNTERS_NAMES.length; i++){
-                        tok = COUNTERS_NAMES[i].split(":");
+                for(int i=0; i< COUNTERS.length; i++){
+                        tok = COUNTERS[i].split(":");
                         if(tok!=null && tok.length==2) {
                                 map.put(tok[0],  new BigInteger("0"));
                         }
@@ -118,7 +135,26 @@ public class WorkloadCountersConfigurations {
         }
 
 
-        public static String getCountersTableSchema(){
+
+    public static Map<String, BigInteger> getInitialParameterValuesMap(){
+        Map<String, BigInteger> map = new HashMap<String, BigInteger>();
+
+        String tok[];
+
+        for(int i=0; i< PARAMETERS.length; i++){
+            tok = PARAMETERS[i].split(":");
+            if(tok!=null && tok.length==2) {
+                map.put(tok[0],  new BigInteger("0"));
+            }
+        }
+
+        return map;
+    }
+
+
+
+
+    public static String getCountersTableSchema(){
                 Map<String, String> nameTypeMap = getColumnNameTypeMap();
                 StringBuilder schema = new StringBuilder();
                 schema.append("CREATE TABLE IF NOT EXISTS " + COUNTERS_TABLE_NAME + " ( ");
@@ -135,10 +171,14 @@ public class WorkloadCountersConfigurations {
                                 schema.append(",").append(name).append(" ").append(nameTypeMap.get(name));
                 }
 
-                schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_START_TIME).append(",").append(COLUMN_JOB_ID).append("))");
+                schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_JOB_ID).append(",").append(COLUMN_START_TIME).append("))");
 
                 return schema.toString();
         }
+
+
+
+
 
 
 
@@ -155,7 +195,7 @@ public class WorkloadCountersConfigurations {
         public static void main(String[] args){
 
            //WorkloadCountersPhoenixDAO dao = new WorkloadCountersPhoenixDAO("104.130.29.25");
-           //System.out.print(getCountersTableSchema());
+           System.out.print(getCountersTableSchema());
         }
 
 }

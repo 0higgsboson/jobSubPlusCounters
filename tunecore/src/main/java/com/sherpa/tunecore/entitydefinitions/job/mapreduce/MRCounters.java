@@ -18,6 +18,8 @@ public class MRCounters{
     private int avgShuffleTime;
     private int avgMergeTime;
 
+
+
     private String user;
     private String queue;
 

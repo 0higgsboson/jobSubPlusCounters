@@ -121,7 +121,10 @@ public class MRCountersManager {
             mrJobDetails = historicalJobObj.getJobDetails(jobId);
 
             configurations.put(WorkloadCountersConfigurations.COLUMN_USER, mrJobDetails.getJob().getUser());
-            configurations.put(WorkloadCountersConfigurations.COLUMN_QUEUE, mrJobDetails.getJob().getQueue());
+
+            configurations.put("MAP_TASKS", String.valueOf(mrJobDetails.getJob().getMapsTotal()));
+            configurations.put("REDUCE_TASKS", String.valueOf(mrJobDetails.getJob().getReducesTotal()));
+
 
             System.out.println("Done Getting Job Details ...");
 

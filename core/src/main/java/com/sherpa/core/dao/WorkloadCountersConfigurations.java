@@ -53,15 +53,16 @@ public class WorkloadCountersConfigurations {
 
          public static final String[] COUNTERS = new String[]{
              "PHYSICAL_MEMORY_BYTES_MAP:BIGINT"
-            ,"PHYSICAL_MEMORY_BYTES_REDUCE:BIGINT"
+             ,"PHYSICAL_MEMORY_BYTES_REDUCE:BIGINT"
              ,"MB_MILLIS_MAPS:BIGINT"
              ,"MB_MILLIS_REDUCES:BIGINT"
-            ,"CPU_MILLISECONDS_MAP:BIGINT"
-            ,"CPU_MILLISECONDS_REDUCE:BIGINT"
+             ,"CPU_MILLISECONDS_MAP:BIGINT"
+             ,"CPU_MILLISECONDS_REDUCE:BIGINT"
              ,"HDFS_BYTES_READ:BIGINT"
              ,"HDFS_BYTES_WRITTEN:BIGINT"
 
              ,"RESERVED_MEMORY:BIGINT"
+
         };
 
 
@@ -85,6 +86,8 @@ public class WorkloadCountersConfigurations {
             map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
             map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");
 
+            map.put("MAP_TASKS","VARCHAR");
+            map.put("REDUCE_TASKS","VARCHAR");
 
 
             String tok[];

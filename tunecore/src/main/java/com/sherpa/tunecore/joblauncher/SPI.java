@@ -27,6 +27,15 @@ public class SPI {
         return url;
     }
 
+    public static String getJobConfUri(String jobHistoryUrl, String jobId){
+        if(!jobHistoryUrl.endsWith("/"))
+            jobHistoryUrl += "/";
+
+        String url = jobHistoryUrl + jobId + "/conf";
+        log.info("SPI getJobConfUri URL: " + url);
+        return url;
+    }
+
 
     public static String getJobTaskUri(String jobHistoryUrl, String jobId){
         if(!jobHistoryUrl.endsWith("/"))

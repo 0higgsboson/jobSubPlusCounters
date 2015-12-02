@@ -250,7 +250,8 @@ public class HiveCliJobExecutor extends Thread{
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterID);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
-        mrCountersManager.addJobDetails(jobId, historyServerUrl, configurationValues);
+
+        mrCountersManager.addJobDetails(jobId, historyServerUrl, configurationValues, params);
 
 
         mrCountersManager.addCounters(jobCounters, params);
@@ -258,9 +259,12 @@ public class HiveCliJobExecutor extends Thread{
 
 
         if(!isAggregate) {
-            BigInteger rm = mrCountersManager.getReservedMemory(jobId, historyServerUrl, params);
-            params.put("RESERVED_MEMORY", rm);
+            // this should be called after job level details have been added i.e. addJobDetails method is called
+            BigInteger rm = mrCountersManager.addReservedMemory(jobId, historyServerUrl, params);
+            BigInteger rc = mrCountersManager.addReservedCpu(jobId, historyServerUrl, params);
+
             jobCounters.put("RESERVED_MEMORY", rm);
+            jobCounters.put("RESERVED_CPU", rc);
         }
         System.out.println("\n\nParameters: " + params);
 

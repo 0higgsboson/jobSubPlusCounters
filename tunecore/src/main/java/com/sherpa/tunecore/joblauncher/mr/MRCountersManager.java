@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.utils.ConfigurationLoader;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobConf;
 import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobCounters;
 import com.sherpa.tunecore.joblauncher.SPI;
 import com.sherpa.tunecore.joblauncher.Utils;
@@ -48,7 +49,7 @@ public class MRCountersManager {
         Map<String, BigInteger> jobCounters = getJobCounters(jobId, jobHistoryServer);
         String json = Utils.toString2(jobCounters);
         addCounters(jobCounters, counters);
-        counters.put("RESERVED_MEMORY", getReservedMemory(jobId, jobHistoryServer, counters));
+
 
 
         Map<String, String> configurationValues = new HashMap<String, String>();
@@ -62,8 +63,12 @@ public class MRCountersManager {
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterId);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
 
-        addJobDetails(jobId, jobHistoryServer, configurationValues);
+        addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
 
+
+        // this should be called after job level details have been added i.e. addJobDetails method is called
+        addReservedMemory(jobId, jobHistoryServer, counters);
+        addReservedCpu(jobId, jobHistoryServer, counters);
 
         workloadManager.saveCounters(workloadId, (int) elapsedTime, counters, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
@@ -84,6 +89,10 @@ public class MRCountersManager {
 
         addCounter(jobCounters, counters, "HDFS_BYTES_READ_TOTAL", "HDFS_BYTES_READ");
         addCounter(jobCounters, counters, "HDFS_BYTES_WRITTEN_TOTAL", "HDFS_BYTES_WRITTEN");
+
+        addCounter(jobCounters, counters, "VCORES_MILLIS_MAPS_TOTAL", "VCORES_MILLIS_MAPS");
+        addCounter(jobCounters, counters, "VCORES_MILLIS_REDUCES_TOTAL", "VCORES_MILLIS_REDUCES");
+
 
     }
 
@@ -113,7 +122,7 @@ public class MRCountersManager {
 
 
 
-    public synchronized MRJobCounters addJobDetails(String jobId, String historyServerUrl, Map<String, String> configurations){
+    public synchronized MRJobCounters addJobDetails(String jobId, String historyServerUrl, Map<String, String> configurations, Map<String, BigInteger> counters){
         MRJobCounters mrJobDetails = null;
         try {
             System.out.println("Getting Job Details");
@@ -123,9 +132,13 @@ public class MRCountersManager {
             configurations.put(WorkloadCountersConfigurations.COLUMN_USER, mrJobDetails.getJob().getUser());
             configurations.put(WorkloadCountersConfigurations.COLUMN_QUEUE, mrJobDetails.getJob().getQueue());
 
-            configurations.put("MAP_TASKS", String.valueOf(mrJobDetails.getJob().getMapsTotal()));
-            configurations.put("REDUCE_TASKS", String.valueOf(mrJobDetails.getJob().getReducesTotal()));
-
+            MRJobConf conf = historicalJobObj.getJobConf(jobId);
+            counters.put("accepted_mapreduce_job_maps", new BigInteger(conf.getPropertyValue("mapreduce.job.maps")));
+            counters.put("accepted_mapreduce_job_reduces", new BigInteger(conf.getPropertyValue("mapreduce.job.reduces")));
+            counters.put("accepted_mapreduce_map_memory_mb", new BigInteger(conf.getPropertyValue("mapreduce.map.memory.mb")));
+            counters.put("accepted_mapreduce_reduce_memory_mb", new BigInteger(conf.getPropertyValue("mapreduce.reduce.memory.mb")));
+            counters.put("accepted_mapreduce_map_cpu_vcores", new BigInteger(conf.getPropertyValue("mapreduce.map.cpu.vcores")));
+            counters.put("accepted_mapreduce_reduce_cpu_vcores", new BigInteger(conf.getPropertyValue("mapreduce.reduce.cpu.vcores")));
 
             System.out.println("Done Getting Job Details ...");
 
@@ -137,15 +150,18 @@ public class MRCountersManager {
 
 
 
-    public synchronized BigInteger getReservedMemory(String jobId, String historyServerUrl, Map<String, BigInteger> counters){
+    public synchronized BigInteger addReservedMemory(String jobId, String historyServerUrl, Map<String, BigInteger> counters){
         BigInteger reservedMemory = new BigInteger("0");
-        BigInteger mbConvertor = new BigInteger("1048576");
+        BigInteger mbFactor = new BigInteger("1024");
         try {
             System.out.println("Computing Reserved Memory");
             HistoricalTaskCounters taskCounters = new HistoricalTaskCounters( historyServerUrl);
-            BigInteger mapMem = counters.get("MB_MILLIS_MAPS").divide(mbConvertor);
-            BigInteger redMem = counters.get("MB_MILLIS_REDUCES").divide(mbConvertor);
+            BigInteger mapMem = counters.get("accepted_mapreduce_map_memory_mb").divide(mbFactor);
+            BigInteger redMem = counters.get("accepted_mapreduce_reduce_memory_mb").divide(mbFactor);
             reservedMemory = taskCounters.computeReservedMemory(jobId, mapMem, redMem);
+
+            counters.put("RESERVED_MEMORY", reservedMemory);
+
             System.out.println("Done Computing Reserved Memory: " + reservedMemory);
 
         } catch (Exception e) {
@@ -153,6 +169,28 @@ public class MRCountersManager {
         }
 
         return reservedMemory;
+    }
+
+
+
+    public synchronized BigInteger addReservedCpu(String jobId, String historyServerUrl, Map<String, BigInteger> counters){
+        BigInteger reservedCpu = new BigInteger("0");
+        try {
+            System.out.println("Computing Reserved CPU");
+            HistoricalTaskCounters taskCounters = new HistoricalTaskCounters( historyServerUrl);
+            BigInteger mapCores = counters.get("accepted_mapreduce_map_cpu_vcores");
+            BigInteger redCores = counters.get("accepted_mapreduce_reduce_cpu_vcores");
+            reservedCpu = taskCounters.computeReservedCpu(jobId, mapCores, redCores);
+
+            counters.put("RESERVED_CPU", reservedCpu);
+
+            System.out.println("Done Computing Reserved CPU: " + reservedCpu);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reservedCpu;
     }
 
 

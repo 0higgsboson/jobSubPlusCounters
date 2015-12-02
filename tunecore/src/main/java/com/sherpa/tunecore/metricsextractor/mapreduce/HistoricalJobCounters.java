@@ -7,6 +7,7 @@ import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobCounters;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounter;
 import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.JobCounterGroup;
 import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRCounters;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobConf;
 import com.sherpa.tunecore.entitydefinitions.job.mapreduce.MRJobCounters;
 import com.sherpa.tunecore.joblauncher.MetricsDumper;
 import com.sherpa.tunecore.joblauncher.SPI;
@@ -34,6 +35,12 @@ public class HistoricalJobCounters {
 
 	public MRJobCounters getJobDetails(String jobId){
 		MRJobCounters counters = restTemplate.getForObject(SPI.getJobUri(jobHistoryUrl, jobId), MRJobCounters.class);
+		return  counters;
+	}
+
+
+	public MRJobConf getJobConf(String jobId){
+		MRJobConf counters = restTemplate.getForObject(SPI.getJobConfUri(jobHistoryUrl, jobId), MRJobConf.class);
 		return  counters;
 	}
 

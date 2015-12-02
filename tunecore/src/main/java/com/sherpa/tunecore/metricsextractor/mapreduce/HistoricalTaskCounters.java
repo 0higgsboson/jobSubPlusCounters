@@ -134,7 +134,6 @@ public class HistoricalTaskCounters {
 
 
 
-
 	public BigInteger computeReservedMemory(String JobId, BigInteger mapMemory, BigInteger reduceMemory) {
 		BigInteger reservedMemory = new BigInteger("0");
 		BigInteger productResult;
@@ -157,6 +156,29 @@ public class HistoricalTaskCounters {
 		return reservedMemory;
 	}
 
+
+
+	public BigInteger computeReservedCpu(String JobId, BigInteger mapCores, BigInteger reduceCores) {
+		BigInteger reservedCpu = new BigInteger("0");
+		BigInteger productResult;
+		AllTasks allTasks = restTemplate.getForObject(SPI.getJobTaskUri(jobHistoryUrl, JobId), AllTasks.class);
+
+
+		List<Task> jobTasksList = allTasks.getTasks().getTask();
+
+		for(Task task : jobTasksList){
+			if(task.getType().equalsIgnoreCase("MAP")){
+				productResult = mapCores.multiply(new BigInteger(task.getElapsedTime()));
+				reservedCpu = reservedCpu.add(productResult);
+			}
+			else if(task.getType().equalsIgnoreCase("REDUCE")){
+				productResult = reduceCores.multiply(new BigInteger(task.getElapsedTime()));
+				reservedCpu = reservedCpu.add(productResult);
+			}
+		}
+
+		return reservedCpu;
+	}
 
 
 

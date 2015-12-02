@@ -50,8 +50,17 @@ public class WorkloadCountersConfigurations {
         };
 
 
+        public static final String[] ACCEPTED_PARAMETERS = new String[]{
+                "accepted_mapreduce_job_maps:BIGINT",
+                "accepted_mapreduce_job_reduces:BIGINT",
+                "accepted_mapreduce_map_memory_mb:BIGINT",
+                "accepted_mapreduce_reduce_memory_mb:BIGINT",
+                "accepted_mapreduce_map_cpu_vcores:BIGINT",
+                "accepted_mapreduce_reduce_cpu_vcores:BIGINT",
+        };
 
-         public static final String[] COUNTERS = new String[]{
+
+    public static final String[] COUNTERS = new String[]{
              "PHYSICAL_MEMORY_BYTES_MAP:BIGINT"
              ,"PHYSICAL_MEMORY_BYTES_REDUCE:BIGINT"
              ,"MB_MILLIS_MAPS:BIGINT"
@@ -61,6 +70,10 @@ public class WorkloadCountersConfigurations {
              ,"HDFS_BYTES_READ:BIGINT"
              ,"HDFS_BYTES_WRITTEN:BIGINT"
 
+            ,"VCORES_MILLIS_MAPS:BIGINT"
+            ,"VCORES_MILLIS_REDUCES:BIGINT"
+
+            ,"RESERVED_CPU:BIGINT"
              ,"RESERVED_MEMORY:BIGINT"
 
         };
@@ -86,14 +99,20 @@ public class WorkloadCountersConfigurations {
             map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
             map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");
 
-            map.put("MAP_TASKS","VARCHAR");
-            map.put("REDUCE_TASKS","VARCHAR");
 
 
             String tok[];
 
             for(int i=0; i< PARAMETERS.length; i++){
                 tok = PARAMETERS[i].split(":");
+                if(tok!=null && tok.length==2) {
+                    map.put(tok[0], tok[1]);
+                }
+            }
+
+
+            for(int i=0; i< ACCEPTED_PARAMETERS.length; i++){
+                tok = ACCEPTED_PARAMETERS[i].split(":");
                 if(tok!=null && tok.length==2) {
                     map.put(tok[0], tok[1]);
                 }

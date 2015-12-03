@@ -156,8 +156,8 @@ public class MRCountersManager {
         try {
             System.out.println("Computing Reserved Memory");
             HistoricalTaskCounters taskCounters = new HistoricalTaskCounters( historyServerUrl);
-            BigInteger mapMem = counters.get("accepted_mapreduce_map_memory_mb").divide(mbFactor);
-            BigInteger redMem = counters.get("accepted_mapreduce_reduce_memory_mb").divide(mbFactor);
+            BigInteger mapMem = counters.get("accepted_mapreduce_map_memory_mb");
+            BigInteger redMem = counters.get("accepted_mapreduce_reduce_memory_mb");
             reservedMemory = taskCounters.computeReservedMemory(jobId, mapMem, redMem);
 
             counters.put("RESERVED_MEMORY", reservedMemory);

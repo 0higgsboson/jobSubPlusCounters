@@ -37,13 +37,7 @@ public class MRCountersManager {
 
         WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
 
-        int workloadId = workloadManager.getWorkloadIDFromFileContents(mapperClass);
-        System.out.println("Workload ID: " + workloadId);
-        if(workloadId<0){
-            System.out.println("Error: could not generate worklod id ...");
-            workloadManager.close();
-            return;
-        }
+        String workloadId = workloadManager.getWorkloadHash(mapperClass);
 
 
         Map<String, BigInteger> jobCounters = getJobCounters(jobId, jobHistoryServer);

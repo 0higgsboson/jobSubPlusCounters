@@ -40,6 +40,10 @@ public class WorkloadCountersManager {
         phoenixDAO.saveCounters(workloadId, executionTime, counters, configurations);
     }
 
+    public void saveCounters(String workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
+        phoenixDAO.saveCounters(workloadId, executionTime, counters, configurations);
+    }
+
 
     public int getFileWorkloadID(String filePath){
         return workloadIdGenerator.getFileWorkloadID(filePath);
@@ -48,6 +52,12 @@ public class WorkloadCountersManager {
     public int getWorkloadIDFromFileContents(String fileContents){
         return workloadIdGenerator.getWorkloadIDFromFileContents(fileContents);
     }
+
+
+    public String getWorkloadHash(String workload){
+        return workloadIdGenerator.getSha1Hash(workload);
+    }
+
 
 
     public int importWorkloadCountersIds(String filePath) {

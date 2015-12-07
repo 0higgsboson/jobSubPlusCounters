@@ -84,15 +84,15 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
     }
     
-    public void saveCounters(int workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
+    public void saveCounters(String workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
 
         StringBuilder header = new StringBuilder();
         StringBuilder values = new StringBuilder();
         StringBuilder sql    = new StringBuilder();
 
-        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( ");
+        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( '");
 
-        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
+        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append("',").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
         values.append(workloadId).append(",").append(executionTime);
 
         for(Map.Entry<String,String> e:  configurations.entrySet()){
@@ -126,6 +126,48 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
     }
 
+
+    public void saveCounters(int workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
+
+        StringBuilder header = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+        StringBuilder sql    = new StringBuilder();
+
+        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( ");
+
+        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
+        values.append(workloadId).append(",").append(executionTime);
+
+        for(Map.Entry<String,String> e:  configurations.entrySet()){
+            header.append(",").append(e.getKey());
+            values.append(",'").append(e.getValue()).append("'");
+        }
+
+        for(Map.Entry<String,BigInteger> e:  counters.entrySet()){
+            header.append(",").append(e.getKey());
+            values.append(",").append(e.getValue());
+        }
+
+        sql.append(header.toString()).append(" ) ").append("values (").append(values.toString()).append(")");
+        //log.info("Saving Record ... " + sql);
+
+        Connection con = createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeUpdate(sql.toString() );
+            con.commit();
+            stmt.close();
+            log.info("Record Saved ...");
+            System.out.println("Record Saved ...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+            System.out.println(e.getMessage());
+            System.out.println("Error SQL: " + sql);
+        }
+
+    }
 
 
 

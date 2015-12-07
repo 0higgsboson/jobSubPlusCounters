@@ -83,7 +83,7 @@ public class WorkloadCountersConfigurations {
 
         public static Map<String, String> getColumnNameTypeMap(){
             Map<String, String> map = new HashMap<String, String>();
-            map.put(COLUMN_WORKLOAD_ID,"INTEGER not null");
+            map.put(COLUMN_WORKLOAD_ID,"VARCHAR not null");
             map.put(COLUMN_START_TIME,"VARCHAR not null");
             map.put(COLUMN_JOB_ID,"VARCHAR not null");
             map.put(COLUMN_EXECUTION_TIME,"INTEGER");

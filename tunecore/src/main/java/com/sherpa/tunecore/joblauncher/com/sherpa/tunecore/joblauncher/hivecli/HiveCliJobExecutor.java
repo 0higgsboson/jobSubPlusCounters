@@ -35,7 +35,7 @@ public class HiveCliJobExecutor extends Thread{
     // keeps application's run time status
     private Application app;
     // workload ID
-    private int workloadId=-1;
+    private String workloadId="";
 
 
     private MRCountersManager mrCountersManager;
@@ -80,22 +80,9 @@ public class HiveCliJobExecutor extends Thread{
      *  Implements the controlling part of the job execution, tracking and saving
      */
     public void run(){
-
-        log.info("Finding Workload ID for: " + fileLines);
         System.out.println("Finding Workload ID for: " + fileLines);
-
-        workloadId = workloadManager.getWorkloadIDFromFileContents(fileLines);
-
-        log.info("Workload ID: "+ workloadId);
+        workloadId = workloadManager.getWorkloadHash(fileLines);
         System.out.println("Workload ID: " + workloadId);
-
-        if(workloadId<0){
-            log.error("Error: could not generate worklod id ...");
-            workloadManager.close();
-            return;
-        }
-
-
         int jobsProcessed = 0;
 
 
@@ -373,7 +360,7 @@ public class HiveCliJobExecutor extends Thread{
 
 
 
-    public void setWorkloadId(int workloadId) {
+    public void setWorkloadId(String workloadId) {
         this.workloadId = workloadId;
     }
 

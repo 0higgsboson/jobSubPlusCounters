@@ -73,8 +73,8 @@ public class WorkloadCountersConfigurations {
             ,"VCORES_MILLIS_MAPS:BIGINT"
             ,"VCORES_MILLIS_REDUCES:BIGINT"
 
-            ,"RESERVED_CPU:BIGINT"
-             ,"RESERVED_MEMORY:BIGINT"
+            ,"MILLIS_MAPS:BIGINT"
+             ,"MILLIS_REDUCES:BIGINT"
 
         };
 

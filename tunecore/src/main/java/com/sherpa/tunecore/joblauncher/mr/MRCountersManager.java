@@ -61,8 +61,8 @@ public class MRCountersManager {
 
 
         // this should be called after job level details have been added i.e. addJobDetails method is called
-        addReservedMemory(jobId, jobHistoryServer, counters);
-        addReservedCpu(jobId, jobHistoryServer, counters);
+        //addReservedMemory(jobId, jobHistoryServer, counters);
+        //addReservedCpu(jobId, jobHistoryServer, counters);
 
         workloadManager.saveCounters(workloadId, (int) elapsedTime, counters, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
@@ -87,6 +87,8 @@ public class MRCountersManager {
         addCounter(jobCounters, counters, "VCORES_MILLIS_MAPS_TOTAL", "VCORES_MILLIS_MAPS");
         addCounter(jobCounters, counters, "VCORES_MILLIS_REDUCES_TOTAL", "VCORES_MILLIS_REDUCES");
 
+        addCounter(jobCounters, counters, "MILLIS_MAPS_TOTAL", "MILLIS_MAPS");
+        addCounter(jobCounters, counters, "MILLIS_REDUCES_TOTAL", "MILLIS_REDUCES");
 
     }
 
@@ -149,7 +151,7 @@ public class MRCountersManager {
         BigInteger mbFactor = new BigInteger("1024");
         try {
             System.out.println("Computing Reserved Memory");
-            HistoricalTaskCounters taskCounters = new HistoricalTaskCounters( historyServerUrl);
+            HistoricalTaskCounters taskCounters = new HistoricalTaskCounters(historyServerUrl);
             BigInteger mapMem = counters.get("accepted_mapreduce_map_memory_mb");
             BigInteger redMem = counters.get("accepted_mapreduce_reduce_memory_mb");
             reservedMemory = taskCounters.computeReservedMemory(jobId, mapMem, redMem);

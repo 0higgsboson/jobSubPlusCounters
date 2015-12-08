@@ -245,14 +245,14 @@ public class HiveCliJobExecutor extends Thread{
 
 
 
-        if(!isAggregate) {
+       /* if(!isAggregate) {
             // this should be called after job level details have been added i.e. addJobDetails method is called
             BigInteger rm = mrCountersManager.addReservedMemory(jobId, historyServerUrl, params);
             BigInteger rc = mrCountersManager.addReservedCpu(jobId, historyServerUrl, params);
 
             jobCounters.put("RESERVED_MEMORY", rm);
             jobCounters.put("RESERVED_CPU", rc);
-        }
+        }*/
         System.out.println("\n\nParameters: " + params);
 
         workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);

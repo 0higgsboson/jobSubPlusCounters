@@ -1,5 +1,36 @@
 #!/bin/bash
 
+mapCore=1
+redCore=1
+
+mapMem=1024
+redMem=1024
+
+red=40
+
+mb=1048576
+
+mappers=(4096 2048 1024 512 256)
+
+for split in ${mappers[@]};
+  do
+    size=$(($mb*$split))
+    printf "\n\n *****************   Testing For (Split Size) = ($size) \n\n "
+    hdfs dfs -rm -r /teraOutput
+
+
+    yarn jar /root/cluster/hadoop/hadoop-2.6.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar terasort -D PSManaged=false -D mapreduce.max.split.size=${size} \
+    -D mapreduce.job.reduces=${red} -D mapreduce.map.memory.mb=${mapMem} -D mapreduce.reduce.memory.mb=${redMem} -D mapreduce.map.cpu.vcores=${mapCore} \
+    -D mapreduce.reduce.cpu.vcores=${redCore} /teraInput_4g /teraOutput
+
+done
+
+
+
+
+
+
+
 printf "\n\n ****************** Generating input data ... \n"
 #hdfs dfs -rm -r /teraInput
 #yarn jar /root/cluster/hadoop/hadoop-2.6.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar teragen -D PSManaged=false 10000000000 /teraInput
@@ -17,6 +48,12 @@ printf "\n\n ****************** Generating input data ... \n"
 
 
 
+
+
+# hdfs getconf -confKey dfs.blocksize
+# hadoop fs -stat %o /teraInput4/part-m-00000
+# hadoop fs -Ddfs.block.size=4294967296  -put src dst
+# hadoop fsck -blocks -files -locations file_path
 
 
 

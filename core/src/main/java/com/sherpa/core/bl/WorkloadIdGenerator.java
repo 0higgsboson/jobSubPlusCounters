@@ -177,7 +177,7 @@ public class WorkloadIdGenerator {
     public synchronized  String getSha1Hash(String workload)  {
         MessageDigest mDigest = null;
         try {
-            MessageDigest.getInstance("SHA1");
+            mDigest = MessageDigest.getInstance("SHA1");
         }catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
@@ -190,7 +190,6 @@ public class WorkloadIdGenerator {
 
         return sb.toString();
     }
-
 
 
 

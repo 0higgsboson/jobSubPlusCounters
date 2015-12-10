@@ -90,10 +90,10 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         StringBuilder values = new StringBuilder();
         StringBuilder sql    = new StringBuilder();
 
-        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( '");
+        sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( ");
 
-        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append("',").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
-        values.append(workloadId).append(",").append(executionTime);
+        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
+        values.append("'"+workloadId+"'").append(",").append(executionTime);
 
         for(Map.Entry<String,String> e:  configurations.entrySet()){
             header.append(",").append(e.getKey());

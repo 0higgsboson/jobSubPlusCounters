@@ -1,5 +1,6 @@
 package com.sherpa.core.dao;
 
+import com.sherpa.core.entitydefinitions.Parameters;
 import com.sherpa.core.entitydefinitions.WorkloadIdDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +84,84 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         }
 
     }
-    
+
+
+    private Parameters getParameters(ResultSet rset){
+        Parameters parameters = new Parameters();
+        try {
+            parameters.setMapCpuCores(rset.getString("mapreduce_map_cpu_vcores"));
+            parameters.setReduceCpuCores(rset.getString("mapreduce_reduce_cpu_vcores"));
+
+            parameters.setMapMemMb(rset.getString("mapreduce_map_memory_mb"));
+            parameters.setReduceMemMb(rset.getString("mapreduce_reduce_memory_mb"));
+
+            parameters.setJobReduces(rset.getString("mapreduce_job_reduces"));
+            String param = rset.getString("mapreduce_max_split_size");
+            if(param!=null)
+                parameters.setMaxSplitSize(param);
+            else
+                parameters.setMaxSplitSize("");
+
+            double mbMapsMillis   = rset.getDouble("MB_MILLIS_MAPS");
+            double mbReduceMillis = rset.getDouble("MB_MILLIS_REDUCES");
+            double cost = mbMapsMillis + mbReduceMillis;
+            parameters.setCost(cost);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return  parameters;
+    }
+
+
+    public Parameters findMinCostDefaultConfigs(String workloadId){
+        ResultSet rset = null;
+        double minCost=Double.MAX_VALUE;
+        Parameters parameters = null;
+
+        String sql = "select MB_MILLIS_MAPS, MB_MILLIS_REDUCES, mapreduce_max_split_size, mapreduce_job_reduces, mapreduce_map_memory_mb, mapreduce_reduce_memory_mb, mapreduce_map_cpu_vcores, mapreduce_reduce_cpu_vcores from "
+                + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " where workload_id='" + workloadId + "' and sherpa_tuned='No'";
+
+        System.out.println("Finding Min Cost Default Configs:  " + sql);
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                Parameters param = getParameters(rset);
+                if(minCost > param.getCost() ){
+                    minCost = param.getCost();
+                    parameters = param;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        if(parameters==null)
+            System.out.println("\n\n *** Configs not found for default run for Workload: " + workloadId);
+        else
+            System.out.println("\n\n Min Cost Default Configs:    " + parameters);
+
+        return  parameters;
+    }
+
+
+
+
+
     public void saveCounters(String workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
 
         StringBuilder header = new StringBuilder();

@@ -9,6 +9,7 @@ import java.util.Map;
 import com.sherpa.core.dao.PhoenixDAO;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
+import com.sherpa.core.entitydefinitions.Parameters;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
 import com.sherpa.core.utils.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -35,6 +36,16 @@ public class WorkloadCountersManager {
     }
 
 
+
+    public Parameters findMinCostDefaultConfigs(String workloadId){
+        return  phoenixDAO.findMinCostDefaultConfigs(workloadId);
+    }
+
+    public String getWorkloadHash(String workload){
+        return workloadIdGenerator.getSha1Hash(workload);
+    }
+
+
     // For Phoenix
     public void saveCounters(int workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
         phoenixDAO.saveCounters(workloadId, executionTime, counters, configurations);
@@ -45,17 +56,14 @@ public class WorkloadCountersManager {
     }
 
 
+    // deprecated
     public int getFileWorkloadID(String filePath){
         return workloadIdGenerator.getFileWorkloadID(filePath);
     }
 
+    // deprecated
     public int getWorkloadIDFromFileContents(String fileContents){
         return workloadIdGenerator.getWorkloadIDFromFileContents(fileContents);
-    }
-
-
-    public String getWorkloadHash(String workload){
-        return workloadIdGenerator.getSha1Hash(workload);
     }
 
 
@@ -71,7 +79,6 @@ public class WorkloadCountersManager {
     public int exportWorkloadCounters(String filePath) {
         return phoenixDAO.exportWorkloadCounters(filePath);
     }
-
 
     public int importWorkloadCounters(String filePath) {
         return phoenixDAO.importWorkloadCounters(filePath);

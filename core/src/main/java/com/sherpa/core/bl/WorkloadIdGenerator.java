@@ -27,7 +27,9 @@ public class WorkloadIdGenerator {
     public WorkloadIdGenerator(WorkloadCountersPhoenixDAO dao){
         workloadHashToIdMap = new HashMap<Long, Integer>();
         this.phoenixDAO = dao;
-        init();
+
+        // this is not required as we are not maintaining (id <> hash) mapping anymore
+        //init();
     }
 
 

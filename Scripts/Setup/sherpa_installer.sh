@@ -69,6 +69,7 @@ if [ "$?" -ne 0 ]; then
 	apt-get install git
 fi
 
+
 # Installs Maven if not installed already
 print "Checking maven install.."
 mvn >> /dev/null

@@ -5,8 +5,8 @@ CWD=`dirname "$0"`
 CWD=`cd "$CWD"; pwd`
 
 # load configurations & utils functions
-source ${CWD}/../configurations.sh
-source ${CWD}/../utils.sh
+source ${CWD}/../../configurations.sh
+source ${CWD}/../../utils.sh
 
 PSM=true
 if [ $# -eq 1 ]

@@ -28,7 +28,8 @@ public class MRCountersManager {
     private static final Logger log = LoggerFactory.getLogger(MRCountersManager.class);
 
 
-    public void saveCounters(String jobId, long elapsedTime,  long startTime, long finishTime, String mapperClass, Map<String, BigInteger> counters, String configurations, String clusterId, String sherpaTuned){
+    public void saveCounters(String jobId, long elapsedTime,  long startTime, long finishTime, String mapperClass, Map<String, BigInteger> counters,
+                             String configurations, String clusterId, String sherpaTuned, String tag, String origin){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
         configurations = escapeString(configurations);
@@ -56,6 +57,9 @@ public class MRCountersManager {
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterId);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_TAG, tag);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_ORIGIN, origin);
+
 
         addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
 

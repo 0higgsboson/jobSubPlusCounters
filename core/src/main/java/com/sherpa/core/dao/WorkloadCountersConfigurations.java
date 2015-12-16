@@ -35,6 +35,8 @@ public class WorkloadCountersConfigurations {
         public static final String COLUMN_QUEUE             = "QUEUE";
         public static final String COLUMN_CLUSTER_ID        = "CLUSTER_ID";
         public static final String COLUMN_SHERPA_TUNED      = "SHERPA_TUNED";
+        public static final String COLUMN_TAG                      = "TAG";
+        public static final String COLUMN_ORIGIN            = "ORIGIN";
         public static final String COLUMN_CONFIGURATIONS    = "CONFIGURATIONS";
         public static final String COLUMN_COMPUTE_ENGINE_TYPE            = "COMPUTE_ENGINE_TYPE";
 
@@ -97,6 +99,8 @@ public class WorkloadCountersConfigurations {
             map.put(COLUMN_QUEUE,"VARCHAR");
             map.put(COLUMN_CLUSTER_ID,"VARCHAR");
             map.put(COLUMN_SHERPA_TUNED,"VARCHAR");
+            map.put(COLUMN_TAG,"VARCHAR");
+            map.put(COLUMN_ORIGIN,"VARCHAR");
 
             map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
             map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");

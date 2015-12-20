@@ -30,10 +30,10 @@ public class PhoenixTableImport {
         Map<String, Integer> stats = new HashMap<String, Integer>();
         String filePath ;
 
-        System.out.println("\n\n\nImporting WorkloadCounter IDs");
+      /*  System.out.println("\n\n\nImporting WorkloadCounter IDs");
         System.out.println("**********************************************************");
         filePath = dirPath + PhoenixTableExport.WORKLOAD_COUNTERS_IDS_FILE_NAME;
-
+*/
 
         WorkloadCountersManager workloadCountersManager = null;
         if(SystemPropertiesLoader.getProperty("import.host")==null)
@@ -41,8 +41,8 @@ public class PhoenixTableImport {
         else
             workloadCountersManager = new WorkloadCountersManager(SystemPropertiesLoader.getProperty("import.host"));
 
-        recordsCount = workloadCountersManager.importWorkloadCountersIds(filePath);
-        stats.put(PhoenixTableExport.COUNTERS_IDS_TABLE_NAME, recordsCount);
+        //recordsCount = workloadCountersManager.importWorkloadCountersIds(filePath);
+        //stats.put(PhoenixTableExport.COUNTERS_IDS_TABLE_NAME, recordsCount);
 
         System.out.println("\n\n\nImporting WorkloadCounter");
         System.out.println("**********************************************************");

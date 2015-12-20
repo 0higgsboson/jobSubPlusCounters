@@ -247,8 +247,37 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
     }
 
+    private List<String> getColumnsList(ResultSet rs){
+        List<String> list = new ArrayList<String>();
+        try {
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            int numberOfColumns = rsMetaData.getColumnCount();
+            for (int i = 1; i < numberOfColumns + 1; i++) {
+                list.add(rsMetaData.getColumnName(i));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  list;
+    }
 
 
+    private String getColumnsNameLine(List<String> columnNames){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        boolean isFirstAppend = true;
+        for(String s: columnNames){
+            if(isFirstAppend){
+                stringBuilder.append(s);
+                isFirstAppend=false;
+            }
+            else
+                stringBuilder.append(",").append(s);
+
+        }
+
+        return stringBuilder.toString();
+    }
 
 
     public int exportWorkloadCounters(String filePath){
@@ -262,18 +291,9 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
 
         StringBuilder stringBuilder = new StringBuilder();
-        List<String> columnNames = WorkloadCountersConfigurations.getColumnNames();
+        List<String> columnNames = null;
 
-        boolean isFirstAppend = true;
-        for(String s: columnNames){
-            if(isFirstAppend){
-                stringBuilder.append(s);
-                isFirstAppend=false;
-            }
-            else
-                stringBuilder.append(",").append(s);
-
-        }
+        boolean isFirstAppend = false;
 
         Connection con = createConnection();
         PreparedStatement statement = null;
@@ -282,6 +302,9 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         try {
             statement = con.prepareStatement(sql);
             rset = statement.executeQuery();
+            columnNames = getColumnsList(rset);
+            stringBuilder.append( getColumnsNameLine(columnNames) );
+
             while (rset.next()) {
                 stringBuilder.append("\n");
 
@@ -289,6 +312,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
                 for(String colName: columnNames){
                     if(!isFirstAppend)
                         stringBuilder.append(",");
+
 
                     //if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))
                     if( colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))

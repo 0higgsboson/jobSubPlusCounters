@@ -53,14 +53,15 @@ public class PhoenixTableExport {
 
         int recordsCount = 0;
         String filePath;
+        WorkloadCountersManager workloadCountersManager = new WorkloadCountersManager();
 
+        /*
         System.out.println("\n\n\nExporting WorkloadCounters IDs");
         System.out.println("**********************************************************");
         filePath = dirPath + WORKLOAD_COUNTERS_IDS_FILE_NAME;
-        WorkloadCountersManager workloadCountersManager = new WorkloadCountersManager();
         recordsCount = workloadCountersManager.exportWorkloadCountersIds(filePath);
         stats.put(COUNTERS_IDS_TABLE_NAME, recordsCount);
-
+*/
         System.out.println("\n\n\nExporting WorkloadCounters");
         System.out.println("**********************************************************");
         filePath = dirPath + WORKLOAD_COUNTERS_FILE_NAME;

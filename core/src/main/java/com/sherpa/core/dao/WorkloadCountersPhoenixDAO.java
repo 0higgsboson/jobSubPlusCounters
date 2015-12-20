@@ -290,15 +290,16 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
                     if(!isFirstAppend)
                         stringBuilder.append(",");
 
-                    if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))
+                    //if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))
+                    if( colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME))
                         stringBuilder.append(rset.getInt(colName));
 
-                    else if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_URL) ||
+                    /*else if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_URL) ||
                             colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_START_TIME) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_END_TIME) ||
                             colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COUNTERS) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS) ||
                             colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE)   ) {
                         stringBuilder.append(rset.getString(colName));
-                    }
+                    }*/
                     else
                         stringBuilder.append(rset.getString(colName));
 
@@ -334,7 +335,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
     public int importWorkloadCounters(String filePath){
 
         StringBuilder headerBuilder = new StringBuilder();
-
+        Map<String, String> colTypeMap= WorkloadCountersConfigurations.getColumnNameTypeMap();
 
         BufferedReader reader = null;
         Connection con = createConnection();
@@ -366,13 +367,8 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
                 if(tok.length == headerTok.length){
                     for(int i=0; i<tok.length; i++){
                         String colName = headerTok[i];
-
-                        if(colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_ID) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_JOB_URL) ||
-                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_START_TIME) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_END_TIME) ||
-                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COUNTERS) || colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS) ||
-                                colName.equalsIgnoreCase(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE)   ) {
+                        if(colTypeMap.get(colName)!=null && ( colTypeMap.get(colName).equalsIgnoreCase("VARCHAR not null") || colTypeMap.get(colName).equalsIgnoreCase("VARCHAR") ) )
                             stringBuilder.append("'").append(tok[i]).append("',");
-                        }
                         else
                             stringBuilder.append(tok[i]).append(",");
                     }
@@ -386,7 +382,6 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
                 }
                 else {
                     errors++;
-                    System.out.println();
                 }
 
 

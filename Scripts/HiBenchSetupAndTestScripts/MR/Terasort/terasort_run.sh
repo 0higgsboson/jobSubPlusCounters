@@ -9,9 +9,15 @@ source ${CWD}/../../configurations.sh
 source ${CWD}/../../utils.sh
 
 PSM=true
+tag="NA"
+
 if [ $# -eq 1 ]
   then
     PSM=$1
+elif [ $# -eq 2 ]
+  then
+    PSM=$1
+    tag=$2
 fi
 
 cd ${installation_base_dir}/HiBench/workloads/terasort/mapreduce/bin/
@@ -20,9 +26,9 @@ cp run.sh temp.sh
 
 if [ "$PSM" = "true" ]
 then
-    replaceText 'terasort'  'terasort -D PSManaged=true' temp.sh
+    replaceText 'terasort'  "terasort -D PSManaged=true  -D Tag=${tag}" temp.sh
 else
-    replaceText 'terasort'  'terasort -D PSManaged=false' temp.sh
+    replaceText 'terasort'  "terasort -D PSManaged=false -D Tag=${tag}" temp.sh
 fi
 
 ./temp.sh

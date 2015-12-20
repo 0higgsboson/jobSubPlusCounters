@@ -43,11 +43,11 @@ function replaceText(){
   # $1 is configuration name
   # $2 is configuration value
   # $3 is configuration file
-
   echo "Setting up ( $1 = $2 ) in $3 ..."
   sed -i "s~$1~$2~" $3
-
 }
+
+
 
 function printStats(){
   # Takes workload name as input
@@ -71,3 +71,35 @@ function installThrift(){
   sudo make install
   thrift -version
 }
+
+
+function createLearningConfgis(){
+  # takes a parameter for number of solution candidates
+  numSolutions=$1
+  rm /opt/sherpa/TenzingMetadata.txt
+
+  if [ ${numSolutions} -eq 4 ]
+  then
+    echo '{
+        "numDimensions":"6",
+        "numCandidateSolutions":"4",
+        "relativeLearningWeights":[".2",".2",".2",".4"]
+        }' >> /opt/sherpa/TenzingMetadata.txt
+
+  elif [ ${numSolutions} -eq 6 ]
+  then
+    echo '{
+      "numDimensions":"6",
+      "numCandidateSolutions":"6",
+      "relativeLearningWeights":[".2",".2",".2",".2",".2",".4"]
+      }' >>   /opt/sherpa/TenzingMetadata.txt
+
+  elif [ ${numSolutions} -eq 8 ]
+  then
+    echo '{
+        "numDimensions":"6",
+        "numCandidateSolutions":"8",
+        "relativeLearningWeights":[".2",".2",".2",".2",".2",".2",".4",".4"]
+        }' >> /opt/sherpa/TenzingMetadata.txt
+  fi
+ }

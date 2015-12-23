@@ -38,7 +38,9 @@ public class MRCountersManager {
 
         WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
 
-        String workloadId = workloadManager.getWorkloadHash(mapperClass);
+        //String workloadId = workloadManager.getWorkloadHash(mapperClass);
+
+        String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
 
 
         Map<String, BigInteger> jobCounters = getJobCounters(jobId, jobHistoryServer);

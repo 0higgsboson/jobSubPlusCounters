@@ -125,3 +125,31 @@ function addToPath(){
   source /etc/environment
 }
 
+
+function replaceText(){
+  # takes configuration name, value and file as input
+  # Updates the configuration value
+  # $1 is configuration name
+  # $2 is configuration value
+  # $3 is configuration file
+  echo "Setting up ( $1 = $2 ) in $3 ..."
+  sed -i "s~$1~$2~" $3
+}
+
+function setConfiguration(){
+  # takes configuration name, value and file as input
+  # Updates the configuration value
+  # $1 is configuration name
+  # $2 is configuration value
+  # $3 is configuration file
+
+  echo "Setting up ( $1 = $2 ) in $3 ..."
+
+  # Variables are expanded first by shell, sed is executed next
+  # Using ~ as a separator not / because config value itself contains slashes /
+  sed -i "s~^$1.*.$~$1      $2~" $3
+
+  # Example
+  # sed 's/^hibench.hadoop.home.*.$/hibench.hadoop.home    ${HADOOP_HOME}/' 99-user_defined_properties.conf
+
+}

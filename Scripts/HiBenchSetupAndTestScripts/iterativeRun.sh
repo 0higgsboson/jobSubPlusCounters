@@ -40,16 +40,17 @@ for i in `seq 1 ${iterations}`;
   do
       print "Iteration $i of $iterations ..."
 
-      if [[ "$workload" = "sort" || "$workload" = "terasort" || "$workload" = "wordcount" ]]
+      if [[ "$workload" = "sort" || "$workload" = "terasort" || "$workload" = "wordcount" || "$workload" = "kmeans" || "$workload" = "bayes" ]]
       then
-          ./MR/mr_generic_run.sh $workload  $PSM  $tag
+          #./MR/mr_generic_run.sh $workload  $PSM  $tag
+          ./MR/mr_generic_run.sh $workload  false  $tag
+          ./MR/mr_generic_run.sh $workload  true   $tag
       elif [[ "$workload" = "join" || "$workload" = "scan" || "$workload" = "aggregation" ]]
       then
           ./SQL/sql_generic_run.sh $workload  $PSM
       else
           echo "Possible workload names: sort | terasort | wordcount | scan | join | aggregation"
       fi
-
   done
 
 

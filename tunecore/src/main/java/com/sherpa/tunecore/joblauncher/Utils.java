@@ -20,6 +20,8 @@ public class Utils {
 
 
     public static synchronized String toString(Map<String, String> map){
+        if(map==null)
+            return "";
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String, String> e: map.entrySet()){
             if(e.getKey().contains("hive.security.authorization.sqlstd.confwhitelist"))
@@ -44,6 +46,8 @@ public class Utils {
 
 
     public static synchronized String toString2(Map<String, BigInteger> map){
+        if(map==null)
+            return "";
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String, BigInteger> e: map.entrySet()){
             builder.append(e.getKey()).append("=").append(e.getValue()).append("#");
@@ -58,6 +62,8 @@ public class Utils {
         if(params==null || params.isEmpty())
             return  map;
 
+        System.out.println("\nParsing Parameters: " + params);
+        params = params.trim();
         String[]  tok = params.split(" ");
         if(tok==null || tok.length==0)
             return map;
@@ -71,12 +77,13 @@ public class Utils {
                 }catch (Exception e){}
             }
             else{
-                System.out.println("Error: parameter not defined correctly:   Parameter=" +  str + "\t Length: " + keyValue.length + "\t Msg: Length was required to be 2");
+                //System.out.println("Error: parameter not defined correctly:   Parameter=" +  str + "\t Length: " + keyValue.length + "\t Msg: Length was required to be 2");
             }
 
 
         }
 
+        System.out.println("Parsed Parameters: " + map);
         return  map;
     }
 

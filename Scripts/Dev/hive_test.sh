@@ -11,13 +11,6 @@ printHeader "Running Hive Client Test"
 cd $hive_client_src_dir/hiveClientSherpa
 
 
-# create the config file to be used later in Sherpa managed testing
-sudo touch /opt/sherpa.properties
-sudo chmod 777 /opt/sherpa.properties
-cat /dev/null > /opt/sherpa.properties
-sudo printf "mapreduce.max.split.size=3000000\n" >> /opt/sherpa.properties
-sudo printf "mapreduce.job.reduces=1\n" >> /opt/sherpa.properties
-
 # Creates a temporary dir
 cd ..
 mkdir SherpaHiveTest

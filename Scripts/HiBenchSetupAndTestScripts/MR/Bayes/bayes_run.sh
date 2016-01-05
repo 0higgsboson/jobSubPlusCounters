@@ -8,6 +8,11 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/../../configurations.sh
 source ${CWD}/../../utils.sh
 
+# Fix: https://github.com/intel-hadoop/HiBench/issues/112
+export MAHOUT_RELEASE=mahout-0.9-cdh5.1.0
+export MAHOUT_EXAMPLE_JOB="mahout-examples-0.9-cdh5.1.0-job.jar"
+
+
 PSM=true
 tag="NA"
 

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
+import com.sherpa.core.utils.ConfigurationLoader;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
 import com.sherpa.tunecore.joblauncher.SPI;
 import com.sherpa.tunecore.joblauncher.Utils;
@@ -36,7 +37,8 @@ public class HiveCliJobExecutor extends Thread{
     private Application app;
     // workload ID
     private String workloadId="";
-
+    private String startTime, finishTime;
+    private double throughput=0;
 
     private MRCountersManager mrCountersManager;
     private HiveCliJobIdExtractor hiveJobIdExtractor;
@@ -53,8 +55,9 @@ public class HiveCliJobExecutor extends Thread{
     WorkloadCountersManager workloadManager;
     Date date;
 
-    private String fileLines;
+
     private int totalJobs=-1;
+    private int jobsProcessed = 0;
 
     // these are set from hive client using setter functions
     private Map<String, BigInteger> params = null;
@@ -63,11 +66,23 @@ public class HiveCliJobExecutor extends Thread{
     private String sherpaTuned= "No";
 
 
-    public HiveCliJobExecutor(String fileLines, String rmUrl, String historyServer, int pollInterval){
-        this.fileLines = fileLines;
+    public HiveCliJobExecutor(String wid, String rmUrl, String historyServer, int pollInterval){
+        this.workloadId = wid;
         this.resourceManagerUrl = rmUrl;
         this.historyServerUrl     = historyServer;
         this.pollInterval = pollInterval;
+
+        date = new Date();
+        workloadManager = new WorkloadCountersManager();
+        mrCountersManager = new MRCountersManager();
+    }
+
+
+    public HiveCliJobExecutor(String wid){
+        this.workloadId = wid;
+        this.resourceManagerUrl = ConfigurationLoader.getApplicationServerUrl();
+        this.historyServerUrl     = ConfigurationLoader.getJobHistoryUrl();
+        this.pollInterval = ConfigurationLoader.getPollInterval();
 
         date = new Date();
         workloadManager = new WorkloadCountersManager();
@@ -80,20 +95,15 @@ public class HiveCliJobExecutor extends Thread{
      *  Implements the controlling part of the job execution, tracking and saving
      */
     public void run(){
-        System.out.println("Finding Workload ID for: " + fileLines);
-        workloadId = workloadManager.getWorkloadHash(fileLines);
         System.out.println("Workload ID: " + workloadId);
-        int jobsProcessed = 0;
-
 
         // process until job id extractor is terminated and job queue is empty
         while(  jobsProcessed!=totalJobs ) {
-            System.out.println("**** Sherpa Log: Queue Size=" + jobQueue.size() + "\t Jobs Processed=" +isJobsFinished + "\t Total Jobs:" + totalJobs );
+            System.out.println("**** Sherpa Log: Queue Size=" + jobQueue.size() + "\t Job Finished=" +isJobsFinished + "\t Total Jobs:" + totalJobs );
 
             int waitCount = 0;
             while(jobQueue.isEmpty()){
                 try {
-                    log.info("Waiting For More Jobs To Come ...");
                     System.out.println("Waiting For More Jobs To Come ...");
                     waitCount +=1000;
                     Thread.sleep(1000);
@@ -150,8 +160,9 @@ public class HiveCliJobExecutor extends Thread{
                 //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
                 if(jobCounters!=null) {
-                    saveWorkloadCounters(jobId, elapsedTime, jobCounters, false);
+                    saveWorkloadCounters(jobId, elapsedTime, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString() );
                     addToCounters(jobCounters);
+
                 }
 
                 if(aggregateJobId.isEmpty())
@@ -177,7 +188,7 @@ public class HiveCliJobExecutor extends Thread{
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 
 
-            saveWorkloadCounters(aggregateJobId, totalElapsedTime, jobCountersMap, true);
+            saveWorkloadCounters(aggregateJobId, totalElapsedTime, jobCountersMap, startTime, finishTime);
             workloadManager.close();
             log.info("Finished All Tasks ... " + jobsProcessed);
             System.out.println("Finished All Tasks ... " + jobsProcessed);
@@ -223,15 +234,15 @@ public class HiveCliJobExecutor extends Thread{
 
 
 
-    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, boolean isAggregate){
+    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, String startTime, String finishTime){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
         String json = Utils.toString2(jobCounters);
         Map<String, String> configurationValues = new HashMap<String, String>();
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_URL, SPI.getJobCountersUri(historyServerUrl, jobId));
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, app.getApp().getStartTimeAsString());
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, app.getApp().getFinishTimeAsString());
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, startTime );
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, finishTime );
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, WorkloadCountersConfigurations.COMPUTE_ENGINE_HIVE);
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
@@ -240,24 +251,13 @@ public class HiveCliJobExecutor extends Thread{
 
         mrCountersManager.addJobDetails(jobId, historyServerUrl, configurationValues, params);
 
-
+        // add required counters from src map to dest map
         mrCountersManager.addCounters(jobCounters, params);
 
-
-
-       /* if(!isAggregate) {
-            // this should be called after job level details have been added i.e. addJobDetails method is called
-            BigInteger rm = mrCountersManager.addReservedMemory(jobId, historyServerUrl, params);
-            BigInteger rc = mrCountersManager.addReservedCpu(jobId, historyServerUrl, params);
-
-            jobCounters.put("RESERVED_MEMORY", rm);
-            jobCounters.put("RESERVED_CPU", rc);
-        }*/
         System.out.println("\n\nParameters: " + params);
 
         workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
-        workloadManager.close();
     }
 
 
@@ -421,5 +421,13 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setSherpaTuned(String sherpaTuned) {
         this.sherpaTuned = sherpaTuned;
+    }
+
+    public Map<String, BigInteger> getJobCountersMap() {
+        return jobCountersMap;
+    }
+
+    public void setJobCountersMap(Map<String, BigInteger> jobCountersMap) {
+        this.jobCountersMap = jobCountersMap;
     }
 }

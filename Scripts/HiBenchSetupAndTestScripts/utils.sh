@@ -73,6 +73,36 @@ function installThrift(){
 }
 
 
+function createLearningConfigurations(){
+  # takes cost objective as input
+
+  pathPrefix=/root/HiBenchBackup
+  NOW=$(date +"%Y-%m-%d-%H-%M")
+  tempDir="DBs_Backup-${NOW}"
+  path="${pathPrefix}/${tempDir}"
+  mkdir -p ${path}
+  cp -r /opt/sherpa/* "${path}"/
+  rm -r /opt/sherpa/*
+
+  touch /opt/sherpa/clientDB.txt
+  touch /opt/sherpa/SherpaSequenceNos.txt
+  touch /opt/sherpa/TenzingDB.txt
+
+  costObjective=$1
+  echo '{
+            "numDimensions":"6",
+            "costObjective":'"\"${costObjective}\""',
+            "numCandidateSolutions":"4",
+            "relativeLearningWeights":[".2",".2",".2",".4"]
+            "coolOffFactor”:1.0,
+            "useBestWhenConverged":false
+          }' >> /opt/sherpa/TenzingMetadata.txt
+
+ }
+
+
+
+
 function createLearningConfgis(){
   # takes a parameter for number of solution candidates
   numSolutions=$1
@@ -81,10 +111,13 @@ function createLearningConfgis(){
   if [ ${numSolutions} -eq 4 ]
   then
     echo '{
-        "numDimensions":"6",
-        "numCandidateSolutions":"4",
-        "relativeLearningWeights":[".2",".2",".2",".4"]
-        }' >> /opt/sherpa/TenzingMetadata.txt
+            "numDimensions":"6",
+            "costObjective":"Memory",
+            "numCandidateSolutions":"4",
+            "relativeLearningWeights":[".2",".2",".2",".4"]
+            "coolOffFactor”:1.0,
+            "useBestWhenConverged":false
+          }' >> /opt/sherpa/TenzingMetadata.txt
 
   elif [ ${numSolutions} -eq 6 ]
   then

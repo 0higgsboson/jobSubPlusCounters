@@ -33,7 +33,7 @@ fi
 
 printHeader "Running Workload: ${workload} ${iterations} Times ..."
 
-createLearningConfgis 4
+#createLearningConfgis 4
 
 
 for i in `seq 1 ${iterations}`;

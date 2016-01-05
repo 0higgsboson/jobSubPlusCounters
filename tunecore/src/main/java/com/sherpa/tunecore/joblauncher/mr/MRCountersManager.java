@@ -43,7 +43,14 @@ public class MRCountersManager {
         String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
 
 
-        Map<String, BigInteger> jobCounters = getJobCounters(jobId, jobHistoryServer);
+        Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
+        try{
+            jobCounters = getJobCounters(jobId, jobHistoryServer);
+        }catch (Exception e){
+            jobCounters = new HashMap<String, BigInteger>();
+        }
+
+
         String json = Utils.toString2(jobCounters);
         addCounters(jobCounters, counters);
 

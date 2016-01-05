@@ -4,7 +4,7 @@
 # Mandatory settings
 #======================================================
 # HDFS namenode, change host and port as per your environment
-hdfs_master=hdfs://akhtar:9000/
+hdfs_master=hdfs://master:9000/
 
 
 #======================================================

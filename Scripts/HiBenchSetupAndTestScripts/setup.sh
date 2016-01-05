@@ -9,6 +9,9 @@ source configurations.sh
 source utils.sh
 
 
+# Installs dictionary required by bayes and other workloads
+apt-get -y install  wamerican
+
 # Checks hdfs_master variable, exit script if not defined
 if [ -z ${hdfs_master} ]; then
 	echo "Please set hdfs_master variable"

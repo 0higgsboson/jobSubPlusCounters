@@ -40,7 +40,7 @@ then
     ${CWD}/WordCount/wordocunt_run.sh   $PSM  $tag
 elif [ "$workload" = "kmeans" ]
 then
-    ${CWD}/Kmeans/kmeans_run.sh   $PSM  $tag
+    ${CWD}/KMeans/kmeans_run.sh   $PSM  $tag
 elif [ "$workload" = "bayes" ]
 then
     ${CWD}/Bayes/bayes_run.sh   $PSM  $tag

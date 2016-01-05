@@ -24,12 +24,9 @@ cd ${installation_base_dir}/HiBench/workloads/kmeans/mapreduce/bin/
 rm temp.sh
 cp run.sh temp.sh
 
-if [ "$PSM" = "true" ]
-then
-    replaceText 'mahout  kmeans'  "mahout  kmeans -DPSManaged=true  -DTag=${tag}" temp.sh
-else
-    replaceText 'mahout  kmeans'  "mahout  kmeans -DPSManaged=false -DTag=${tag}" temp.sh
-fi
+
+replaceText 'mahout  kmeans'  "mahout  kmeans -DPSManaged=${PSM}  -DTag=${tag}" temp.sh
+
 
 ./temp.sh
 #rm temp.sh

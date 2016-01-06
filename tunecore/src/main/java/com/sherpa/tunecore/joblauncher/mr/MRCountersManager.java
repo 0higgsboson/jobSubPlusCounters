@@ -32,8 +32,6 @@ public class MRCountersManager {
                              String configurations, String clusterId, String sherpaTuned, String tag, String origin){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
-        configurations = escapeString(configurations);
-
         String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
 
         WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
@@ -81,6 +79,105 @@ public class MRCountersManager {
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }
+
+
+
+    public void save(String jobId, long elapsedTime,  long startTime, long finishTime, String mapperClass, Map<String, BigInteger> counters,
+                             String configurations, String clusterId, String sherpaTuned, String tag, String origin){
+        log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
+
+        String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
+
+        WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
+
+        //String workloadId = workloadManager.getWorkloadHash(mapperClass);
+
+        String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
+
+
+        Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
+        try{
+            jobCounters = getJobCounters(jobId, jobHistoryServer);
+        }catch (Exception e){
+            jobCounters = new HashMap<String, BigInteger>();
+        }
+
+
+        String countersJson = Utils.toString2(jobCounters);
+        addCounters(jobCounters, counters);
+
+
+
+        Map<String, String> configurationValues = new HashMap<String, String>();
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_URL, SPI.getJobCountersUri(jobHistoryServer, jobId));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, Utils.convertTimeToString(startTime));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, Utils.convertTimeToString(finishTime));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, WorkloadCountersConfigurations.COMPUTE_ENGINE_MR);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, countersJson);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterId);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_TAG, tag);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_ORIGIN, origin);
+
+
+        addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
+
+
+        // this should be called after job level details have been added i.e. addJobDetails method is called
+        //addReservedMemory(jobId, jobHistoryServer, counters);
+        //addReservedCpu(jobId, jobHistoryServer, counters);
+
+        workloadManager.saveCounters(workloadId, (int) elapsedTime, counters, configurationValues);
+        log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        workloadManager.close();
+    }
+
+
+    public Map<String, BigInteger> getCountersMap(String jobId, Map<String, BigInteger> counters){
+        String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
+        Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
+        try{
+            jobCounters = getJobCounters(jobId, jobHistoryServer);
+        }catch (Exception e){
+            jobCounters = new HashMap<String, BigInteger>();
+        }
+        addCounters(jobCounters, counters);
+        return  jobCounters;
+    }
+
+
+
+    public Map<String, String> getJobMetaDataMap(String jobId, long startTime, long finishTime, String countersJson,
+                             String configurations, String clusterId, String sherpaTuned, String tag, String origin, String computeEngineType){
+
+        String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
+       // configurations = escapeString(configurations);
+
+
+        //String countersJson = Utils.toString2(jobCounters);
+
+        Map<String, String> configurationValues = new HashMap<String, String>();
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_URL, SPI.getJobCountersUri(jobHistoryServer, jobId));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, Utils.convertTimeToString(startTime));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, Utils.convertTimeToString(finishTime));
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, computeEngineType);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, countersJson);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterId);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_TAG, tag);
+        configurationValues.put(WorkloadCountersConfigurations.COLUMN_ORIGIN, origin);
+
+        return configurationValues;
+    }
+
+
+
+
+
 
 
 
@@ -204,10 +301,6 @@ public class MRCountersManager {
 
 
 
-    public synchronized String escapeString(String str){
-        String res = StringEscapeUtils.escapeSql(str);
-        return res.replaceAll("'", "\\'");
-    }
 
 
 

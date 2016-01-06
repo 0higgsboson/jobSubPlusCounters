@@ -8,6 +8,7 @@ source sherpa_configurations.sh
 ##########################################################   Running Hive Client Test    ####################################################################
 printHeader "Running Hive Client Test"
 
+echo "Hive Dir: $hive_client_src_dir/hiveClientSherpa "
 cd $hive_client_src_dir/hiveClientSherpa
 
 
@@ -30,6 +31,7 @@ hdfs dfs -copyToLocal /data/large /root/TestsData/
 
 # Runs the test
 print "Running test ..."
+echo "Running: ${hive_home}/bin/hive -f query.hql   -hiveconf PSManaged=false"
 ${hive_home}/bin/hive -f query.hql   -hiveconf PSManaged=true
 cd ..
 

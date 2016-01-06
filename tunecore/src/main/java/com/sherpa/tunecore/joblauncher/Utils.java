@@ -1,6 +1,7 @@
 package com.sherpa.tunecore.joblauncher;
 
 import com.google.gson.Gson;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class Utils {
 
             builder.append(e.getKey()).append("=").append(e.getValue()).append("#");
         }
-        return  builder.toString();
+        return  escapeString(builder.toString());
     }
 
 
@@ -103,6 +104,11 @@ public class Utils {
         return dateTimeStr;
     }
 
+
+    public static synchronized String escapeString(String str){
+        String res = StringEscapeUtils.escapeSql(str);
+        return res.replaceAll("'", "\\'");
+    }
 
 
 

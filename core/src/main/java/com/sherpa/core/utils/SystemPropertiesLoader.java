@@ -56,7 +56,7 @@ public class SystemPropertiesLoader {
             log.info("System Properties loaded from defined path ...");
             log.info("Properties: " + prop.toString());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         } catch (IOException e) {
            // e.printStackTrace();
         }

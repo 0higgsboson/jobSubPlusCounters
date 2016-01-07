@@ -222,8 +222,9 @@ public class WorkloadCountersConfigurations {
 
         public static void main(String[] args){
 
+
            //WorkloadCountersPhoenixDAO dao = new WorkloadCountersPhoenixDAO("104.130.29.25");
-           System.out.print(getCountersTableSchema());
+           //System.out.print(getCountersTableSchema());
         }
 
 }

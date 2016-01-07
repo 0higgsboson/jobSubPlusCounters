@@ -9,14 +9,16 @@ source ${CWD}/../configurations.sh
 source ${CWD}/../utils.sh
 
 PSM=true
-workload="na"
+workload="NA"
+tag="NA"
 
-if [ $# -eq 2 ]
+if [ $# -eq 3 ]
   then
     workload=$1
     PSM=$2
+    tag=$3
   else
-    echo "Usage: two arguements are required:  workload_name (true|false)"
+    echo "Usage: three arguements are required:  workload_name (true|false) Tag"
     echo "true means PSManaged flag will be set, otherwise not"
     exit
 fi
@@ -29,12 +31,8 @@ cd "${installation_base_dir}/HiBench/workloads/${workload}/mapreduce/bin/"
 rm temp.sh
 cp run.sh temp.sh
 
-if [ "$PSM" = "true" ]
-then
-    replaceText 'hive -f'  'hive -hiveconf PSManaged=true -f '  temp.sh
-else
-    replaceText 'hive -f'  'hive -hiveconf PSManaged=false -f'  temp.sh
-fi
+replaceText 'hive -f'  "hive -hiveconf PSManaged=${PSM} -hiveconf Tag=${tag} -f "  temp.sh
+
 
 ./temp.sh
 #rm temp.sh

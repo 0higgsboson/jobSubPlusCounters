@@ -47,9 +47,9 @@ for i in `seq 1 ${iterations}`;
           #./MR/mr_generic_run.sh $workload  true   $tag
       elif [[ "$workload" = "join" || "$workload" = "scan" || "$workload" = "aggregation" ]]
       then
-          ./SQL/sql_generic_run.sh $workload  $PSM
+          ./SQL/sql_generic_run.sh $workload  $PSM $tag
       else
-          echo "Possible workload names: sort | terasort | wordcount | scan | join | aggregation"
+          echo "Possible workload names: ( sort | terasort | wordcount | scan | join | aggregation | kmeans | bayes )"
       fi
   done
 

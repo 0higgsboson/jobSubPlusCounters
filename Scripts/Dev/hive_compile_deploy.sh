@@ -48,3 +48,5 @@ rm ${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
 cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  ${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
 rm /root/cluster/hive/apache-hive-1.2.1-bin/lib/TzCtCommon-1.0.jar
 cp /root/TzCtCommon/target/TzCtCommon-1.0.jar /root/cluster/hive/apache-hive-1.2.1-bin/lib/
+rm ${hadoop_home}/share/hadoop/mapreduce/lib/tunecore-1.0-jar-with-dependencies.jar
+cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/

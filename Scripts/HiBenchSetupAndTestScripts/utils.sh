@@ -93,9 +93,10 @@ function createLearningConfigurations(){
             "numDimensions":"6",
             "costObjective":'"\"${costObjective}\""',
             "numCandidateSolutions":"4",
-            "relativeLearningWeights":[".2",".2",".2",".4"]
+            "relativeLearningWeights":[".2",".2",".2",".4"],
             "coolOffFactor”:1.0,
-            "useBestWhenConverged":false
+            "useBestWhenConverged":false,
+            "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
 
  }
@@ -112,11 +113,12 @@ function createLearningConfgis(){
   then
     echo '{
             "numDimensions":"6",
-            "costObjective":"Memory",
+            "costObjective":"Latency",
             "numCandidateSolutions":"4",
-            "relativeLearningWeights":[".2",".2",".2",".4"]
+            "relativeLearningWeights":[".2",".2",".2",".4"],
             "coolOffFactor”:1.0,
-            "useBestWhenConverged":false
+            "useBestWhenConverged":false,
+            "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
 
   elif [ ${numSolutions} -eq 6 ]

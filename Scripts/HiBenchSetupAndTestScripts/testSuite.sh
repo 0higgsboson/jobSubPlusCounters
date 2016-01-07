@@ -9,7 +9,8 @@ source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
 costObjective=("Memory" "CPU" "Latency" "Throughput")
-workloads=("sort" "wordcount" "kmeans" "bayes")
+#workloads=("sort" "wordcount" "kmeans" "bayes")
+workloads=("join" "scan" "aggregation")
 dataProfile=10M
 
 for c in "${costObjective[@]}"

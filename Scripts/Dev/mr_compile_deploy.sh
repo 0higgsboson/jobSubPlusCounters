@@ -12,6 +12,10 @@ cd $sherpa_src_dir/jobSubPlusCounters
 mvn clean install -DskipTests
 
 
+cd /root/TzCtCommon
+mvn clean install -DskipTests
+
+
 ##########################################################   Compiling MR Client    ####################################################################
 printHeader "Compiling MR Client"
 

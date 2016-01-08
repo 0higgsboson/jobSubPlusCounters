@@ -8,7 +8,7 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/../configurations.sh
 source ${CWD}/../utils.sh
 
-./cleanup.sh
+#./cleanup.sh
 
 profile=${data_profile}
 workload="na"

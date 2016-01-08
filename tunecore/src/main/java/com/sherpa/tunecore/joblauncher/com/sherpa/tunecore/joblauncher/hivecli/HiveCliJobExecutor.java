@@ -185,7 +185,7 @@ public class HiveCliJobExecutor extends Thread{
 
         }// main while loop
 
-        if(totalJobs > 1) {
+        if(totalJobs >= 1) {
             log.info("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 

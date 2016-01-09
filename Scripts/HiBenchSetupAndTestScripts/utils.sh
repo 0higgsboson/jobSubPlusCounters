@@ -44,6 +44,7 @@ function replaceText(){
   # $2 is configuration value
   # $3 is configuration file
   echo "Setting up ( $1 = $2 ) in $3 ..."
+  echo "sed -i \"s~$1~$2~\" $3"
   sed -i "s~$1~$2~" $3
 }
 
@@ -73,22 +74,59 @@ function installThrift(){
 }
 
 
-function createLearningConfigurations(){
+function createLearningConfigurations2(){
   # takes cost objective as input
+  # takes weights number as input
+  costObjective=$1
+  wNo=$2
 
   pathPrefix=/root/HiBenchBackup
   NOW=$(date +"%Y-%m-%d-%H-%M")
-  tempDir="DBs_Backup-${NOW}"
+  tempDir="${costObjective}_DBs_Backup-${NOW}"
   path="${pathPrefix}/${tempDir}"
   mkdir -p ${path}
   cp -r /opt/sherpa/* "${path}"/
   rm -r /opt/sherpa/*
 
+  mkdir -p /opt/sherpa/
   touch /opt/sherpa/clientDB.txt
   touch /opt/sherpa/SherpaSequenceNos.txt
   touch /opt/sherpa/TenzingDB.txt
 
+
+  echo '{
+            "numDimensions":"6",
+            "costObjective":'"\"${costObjective}\""',
+            "numCandidateSolutions":"4",
+            "relativeLearningWeights":[".2",".2",".2",".4"],
+            "coolOffFactor”:1.0,
+            "useBestWhenConverged":false,
+            "gradientMultiplier":"0.0"
+          }' >> /opt/sherpa/TenzingMetadata.txt
+
+ }
+
+
+
+
+function createLearningConfigurations(){
+  # takes cost objective as input
   costObjective=$1
+
+  pathPrefix=/root/HiBenchBackup
+  NOW=$(date +"%Y-%m-%d-%H-%M")
+  tempDir="${costObjective}_DBs_Backup-${NOW}"
+  path="${pathPrefix}/${tempDir}"
+  mkdir -p ${path}
+  cp -r /opt/sherpa/* "${path}"/
+  rm -r /opt/sherpa/*
+
+  mkdir -p /opt/sherpa/
+  touch /opt/sherpa/clientDB.txt
+  touch /opt/sherpa/SherpaSequenceNos.txt
+  touch /opt/sherpa/TenzingDB.txt
+
+
   echo '{
             "numDimensions":"6",
             "costObjective":'"\"${costObjective}\""',

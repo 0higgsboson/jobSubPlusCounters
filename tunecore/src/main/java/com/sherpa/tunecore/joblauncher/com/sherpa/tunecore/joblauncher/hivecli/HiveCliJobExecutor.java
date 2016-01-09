@@ -110,9 +110,9 @@ public class HiveCliJobExecutor extends Thread{
                     log.error(e.getMessage());
                 }
 
-                if(waitCount >= (1000 * 60) ){
+                if(waitCount >= (1000 * 120) ){
                     log.info("Waited for a minute, no new job came,  ...");
-                    System.out.println("Waited for a minute, no new job came,  ...");
+                    System.out.println("Waited for two minutes, no new job came,  ...");
                     break;
                 }
             }

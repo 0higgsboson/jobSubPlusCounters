@@ -25,7 +25,7 @@ rm temp.sh
 cp run.sh temp.sh
 
 
-replaceText 'mahout  kmeans'  "mahout  kmeans -DPSManaged=${PSM}  -DTag=${tag}" temp.sh
+replaceText 'mahout kmeans'  "mahout kmeans -DPSManaged=${PSM}  -DTag=${tag}" temp.sh
 
 
 ./temp.sh

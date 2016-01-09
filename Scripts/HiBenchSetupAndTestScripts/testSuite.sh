@@ -8,14 +8,20 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
-costObjective=("Memory" "CPU" "Latency" "Throughput")
-#workloads=("sort" "wordcount" "kmeans" "bayes")
-workloads=("join" "scan" "aggregation")
-dataProfile=10M
+costObjective=("Memory")
+#costObjective=("Memory" "CPU" "Latency" "Throughput")
+
+#workloads=("sort" "wordcount" "kmeans" "bayes" "join" "scan" "aggregation")
+workloads=("kmeans" "bayes" "join" "scan" "aggregation")
+
+dataProfile=1GB
+prefix=sp
 
 for c in "${costObjective[@]}"
 do
    printHeader "Using Cost Objective: $c"
+   # to do
+   # add workload name too in backup folder name
    createLearningConfigurations "$c"
 
    for w in "${workloads[@]}"
@@ -27,7 +33,7 @@ do
           iterations=10
       fi
 
-        tag="${w}_${c}_${dataProfile}"
+        tag="${prefix}_${w}_${c}_${dataProfile}"
         print ${tag}
         ./iterativeRun.sh "${w}" false 1 "${tag}"
         ./iterativeRun.sh "${w}" true "${iterations}" "${tag}"

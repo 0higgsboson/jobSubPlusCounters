@@ -74,36 +74,65 @@ function installThrift(){
 }
 
 
+
+function getLearningWeights(){
+  # Arg#1  number of solution candidates
+  # Arg#2  learning weight
+
+  #echo "( Learning Weight=$2, Solution Candidates=$1 )"
+  learingWeightsStr="["
+  COUNTER=0
+  while [ ${COUNTER} -lt  $1 ]
+  do
+     if [ "${learingWeightsStr}" = "[" ]
+     then
+          learingWeightsStr="${learingWeightsStr}\"$2\""
+     else
+          learingWeightsStr="${learingWeightsStr},\"$2\""
+     fi
+     COUNTER=$[$COUNTER +1]
+  done
+
+  learingWeightsStr="${learingWeightsStr}]"
+  #echo "Learning Weights String: ${learingWeightsStr}"
+}
+
+
+
+
 function createLearningConfigurations2(){
   # takes cost objective as input
-  # takes weights number as input
-  costObjective=$1
-  wNo=$2
+  # takes solution candidates as input
+  # takes learning weights string as input
+  # takes tag as input
 
-  pathPrefix=/root/HiBenchBackup
-  NOW=$(date +"%Y-%m-%d-%H-%M")
-  tempDir="${costObjective}_DBs_Backup-${NOW}"
-  path="${pathPrefix}/${tempDir}"
-  mkdir -p ${path}
-  cp -r /opt/sherpa/* "${path}"/
-  rm -r /opt/sherpa/*
+  costObjectiveArg=$1
+  solutionCandiateArg=$2
+  relativeWeightsStrArg=$3
+  tagArg=$4
 
-  mkdir -p /opt/sherpa/
-  touch /opt/sherpa/clientDB.txt
-  touch /opt/sherpa/SherpaSequenceNos.txt
-  touch /opt/sherpa/TenzingDB.txt
+    pathPrefix=/root/HiBenchBackup
+    NOW=$(date +"%Y-%m-%d-%H-%M")
+    tempDir="${tagArg}-${NOW}"
+    path="${pathPrefix}/${tempDir}"
+    mkdir -p ${path}
+    cp -r /opt/sherpa/* "${path}"/
+    rm -r /opt/sherpa/*
 
+    mkdir -p /opt/sherpa/
+    touch /opt/sherpa/clientDB.txt
+    touch /opt/sherpa/SherpaSequenceNos.txt
+    touch /opt/sherpa/TenzingDB.txt
 
   echo '{
             "numDimensions":"6",
-            "costObjective":'"\"${costObjective}\""',
-            "numCandidateSolutions":"4",
-            "relativeLearningWeights":[".2",".2",".2",".4"],
+            "costObjective":'"\"${costObjectiveArg}\""',
+            "numCandidateSolutions":"'"${solutionCandiateArg}"'",
+            "relativeLearningWeights":'"${relativeWeightsStrArg}"',
             "coolOffFactor”:1.0,
             "useBestWhenConverged":false,
             "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
-
  }
 
 

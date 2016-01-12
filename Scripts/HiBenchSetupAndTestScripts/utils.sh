@@ -129,7 +129,7 @@ function createLearningConfigurations2(){
             "costObjective":'"\"${costObjectiveArg}\""',
             "numCandidateSolutions":"'"${solutionCandiateArg}"'",
             "relativeLearningWeights":'"${relativeWeightsStrArg}"',
-            "coolOffFactor”:1.0,
+            "coolOffFactor":1.0,
             "useBestWhenConverged":false,
             "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt

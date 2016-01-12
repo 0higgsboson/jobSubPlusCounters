@@ -8,38 +8,34 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
-costObjectivesList=("Memory" "CPU" "Latency")
+costObjectivesList=("Memory" "Latency" "CPU")
 workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
-dataProfilesList=("small" "large")
+dataProfilesList=("small")
 candidateSolutionsList=("4")
-learningWeightsList=("0.4")
-prefix="2016-01-12"
+learningWeightsList=("0.2")
+prefix="2016-01-13"
 
 
 
 for workload in "${workloadsList[@]}"
 do
-
-    for costObjective in "${costObjectivesList[@]}"
+    for dataProfile in "${dataProfilesList[@]}"
     do
+         if [[ "${workload}" = "sort" || "${workload}" = "terasort" || "${workload}" = "wordcount" || "${workload}" = "kmeans" || "${workload}" = "bayes" ]]
+         then
+              echo "MR workload ..."
+             ./MR/mr_generic_prepare.sh $workload  $dataProfile
+         elif [[ "${workload}" = "join" || "${workload}" = "scan" || "${workload}" = "aggregation" ]]
+         then
+             echo "SQL workload ..."
+            ./SQL/sql_generic_prepare.sh $workload  $dataProfile
+         else
+              echo "Possible workload names: ( sort | terasort | wordcount | scan | join | aggregation | kmeans | bayes )"
+        fi
 
-        for dataProfile in "${dataProfilesList[@]}"
+
+        for costObjective in "${costObjectivesList[@]}"
         do
-
-
-            if [[ "${workload}" = "sort" || "${workload}" = "terasort" || "${workload}" = "wordcount" || "${workload}" = "kmeans" || "${workload}" = "bayes" ]]
-              then
-                  echo "MR workload ..."
-                 ./MR/mr_generic_prepare.sh $workload  $dataProfile
-              elif [[ "${workload}" = "join" || "${workload}" = "scan" || "${workload}" = "aggregation" ]]
-              then
-                echo "SQL workload ..."
-                ./SQL/sql_generic_prepare.sh $workload  $dataProfile
-            else
-                echo "Possible workload names: ( sort | terasort | wordcount | scan | join | aggregation | kmeans | bayes )"
-            fi
-
-
 
             for candidateSolution in "${candidateSolutionsList[@]}"
             do
@@ -74,10 +70,10 @@ do
             # Candidate Solutions
             done
 
-        # Data Profiles
+        #cost objectives
         done
 
-    #cost objectives
+    # Data Profiles
     done
 
 # workloads

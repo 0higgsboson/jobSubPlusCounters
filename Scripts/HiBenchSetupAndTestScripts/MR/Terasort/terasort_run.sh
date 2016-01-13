@@ -24,12 +24,7 @@ cd ${installation_base_dir}/HiBench/workloads/terasort/mapreduce/bin/
 rm temp.sh
 cp run.sh temp.sh
 
-if [ "$PSM" = "true" ]
-then
-    replaceText 'terasort'  "terasort -D PSManaged=true  -D Tag=${tag}" temp.sh
-else
-    replaceText 'terasort'  "terasort -D PSManaged=false -D Tag=${tag}" temp.sh
-fi
+replaceText 'terasort'  "terasort -D mapreduce.terasort.simplepartitioner=true -D PSManaged=${PSM}  -D Tag=${tag}" temp.sh
 
 ./temp.sh
 #rm temp.sh

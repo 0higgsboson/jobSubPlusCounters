@@ -18,8 +18,20 @@ public class Task {
 	private String id;
 	private String state;
 	private String type;
-	
+
 	private String successfulAttempt;
+
+
+	public long getLongElapsedTime(){
+		long et = 0;
+		try{
+			et= Long.parseLong(elapsedTime);
+		}catch (NumberFormatException e){
+			e.printStackTrace();
+		}
+		return  et;
+	}
+
 
 	public DateTime getStartTime() {
 		return startTime;

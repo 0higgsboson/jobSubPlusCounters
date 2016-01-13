@@ -159,6 +159,9 @@ public class HiveCliJobExecutor extends Thread{
                 //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
                 if(jobCounters!=null) {
+                    // Remove following line for wall clock time
+                    elapsedTime = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
+
                     saveWorkloadCounters(jobId, elapsedTime, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
                     //addToCounters(jobCounters);
                     if(jobsProcessed==0)

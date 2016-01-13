@@ -40,6 +40,9 @@ public class MRCountersManager {
         //String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
 
 
+        // Remove following line for wall clock time
+        elapsedTime = new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
+
         Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
         try{
             jobCounters = getJobCounters(jobId, jobHistoryServer);
@@ -183,8 +186,6 @@ public class MRCountersManager {
         else
             counters.put(counterName, new BigInteger("0"));
     }
-
-
 
     public synchronized Map<String, BigInteger> getJobCounters(String jobId, String historyServerUrl){
         Map<String, BigInteger> counterValues = null;

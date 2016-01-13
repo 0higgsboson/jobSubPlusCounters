@@ -183,20 +183,40 @@ public class HistoricalTaskCounters {
 
 
 
+	public long computeLatency(String JobId) {
+		long maxMapLatency    = Long.MIN_VALUE;
+		long maxReduceLatency = Long.MIN_VALUE;
+		System.out.println("\nComputing Latency for Job: " + JobId);
+		try {
+			AllTasks allTasks = restTemplate.getForObject(SPI.getJobTaskUri(jobHistoryUrl, JobId), AllTasks.class);
+			List<Task> jobTasksList = allTasks.getTasks().getTask();
+			for (Task task : jobTasksList) {
+				if (task.getType().equalsIgnoreCase("MAP")) {
+					maxMapLatency = Math.max(maxMapLatency, task.getLongElapsedTime());
+				} else if (task.getType().equalsIgnoreCase("REDUCE")) {
+					maxReduceLatency = Math.max(maxReduceLatency, task.getLongElapsedTime());
+				}
+			}
+			System.out.println("\nDone Computing Latency for Job: " + JobId);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		System.out.println("\n Max Map Latency: " + maxMapLatency + "\t Max Reduce Latency: " + maxReduceLatency + "\t Latency: " + (maxMapLatency + maxReduceLatency));
+		return (maxMapLatency + maxReduceLatency);
+	}
+
+
+
 
 	public static void main(String[] args) throws Exception {
 	//	RestTemplate restTemplate = new RestTemplate();
 //		MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://104.197.176.154:19888/ws/v1/history/mapreduce/jobs/", "job_1447069154965_0002"), MRJobCounters.class);
 //		System.out.println(c);
 
-	/*	HistoricalTaskCounters tc = new HistoricalTaskCounters("http://104.197.176.154:19888/ws/v1/history/mapreduce/jobs/");
-		BigInteger r = tc.computeReservedMemory("job_1447069154965_0002", new BigInteger("10"), new BigInteger("1"));
-		System.out.println(r);*/
-
-
-		BigInteger a = new BigInteger("30");
-		System.out.println(a.divide(new BigInteger("3")));
-
+		HistoricalTaskCounters tc = new HistoricalTaskCounters("http://23.236.50.32:19888/ws/v1/history/mapreduce/jobs/");
+		long latency = tc.computeLatency("job_1452586301348_0017");
+		System.out.println(latency);
 
 	}
 

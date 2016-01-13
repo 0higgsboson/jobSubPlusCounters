@@ -14,6 +14,7 @@ source utils.sh
 
 source /etc/environment
 
+installation_base_dir=/root/sherpa
 
 mr_client_src_dir="${installation_base_dir}/mr_client_src"
 hive_client_src_dir="${installation_base_dir}/hive_client_src"

@@ -8,11 +8,12 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
-costObjectivesList=("Memory" "Latency" "CPU")
+#costObjectivesList=("Memory" "Latency" "CPU")
+costObjectivesList=("Memory")
 #workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
-workloadsList=("sort" "wordcount" "aggregation")
-dataProfilesList=("small")
-candidateSolutionsList=("8")
+workloadsList=("terasort")
+dataProfilesList=("large")
+candidateSolutionsList=("4")
 learningWeightsList=("0.2")
 prefix="2016-01-13"
 

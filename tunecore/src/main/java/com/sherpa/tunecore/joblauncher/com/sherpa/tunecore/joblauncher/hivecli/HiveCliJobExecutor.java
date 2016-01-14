@@ -45,7 +45,7 @@ public class HiveCliJobExecutor extends Thread{
     // // Hive Job Extractor Thread sets it to true once all job ids are added in the queue
     private boolean isJobsFinished=false;
 
-    private long totalElapsedTime = 0;
+    private long totalElapsedTime = 0, totalLatency=0;
     private Map<String, BigInteger > aggregatedCounters = WorkloadCountersConfigurations.getInitialCounterValuesMap();
 
     private String aggregateJobId = "";
@@ -160,14 +160,16 @@ public class HiveCliJobExecutor extends Thread{
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
                 if(jobCounters!=null) {
                     // Remove following line for wall clock time
-                    elapsedTime = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
+                    long latency = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
 
-                    saveWorkloadCounters(jobId, elapsedTime, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
+                    saveWorkloadCounters(jobId, elapsedTime, latency, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
                     //addToCounters(jobCounters);
                     if(jobsProcessed==0)
                         startTime = app.getApp().getStartTimeAsString();
 
                     finishTime = app.getApp().getFinishTimeAsString();
+
+                    totalLatency += latency;
                 }
 
                 if(aggregateJobId.isEmpty())
@@ -193,7 +195,7 @@ public class HiveCliJobExecutor extends Thread{
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 
 
-            saveWorkloadCounters(aggregateJobId, totalElapsedTime, aggregatedCounters, startTime, finishTime, true);
+            saveWorkloadCounters(aggregateJobId, totalElapsedTime, totalLatency, aggregatedCounters, startTime, finishTime, true);
             workloadManager.close();
             log.info("Finished All Tasks ... " + jobsProcessed);
             System.out.println("Finished All Tasks ... " + jobsProcessed);
@@ -238,7 +240,7 @@ public class HiveCliJobExecutor extends Thread{
 
 
 
-    private void saveWorkloadCounters(String jobId, long elapsedTime, Map<String, BigInteger> jobCounters, String startTime, String finishTime, boolean isAgg){
+    private void saveWorkloadCounters(String jobId, long elapsedTime, long latency, Map<String, BigInteger> jobCounters, String startTime, String finishTime, boolean isAgg){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
         String json = Utils.toString2(jobCounters);
@@ -267,7 +269,7 @@ public class HiveCliJobExecutor extends Thread{
         System.out.println("\n\nParameters: " + params);
 
         if(isAgg)
-            workloadManager.saveCounters(workloadId, (int) elapsedTime, params, configurationValues);
+            workloadManager.saveCounters(workloadId, (int) elapsedTime, (int) latency, params, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
 
         // Aggregate counters values

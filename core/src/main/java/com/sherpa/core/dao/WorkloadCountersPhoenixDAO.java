@@ -162,7 +162,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
 
 
-    public void saveCounters(String workloadId, int executionTime, Map<String, BigInteger> counters, Map<String, String> configurations){
+    public void saveCounters(String workloadId, int executionTime, int latency, Map<String, BigInteger> counters, Map<String, String> configurations){
 
         StringBuilder header = new StringBuilder();
         StringBuilder values = new StringBuilder();
@@ -170,8 +170,9 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
         sql.append("upsert into " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME + " ( ");
 
-        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME);
-        values.append("'"+workloadId+"'").append(",").append(executionTime);
+        header.append(WorkloadCountersConfigurations.COLUMN_WORKLOAD_ID).append(",").append(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME).append(",").append(WorkloadCountersConfigurations.COLUMN_LATENCY);
+        values.append("'"+workloadId+"'").append(",").append(executionTime).append(",").append(latency);
+
 
         for(Map.Entry<String,String> e:  configurations.entrySet()){
             header.append(",").append(e.getKey());

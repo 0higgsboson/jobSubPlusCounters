@@ -41,7 +41,7 @@ public class MRCountersManager {
 
 
         // Remove following line for wall clock time
-        elapsedTime = new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
+        int latency = (int) new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
 
         Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
         try{
@@ -71,58 +71,12 @@ public class MRCountersManager {
 
         addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
 
-        workloadManager.saveCounters(workloadId, (int) elapsedTime, counters, configurationValues);
+        workloadManager.saveCounters(workloadId, (int) elapsedTime, latency, counters, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }
 
 
-    public void saveHiveCounters(String jobId, long elapsedTime,  long startTime, long finishTime, String mapperClass, Map<String, BigInteger> counters,
-                             String configurations, String clusterId, String sherpaTuned, String tag, String origin, boolean isAgg){
-        log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
-
-        String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
-
-        WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
-
-        //String workloadId = workloadManager.getWorkloadHash(mapperClass);
-
-        String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
-
-
-        Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
-        try{
-            jobCounters = getJobCounters(jobId, jobHistoryServer);
-        }catch (Exception e){
-            jobCounters = new HashMap<String, BigInteger>();
-        }
-
-
-        String json = Utils.toString2(jobCounters);
-        addCounters(jobCounters, counters);
-
-
-
-        Map<String, String> configurationValues = new HashMap<String, String>();
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_ID, jobId);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_JOB_URL, SPI.getJobCountersUri(jobHistoryServer, jobId));
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_START_TIME, Utils.convertTimeToString(startTime));
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_END_TIME, Utils.convertTimeToString(finishTime));
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CONFIGURATIONS, configurations);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COMPUTE_ENGINE_TYPE, WorkloadCountersConfigurations.COMPUTE_ENGINE_MR);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_COUNTERS, json);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_CLUSTER_ID, clusterId);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED, sherpaTuned);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_TAG, tag);
-        configurationValues.put(WorkloadCountersConfigurations.COLUMN_ORIGIN, origin);
-
-
-        addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
-
-        workloadManager.saveCounters(workloadId, (int) elapsedTime, counters, configurationValues);
-        log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
-        workloadManager.close();
-    }
 
 
 

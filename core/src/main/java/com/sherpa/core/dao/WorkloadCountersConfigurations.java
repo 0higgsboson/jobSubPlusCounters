@@ -39,6 +39,7 @@ public class WorkloadCountersConfigurations {
         public static final String COLUMN_ORIGIN            = "ORIGIN";
         public static final String COLUMN_CONFIGURATIONS    = "CONFIGURATIONS";
         public static final String COLUMN_COMPUTE_ENGINE_TYPE            = "COMPUTE_ENGINE_TYPE";
+        public static final String COLUMN_LATENCY            = "LATENCY";
 
 
 
@@ -104,7 +105,7 @@ public class WorkloadCountersConfigurations {
 
             map.put(COLUMN_CONFIGURATIONS,"VARCHAR");
             map.put(COLUMN_COMPUTE_ENGINE_TYPE,"VARCHAR");
-
+            map.put(COLUMN_LATENCY,"INTEGER");
 
 
             String tok[];

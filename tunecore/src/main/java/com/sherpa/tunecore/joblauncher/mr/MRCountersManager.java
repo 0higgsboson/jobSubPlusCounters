@@ -41,7 +41,7 @@ public class MRCountersManager {
 
 
         // Remove following line for wall clock time
-        int latency = (int) new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
+        long latency =  new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
 
         Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
         try{
@@ -71,7 +71,7 @@ public class MRCountersManager {
 
         addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
 
-        workloadManager.saveCounters(workloadId, (int) elapsedTime, latency, counters, configurationValues);
+        workloadManager.saveCounters(workloadId,  elapsedTime, latency, counters, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         workloadManager.close();
     }

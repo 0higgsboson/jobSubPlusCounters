@@ -269,7 +269,7 @@ public class HiveCliJobExecutor extends Thread{
         System.out.println("\n\nParameters: " + params);
 
         if(isAgg)
-            workloadManager.saveCounters(workloadId, (int) elapsedTime, (int) latency, params, configurationValues);
+            workloadManager.saveCounters(workloadId, elapsedTime,  latency, params, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
 
         // Aggregate counters values

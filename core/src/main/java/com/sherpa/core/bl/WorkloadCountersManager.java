@@ -51,7 +51,7 @@ public class WorkloadCountersManager {
         phoenixDAO.saveCounters(workloadId, executionTime, counters, configurations);
     }
 
-    public void saveCounters(String workloadId, int executionTime, int latency, Map<String, BigInteger> counters, Map<String, String> configurations){
+    public void saveCounters(String workloadId, long executionTime, long latency, Map<String, BigInteger> counters, Map<String, String> configurations){
         phoenixDAO.saveCounters(workloadId, executionTime, latency, counters, configurations);
     }
 

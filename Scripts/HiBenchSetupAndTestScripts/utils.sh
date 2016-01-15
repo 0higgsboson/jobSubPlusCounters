@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source configurations.sh
+
 # Printing Functions
 function print(){
   printf "\n"
@@ -99,6 +101,43 @@ function getLearningWeights(){
 
 
 
+function initConfigurations(){
+  # takes cost objective as input
+  # takes solution candidates as input
+  # takes learning weights string as input
+  # takes tag as input
+
+  echo "Creating empty configuration files ..."
+  costObjectiveArg=$1
+  solutionCandiateArg=$2
+  relativeWeightsStrArg=$3
+  tagArg=$4
+
+  NOW=$(date +"%Y-%m-%d-%H-%M")
+  tempDir="${tagArg}-${NOW}"
+  workloadMetaDir="${backup_base_dir}/${tempDir}"
+
+  mkdir -p "${workloadMetaDir}"
+  rm -r /opt/sherpa/
+
+  mkdir -p /opt/sherpa/
+  touch /opt/sherpa/clientDB.txt
+  touch /opt/sherpa/SherpaSequenceNos.txt
+  touch /opt/sherpa/TenzingDB.txt
+
+  echo '{
+            "numDimensions":"6",
+            "costObjective":'"\"${costObjectiveArg}\""',
+            "numCandidateSolutions":"'"${solutionCandiateArg}"'",
+            "relativeLearningWeights":'"${relativeWeightsStrArg}"',
+            "coolOffFactor":1.0,
+            "useBestWhenConverged":false,
+            "gradientMultiplier":"0.0"
+          }' >> /opt/sherpa/TenzingMetadata.txt
+ }
+
+
+
 
 function createLearningConfigurations2(){
   # takes cost objective as input
@@ -134,6 +173,8 @@ function createLearningConfigurations2(){
             "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
  }
+
+
 
 
 

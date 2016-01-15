@@ -9,14 +9,13 @@ source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
 #costObjectivesList=("Memory" "Latency" "CPU")
-costObjectivesList=("Memory")
+costObjectivesList=("Latency")
 #workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
 workloadsList=("terasort")
-dataProfilesList=("large")
+dataProfilesList=("huge")
 candidateSolutionsList=("4")
 learningWeightsList=("0.2")
-prefix="2016-01-13"
-
+prefix="2016-01-16"
 
 
 for workload in "${workloadsList[@]}"
@@ -60,11 +59,17 @@ do
                     getLearningWeights "$candidateSolution" "$learningWeight"
                     #echo "$learingWeightsStr"
 
-                    createLearningConfigurations2 "$costObjective" "$candidateSolution" "$learingWeightsStr" "$tag"
+                    # sets workloadMetaDir
+                    initConfigurations "$costObjective" "$candidateSolution" "$learingWeightsStr" "$tag"
+                    echo "Meta Dir: ${workloadMetaDir}"
 
-                    ./iterativeRun.sh "${workload}" false 1 "${tag}"
-                    ./iterativeRun.sh "${workload}" true "${iterations}" "${tag}"
+                   ./run.sh "${workload}" false 1 "${tag}"  "${workloadMetaDir}"
+                   ./run.sh "${workload}" true "${iterations}" "${tag}" "${workloadMetaDir}"
 
+                    printf "\nFinished with run, copying meta data ...\n"
+                    cp -r /opt/sherpa/* "${workloadMetaDir}/"
+                    echo "Meta Data saved at ${workloadMetaDir}"
+                    printf "\n\n ********************************************** Done Testing *****************************************************\n"
 
                   #Learning Weights
                  done

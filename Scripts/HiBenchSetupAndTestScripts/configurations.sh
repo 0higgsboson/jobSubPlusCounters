@@ -13,6 +13,8 @@ hdfs_master=hdfs://master:9000/
 hibench_url=https://github.com/intel-hadoop/HiBench.git
 data_profile=tiny
 installation_base_dir=/root/HiBench/
+backup_base_dir=/root/MetaData_HiBench
+log_file=std_out_err.txt
 
 
 #======================================================

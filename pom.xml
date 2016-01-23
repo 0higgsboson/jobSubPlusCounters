@@ -13,6 +13,7 @@
         <module>custominputformat</module>
         <module>tunecore</module>
         <module>importexport</module>
+        <module>reports</module>
     </modules>
 
     <packaging>pom</packaging>

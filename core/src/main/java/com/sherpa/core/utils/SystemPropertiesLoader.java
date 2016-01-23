@@ -80,6 +80,37 @@ public class SystemPropertiesLoader {
         return prop.getProperty(name);
     }
 
+    public static int getIntProperty(String name){
+        int val=-1;
+        if(prop==null)
+            loadSystemProperties();
+        if(prop.containsKey(name)){
+            try {
+                val = Integer.parseInt(prop.getProperty(name));
+            }catch (NumberFormatException e){
+
+            }
+        }
+        return val;
+    }
+
+
+    public static int getMapHeapSize(){
+        int size= getIntProperty("java.heap.size.map");
+        if(size <= 0)
+            size = 75;
+
+        return size;
+    }
+
+    public static int getReduceHeapSize(){
+        int size=getIntProperty("java.heap.size.reduce");
+        if(size <= 0)
+            size = 75;
+        return size;
+    }
+
+
 
 
 

@@ -10,6 +10,7 @@ import com.sherpa.core.dao.PhoenixDAO;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.dao.WorkloadCountersPhoenixDAO;
 import com.sherpa.core.entitydefinitions.Parameters;
+import com.sherpa.core.entitydefinitions.TagRowList;
 import com.sherpa.core.entitydefinitions.WorkloadCounters;
 import com.sherpa.core.utils.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -53,6 +54,11 @@ public class WorkloadCountersManager {
 
     public void saveCounters(String workloadId, long executionTime, long latency, Map<String, BigInteger> counters, Map<String, String> configurations){
         phoenixDAO.saveCounters(workloadId, executionTime, latency, counters, configurations);
+    }
+
+
+    public TagRowList getTagsData(String whereClause){
+        return phoenixDAO.getTagsData(whereClause);
     }
 
 

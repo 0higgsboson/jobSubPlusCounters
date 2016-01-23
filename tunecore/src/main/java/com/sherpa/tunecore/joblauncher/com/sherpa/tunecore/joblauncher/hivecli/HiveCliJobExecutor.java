@@ -48,6 +48,8 @@ public class HiveCliJobExecutor extends Thread{
     private long totalElapsedTime = 0, totalLatency=0;
     private Map<String, BigInteger > aggregatedCounters = WorkloadCountersConfigurations.getInitialCounterValuesMap();
 
+    private Map<String, BigInteger > allCounters = new HashMap<String, BigInteger>();
+
     private String aggregateJobId = "";
 
     WorkloadCountersManager workloadManager;
@@ -162,6 +164,9 @@ public class HiveCliJobExecutor extends Thread{
                     // Remove following line for wall clock time
                     long latency = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
 
+                    //
+                    aggregateAllCounters(jobCounters);
+
                     saveWorkloadCounters(jobId, elapsedTime, latency, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
                     //addToCounters(jobCounters);
                     if(jobsProcessed==0)
@@ -268,10 +273,11 @@ public class HiveCliJobExecutor extends Thread{
 
         System.out.println("\n\nParameters: " + params);
 
-        if(isAgg)
-            workloadManager.saveCounters(workloadId, elapsedTime,  latency, params, configurationValues);
-        log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
-
+        if(isAgg) {
+            allCounters.put("Execution_Time", BigInteger.valueOf(elapsedTime));
+            workloadManager.saveCounters(workloadId, elapsedTime, latency, params, configurationValues);
+            log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+        }
         // Aggregate counters values
         addToCounters(params);
     }
@@ -292,6 +298,21 @@ public class HiveCliJobExecutor extends Thread{
         }
     }
 
+
+    public void aggregateAllCounters(Map<String, BigInteger> jobCounters) {
+        Iterator<String> counters = jobCounters.keySet().iterator();
+        while (counters.hasNext()) {
+            String counterName = counters.next();
+            if(allCounters.containsKey(counterName)){
+                BigInteger counterSumValue = jobCounters.get(counterName).add(allCounters.get(counterName));
+                allCounters.put(counterName, counterSumValue);
+            }
+            else{
+                BigInteger counterSumValue = jobCounters.get(counterName);
+                allCounters.put(counterName, counterSumValue);
+            }
+        }
+    }
 
 
     public void addToCounters(Map<String, BigInteger> jobCounters){
@@ -491,5 +512,13 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public Map<String, BigInteger> getAllCounters() {
+        return allCounters;
+    }
+
+    public void setAllCounters(Map<String, BigInteger> allCounters) {
+        this.allCounters = allCounters;
     }
 }

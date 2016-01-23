@@ -1,6 +1,8 @@
 package com.sherpa.core.dao;
 
 import com.sherpa.core.entitydefinitions.Parameters;
+import com.sherpa.core.entitydefinitions.Row;
+import com.sherpa.core.entitydefinitions.TagRowList;
 import com.sherpa.core.entitydefinitions.WorkloadIdDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -279,6 +281,76 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
 
         return stringBuilder.toString();
     }
+
+
+
+    public TagRowList getTagsData(String whereClause){
+        TagRowList tagRowList = new TagRowList();
+        ResultSet rset = null;
+        String sql = "select * from " + WorkloadCountersConfigurations.COUNTERS_TABLE_NAME;
+
+        if(!whereClause.isEmpty())
+            sql += " where " + whereClause;
+
+        log.info("Loading Tags Data: ( SQL = " + sql + " )");
+        Connection con = createConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = con.prepareStatement(sql);
+            rset = statement.executeQuery();
+            while (rset.next()) {
+                String tag = rset.getString(WorkloadCountersConfigurations.COLUMN_TAG);
+                Row row = new Row();
+                row.setExecutionTime(rset.getInt(WorkloadCountersConfigurations.COLUMN_EXECUTION_TIME));
+                row.setSherpaTuned(rset.getString(WorkloadCountersConfigurations.COLUMN_SHERPA_TUNED));
+
+                row.setNoReducers(rset.getInt("mapreduce_job_reduces"));
+                row.setMapMemory(rset.getInt("mapreduce_map_memory_mb"));
+                row.setReduceMemory(rset.getInt("mapreduce_reduce_memory_mb"));
+                row.setMapCores(rset.getInt("mapreduce_map_cpu_vcores"));
+                row.setReduceCores(rset.getInt("mapreduce_reduce_cpu_vcores"));
+                row.setMaxSplitSize(rset.getLong("mapreduce_max_split_size"));
+
+                row.setMapPhysicalMemoryBytes(new BigInteger(rset.getString("PHYSICAL_MEMORY_BYTES_MAP")));
+                row.setReducePhysicalMemoryBytes(new BigInteger(rset.getString("PHYSICAL_MEMORY_BYTES_REDUCE")));
+
+                row.setMapMbMillis(new BigInteger(rset.getString("MB_MILLIS_MAPS")));
+                row.setReduceMbMillis(new BigInteger(rset.getString("MB_MILLIS_REDUCES")));
+
+                row.setMapCpuMilliSeconds(new BigInteger(rset.getString("CPU_MILLISECONDS_MAP")));
+                row.setReduceCpuMilliSeconds(new BigInteger(rset.getString("CPU_MILLISECONDS_REDUCE")));
+
+                row.setHdfsBytesRead(new BigInteger(rset.getString("HDFS_BYTES_READ")));
+                row.setHdfsBytesWritten(new BigInteger(rset.getString("HDFS_BYTES_WRITTEN")));
+
+                row.setMapVcoresMillis(new BigInteger(rset.getString("VCORES_MILLIS_MAPS")));
+                row.setReduceVcoresMillis(new BigInteger(rset.getString("VCORES_MILLIS_REDUCES")));
+
+                row.setMapMillis(new BigInteger(rset.getString("MILLIS_MAPS")));
+                row.setReduceMillis(new BigInteger(rset.getString("MILLIS_REDUCES")));
+
+                tagRowList.add(tag, row);
+            }
+
+            log.info("Total Tags: " + tagRowList.getTagRowMap().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("SQL: " + sql);
+        }finally{
+            try{
+                statement.close();
+                rset.close();
+                con.close();
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return  tagRowList;
+    }
+
+
 
 
     public int exportWorkloadCounters(String filePath){

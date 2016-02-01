@@ -12,7 +12,7 @@ cd $sherpa_src_dir/jobSubPlusCounters
 mvn clean install -DskipTests
 
 
-cd /root/tzCtCommon/TzCtCommon
+cd ${common_src_dir}/TzCtCommon
 mvn clean install -DskipTests
 
 
@@ -32,4 +32,4 @@ cd ${mr_client_src_dir}/mrClient
 print "Copying Jars ..."
 cp ${mr_client_src_dir}/mrClient/target/hadoop-mapreduce-client-core-2.6.0.jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.0.jar
 cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
-cp /root/tzCtCommon/TzCtCommon/target/TzCtCommon-1.0.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
+cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/

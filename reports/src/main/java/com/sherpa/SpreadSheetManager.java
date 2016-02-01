@@ -57,7 +57,7 @@ public class SpreadSheetManager {
             service =   new SpreadsheetService("Sherpa_App");
             service.setOAuth2Credentials(credential);
             drive = GoogleDriveHelper.getDriveService(credential);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -90,7 +90,7 @@ public class SpreadSheetManager {
         }
 
         if(sheet==null){
-            System.out.println("\n\n Error: Could not find " + spreadsheetName +  " ReportsDriver Plan SpreadSheet");
+            System.out.println("\n\n Error: Could not find '" + spreadsheetName +  "'  SpreadSheet");
             return null;
         }
 

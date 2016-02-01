@@ -6,6 +6,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpTransport;
@@ -18,10 +19,10 @@ import com.google.api.services.drive.model.*;
 import com.google.api.services.drive.Drive;
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -38,8 +39,12 @@ public class OAuthHelper {
             "Sherpa Reporting App";
 
     /** Directory to store user credentials for this application. */
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
+   /* private static final java.io.File DATA_STORE_DIR = new java.io.File(
             System.getProperty("user.home"), ".credentials/spreadsheet_credentials");
+*/
+
+    private static final java.io.File DATA_STORE_DIR = new java.io.File(".credentials/spreadsheet_credentials");
+
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -98,6 +103,30 @@ public class OAuthHelper {
 
 
 
+    public static Credential  authorize2() throws Exception{
+
+        // Load client secrets.
+        InputStream in =
+                GoogleDriveHelper.class.getResourceAsStream("/client_secret.json");
+        GoogleClientSecrets clientSecrets =
+                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        // Build flow and trigger user authorization request.
+        GoogleAuthorizationCodeFlow flow =
+                new GoogleAuthorizationCodeFlow.Builder(
+                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                        .setDataStoreFactory(DATA_STORE_FACTORY)
+
+                        .setAccessType("offline")
+                        .build();
+        Credential credential = new AuthorizationCodeInstalledApp(
+                flow, new LocalServerReceiver()).authorize("user");
+
+
+        System.out.println(
+                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+        return credential;
+    }
 
 
 

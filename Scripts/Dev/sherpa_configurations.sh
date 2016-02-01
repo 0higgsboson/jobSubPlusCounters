@@ -14,6 +14,7 @@ mr_client_src_dir="${installation_base_dir}/mr_client_src"
 hive_client_src_dir="${installation_base_dir}/hive_client_src"
 hadoop_src_dir="${installation_base_dir}/hadoop_src"
 sherpa_src_dir="${installation_base_dir}/jobSubPub_src"
+common_src_dir="${installation_base_dir}/tzCtCommon"
 
 #------------------------------------------------------------
 

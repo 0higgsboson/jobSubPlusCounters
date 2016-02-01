@@ -40,8 +40,6 @@
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-guice:1.9" level="project" />
-    <orderEntry type="module" module-name="tunecore" scope="PROVIDED" />
-    <orderEntry type="module" module-name="custominputformat" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-context:4.0.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-aop:4.0.6.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-beans:4.0.6.RELEASE" level="project" />

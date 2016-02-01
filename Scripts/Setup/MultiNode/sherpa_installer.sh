@@ -123,7 +123,7 @@ print "Copying jars into Hive's lib dir ..."
 cp cli/target/hive-cli-1.2.1.jar ${hive_home}/lib/hive-cli-1.2.1.jar
 cp ql/target/hive-exec-1.2.1.jar ${hive_home}/lib/hive-exec-1.2.1.jar
 cp $sherpa_src_dir/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  ${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
-cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0.jar ${hive_home}/lib/TzCtCommon-1.0.jar
+cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar ${hive_home}/lib/TzCtCommon-1.0-jar-with-dependencies.jar
 
 
 # Creates a temporary dir
@@ -193,7 +193,7 @@ ${scripts_home}/hadoop_stop.sh
 print "Copying Jars ..."
 cp ${mr_client_src_dir}/mrClient/target/hadoop-mapreduce-client-core-2.6.0.jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.0.jar
 cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
-cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
+cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
 
 
 print "Starting Hadoop services ..."

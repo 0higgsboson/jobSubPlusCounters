@@ -15,10 +15,10 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.*;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,9 +111,28 @@ public class GoogleDriveHelper {
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // Build a new authorized API client service.
-        //Drive service = getDriveService();
+
+        Drive service = getDriveService(OAuthHelper.authorize2());
+
+        List<File> result = new ArrayList<>();
+        Drive.Files.List request = service.files().list();
+
+
+            try {
+
+                FileList files = request.execute();
+                for(File f: files.getFiles()){
+                    System.out.println("File: " + f.getName() + "\t URL:" + f.getWebViewLink());
+                    System.out.println("Ex" + f.getFileExtension());
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred: " + e);
+
+            }
+
+
         //uploadFile(service, "ReportsDriver" , "report.csv");
     }
 

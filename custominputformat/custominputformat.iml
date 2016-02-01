@@ -23,7 +23,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.jersey.contribs:jersey-guice:1.9" level="project" />
-    <orderEntry type="module" module-name="tunecore" scope="PROVIDED" />
     <orderEntry type="module" module-name="core" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.hbase:hbase-common:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.hbase:hbase-annotations:1.0.0" level="project" />

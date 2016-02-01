@@ -110,6 +110,14 @@ public class SystemPropertiesLoader {
         return size;
     }
 
+    public static String getClientAgentHostname(){
+        String host=  getProperty("client.agent.hostname");
+        if(host==null)
+            host = "localhost";
+
+        return host;
+    }
+
 
 
 

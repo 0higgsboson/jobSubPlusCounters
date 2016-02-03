@@ -124,7 +124,7 @@ function initConfigurations(){
   touch /opt/sherpa/clientDB.txt
   touch /opt/sherpa/SherpaSequenceNos.txt
   touch /opt/sherpa/TenzingDB.txt
-
+  touch /opt/sherpa/tunedparams.json
   echo '{
             "numDimensions":"6",
             "costObjective":'"\"${costObjectiveArg}\""',
@@ -134,6 +134,20 @@ function initConfigurations(){
             "useBestWhenConverged":false,
             "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
+
+
+  echo '{
+"mapreduce.max.split.size":{"name":"mapreduce.max.split.size","value":"100000000","type":"INT","minVal":"30000000","maxVal":"512000000","stepSize":"10000000"},
+"mapreduce.map.cpu.vcores":{"name":"mapreduce.map.cpu.vcores","value":"3","type":"INT","minVal":"1","maxVal":"4","stepSize":"1"},
+"mapreduce.reduce.cpu.vcores":{"name":"mapreduce.reduce.cpu.vcores","value":"1","type":"INT","minVal":"1","maxVal":"4","stepSize":"1"},
+"mapreduce.map.memory.mb":{"name":"mapreduce.map.memory.mb","value":"512","type":"INT","minVal":"256","maxVal":"2048","stepSize":"64"},
+"mapreduce.reduce.memory.mb":{"name":"mapreduce.reduce.memory.mb","value":"512","type":"INT","minVal":"256","maxVal":"2048","stepSize":"64"},
+"mapreduce.job.reduces":{"name":"mapreduce.job.reduces","value":"3","type":"INT","minVal":"1","maxVal":"30","stepSize":"2"},
+"java.heap.size.map":{"name":"java.heap.size.map","value":"75","type":"INT","minVal":"40","maxVal":"90","stepSize":"1"},
+"java.heap.size.reduce":{"name":"java.heap.size.reduce","value":"75","type":"INT","minVal":"40","maxVal":"90","stepSize":"1"}
+}' >> /opt/sherpa/tunedparams.json
+
+
  }
 
 

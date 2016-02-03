@@ -66,6 +66,11 @@ do
                    ./run.sh "${workload}" false 1 "${tag}"  "${workloadMetaDir}"
                    ./run.sh "${workload}" true "${iterations}" "${tag}" "${workloadMetaDir}"
 
+                    printf "\n Generating Spreadsheet"
+                    cd /root/sherpa/jobSubPub_src/jobSubPlusCounters/reports
+                    java -jar /root/sherpa/jobSubPub_src/jobSubPlusCounters/reports/target/reports-1.0-jar-with-dependencies.jar "${tag}"
+                    cd /root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/HiBenchSetupAndTestScripts
+
                     printf "\nFinished with run, copying meta data ...\n"
                     cp -r /opt/sherpa/* "${workloadMetaDir}/"
                     echo "Meta Data saved at ${workloadMetaDir}"

@@ -19,17 +19,25 @@ public class HiveCliJobIdExtractor{
     public static void  extractJobIdFromLogLine(String line){
         // output contains the following words followed by job id
         if(line.contains("Total jobs")){
+            System.out.println("HiveCliJobIdExtractor: Total Jobs Line Found ...");
             if(HiveCliFactory.getHiveCliJobExecutorInstance() != null )
                 HiveCliFactory.getHiveCliJobExecutorInstance().setTotalJobs(getTotalJobsCount(line));
+            else
+                System.out.println("HiveCliJobIdExtractor:  HiveCliJobExtractor null, cant push total jobs count...");
+
         }
 
         if(line.contains("Starting Job")){
+            System.out.println("HiveCliJobIdExtractor: Starting Job Line Found ...");
             if(HiveCliFactory.getHiveCliJobExecutorInstance() != null ) {
                 String jobId = parseJobId(line);
                 log.info("Sherpa Log Line: Found Job ID " + jobId);
                 System.out.println("************* Sherpa Log Line: Found Job ID " + jobId);
                 HiveCliFactory.getHiveCliJobExecutorInstance().getJobQueue().add(jobId);
             }
+            else
+                System.out.println("HiveCliJobIdExtractor:  HiveCliJobExtractor null, cant push job id ...");
+
         }
 
     }

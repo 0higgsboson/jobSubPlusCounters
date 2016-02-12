@@ -89,6 +89,34 @@ public class Utils {
     }
 
 
+    public static synchronized HashMap<String, String>  toStrHashMap(String params){
+        HashMap<String, String> map = new HashMap<String, String>();
+
+        if(params==null || params.isEmpty())
+            return  map;
+
+        params = params.trim();
+        String[]  tok = params.split("#");
+        if(tok==null || tok.length==0)
+            return map;
+
+        for(String str: tok){
+            String[] keyValue = str.trim().split("=");
+            if(keyValue.length==2){
+                try {
+                    map.put( keyValue[0], keyValue[1] );
+                }catch (Exception e){}
+            }
+            else{
+                //System.out.println("Error: parameter not defined correctly:   Parameter=" +  str + "\t Length: " + keyValue.length + "\t Msg: Length was required to be 2");
+            }
+
+
+        }
+        return  map;
+    }
+
+
 
     public static synchronized String convertTimeToString(long ts){
         String dateTimeStr = "";

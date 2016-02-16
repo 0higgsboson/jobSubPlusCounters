@@ -49,7 +49,18 @@ public class WorkloadCountersConfigurations {
             "mapreduce_map_memory_mb:BIGINT",
             "mapreduce_reduce_memory_mb:BIGINT",
             "mapreduce_map_cpu_vcores:BIGINT",
-            "mapreduce_reduce_cpu_vcores:BIGINT",
+            "mapreduce_reduce_cpu_vcores:BIGINT"
+
+                ,"mapreduce_task_io_sort_mb:BIGINT"
+                ,"mapreduce_map_sort_spill_percent:BIGINT"
+                ,"mapreduce_reduce_input_buffer_percent:BIGINT"
+                ,"mapreduce_reduce_merge_inmem_threshold:BIGINT"
+                ,"mapreduce_job_reduce_slowstart_completedmaps:BIGINT"
+                ,"mapreduce_reduce_shuffle_merge_percent:BIGINT"
+                ,"mapreduce_reduce_shuffle_parallelcopies:BIGINT"
+                ,"mapreduce_reduce_shuffle_input_buffer_percent:BIGINT"
+                ,"mapreduce_tasktracker_indexcache_mb:BIGINT"
+
         };
 
 
@@ -80,16 +91,6 @@ public class WorkloadCountersConfigurations {
 
             ,"MILLIS_MAPS:BIGINT"
              ,"MILLIS_REDUCES:BIGINT"
-
-            ,"mapreduce.task.io.sort.mb:BIGINT"
-            ,"mapreduce.map.sort.spill.percent:BIGINT"
-            ,"mapreduce.reduce.input.buffer.percent:BIGINT"
-            ,"mapreduce.reduce.merge.inmem.threshold:BIGINT"
-            ,"mapreduce.job.reduce.slowstart.completedmaps:BIGINT"
-            ,"mapreduce.reduce.shuffle.merge.percent:BIGINT"
-            ,"mapreduce.reduce.shuffle.parallelcopies:BIGINT"
-            ,"mapreduce.reduce.shuffle.input.buffer.percent:BIGINT"
-            ,"mapreduce.tasktracker.indexcache.mb:BIGINT"
 
 };
 
@@ -200,8 +201,16 @@ public class WorkloadCountersConfigurations {
 
                 boolean isFirstAppend=true;
                 Iterator<String> iterator = nameTypeMap.keySet().iterator();
+                String primaryKey="";
                 while (iterator.hasNext()){
                         String name = iterator.next();
+                        if(name.equals(COLUMN_WORKLOAD_ID) || name.equals(COLUMN_JOB_ID) || name.equals(COLUMN_START_TIME)){
+                            if(primaryKey.equals(""))
+                                primaryKey = name;
+                            else
+                                primaryKey += "," + name;
+                        }
+
                         if(isFirstAppend){
                                 schema.append(name).append(" ").append(nameTypeMap.get(name));
                                 isFirstAppend=false;
@@ -210,7 +219,8 @@ public class WorkloadCountersConfigurations {
                                 schema.append(",").append(name).append(" ").append(nameTypeMap.get(name));
                 }
 
-                schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_JOB_ID).append(",").append(COLUMN_START_TIME).append("))");
+                //schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_JOB_ID).append(",").append(COLUMN_START_TIME).append("))");
+                  schema.append(" CONSTRAINT pk PRIMARY KEY (").append(primaryKey).append("))");
 
                 return schema.toString();
         }
@@ -232,7 +242,6 @@ public class WorkloadCountersConfigurations {
         }
 
         public static void main(String[] args){
-
 
            //WorkloadCountersPhoenixDAO dao = new WorkloadCountersPhoenixDAO("104.130.29.25");
            //System.out.print(getCountersTableSchema());

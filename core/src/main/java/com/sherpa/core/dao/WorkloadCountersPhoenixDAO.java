@@ -161,7 +161,19 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
     }
 
 
+    private Map<String, String> normalizeKeys(Map<String, String> src){
+        Map<String, String> res = new HashMap<String, String>();
 
+        for(Map.Entry<String,String> e:  src.entrySet()){
+            String key = e.getKey();
+            if(key.contains(".")){
+                key = key.replaceAll("\\.", "_");
+            }
+            res.put(key, e.getValue());
+        }
+
+        return res;
+    }
 
 
     public void saveCounters(String workloadId, long executionTime, long latency, Map<String, BigInteger> counters, Map<String, String> configurations){
@@ -176,6 +188,7 @@ public class WorkloadCountersPhoenixDAO extends  PhoenixDAO{
         values.append("'"+workloadId+"'").append(",").append((int)executionTime).append(",").append((int)latency);
 
 
+        configurations = normalizeKeys(configurations);
         for(Map.Entry<String,String> e:  configurations.entrySet()){
             header.append(",").append(e.getKey());
             values.append(",'").append(e.getValue()).append("'");

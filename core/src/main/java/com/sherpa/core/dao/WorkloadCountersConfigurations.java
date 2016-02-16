@@ -81,7 +81,17 @@ public class WorkloadCountersConfigurations {
             ,"MILLIS_MAPS:BIGINT"
              ,"MILLIS_REDUCES:BIGINT"
 
-        };
+            ,"mapreduce.task.io.sort.mb:BIGINT"
+            ,"mapreduce.map.sort.spill.percent:BIGINT"
+            ,"mapreduce.reduce.input.buffer.percent:BIGINT"
+            ,"mapreduce.reduce.merge.inmem.threshold:BIGINT"
+            ,"mapreduce.job.reduce.slowstart.completedmaps:BIGINT"
+            ,"mapreduce.reduce.shuffle.merge.percent:BIGINT"
+            ,"mapreduce.reduce.shuffle.parallelcopies:BIGINT"
+            ,"mapreduce.reduce.shuffle.input.buffer.percent:BIGINT"
+            ,"mapreduce.tasktracker.indexcache.mb:BIGINT"
+
+};
 
 
 

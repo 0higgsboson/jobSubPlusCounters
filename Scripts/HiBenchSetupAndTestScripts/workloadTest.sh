@@ -9,13 +9,13 @@ source ${CWD}/configurations.sh
 source ${CWD}/utils.sh
 
 #costObjectivesList=("Memory" "Latency" "CPU")
-costObjectivesList=("Latency")
+costObjectivesList=("Memory" "Latency")
 #workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
 workloadsList=("terasort")
-dataProfilesList=("huge")
+dataProfilesList=("gigantic")
 candidateSolutionsList=("4")
 learningWeightsList=("0.2")
-prefix="2016-01-16"
+prefix="2016-01-16-3"
 
 
 for workload in "${workloadsList[@]}"

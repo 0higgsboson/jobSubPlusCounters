@@ -13,9 +13,10 @@ costObjectivesList=("Memory" "Latency")
 #workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
 workloadsList=("terasort")
 dataProfilesList=("gigantic")
+# dataProfilesList=("tiny")
 candidateSolutionsList=("4")
 learningWeightsList=("0.2")
-prefix="2016-01-16-3"
+prefix="2016-02-16-3"
 
 
 for workload in "${workloadsList[@]}"

@@ -107,6 +107,7 @@ function initConfigurations(){
   # takes learning weights string as input
   # takes tag as input
 
+  source configurations.sh
   echo "Creating empty configuration files ..."
   costObjectiveArg=$1
   solutionCandiateArg=$2
@@ -135,9 +136,11 @@ function initConfigurations(){
             "gradientMultiplier":"0.0"
           }' >> /opt/sherpa/TenzingMetadata.txt
 
-
-
-
+# Restart Tenzing and Client Agent
+  kill `jps | grep TzCtCommon | awk '{print $1}'`
+#  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar &
+  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar > ~/sherpa/tzctcommonlog-${tagArg}.txt 2>&1 &
+  jps | grep TzCtCommon
  }
 
 

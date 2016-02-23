@@ -119,6 +119,16 @@ public class SystemPropertiesLoader {
     }
 
 
+    public static String getTenzingHostname(){
+        String host=  getProperty("tenzing.hostname");
+        if(host==null)
+            host = "localhost";
+
+        return host;
+    }
+
+
+
 
 
 

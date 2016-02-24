@@ -88,6 +88,32 @@ public class Utils {
         return  map;
     }
 
+    public static synchronized Map<String, String>  parseParams(String params){
+        Map<String, String> map = new HashMap<String, String>();
+
+        if(params==null || params.isEmpty())
+            return  map;
+
+        System.out.println("\nParsing Parameters: " + params);
+        params = params.trim();
+        String[]  tok = params.split(" ");
+        if(tok==null || tok.length==0)
+            return map;
+
+        for(String str: tok){
+            String[] keyValue = str.trim().split("=");
+            if(keyValue.length==2){
+                try {
+                    String name = keyValue[0].replaceAll("\\.", "_");
+                    map.put(name, keyValue[1]);
+                }catch (Exception e){}
+            }
+        }
+
+        System.out.println("Parsed Parameters: " + map);
+        return  map;
+    }
+
 
     public static synchronized HashMap<String, String>  toStrHashMap(String params){
         HashMap<String, String> map = new HashMap<String, String>();

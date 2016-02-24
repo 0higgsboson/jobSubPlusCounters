@@ -43,14 +43,29 @@ public class WorkloadCountersConfigurations {
 
 
 
-        public static final String[] PARAMETERS = new String[]{
-            "mapreduce_max_split_size:BIGINT",
-            "mapreduce_job_reduces:BIGINT",
-            "mapreduce_map_memory_mb:BIGINT",
-            "mapreduce_reduce_memory_mb:BIGINT",
-            "mapreduce_map_cpu_vcores:BIGINT",
-            "mapreduce_reduce_cpu_vcores:BIGINT",
-        };
+    public static final String[] PARAMETERS = new String[]{
+            "mapreduce_max_split_size:VARCHAR",
+            "mapreduce_job_reduces:VARCHAR",
+            "mapreduce_map_memory_mb:VARCHAR",
+            "mapreduce_reduce_memory_mb:VARCHAR",
+            "mapreduce_map_cpu_vcores:VARCHAR",
+            "mapreduce_reduce_cpu_vcores:VARCHAR"
+
+            ,"mapreduce_task_io_sort_mb:VARCHAR"
+            ,"mapreduce_map_sort_spill_percent:VARCHAR"
+            ,"mapreduce_reduce_input_buffer_percent:VARCHAR"
+            ,"mapreduce_reduce_merge_inmem_threshold:VARCHAR"
+            ,"mapreduce_job_reduce_slowstart_completedmaps:VARCHAR"
+            ,"mapreduce_reduce_shuffle_merge_percent:VARCHAR"
+            ,"mapreduce_reduce_shuffle_parallelcopies:VARCHAR"
+            ,"mapreduce_reduce_shuffle_input_buffer_percent:VARCHAR"
+            ,"mapreduce_tasktracker_indexcache_mb:VARCHAR"
+
+            ,"java_heap_size_map:VARCHAR"
+            ,"java_heap_size_reduce:VARCHAR"
+
+
+    };
 
 
 
@@ -184,34 +199,43 @@ public class WorkloadCountersConfigurations {
 
 
     public static String getCountersTableSchema(){
-                Map<String, String> nameTypeMap = getColumnNameTypeMap();
-                StringBuilder schema = new StringBuilder();
-                schema.append("CREATE TABLE IF NOT EXISTS " + COUNTERS_TABLE_NAME + " ( ");
+        Map<String, String> nameTypeMap = getColumnNameTypeMap();
+        StringBuilder schema = new StringBuilder();
+        schema.append("CREATE TABLE IF NOT EXISTS " + COUNTERS_TABLE_NAME + " ( ");
 
-                boolean isFirstAppend=true;
-                Iterator<String> iterator = nameTypeMap.keySet().iterator();
-                while (iterator.hasNext()){
-                        String name = iterator.next();
-                        if(isFirstAppend){
-                                schema.append(name).append(" ").append(nameTypeMap.get(name));
-                                isFirstAppend=false;
-                        }
-                        else
-                                schema.append(",").append(name).append(" ").append(nameTypeMap.get(name));
-                }
+        boolean isFirstAppend=true;
+        Iterator<String> iterator = nameTypeMap.keySet().iterator();
+        String primaryKey="";
+        while (iterator.hasNext()){
+            String name = iterator.next();
+            if(name.equals(COLUMN_WORKLOAD_ID) || name.equals(COLUMN_JOB_ID) || name.equals(COLUMN_START_TIME)){
+                if(primaryKey.equals(""))
+                    primaryKey = name;
+                else
+                    primaryKey += "," + name;
+            }
 
-                schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_JOB_ID).append(",").append(COLUMN_START_TIME).append("))");
-
-                return schema.toString();
+            if(isFirstAppend){
+                schema.append(name).append(" ").append(nameTypeMap.get(name));
+                isFirstAppend=false;
+            }
+            else
+                schema.append(",").append(name).append(" ").append(nameTypeMap.get(name));
         }
 
+        //schema.append(" CONSTRAINT pk PRIMARY KEY (").append(COLUMN_WORKLOAD_ID).append(",").append(COLUMN_JOB_ID).append(",").append(COLUMN_START_TIME).append("))");
+        schema.append(" CONSTRAINT pk PRIMARY KEY (").append(primaryKey).append("))");
+
+        return schema.toString();
+    }
 
 
 
 
 
 
-        public static String getWorkloadIdsTableSchema(){
+
+    public static String getWorkloadIdsTableSchema(){
                 String schema = "CREATE TABLE IF NOT EXISTS " +
                         WORKLOAD_IDS_TABLE_NAME +
                         " ( WORKLOAD_ID INTEGER not null, DATE_TIME Date, HASH BIGINT ";

@@ -60,7 +60,8 @@ public class HiveCliJobExecutor extends Thread{
     private int jobsProcessed = 0;
 
     // these are set from hive client using setter functions
-    private Map<String, BigInteger> params = null;
+    private Map<String, String> tunedParams = null;
+    private Map<String, BigInteger> params = new HashMap<String, BigInteger>();
     private String configurations= null;
     private String clusterID= "sherpa-default";
     private String sherpaTuned= "No";
@@ -274,6 +275,8 @@ public class HiveCliJobExecutor extends Thread{
         System.out.println("\n\nParameters: " + params);
 
         if(isAgg) {
+            if(tunedParams!=null)
+                 configurationValues.putAll(tunedParams);
             allCounters.put("Execution_Time", BigInteger.valueOf(elapsedTime));
             workloadManager.saveCounters(workloadId, elapsedTime, latency, params, configurationValues);
             log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
@@ -520,5 +523,13 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setAllCounters(Map<String, BigInteger> allCounters) {
         this.allCounters = allCounters;
+    }
+
+    public Map<String, String> getTunedParams() {
+        return tunedParams;
+    }
+
+    public void setTunedParams(Map<String, String> tunedParams) {
+        this.tunedParams = tunedParams;
     }
 }

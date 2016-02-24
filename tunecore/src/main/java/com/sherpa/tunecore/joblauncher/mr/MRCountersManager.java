@@ -27,21 +27,17 @@ import java.util.Map;
 public class MRCountersManager {
     private static final Logger log = LoggerFactory.getLogger(MRCountersManager.class);
     private MRJobCounters mrJobDetails = null;
+    public static final String LATENCY_COLUMN_NAME = "Latency";
 
-    public void saveCounters(String jobId, long elapsedTime,  long startTime, long finishTime, String workloadId, Map<String, BigInteger> counters,
+    public void saveCounters(String jobId, long elapsedTime,  long startTime, long finishTime, String workloadId, Map<String, String> tunedParams,
                              String configurations, String clusterId, String sherpaTuned, String tag, String origin){
         log.info("Saving Counters into Phoenix Table For Job ID: " + jobId);
 
+        Map<String, BigInteger> counters = new HashMap<String, BigInteger>();
         String jobHistoryServer = ConfigurationLoader.getJobHistoryUrl();
-
         WorkloadCountersManager workloadManager  = new WorkloadCountersManager();
 
-        //String workloadId = workloadManager.getWorkloadHash(mapperClass);
-        //String workloadId = workloadManager.getWorkloadHash(mapperClass+tag);
-
-
-        // Remove following line for wall clock time
-        long latency =  new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
+        //long latency =  new HistoricalTaskCounters(jobHistoryServer).computeLatency(jobId);
 
         Map<String, BigInteger> jobCounters=new HashMap<String, BigInteger>();
         try{
@@ -50,6 +46,7 @@ public class MRCountersManager {
             jobCounters = new HashMap<String, BigInteger>();
         }
 
+        long latency = jobCounters.get(LATENCY_COLUMN_NAME).longValue();
 
         String json = Utils.toString2(jobCounters);
         addCounters(jobCounters, counters);
@@ -70,6 +67,8 @@ public class MRCountersManager {
         configurationValues.put(WorkloadCountersConfigurations.COLUMN_ORIGIN, origin);
 
         addJobDetails(jobId, jobHistoryServer, configurationValues, counters);
+
+        configurationValues.putAll(tunedParams);
 
         workloadManager.saveCounters(workloadId,  elapsedTime, latency, counters, configurationValues);
         log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
@@ -147,6 +146,10 @@ public class MRCountersManager {
             System.out.println("Getting Job Counters");
             HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
             counterValues = countersObj.getJobCounters(jobId);
+
+            long latency =  new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
+            counterValues.put(LATENCY_COLUMN_NAME, new BigInteger(String.valueOf(latency)));
+
             System.out.println("Done Getting Job Counters ...");
         } catch (Exception e) {
             e.printStackTrace();

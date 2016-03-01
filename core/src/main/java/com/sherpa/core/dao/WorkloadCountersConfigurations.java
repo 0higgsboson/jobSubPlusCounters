@@ -13,7 +13,7 @@ public class WorkloadCountersConfigurations {
         public static final String COMPUTE_ENGINE_MR ="mr";
         public static final String COMPUTE_ENGINE_SPARK ="spark";
 
-        public static final String COUNTERS_TABLE_NAME = "counters";
+        public static final String COUNTERS_TABLE_NAME = "workloads";
         public static final String WORKLOAD_IDS_TABLE_NAME = "workloadIds";
 
         public static final String RECORD_ID = "RECORD_ID";

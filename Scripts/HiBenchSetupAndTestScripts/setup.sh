@@ -46,6 +46,10 @@ setConfiguration hibench.hadoop.home  "${HADOOP_HOME}" 99-user_defined_propertie
 setConfiguration hibench.spark.home   "${SPARK_HOME}"  99-user_defined_properties.conf
 setConfiguration hibench.hdfs.master  "${hdfs_master}" 99-user_defined_properties.conf
 
+# Removes number of mappers and redcuers settings for hive workloads
+sed -i 's~set ${MAP_CONFIG_NAME}=$NUM_MAPS;~~'      "${installation_base_dir}/HiBench/bin/functions/workload-functions.sh"
+sed -i 's~set ${REDUCER_CONFIG_NAME}=$NUM_REDS;~~'  "${installation_base_dir}/HiBench/bin/functions/workload-functions.sh"
+
 cd ${CWD}
 echo "Finished the Set up of HiBench ..."
 

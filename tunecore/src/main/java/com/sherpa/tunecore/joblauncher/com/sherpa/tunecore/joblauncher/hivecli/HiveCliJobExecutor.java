@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import java.awt.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
@@ -51,6 +52,7 @@ public class HiveCliJobExecutor extends Thread{
     private Map<String, BigInteger > allCounters = new HashMap<String, BigInteger>();
 
     private String aggregateJobId = "";
+    private boolean isException=false;
 
     WorkloadCountersManager workloadManager;
     Date date;
@@ -91,6 +93,24 @@ public class HiveCliJobExecutor extends Thread{
     }
 
 
+    private void waitForJob(){
+        int waitCount = 0;
+        while(jobQueue.isEmpty() && !isException){
+            try {
+                System.out.println("Waiting For More Jobs To Come ...");
+                waitCount +=1000;
+                Thread.sleep(1000);
+            }catch (InterruptedException e){
+                log.error(e.getMessage());
+            }
+
+            if(waitCount >= (1000 * 60) ){
+                System.out.println("\n\n\n ************************* Error: Waited for one minutes, no new job to process  ...");
+                break;
+            }
+        }
+    }
+
 
     /**
      *  Implements the controlling part of the job execution, tracking and saving
@@ -100,28 +120,12 @@ public class HiveCliJobExecutor extends Thread{
 
         // process until job id extractor is terminated and job queue is empty
         while(  jobsProcessed!=totalJobs ) {
-            System.out.println("**** Sherpa Log: Queue Size=" + jobQueue.size() + "\t Job Finished=" +isJobsFinished + "\t Total Jobs:" + totalJobs );
+            System.out.println("Queue Size=" + jobQueue.size() + "\t Jobs Processed=" +jobsProcessed + "\t Total Jobs:" + totalJobs );
 
-            int waitCount = 0;
-            while(jobQueue.isEmpty()){
-                try {
-                    System.out.println("Waiting For More Jobs To Come ...");
-                    waitCount +=1000;
-                    Thread.sleep(1000);
-                }catch (InterruptedException e){
-                    log.error(e.getMessage());
-                }
-
-                if(waitCount >= (1000 * 120) ){
-                    log.info("Waited for a minute, no new job came,  ...");
-                    System.out.println("Waited for two minutes, no new job came,  ...");
-                    break;
-                }
-            }
-
+            // waits for new job to start
+            waitForJob();
 
             if(jobQueue.isEmpty()){
-                log.info("No new job to process, shutting down ...");
                 System.out.println("No new job to process, shutting down ...");
                 break;
             }
@@ -129,46 +133,28 @@ public class HiveCliJobExecutor extends Thread{
 
             String jobId = jobQueue.remove();
             if (jobId == null || jobId.isEmpty()) {
-                log.info("Error: Job ID Empty");
                 System.out.println("Error: Job ID Empty");
                 continue;
             }
 
-            log.info("Processing Job: " + jobId);
-            System.out.println("Processing Job: " + jobId);
 
-            // waits for job/application to complete
-            log.info("Waiting for application to complete");
-            System.out.println("Waiting for application to complete");
             boolean appStatus = waitForCompletion(jobId);
 
-            // Saves counters data only when job is successfull
             if (appStatus) {
                 long elapsedTime = getElapsedTime();
-                log.info("Elapsed Time: " + elapsedTime);
-                System.out.println("Elapsed Time: " + elapsedTime);
-
-                log.info("Adding Elapsed Time:  " +  totalElapsedTime + " + " + elapsedTime);
                 totalElapsedTime += elapsedTime;
+                System.out.println("Elapsed Time: " + elapsedTime + "\tTotal Elapsed Time:  " + totalElapsedTime);
 
-                System.out.println("Running Elapsed Time:  " + totalElapsedTime);
-                log.info("Running Elapsed Time:  " + totalElapsedTime);
-
-                // Saves task counters
-                log.info("Getting Task Counters ...");
-                System.out.println("Getting Task Counters ...");
-
-                //Map<String, BigInteger> jobCounters = getTaskCounters(jobId);
+                System.out.println("Getting Job Counters ...");
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
+
                 if(jobCounters!=null) {
-                    // Remove following line for wall clock time
                     long latency = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
 
-                    //
+                    // all counters aggregation for learning module
                     aggregateAllCounters(jobCounters);
-
                     saveWorkloadCounters(jobId, elapsedTime, latency, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
-                    //addToCounters(jobCounters);
+
                     if(jobsProcessed==0)
                         startTime = app.getApp().getStartTimeAsString();
 
@@ -185,7 +171,6 @@ public class HiveCliJobExecutor extends Thread{
 
                 jobsProcessed++;
 
-                log.info("Total Jobs Processed: " + jobsProcessed);
                 System.out.println("Total Jobs Processed: " + jobsProcessed + " out of " + totalJobs);
 
 
@@ -196,13 +181,10 @@ public class HiveCliJobExecutor extends Thread{
         }// main while loop
 
         if(totalJobs >= 1) {
-            log.info("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
             System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
-
 
             saveWorkloadCounters(aggregateJobId, totalElapsedTime, totalLatency, aggregatedCounters, startTime, finishTime, true);
             workloadManager.close();
-            log.info("Finished All Tasks ... " + jobsProcessed);
             System.out.println("Finished All Tasks ... " + jobsProcessed);
         }
 
@@ -215,7 +197,6 @@ public class HiveCliJobExecutor extends Thread{
         try {
             log.info("Getting Job Counters");
             HistoricalJobCounters countersObj = new HistoricalJobCounters( historyServerUrl);
-            //countersObj.getJobCounters(jobId);
             counterValues = countersObj.getJobCounters(jobId);
             log.info("Done Getting Job Counters ...");
 
@@ -271,15 +252,18 @@ public class HiveCliJobExecutor extends Thread{
             mrCountersManager.addCounters(jobCounters, params);
         }
 
-        System.out.println("\n\nParameters: " + params);
-
         if(isAgg) {
+            System.out.println("\n\n Saving Parameters & Counters: " + params);
+            System.out.println("\n Meta Data: " + configurationValues);
+
             allCounters.put("Execution_Time", BigInteger.valueOf(elapsedTime));
             workloadManager.saveCounters(workloadId, elapsedTime, latency, params, configurationValues);
             log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         }
-        // Aggregate counters values
-        addToCounters(params);
+        else {
+            // Aggregate counters values, for hbase
+            addToCounters(params);
+        }
     }
 
 
@@ -316,7 +300,6 @@ public class HiveCliJobExecutor extends Thread{
 
 
     public void addToCounters(Map<String, BigInteger> jobCounters){
-        System.out.println("\n\n\n Add To Counters ....");
         System.out.println("\nAgg Counters: " + aggregatedCounters);
         System.out.println("\nCounters: " + jobCounters);
 
@@ -370,41 +353,41 @@ public class HiveCliJobExecutor extends Thread{
     private boolean waitForCompletion(String jobId){
         // YARN uses the word application instead of job, so replacing job with application
         String applicationId = jobId.replace("job", "application");
-        log.info("Application ID: " + applicationId);
+        System.out.println("Application ID: " + applicationId);
 
         RestTemplate restTemplate = new RestTemplate();
-
         String url = resourceManagerUrl;
         if(!resourceManagerUrl.endsWith("/"))
             url += "/";
-
         url += applicationId;
-
-        app = restTemplate.getForObject(url, Application.class);
-
-
-        log.info("Application Status: " + app);
 
         // States taken from the following URL
         // https://hadoop.apache.org/docs/r2.6.0/hadoop-yarn/hadoop-yarn-site/ResourceManagerRest.html#Cluster_Application_API
         // All possible states: NEW, NEW_SAVING, SUBMITTED, ACCEPTED, RUNNING, FINISHED, FAILED, KILLED
-        while(  !app.getApp().getState().equalsIgnoreCase("FINISHED") &&
-                !app.getApp().getState().equalsIgnoreCase("FAILED") &&
-                !app.getApp().getState().equalsIgnoreCase("KILLED")
 
-                ){
-            log.info("Application Status: " + app.getApp().getState());
-            try {
-                log.info("Waiting for " + pollInterval + " milli sec");
-                //System.out.println("Waiting for " + pollInterval + " milli sec for job " + jobId + " to complete");
-                Thread.sleep(pollInterval);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return false;
-            }
-            app = restTemplate.getForObject(url, Application.class);
+      try {
+          app = restTemplate.getForObject(url, Application.class);
+          System.out.println("Application Status: " + app);
+          while (!app.getApp().getState().equalsIgnoreCase("FINISHED") &&
+                  !app.getApp().getState().equalsIgnoreCase("FAILED") &&
+                  !app.getApp().getState().equalsIgnoreCase("KILLED")
 
-        }
+                  ) {
+              System.out.println("Application Status: " + app.getApp().getState());
+              try {
+                  System.out.println("Waiting for " + pollInterval + " milli sec for job " + jobId + " to complete");
+                  Thread.sleep(pollInterval);
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+                  return false;
+              }
+              app = restTemplate.getForObject(url, Application.class);
+
+          }
+      }catch (Exception e){
+          System.out.println("Error: Failed to get application " + applicationId + "  status");
+      }
+
         return true;
     }
 
@@ -520,5 +503,21 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setAllCounters(Map<String, BigInteger> allCounters) {
         this.allCounters = allCounters;
+    }
+
+    public int getJobsProcessed() {
+        return jobsProcessed;
+    }
+
+    public void setJobsProcessed(int jobsProcessed) {
+        this.jobsProcessed = jobsProcessed;
+    }
+
+    public boolean isException() {
+        return isException;
+    }
+
+    public void setException(boolean exception) {
+        isException = exception;
     }
 }

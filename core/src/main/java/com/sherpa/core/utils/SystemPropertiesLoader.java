@@ -128,6 +128,25 @@ public class SystemPropertiesLoader {
     }
 
 
+    public static String getMongoDbHostname(){
+        String host=  getProperty("db.mongo.host");
+        if(host==null){
+            System.out.println("Mongo DB host property not found, using localhost as default ...");
+            host = "localhost";
+        }
+
+        return host;
+    }
+
+
+    public static int getMongoDbPort(){
+        int port=getIntProperty("db.mongo.port");
+        if(port <= 0) {
+            System.out.println("Mongo DB port property not found, using 27017 as default ...");
+            port = 27017;
+        }
+        return port;
+    }
 
 
 

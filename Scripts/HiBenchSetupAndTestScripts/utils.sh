@@ -119,14 +119,14 @@ function initConfigurations(){
   workloadMetaDir="${backup_base_dir}/${tempDir}"
 
   mkdir -p "${workloadMetaDir}"
-  rm -f /opt/sherpa/configs.json /opt/sherpa/clientDB.txt /opt/sherpa/SherpaSequenceNos.txt /opt/sherpa/TenzingDB.txt /opt/sherpa/TenzingMetadata.txt
+  rm -f /opt/sherpa/Tenzing/configs.json /opt/sherpa/Tenzing/clientDB.txt /opt/sherpa/Tenzing/SherpaSequenceNos.txt /opt/sherpa/Tenzing/TenzingDB.txt /opt/sherpa/Tenzing/TenzingMetadata.txt
 
-  mkdir -p /opt/sherpa/
-  touch /opt/sherpa/clientDB.txt
-  touch /opt/sherpa/SherpaSequenceNos.txt
-  touch /opt/sherpa/TenzingDB.txt
-  touch /opt/sherpa/configs.json
-  cp tunedparams.json /opt/sherpa/tunedparams.json
+  mkdir -p /opt/sherpa/Tenzing/
+  touch /opt/sherpa/Tenzing/clientDB.txt
+  touch /opt/sherpa/Tenzing/SherpaSequenceNos.txt
+  touch /opt/sherpa/Tenzing/TenzingDB.txt
+  touch /opt/sherpa/Tenzing/configs.json
+  cp tunedparams.json /opt/sherpa/Tenzing/tunedparams.json
   echo '{
             "costObjective":'"\"${costObjectiveArg}\""',
             "numCandidateSolutions":"'"${solutionCandiateArg}"'",

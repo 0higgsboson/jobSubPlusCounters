@@ -1,26 +1,27 @@
 #!/bin/bash
 
 # Assumptions
-# 1. Use root account
-# 2. Run source /etc/environment to initialize $X_HOME variables.
-# 3. Copy ssh public key into github
+# 1. For un-attended installation, copy ssh public key into github
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: hosts_file_path"
+    echo "For single node installation use sherpa_installer.sh"
+    exit
+fi
+
+hosts_file=$1
 
 
-# includes configurations
-source configurations.sh
+# Save Script Working Dir
+CWD=`dirname "$0"`
+CWD=`cd "$CWD"; pwd`
+echo "Current Working Dir: ${CWD}"
 
-# includes utils functions
-source utils.sh
+# load configurations & utils functions
+source "${CWD}"/sherpa_installer_configurations.sh
+source "${CWD}"/utils.sh
 
 source /etc/environment
-
-installation_base_dir=/root/sherpa
-
-mr_client_src_dir="${installation_base_dir}/mr_client_src"
-hive_client_src_dir="${installation_base_dir}/hive_client_src"
-hadoop_src_dir="${installation_base_dir}/hadoop_src"
-sherpa_src_dir="${installation_base_dir}/jobSubPub_src"
-common_src_dir="${installation_base_dir}/tzCtCommon"
 
 
 # Create Directory Structure
@@ -30,6 +31,7 @@ mkdir -p $hive_client_src_dir
 mkdir -p $hadoop_src_dir
 mkdir -p $sherpa_src_dir
 mkdir -p $common_src_dir
+
 
 print "Updating ..."
 sudo apt-get update
@@ -66,6 +68,9 @@ print "Defining Java Home ..."
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
 
 
+#
+export PDSH_RCMD_TYPE=ssh
+pdsh -w ^${hosts_file}    "export PDSH_RCMD_TYPE=ssh"
 
 ##########################################################   Cloning Repo's    ####################################################################
 printHeader "Cloning Repo's"
@@ -120,37 +125,13 @@ mvn clean install -pl ql,cli  -Phadoop-2  -DskipTests
 
 # Copies custom jars into Hive's lib dir
 print "Copying jars into Hive's lib dir ..."
-cp cli/target/hive-cli-1.2.1.jar ${hive_home}/lib/hive-cli-1.2.1.jar
-cp ql/target/hive-exec-1.2.1.jar ${hive_home}/lib/hive-exec-1.2.1.jar
-cp $sherpa_src_dir/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar  ${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar
-cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar ${hive_home}/lib/TzCtCommon-1.0-jar-with-dependencies.jar
+pdcp -r -w ^${hosts_file}   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli-1.2.1.jar" "${hive_home}/lib/hive-cli-1.2.1.jar"
+pdcp -r -w ^${hosts_file}   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec-1.2.1.jar" "${hive_home}/lib/hive-exec-1.2.1.jar"
+pdcp -r -w ^${hosts_file}   "${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar"  "${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar"
+pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar" "${hive_home}/lib/TzCtCommon-1.0-jar-with-dependencies.jar"
 
-
-# Creates a temporary dir
-cd ..
-mkdir SherpaHiveTest
-cd SherpaHiveTest
-
-# Creates a sample workload
-print "Creating sample workload ..."
-hdfs dfs -mkdir /data
-hdfs dfs -copyFromLocal $sherpa_src_dir/jobSubPlusCounters/core/src/main/java/com/sherpa/core/dao/WorkloadCountersPhoenixDAO.java /data/large
-cat /dev/null > query.hql
-echo "drop table if exists docs_large;CREATE TABLE docs_large (line STRING);LOAD DATA LOCAL INPATH 'TestsData/large' OVERWRITE INTO TABLE docs_large;drop table if exists wc_large;CREATE TABLE wc_large AS SELECT word, count(1) AS count FROM (SELECT explode(split(line, '\s')) AS word FROM docs_large) w GROUP BY word ORDER BY word;" >> query.hql
-
-
-mkdir TestsData/
-hdfs dfs -copyToLocal /data/large TestsData/
-
-
-# Runs the test
-print "Running test ..."
-${hive_home}/bin/hive -f query.hql   -hiveconf PSManaged=true
-cd ..
-
-echo "Done Testing ..."
-
-
+# Fixes hive error
+pdsh -w ^${hosts_file}   "rm ${hadoop_dir}/hadoop-${HADOOP_VERSION}/share/hadoop/yarn/lib/jline-0.9.94.jar"
 
 
 
@@ -191,19 +172,18 @@ print "Stopping Hadoop services ..."
 ${scripts_home}/hadoop_stop.sh
 
 print "Copying Jars ..."
-cp ${mr_client_src_dir}/mrClient/target/hadoop-mapreduce-client-core-2.6.0.jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.0.jar
-cp ${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
-cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar ${hadoop_home}/share/hadoop/mapreduce/lib/
+pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/mrClient/target/hadoop-mapreduce-client-core-2.6.0.jar"  "${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.0.jar"
+pdcp -r -w ^${hosts_file}   "${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
+pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
 
 
 print "Starting Hadoop services ..."
 ${scripts_home}/hadoop_start.sh
 
 
-hdfs dfs -mkdir /input
-hdfs dfs -copyFromLocal ${sherpa_src_dir}/jobSubPlusCounters/core/src/main/java/com/sherpa/core/dao/WorkloadCountersPhoenixDAO.java /input/
+printHeader "Installing Tenzing"
+"${CWD}"/tenzing_installer.sh
 
-#yarn jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar pi 10 100
 
-yarn jar ${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount -D PSManaged=true /input/ /output
-
+printHeader "Installing Client Agent"
+"${CWD}"/client_agent_installer.sh

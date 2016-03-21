@@ -78,6 +78,14 @@ function installPreReqs(){
       apt-get -y install git
   fi
 
+# Installs Maven if not installed already
+  print "Checking Maven install..."
+  mvn >> /dev/null
+  if [ "$?" -ne 0 ]; then
+      apt-get -y install maven
+  fi
+
+
 
   # Define Java Home
   print "Defining Java Home ..."
@@ -102,8 +110,14 @@ function defineEnvironmentVar(){
   # add environment file in user's bashrc and profile files
   grep -q -F "source /etc/environment" /root/.bashrc || echo "source /etc/environment" >> /root/.bashrc
   grep -q -F "source /etc/environment" /root/.profile || echo "source /etc/environment" >> /root/.profile
-
   source /etc/environment
+
+  # For worker nodes
+  pdsh -w ^${hosts_list} -x ${master_node}  "echo \"export $name=$value\" >> /etc/environment"
+  pdsh -w ^${hosts_list} -x ${master_node}  "grep -q -F \"source /etc/environment\" /root/.bashrc || echo \"source /etc/environment\" >> /root/.bashrc"
+  pdsh -w ^${hosts_list} -x ${master_node}  "grep -q -F \"source /etc/environment\" /root/.profile || echo \"source /etc/environment\" >> /root/.profile"
+
+
 }
 
 
@@ -123,5 +137,12 @@ function addToPath(){
 
   fi
   source /etc/environment
+
+
+  # For worker nodes
+  pdsh -w ^${hosts_list} -x ${master_node}  "echo \"export PATH=$PATH:$customPath\"   >> /etc/environment"
+  pdsh -w ^${hosts_list} -x ${master_node}  "grep -q -F \"source /etc/environment\" /root/.bashrc || echo \"source /etc/environment\" >> /root/.bashrc"
+  pdsh -w ^${hosts_list} -x ${master_node}  "grep -q -F \"source /etc/environment\" /root/.profile || echo \"source /etc/environment\" >> /root/.profile"
+
 }
 

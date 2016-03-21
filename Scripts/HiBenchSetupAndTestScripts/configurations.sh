@@ -15,7 +15,7 @@ data_profile=tiny
 installation_base_dir=/root/HiBench/
 backup_base_dir=/root/MetaData_HiBench
 log_file=std_out_err.txt
-
+tmp_path=/var/tmp/hibench
 
 #======================================================
 # Default settings

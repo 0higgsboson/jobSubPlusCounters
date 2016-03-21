@@ -1,6 +1,13 @@
 #!/bin/bash
 
-source configurations.sh
+
+# Save Script Working Dir
+CWD=`dirname "$0"`
+CWD=`cd "$CWD"; pwd`
+
+# load configurations & utils functions
+source "${CWD}"/configurations.sh
+
 
 # Printing Functions
 function print(){
@@ -253,3 +260,66 @@ function createLearningConfgis(){
         }' >> /opt/sherpa/TenzingMetadata.txt
   fi
  }
+
+
+function installPdsh(){
+  # takes hosts file as input
+  # $1 is hosts file
+
+  hosts_list=$1
+
+  # Setting up pdsh utility
+  print "Setting up PDSH command on all hosts"
+  sudo apt-get -y install pdsh
+  export PDSH_RCMD_TYPE=ssh
+
+  # installs on all nodes excluding master
+  pdsh -w ^${hosts_list}   "apt-get -y install pdsh"
+  pdsh -w ^${hosts_list}   "export PDSH_RCMD_TYPE=ssh"
+
+}
+
+
+
+function installPreReqs(){
+  # takes hosts file as input
+  # $1 is hosts file
+
+  hosts_list=$1
+
+  print "Updating ..."
+  pdsh -w ^${hosts_list}  "sudo apt-get update"
+
+
+  # Install Java
+  print "Installing Java ..."
+  pdsh -w ^${hosts_list} "sudo apt-get -y install openjdk-7-jre"
+  pdsh -w ^${hosts_list} "sudo apt-get -y install openjdk-7-jdk"
+
+
+  # Its a fix to use java version 7 on GCloud machines, comment that out if you are already using java 7
+  print "Updating java alternatives"
+  pdsh -w ^${hosts_list} 'update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/java-7-openjdk-amd64/bin/java" 5000'
+  pdsh -w ^${hosts_list} 'update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/java-7-openjdk-amd64/bin/javac" 5000'
+
+
+  # Installs Git if not installed already
+  print "Checking git install..."
+  pdsh -w ^${hosts_list}  "apt-get -y install git"
+
+# Installs Maven if not installed already
+  print "Checking Maven install..."
+  pdsh -w ^${hosts_list}  "apt-get -y install maven"
+
+
+
+
+  # Define Java Home
+  print "Defining Java Home ..."
+
+  JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+  pdsh -w ^${hosts_list} "grep -q -F \"export JAVA_HOME=$JAVA_HOME\" /etc/environment || echo \"export JAVA_HOME=$JAVA_HOME\" >> /etc/environment"
+
+}
+
+

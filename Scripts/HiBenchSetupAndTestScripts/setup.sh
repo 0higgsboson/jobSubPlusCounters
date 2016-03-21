@@ -5,8 +5,8 @@ CWD=`dirname "$0"`
 CWD=`cd "$CWD"; pwd`
 
 # load configurations & utils functions
-source configurations.sh
-source utils.sh
+source "${CWD}"/configurations.sh
+source "${CWD}"/utils.sh
 
 
 # Installs dictionary required by bayes and other workloads

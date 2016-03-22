@@ -72,28 +72,28 @@ public class ConfigurationLoader {
         }
 
         String hbaseHome = System.getenv("HBASE_HOME");
-        if(hbaseHome==null){
+      /*  if(hbaseHome==null){
             log.error("Error: HBASE_HOME is not defined ...");
             System.out.println("Error: HBASE_HOME is not defined ...");
             System.exit(1);
         }
-
+*/
         if(!hadoopHome.endsWith(File.separator))
             hadoopHome += File.separator;
 
-        if(!hbaseHome.endsWith(File.separator))
+   /*     if(!hbaseHome.endsWith(File.separator))
             hbaseHome += File.separator;
-
+*/
 
         log.info("Hadoop Home: " + hadoopHome);
-        log.info("Hbase Home: " + hbaseHome);
+  //      log.info("Hbase Home: " + hbaseHome);
         System.out.println("Hadoop Home: " + hadoopHome);
-        System.out.println("Hbase Home: " + hbaseHome);
+    //    System.out.println("Hbase Home: " + hbaseHome);
 
         Configuration conf = new Configuration();
         conf.addResource(new Path(hadoopHome + MAPREDUCE_CONF_FILE));
         conf.addResource(new Path(hadoopHome + YARN_CONF_FILE));
-        conf.addResource(new Path(hbaseHome + HBASE_CONF_FILE));
+      //  conf.addResource(new Path(hbaseHome + HBASE_CONF_FILE));
 
 
         if(conf.get(JOB_HISTORY_URL)==null){
@@ -108,30 +108,30 @@ public class ConfigurationLoader {
             System.exit(1);
         }
 
-        if(conf.get(ZOOKEEPER)==null){
+        /*if(conf.get(ZOOKEEPER)==null){
             log.error("Error: Could not find zookeeper host ...");
             System.out.println("Error: Could not find zookeeper host ...");
             System.exit(1);
         }
-
+*/
 
         String jobHistoryUrl      =  "http://" + conf.get(JOB_HISTORY_URL) + "/ws/v1/history/mapreduce/jobs";
         String resourceManagerUrl =  "http://" + conf.get(RESOURCE_MANAGER_URL) + "/ws/v1/cluster/apps";
-        String zookeeper = conf.get(ZOOKEEPER);
+  /*      String zookeeper = conf.get(ZOOKEEPER);
         String zookeeperPort = conf.get(ZOOKEEPER_PORT);
         if(zookeeperPort==null)
             zookeeperPort="2181";
-
+*/
 
         log.info("Job History Server URL: " + jobHistoryUrl);
         log.info("ResourceManager URL: " + resourceManagerUrl);
-        log.info("Zookeeper: " + zookeeper+":"+zookeeperPort);
+  //      log.info("Zookeeper: " + zookeeper+":"+zookeeperPort);
 
         prop = new Properties();
         prop.put(JOB_HISTORY_URL, jobHistoryUrl);
         prop.put(RESOURCE_MANAGER_URL,resourceManagerUrl);
-        prop.put(ZOOKEEPER,zookeeper);
-        prop.put(ZOOKEEPER_PORT,zookeeperPort);
+    //    prop.put(ZOOKEEPER,zookeeper);
+    //    prop.put(ZOOKEEPER_PORT,zookeeperPort);
         prop.put(POLL_INTERVAL_KEY, DEFAULT_POLL_INTERVAL);
 
         System.out.println("Properties: " + prop);

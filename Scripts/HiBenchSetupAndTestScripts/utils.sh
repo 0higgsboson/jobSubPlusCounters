@@ -146,7 +146,9 @@ function initConfigurations(){
 # Restart Tenzing and Client Agent
   kill `jps | grep TzCtCommon | awk '{print $1}'`
 #  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar &
-  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar > ~/sherpa/tzctcommonlog-${tagArg}.txt 2>&1 &
+
+  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ~/tenzing.log 2>&1 &
+  java -jar $HADOOP_HOME/share/hadoop/mapreduce/lib/TzCtCommon-1.0-jar-with-dependencies.jar > ~/client-agent.log 2>&1 &
   jps | grep TzCtCommon
  }
 

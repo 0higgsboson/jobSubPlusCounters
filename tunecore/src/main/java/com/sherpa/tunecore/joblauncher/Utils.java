@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by akhtar on 26/10/2015.
@@ -86,6 +87,37 @@ public class Utils {
 
         System.out.println("Parsed Parameters: " + map);
         return  map;
+    }
+
+
+    public static synchronized Properties  toProperties(String params){
+        Properties properties = new Properties();
+        if(params==null || params.isEmpty())
+            return  properties;
+
+        System.out.println("\nParsing Parameters: " + params);
+        params = params.trim();
+        String[]  tok = params.split(" ");
+        if(tok==null || tok.length==0)
+            return properties;
+
+        for(String str: tok){
+            String[] keyValue = str.trim().split("=");
+            if(keyValue.length==2){
+                try {
+                    String name = keyValue[0].replaceAll("\\.", "_");
+                    properties.put(name, new BigInteger(keyValue[1]));
+                }catch (Exception e){}
+            }
+            else{
+                //System.out.println("Error: parameter not defined correctly:   Parameter=" +  str + "\t Length: " + keyValue.length + "\t Msg: Length was required to be 2");
+            }
+
+
+        }
+
+        System.out.println("Parsed Parameters: " + properties);
+        return  properties;
     }
 
 

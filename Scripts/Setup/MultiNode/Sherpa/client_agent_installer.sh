@@ -29,6 +29,8 @@ if [ -z ${client_agent_host} ]; then
         exit
 fi
 
+installPdshSingleNode ${client_agent_host}
+installJava ${client_agent_host}
 
 print "Creating dir structure"
 pdsh -w ${client_agent_host}   "mkdir -p  ${client_agent_install_dir}"
@@ -39,6 +41,7 @@ print "Copying files to ${client_agent_host}"
 # Path is hard coded from where Tenzing reads its configs, copying to that fixed path
 pdcp -r -w ${client_agent_host}   "${client_agent_property_file}"    "/opt/sherpa.properties"
 pdcp -r -w ${client_agent_host}   "${client_agent_executable_file}"  "${client_agent_install_dir}/"
+
 
 print "Starting Up Client Agent ..."
 pdsh -w ${client_agent_host}   "nohup java -jar  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar > ${client_agent_install_dir}/client-agent.log &"

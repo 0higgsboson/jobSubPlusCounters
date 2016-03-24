@@ -6,7 +6,7 @@
 client_agent_install=yes
 # hostname where to install client agent
 client_agent_host=test-w2
-client_agent_install_dir=/opt/client-agent/
+client_agent_install_dir=/opt/sherpa/ClientAgent/
 # property file path: copy from jobSubPlus repo's core module, located under resources. Modify as per your environment and place on this path
 client_agent_property_file=/opt/sherpa.properties
 # client agent executable path
@@ -20,11 +20,13 @@ client_agent_executable_file=/root/sherpa/tzCtCommon/TzCtCommon/target/TzCtCommo
 tenzing_install=yes
 # hostname where to install tenzing.  (Note: client agent reads tenzing host property from its local deployed property file at /opt/sherpa.properties, client agent should use following property instead)
 tenzing_host=test-w1
-tenzing_install_dir=/opt/tenzing/
+tenzing_install_dir=/opt/sherpa/Tenzing/
 # property file path: copy from jobSubPlus repo's core module, located under resources. Modify as per your environment and place on this path
 tenzing_property_file=/opt/sherpa.properties
 # tenzing executable path
 tenzing_executable_file=/root/sherpa/tzCtCommon/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar
+# tuned params path
+tuned_params_file=/root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/HiBenchSetupAndTestScripts/tunedparams.json
 
 
 

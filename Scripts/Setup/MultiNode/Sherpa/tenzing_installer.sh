@@ -29,6 +29,8 @@ if [ -z ${tenzing_host} ]; then
         exit
 fi
 
+installPdshSingleNode ${tenzing_host}
+installJava ${tenzing_host}
 
 print "Creating dir structure"
 pdsh -w ${tenzing_host}   "mkdir -p  ${tenzing_install_dir}"
@@ -36,9 +38,11 @@ pdsh -w ${tenzing_host}   "mkdir -p  ${tenzing_install_dir}"
 print "Copying files to ${tenzing_host}"
 #pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "${tenzing_install_dir}/"
 
-# Path is hard coded from where Tenzing reads its configs, copying to that fixed path
 pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
 pdcp -r -w ${tenzing_host}   "${tenzing_executable_file}"  "${tenzing_install_dir}/"
+pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
+
+
 
 print "Starting Up Tenzing ..."
 pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"

@@ -47,6 +47,21 @@ function installPdsh(){
 
 }
 
+function installPdshSingleNode(){
+  # takes host as input
+  # $1 is host name
+
+  host=$1
+
+  # Setting up pdsh utility
+  print "Setting up PDSH command on: ${host}"
+  sudo apt-get -y install pdsh
+  export PDSH_RCMD_TYPE=ssh
+
+  pdsh -w ${host}   "apt-get -y install pdsh"
+  pdsh -w ${host}   "export PDSH_RCMD_TYPE=ssh"
+
+}
 
 
 function installPreReqs(){
@@ -94,6 +109,40 @@ function installPreReqs(){
   pdsh -w ^${hosts_list} "grep -q -F \"export JAVA_HOME=$JAVA_HOME\" /etc/environment || echo \"export JAVA_HOME=$JAVA_HOME\" >> /etc/environment"
 
 }
+
+
+
+function installJava(){
+  # takes hosts name as input
+  # $1 is host name
+
+  host=$1
+
+  print "Updating ..."
+  pdsh -w ${host}  "sudo apt-get update"
+
+
+  # Install Java
+  print "Installing Java ..."
+  pdsh -w ${host} "sudo apt-get -y install openjdk-7-jre"
+  pdsh -w ${host} "sudo apt-get -y install openjdk-7-jdk"
+
+
+  # Its a fix to use java version 7 on GCloud machines, comment that out if you are already using java 7
+  print "Updating java alternatives"
+  pdsh -w ${host} 'update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/java-7-openjdk-amd64/bin/java" 5000'
+  pdsh -w ${host} 'update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/java-7-openjdk-amd64/bin/javac" 5000'
+
+
+  # Define Java Home
+  print "Defining Java Home ..."
+
+  JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+  pdsh -w ${host} "grep -q -F \"export JAVA_HOME=$JAVA_HOME\" /etc/environment || echo \"export JAVA_HOME=$JAVA_HOME\" >> /etc/environment"
+
+}
+
+
 
 
 function defineEnvironmentVar(){

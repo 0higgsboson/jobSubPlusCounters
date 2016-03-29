@@ -20,7 +20,7 @@ fi
 if [[ "$client_agent_install" != "yes"  ]];
 then
     print "Install flag is turned off !!!"
-    echo "Exiting ..."
+    echo "Skipping ..."
     exit
 fi
 
@@ -28,6 +28,13 @@ if [ -z ${client_agent_host} ]; then
 	echo "Please set client_agent_host variable"
         exit
 fi
+
+if [ ! -f  "${client_agent_executable_file}" ];
+then
+   echo "Error: file ${client_agent_executable_file} does not exist."
+   exit
+fi
+
 
 installPdshSingleNode ${client_agent_host}
 installJava ${client_agent_host}

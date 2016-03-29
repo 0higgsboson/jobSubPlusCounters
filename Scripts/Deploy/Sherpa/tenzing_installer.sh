@@ -29,6 +29,13 @@ if [ -z ${tenzing_host} ]; then
     exit
 fi
 
+if [ ! -f  "${tenzing_executable_file}" ];
+then
+   echo "Error: file ${tenzing_executable_file} does not exist."
+   exit
+fi
+
+
 installPdshSingleNode ${tenzing_host}
 installJava ${tenzing_host}
 

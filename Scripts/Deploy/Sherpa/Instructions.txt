@@ -1,0 +1,10 @@
+Follow these steps to set up Hadoop Cluster
+1- Set up ssh keys, master node should have ssh access to itself and to all nodes where sherpa client is going to be installed
+2- Create a hosts file, sherpa clients will be installed on all those nodes
+3- Change configurations.sh file as per your requirements. Set hadoop settings
+4- Edit sherpa.properties file and update settings
+5- Place executable jar file for Client Agent ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
+6- Place executable jar file for Tenzing ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
+7- Run:  ./sherpa_multinode_installer.sh host_file
+or Run: ./client-agent_installer.sh
+or Run: ./tenzing_installer.sh

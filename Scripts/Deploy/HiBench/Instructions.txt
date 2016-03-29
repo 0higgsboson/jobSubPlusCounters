@@ -1,0 +1,6 @@
+Follow these steps to set up Hadoop Cluster
+1- Set up ssh keys, installation initiating node should have ssh access to itself and to all nodes
+2- Create a hosts file, hibench will be setup on all the nodes
+3- Change 99_user_defined_properties.conf file as per your requirements
+4- Modify configurations.sh file
+4- Run: ./multinode-installer.sh hosts_file

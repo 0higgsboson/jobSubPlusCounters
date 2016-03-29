@@ -149,6 +149,20 @@ public class SystemPropertiesLoader {
     }
 
 
+    public static String getHadoopVersion(){
+        String hadoopVersion=  getProperty("hadoop.version");
+        if(hadoopVersion==null){
+            System.out.println("Hadoop version property not found, using 2.6.0 as default ...");
+            hadoopVersion = "2.6.0";
+        }
+
+        return hadoopVersion;
+    }
+
+
+
+
+
 
 
 }

@@ -27,10 +27,7 @@
 
 
     <dependencyManagement>
-
-
         <dependencies>
-
             <dependency>
                 <groupId>com.sherpa</groupId>
                 <artifactId>custominputformat</artifactId>
@@ -117,78 +114,6 @@
             </dependency>
 
 
-
-
-
-
-
-
-<!--
-            &lt;!&ndash; hadoop jars &ndash;&gt;
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-mapreduce-client-core</artifactId>
-                <version>2.6.0-cdh5.4.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-common</artifactId>
-                <version>2.6.0-cdh5.4.5</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-core</artifactId>
-                <version>2.6.0-mr1-cdh5.4.5</version>
-            </dependency>
-
-
-            &lt;!&ndash;hbase jars  &ndash;&gt;
-
-            <dependency>
-                <groupId>org.apache.hbase</groupId>
-                <artifactId>hbase-common</artifactId>
-                <version>1.0.0-cdh5.4.5</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.hbase</groupId>
-                <artifactId>hbase-client</artifactId>
-                <version>1.0.0-cdh5.4.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.hbase</groupId>
-                <artifactId>hbase-server</artifactId>
-                <version>1.0.0-cdh5.4.4</version>
-            </dependency>
--->
-
-
-
-            <!-- hadoop jars -->
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-mapreduce-client-core</artifactId>
-                <version>2.6.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-common</artifactId>
-                <version>2.6.0</version>
-                <scope>provided</scope>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-core</artifactId>
-                <version>1.2.1</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!--hbase jars  -->
 
             <dependency>
@@ -232,19 +157,93 @@
             </dependency>
 
 
-
-
         </dependencies>
-
-
-
-
 
     </dependencyManagement>
 
 
 
+    <profiles>
+        <profile>
+            <id>H2.6</id>
+            <activation>
+                <property>
+                    <name>Sherpa_Env</name>
+                    <value>H2.6</value>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <!-- hadoop jars -->
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-mapreduce-client-core</artifactId>
+                        <version>2.6.0</version>
+                        <scope>provided</scope>
+                    </dependency>
 
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-common</artifactId>
+                        <version>2.6.0</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>1.2.1</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+
+                </dependencies>
+
+            </dependencyManagement>
+        </profile>
+
+
+
+        <profile>
+            <id>H2.7.1</id>
+            <activation>
+                <property>
+                    <name>Sherpa_Env</name>
+                    <value>H2.7.1</value>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <!-- hadoop jars -->
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-mapreduce-client-core</artifactId>
+                        <version>2.7.1</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-common</artifactId>
+                        <version>2.7.1</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>1.2.1</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+
+    </profiles>
 
 
     <build>

@@ -10,11 +10,11 @@ printHeader "Compiling Sherpa Project"
 
 echo "Sherpa Dir: $sherpa_src_dir/jobSubPlusCounters"
 cd $sherpa_src_dir/jobSubPlusCounters
-mvn clean install -DskipTests
+mvn clean install -DskipTests -P${activeProfile}
 
 
 cd ${common_src_dir}/TzCtCommon
-mvn clean install -DskipTests
+mvn clean install -DskipTests -P${activeProfile}
 
 
 

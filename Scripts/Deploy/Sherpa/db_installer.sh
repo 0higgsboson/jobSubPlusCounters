@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# After installation is complete, Open
+# vi /etc/mongod.conf
+# and comment out the following line
+#  bindIp: 127.0.0.1
+# service mongod restart
 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 
@@ -21,3 +26,8 @@ npm install -g mongo-express
 cp /usr/lib/node_modules/mongo-express/config.default.js /usr/lib/node_modules/mongo-express/config.js
 npm install forever -g
 forever start /usr/lib/node_modules/mongo-express/app.js
+
+export LC_ALL=C
+echo "export LC_ALL=C" >> /etc/environment
+
+

@@ -13,17 +13,19 @@ workload="na"
 PSM=true
 iterations=20
 tag="NA"
+costObjective="Memory"
 
 
-if [ $# -eq 5 ]
+if [ $# -eq 6 ]
   then
     workload=$1
     PSM=$2
     iterations=$3
     tag=$4
     workloadMetaDirectory=$5
+    costObjective=$6
   else
-    echo "Required Arguements: workload_name (true|false) number_of_iterations  tag  meta_dir"
+    echo "Required Arguements: workload_name (true|false) number_of_iterations  tag  meta_dir cost_objective"
     exit
 fi
 
@@ -40,10 +42,10 @@ for i in `seq 1 ${iterations}`;
 
       if [[ "$workload" = "sort" || "$workload" = "terasort" || "$workload" = "wordcount" || "$workload" = "kmeans" || "$workload" = "bayes" ]]
       then
-          ./MR/mr_generic_run.sh $workload  $PSM  $tag
+          ./MR/mr_generic_run.sh $workload  $PSM  $tag  $costObjective
       elif [[ "$workload" = "join" || "$workload" = "scan" || "$workload" = "aggregation" ]]
       then
-          ./SQL/sql_generic_run.sh $workload  $PSM $tag
+          ./SQL/sql_generic_run.sh $workload  $PSM $tag  $costObjective
       else
           echo "Possible workload names: ( sort | terasort | wordcount | scan | join | aggregation | kmeans | bayes )"
       fi

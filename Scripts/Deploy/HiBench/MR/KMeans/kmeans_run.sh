@@ -11,13 +11,14 @@ source ${CWD}/../../utils.sh
 PSM=true
 tag="NA"
 
-if [ $# -eq 1 ]
-  then
-    PSM=$1
-elif [ $# -eq 2 ]
+if [ $# -eq 3 ]
   then
     PSM=$1
     tag=$2
+    costObjective=$3
+  else
+    echo "Error: number of args not match"
+    exit
 fi
 
 cd ${installation_base_dir}/HiBench/workloads/kmeans/mapreduce/bin/
@@ -25,7 +26,7 @@ rm temp.sh
 cp run.sh temp.sh
 
 
-replaceText 'mahout kmeans'  "mahout kmeans -DPSManaged=${PSM}  -DTag=${tag}" temp.sh
+replaceText 'mahout kmeans'  "mahout kmeans -DPSManaged=${PSM}  -DTag=${tag}  -DSherpaCostObj=${costObjective}" temp.sh
 
 
 ./temp.sh

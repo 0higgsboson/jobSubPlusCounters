@@ -49,6 +49,9 @@ pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properti
 pdcp -r -w ${tenzing_host}   "${tenzing_executable_file}"  "${tenzing_install_dir}/"
 pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
 
+print "Killing existing processes ..."
+pdcp -r -w ${tenzing_host}  "kill.sh"   "${tenzing_install_dir}/"
+pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/kill.sh"
 
 
 print "Starting Up Tenzing ..."

@@ -49,6 +49,11 @@ print "Copying files to ${client_agent_host}"
 pdcp -r -w ${client_agent_host}   "${client_agent_property_file}"    "/opt/sherpa.properties"
 pdcp -r -w ${client_agent_host}   "${client_agent_executable_file}"  "${client_agent_install_dir}/"
 
+print "Killing existing processes ..."
+pdcp -r -w ${client_agent_host}  "kill.sh"   "${client_agent_install_dir}/"
+pdsh -w    ${client_agent_host}   "${client_agent_install_dir}/kill.sh"
+
+
 
 print "Starting Up Client Agent ..."
 pdsh -w ${client_agent_host}   "nohup java -jar  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar > ${client_agent_install_dir}/client-agent.log &"

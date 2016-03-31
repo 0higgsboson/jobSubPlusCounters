@@ -17,6 +17,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by akhtar on 10/08/2015.
@@ -37,7 +38,7 @@ public class HiveCliJobExecutor extends Thread{
     // workload ID
     private String workloadId="";
     private String startTime, finishTime;
-    private double throughput=0;
+
 
     private MRCountersManager mrCountersManager;
     private HiveCliJobIdExtractor hiveJobIdExtractor;
@@ -67,6 +68,7 @@ public class HiveCliJobExecutor extends Thread{
     private String clusterID= "sherpa-default";
     private String sherpaTuned= "No";
     private String tag="NA", origin="NA";
+    private List<String> jobIds = new  ArrayList<String>();
 
 
     public HiveCliJobExecutor(String wid, String rmUrl, String historyServer, int pollInterval){
@@ -166,7 +168,7 @@ public class HiveCliJobExecutor extends Thread{
                 if(aggregateJobId.isEmpty())
                     aggregateJobId="agg_"+jobId;
                 else
-                    aggregateJobId += ":" + jobId;
+                    aggregateJobId += "," + jobId;
 
 
                 jobsProcessed++;
@@ -257,8 +259,9 @@ public class HiveCliJobExecutor extends Thread{
             System.out.println("\n Meta Data: " + configurationValues);
 
             allCounters.put("Execution_Time", BigInteger.valueOf(elapsedTime));
-            workloadManager.saveCounters(workloadId, elapsedTime, latency, params, configurationValues);
-            log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
+            allCounters.put("Latency", BigInteger.valueOf(latency));
+            //workloadManager.saveCounters(workloadId, elapsedTime, latency, params, configurationValues);
+            //log.info("Done Saving Counters into Phoenix For Job ID: " + jobId);
         }
         else {
             // Aggregate counters values, for hbase
@@ -302,6 +305,8 @@ public class HiveCliJobExecutor extends Thread{
     public void addToCounters(Map<String, BigInteger> jobCounters){
         System.out.println("\nAgg Counters: " + aggregatedCounters);
         System.out.println("\nCounters: " + jobCounters);
+
+
 
         Iterator<String> counters = aggregatedCounters.keySet().iterator();
         while(counters.hasNext()){
@@ -519,5 +524,49 @@ public class HiveCliJobExecutor extends Thread{
 
     public void setException(boolean exception) {
         isException = exception;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public long getTotalElapsedTime() {
+        return totalElapsedTime;
+    }
+
+    public void setTotalElapsedTime(long totalElapsedTime) {
+        this.totalElapsedTime = totalElapsedTime;
+    }
+
+    public long getTotalLatency() {
+        return totalLatency;
+    }
+
+    public void setTotalLatency(long totalLatency) {
+        this.totalLatency = totalLatency;
+    }
+
+    public String getAggregateJobId() {
+        return aggregateJobId;
+    }
+
+    public void setAggregateJobId(String aggregateJobId) {
+        this.aggregateJobId = aggregateJobId;
+    }
+
+    public String getWorkloadId() {
+        return workloadId;
     }
 }

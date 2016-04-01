@@ -176,16 +176,19 @@ print "Copying Jars ..."
 pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"  "${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"
 pdcp -r -w ^${hosts_file}   "${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
 pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
-pdcp -r -w ^${hosts_file}   "sherpa.properties" "$/opt/sherpa.properties"
+pdcp -r -w ^${hosts_file}   "sherpa.properties" "/opt/sherpa.properties"
 
 
 print "Starting Hadoop services ..."
 ${scripts_home}/hadoop_start.sh
 
+print "Copying TzCtCommon Jar into Current Dir ..."
+cp "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar"  ./
 
-printHeader "Installing Tenzing"
-"${CWD}"/tenzing_installer.sh
+
+#printHeader "Installing Tenzing"
+#"${CWD}"/tenzing_installer.sh
 
 
-printHeader "Installing Client Agent"
-"${CWD}"/client_agent_installer.sh
+#printHeader "Installing Client Agent"
+#"${CWD}"/client_agent_installer.sh

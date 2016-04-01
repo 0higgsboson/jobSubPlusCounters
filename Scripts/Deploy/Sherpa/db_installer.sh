@@ -1,10 +1,13 @@
 #!/bin/bash
 
+#Notes
 # After installation is complete, Open
 # vi /etc/mongod.conf
 # and comment out the following line
 #  bindIp: 127.0.0.1
 # service mongod restart
+
+# change hostname in /usr/lib/node_modules/mongo-express/config.js from localhost to hostname to access it from outside
 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 

@@ -23,16 +23,16 @@ import org.slf4j.LoggerFactory;
 public class WorkloadCountersManager {
     private static final Logger log = LoggerFactory.getLogger(WorkloadCountersManager.class);
 
-    private WorkloadCountersPhoenixDAO phoenixDAO;
+    private WorkloadCountersPhoenixDAO phoenixDAO=null;
     private WorkloadIdGenerator workloadIdGenerator;
 
     public WorkloadCountersManager(){
-        phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getPhoenixHost());
+        //phoenixDAO = new WorkloadCountersPhoenixDAO(ConfigurationLoader.getPhoenixHost());
         workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
     }
 
     public WorkloadCountersManager(String zookeeperIp){
-        phoenixDAO = new WorkloadCountersPhoenixDAO(zookeeperIp);
+        //phoenixDAO = new WorkloadCountersPhoenixDAO(zookeeperIp);
         workloadIdGenerator = new WorkloadIdGenerator(phoenixDAO);
     }
 

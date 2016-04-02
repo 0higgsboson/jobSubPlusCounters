@@ -36,6 +36,8 @@ do
                         iterations=10
                     fi
 
+                    tag=${tag}_${workload}_${costObjective}_${dataProfile}
+
                     print ${tag}
 
                     NOW=$(date +"%Y-%m-%d-%H-%M")
@@ -89,23 +91,12 @@ do
 #                    java -jar /root/sherpa/jobSubPub_src/jobSubPlusCounters/reports/target/reports-1.0-jar-with-dependencies.jar "${tag}"
 #                    cd /root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/HiBenchSetupAndTestScripts
 
-                    printf "\nFinished with run, copying meta data ...\n"
-                    cp -r /opt/sherpa/* "${workloadMetaDir}/"
+
                     echo "Meta Data saved at ${workloadMetaDir}"
                     printf "\n\n ********************************************** Done Testing *****************************************************\n"
 
-                  #Learning Weights
-                 done
-
-            # Candidate Solutions
-            done
-
         #cost objectives
         done
-
-    # Data Profiles
-    done
-
 # workloads
 done
 

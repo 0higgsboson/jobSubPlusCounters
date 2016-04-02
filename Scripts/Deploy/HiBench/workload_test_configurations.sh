@@ -13,7 +13,7 @@ dataProfile=tiny
 tuned_params_file=/root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/Deploy/HiBench/tunedparams.json
 
 reset=no
-tag=TEST
+tag=02-04-2016
 
 costObjectivesList=("Memory" "Latency" "CPU")
 workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")

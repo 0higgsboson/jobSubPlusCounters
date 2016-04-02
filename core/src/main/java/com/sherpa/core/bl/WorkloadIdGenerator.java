@@ -33,6 +33,12 @@ public class WorkloadIdGenerator {
     }
 
 
+    public WorkloadIdGenerator(){
+        workloadHashToIdMap = new HashMap<Long, Integer>();
+    }
+
+
+
     private void init(){
         List<WorkloadIdDto> list = phoenixDAO.loadAllWorkloadIds();
         for(WorkloadIdDto dto: list){

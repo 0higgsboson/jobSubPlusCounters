@@ -11,6 +11,82 @@ source ${CWD}/utils.sh
 
 
 
+export PDSH_RCMD_TYPE=ssh
+
+
+# Tenzing
+print "Updating Tenzing ..."
+if [[ "${updateTenzing}" = "yes"  ]];
+then
+    pdcp -r -w ${tenzing_host}  "kill.sh"   ${tenzing_install_dir}/
+    pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/tunedparams.json"
+    pdcp -r -w ${tenzing_host}  "${tuned_params_file}"   ${tenzing_install_dir}/
+    pdsh -w ${tenzing_host} "${tenzing_install_dir}/kill.sh"
+    pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
+else
+    "Skipping Tenzing update ..."
+fi
+
+if [[ "${reset}" = "yes"  ]];
+then
+    print "Reseting Tenzing Db ..."
+    pdcp -r -w ${tenzing_host}  "resetDb.js"   ${tenzing_install_dir}/
+    pdsh -w ${tenzing_host} "mongo < ${tenzing_install_dir}/resetDb.js"
+    pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/SherpaSequenceNos.txt"
+    pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
+else
+    "Skipping Tenzing reset ..."
+fi
+
+
+if [[ "${updateTenzing}" = "yes"  || "${reset}" = "yes" ]];
+then
+      pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
+else
+    "Skipping Tenzing Start ..."
+fi
+
+
+
+
+# Client Agent
+print "Updating Client Agent ..."
+if [[ "${updateCA}" = "yes"  ]];
+then
+    pdcp -r -w ${clientagent_host}  "kill.sh"   ${clientagent_install_dir}/
+    pdsh -w ${clientagent_host} "${clientagent_install_dir}/kill.sh"
+    pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
+else
+    "Skipping Client Agent update ..."
+fi
+
+if [[ "${reset}" = "yes"  ]];
+then
+    print "Reseting ClientAgent Db ..."
+    pdcp -r -w ${clientagent_host}  "kill.sh"   ${clientagent_install_dir}/
+    pdsh -w ${clientagent_host} "${clientagent_install_dir}/kill.sh"
+    pdsh -w ${clientagent_host} "rm ${clientagent_install_dir}/configs.json"
+    pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
+else
+    "Skipping Client Agent reset ..."
+fi
+
+
+if [[ "${updateCA}" = "yes"  || "${reset}" = "yes" ]];
+then
+    pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
+else
+    "Skipping Client Agent Start ..."
+fi
+
+
+
+
+
+
+
+
+
 for workload in "${workloadsList[@]}"
 do
          if [[ "${workload}" = "sort" || "${workload}" = "terasort" || "${workload}" = "wordcount" || "${workload}" = "kmeans" || "${workload}" = "bayes" ]]
@@ -44,59 +120,6 @@ do
                     tempDir="${tag}-${NOW}"
                     workloadMetaDir="${backup_base_dir}/${tempDir}"
                     mkdir -p "${workloadMetaDir}"
-
-                    export PDSH_RCMD_TYPE=ssh
-
-                    print "Updating Tenzing ..."
-                    if [[ "${updateTenzing}" = "yes"  ]];
-                    then
-                        pdcp -r -w ${tenzing_host}  "kill.sh"   ${tenzing_install_dir}/
-                        pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/tunedparams.json"
-                        pdcp -r -w ${tenzing_host}  "${tuned_params_file}"   ${tenzing_install_dir}/
-                        pdsh -w ${tenzing_host} "${tenzing_install_dir}/kill.sh"
-                        pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
-                    else
-                        "Skipping Tenzing update ..."
-                    fi
-
-                    if [[ "${reset}" = "yes"  ]];
-                    then
-                        print "Reseting Tenzing Db ..."
-                        pdcp -r -w ${tenzing_host}  "resetDb.js"   ${tenzing_install_dir}/
-                        pdsh -w ${tenzing_host} "mongo < ${tenzing_install_dir}/resetDb.js"
-                        pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/SherpaSequenceNos.txt"
-                        pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
-                    else
-                        "Skipping Tenzing reset ..."
-                    fi
-                    pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
-
-
-
-                    print "Updating Client Agent ..."
-                    if [[ "${updateCA}" = "yes"  ]];
-                    then
-                        pdcp -r -w ${clientagent_host}  "kill.sh"   ${clientagent_install_dir}/
-                        pdsh -w ${clientagent_host} "${clientagent_install_dir}/kill.sh"
-                        pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
-                    else
-                        "Skipping Client Agent update ..."
-                    fi
-
-                    if [[ "${reset}" = "yes"  ]];
-                    then
-                        print "Reseting ClientAgent Db ..."
-                        pdcp -r -w ${clientagent_host}  "kill.sh"   ${clientagent_install_dir}/
-                        pdsh -w ${clientagent_host} "${clientagent_install_dir}/kill.sh"
-                        pdsh -w ${clientagent_host} "rm ${clientagent_install_dir}/configs.json"
-                        pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
-                    else
-                        "Skipping Client Agent reset ..."
-                    fi
-                    pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
-
-
-
 
                     echo "Meta Dir: ${workloadMetaDir}"
 

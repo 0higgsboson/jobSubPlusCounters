@@ -36,7 +36,7 @@ do
                         iterations=10
                     fi
 
-                    tag=${tag}_${workload}_${costObjective}_${dataProfile}
+                    tag=${workload}_${costObjective}_${dataProfile}_${tag}
 
                     print ${tag}
 

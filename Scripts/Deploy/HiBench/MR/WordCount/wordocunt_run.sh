@@ -25,7 +25,7 @@ cd ${installation_base_dir}/HiBench/workloads/wordcount/mapreduce/bin/
 rm temp.sh
 cp run.sh temp.sh
 
-str1="-D PSManaged=$PSM -D Tag=$tag -D SherpaCostObj=${costObjective}"
+str1="-D PSManaged=$PSM -D Tag=$tag -D SherpaCostObj=${costObjective} "
 str2='${INPUT_HDFS} ${OUTPUT_HDFS}'
 str3=$str1$str2
 

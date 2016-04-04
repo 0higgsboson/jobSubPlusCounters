@@ -24,7 +24,7 @@ then
     pdsh -w ${tenzing_host} "${tenzing_install_dir}/kill.sh"
     pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
 else
-    "Skipping Tenzing update ..."
+    echo "Skipping Tenzing update ..."
 fi
 
 if [[ "${reset}" = "yes"  ]];
@@ -35,7 +35,7 @@ then
     pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/SherpaSequenceNos.txt"
     pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
 else
-    "Skipping Tenzing reset ..."
+    echo "Skipping Tenzing reset ..."
 fi
 
 
@@ -43,7 +43,7 @@ if [[ "${updateTenzing}" = "yes"  || "${reset}" = "yes" ]];
 then
       pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
 else
-    "Skipping Tenzing Start ..."
+    echo "Skipping Tenzing Start ..."
 fi
 
 
@@ -57,7 +57,7 @@ then
     pdsh -w ${clientagent_host} "${clientagent_install_dir}/kill.sh"
     pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
 else
-    "Skipping Client Agent update ..."
+    echo "Skipping Client Agent update ..."
 fi
 
 if [[ "${reset}" = "yes"  ]];
@@ -68,7 +68,7 @@ then
     pdsh -w ${clientagent_host} "rm ${clientagent_install_dir}/configs.json"
     pdsh -w ${clientagent_host} "touch ${clientagent_install_dir}/configs.json"
 else
-    "Skipping Client Agent reset ..."
+    echo "Skipping Client Agent reset ..."
 fi
 
 
@@ -76,7 +76,7 @@ if [[ "${updateCA}" = "yes"  || "${reset}" = "yes" ]];
 then
     pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
 else
-    "Skipping Client Agent Start ..."
+    echo "Skipping Client Agent Start ..."
 fi
 
 
@@ -112,7 +112,7 @@ do
                         iterations=10
                     fi
 
-                    tag=${workload}_${costObjective}_${dataProfile}_${tag}
+                    tag=${workload}_${costObjective}_${dataProfile}
 
                     print ${tag}
 

@@ -1,6 +1,31 @@
-Follow these steps to set up Hadoop Cluster
+
+HIBENCH INSTALLATION
+Follow these steps to set up HiBench
 1- Set up ssh keys, installation initiating node should have ssh access to itself and to all nodes
 2- Create a hosts file, hibench will be setup on all the nodes
 3- Change 99_user_defined_properties.conf file as per your requirements. Change hibench.hdfs.master & hibench.hadoop.home
 4- Modify configurations.sh file
 4- Run: ./multinode-installer.sh hosts_file
+
+
+
+WORKLOAD TEST INSTRCUTIONS
+1- Edit workload_configurations.sh file
+
+  reset=yes
+  Will clean up CA & Tenzing db's and restarts the processes
+  Set to no to avoid database refresh
+
+
+  updateCA=yes
+  Will restart CA process
+
+
+  updateTenzing=yes
+  Will copy tunedparams.json file and restarts the process
+
+
+  tag=02-04-2016
+  Will be appended as a suffix to auto generated suffix in runWorkload.sh
+
+2- Run runWorkload.sh

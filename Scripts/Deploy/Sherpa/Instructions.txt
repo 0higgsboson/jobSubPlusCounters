@@ -2,9 +2,47 @@ Follow these steps to set up Hadoop Cluster
 1- Set up ssh keys, master node should have ssh access to itself and to all nodes where sherpa client is going to be installed
 2- Create a hosts file, sherpa clients will be installed on all those nodes
 3- Change configurations.sh file as per your requirements. Set hadoop settings
-4- Edit sherpa.properties file and update settings
+
+    As per Hadoop version comment/un-comment following settings, pick only one set of definition
+
+    # For Hadoop 2.7.1
+    #-------------------------
+    HADOOP_VERSION=2.7.1
+    ACTIVE_PROFILE=H2.7.1
+    MR_REPO_URL=https://github.com/0higgsboson/hadoop2.7.git
+    SRC_DIR=hadoop2.7
+
+
+    # For Hadoop 2.6.0
+    #-------------------------
+    #HADOOP_VERSION=2.6.0
+    #activeProfile=H2.6
+    #MR_REPO_URL=https://github.com/0higgsboson/mrClient.git
+    #SRC_DIR=mrClient
+
+
+    Update base path where to install client code
+    installation_base_dir=/root/sherpa
+
+
+    Change to no, if client agent installation is not required
+    client_agent_install=yes
+
+    host name of client agent
+    client_agent_host=test-w2
+
+    Change to no, if tenzing installation is not required
+    tenzing_install=yes
+
+    # hostname where to install tenzing
+    tenzing_host=test-w1
+
+
+4- Edit sherpa.properties file and update settings  (This file would be created by script, its on task list)
 5- Place executable jar file for Client Agent ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
 6- Place executable jar file for Tenzing ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
-7- Run:  ./sherpa_multinode_installer.sh host_file
-or Run: ./client-agent_installer.sh
-or Run: ./tenzing_installer.sh
+7- a) Install Sherpa Clients By:  ./sherpa_multinode_installer.sh host_file
+   b) Install Tenzing By: ./tenzing_installer.sh
+   c) Install CA By       ./client-agent_installer.sh
+
+   Please Install in the order specified

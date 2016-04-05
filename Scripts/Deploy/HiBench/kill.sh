@@ -1,2 +1,2 @@
 #!/bin/bash
-kill `jps | grep TzCtCommon | awk '{print $1}'`
+kill `jps | grep AgentService | awk '{print $1}'`

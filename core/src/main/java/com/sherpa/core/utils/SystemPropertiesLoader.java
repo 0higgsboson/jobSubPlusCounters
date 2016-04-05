@@ -160,6 +160,28 @@ public class SystemPropertiesLoader {
     }
 
 
+    public static String getHistoryServerMongoDbHostname(){
+        String host=  getProperty("historyserver.db.mongo.host");
+        if(host==null){
+            System.out.println("HistoryServer Mongo DB host property not found, using localhost as default ...");
+            host = "localhost";
+        }
+
+        return host;
+    }
+
+
+    public static int getHistoryServerMongoDbPort(){
+        int port=getIntProperty("historyserver.db.mongo.port");
+        if(port <= 0) {
+            System.out.println("HistoryServer Mongo DB port property not found, using 27017 as default ...");
+            port = 27017;
+        }
+        return port;
+    }
+
+
+
 
 
 

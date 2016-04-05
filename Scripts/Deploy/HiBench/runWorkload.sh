@@ -6,7 +6,7 @@ CWD=`cd "$CWD"; pwd`
 
 # load configurations & utils functions
 source ${CWD}/configurations.sh
-source ${CWD}/workload_test_configurations.sh
+source ${CWD}/workload_configurations.sh
 source ${CWD}/utils.sh
 
 
@@ -41,7 +41,8 @@ fi
 
 if [[ "${updateTenzing}" = "yes"  || "${reset}" = "yes" ]];
 then
-      pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
+      pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Tenzing > ${tenzing_install_dir}/tenzing.log &"
+     # pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
 else
     echo "Skipping Tenzing Start ..."
 fi
@@ -74,7 +75,9 @@ fi
 
 if [[ "${updateCA}" = "yes"  || "${reset}" = "yes" ]];
 then
-    pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
+    #pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
+    pdsh -w ${client_agent_host}   "nohup java -cp  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &"
+
 else
     echo "Skipping Client Agent Start ..."
 fi

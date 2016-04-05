@@ -56,7 +56,13 @@ pdsh -w    ${client_agent_host}   "${client_agent_install_dir}/kill.sh"
 
 
 print "Starting Up Client Agent ..."
-pdsh -w ${client_agent_host}   "nohup java -jar  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar > ${client_agent_install_dir}/client-agent.log &"
+#pdsh -w ${client_agent_host}   "nohup java -jar  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar > ${client_agent_install_dir}/client-agent.log &"
+
+pdsh -w ${client_agent_host}   "nohup java -cp  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &"
+
+
+
+
 pdsh -w ${client_agent_host}   "netstat -anp | grep 2552"
 
 echo "Client Agent Installed Successfully ..."

@@ -55,8 +55,16 @@ pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/kill.sh"
 
 
 print "Starting Up Tenzing ..."
-pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
-pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Db > ${tenzing_install_dir}/db.log &"
+#pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
+#pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Db > ${tenzing_install_dir}/db.log &"
+
+pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Tenzing > ${tenzing_install_dir}/tenzing.log &"
+pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Db > ${tenzing_install_dir}/db.log &"
+
+
+
+
+
 
 pdsh -w ${tenzing_host}   "netstat -anp | grep 3052"
 

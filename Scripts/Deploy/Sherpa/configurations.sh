@@ -20,6 +20,9 @@ SRC_DIR=hadoop2.7
 #SRC_DIR=mrClient
 
 
+CLONE_REPOS=no
+
+
 
 # Paths & Env Variables
 #======================================================================================

@@ -202,6 +202,12 @@ public class HistoricalTaskCounters {
 			e.printStackTrace();
 		}
 
+		if(maxMapLatency < 0)
+			maxMapLatency = 0;
+
+		if(maxReduceLatency < 0)
+			maxReduceLatency = 0;
+
 		System.out.println("\n Max Map Latency: " + maxMapLatency + "\t Max Reduce Latency: " + maxReduceLatency + "\t Latency: " + (maxMapLatency + maxReduceLatency));
 		return (maxMapLatency + maxReduceLatency);
 	}

@@ -16,7 +16,7 @@ reset=no
 updateCA=no
 updateTenzing=no
 
-tag=02-04-2016
+suffix=02-04-2016
 
 costObjectivesList=("Memory" "Latency" "CPU")
 workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")

@@ -4,10 +4,12 @@ import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class AllTasks {
+public class AllTasks implements Serializable{
 
 	private String jobId;
 

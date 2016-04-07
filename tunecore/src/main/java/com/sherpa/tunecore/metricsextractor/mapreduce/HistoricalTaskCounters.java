@@ -31,6 +31,53 @@ public class HistoricalTaskCounters {
 	}
 
 
+	public AllTasks getTasksCounters(String jobId){
+		AllTasks allTasks = null;
+		try {
+			// gets all tasks
+			allTasks = restTemplate.getForObject(SPI.getJobTaskUri(jobHistoryUrl, jobId), AllTasks.class);
+			allTasks.setJobId(jobId);
+
+			// iterate over tasks
+			List<Task> jobTasksList = allTasks.getTasks().getTask();
+			for (Task task : jobTasksList) {
+				String taskId = task.getId();
+
+				try {
+					// get task level details/counters
+					AllJobTaskCounters allJobTaskCounters = restTemplate.getForObject(SPI.getJobTaskCounterUri(jobHistoryUrl, jobId, taskId), AllJobTaskCounters.class);
+
+					if(allJobTaskCounters!=null &&  allJobTaskCounters.getJobTaskCounters()!=null && allJobTaskCounters.getJobTaskCounters().getTaskCounterGroup()!=null ) {
+						List<TaskCounterGroup> tcgList = allJobTaskCounters.getJobTaskCounters().getTaskCounterGroup();
+
+						for (TaskCounterGroup tcg : tcgList) {
+							tcg.setCounterGroupName(  tcg.getCounterGroupName().replaceAll("\\.", "_")   );
+							if(tcg.getCounter()!=null){
+								for(TaskCounter tc: tcg.getCounter()){
+									tc.setName( tc.getName().replaceAll("\\.", "_") );
+								}
+							}
+						}
+						task.setTaskCounters(allJobTaskCounters);
+					}
+					else{
+						System.out.println("Task: " + taskId + "\t details/counters null ...");
+					}
+
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return allTasks;
+	}
+
+
+
 	public void getJobCounters(String JobID) throws Exception{
 		//log.info("Initial Counters Values: " + counterValues.toString());
 
@@ -220,9 +267,9 @@ public class HistoricalTaskCounters {
 //		MRJobCounters c = restTemplate.getForObject(SPI.getJobUri("http://104.197.176.154:19888/ws/v1/history/mapreduce/jobs/", "job_1447069154965_0002"), MRJobCounters.class);
 //		System.out.println(c);
 
-		HistoricalTaskCounters tc = new HistoricalTaskCounters("http://23.236.50.32:19888/ws/v1/history/mapreduce/jobs/");
-		long latency = tc.computeLatency("job_1452586301348_0017");
-		System.out.println(latency);
+		HistoricalTaskCounters tc = new HistoricalTaskCounters("http://104.197.122.66:19888/ws/v1/history/mapreduce/jobs/");
+		AllTasks tasks = tc.getTasksCounters("job_1459508871579_0036");
+		System.out.println(tasks.getTasks().getTask().size());
 
 	}
 

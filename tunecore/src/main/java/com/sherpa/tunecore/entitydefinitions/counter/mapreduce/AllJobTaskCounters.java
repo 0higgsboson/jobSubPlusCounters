@@ -4,12 +4,13 @@ import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class AllJobTaskCounters {
+public class AllJobTaskCounters  implements Serializable {
 
 	private JobTaskCounters jobTaskCounters;
 

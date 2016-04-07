@@ -4,6 +4,7 @@ import com.sherpa.core.bl.WorkloadCountersManager;
 import com.sherpa.core.dao.WorkloadCountersConfigurations;
 import com.sherpa.core.utils.ConfigurationLoader;
 import com.sherpa.tunecore.entitydefinitions.job.execution.Application;
+import com.sherpa.tunecore.entitydefinitions.job.mapreduce.AllTasks;
 import com.sherpa.tunecore.joblauncher.SPI;
 import com.sherpa.tunecore.joblauncher.Utils;
 import com.sherpa.tunecore.joblauncher.mr.MRCountersManager;
@@ -68,7 +69,9 @@ public class HiveCliJobExecutor extends Thread{
     private String clusterID= "sherpa-default";
     private String sherpaTuned= "No";
     private String tag="NA", origin="NA";
-    private List<String> jobIds = new  ArrayList<String>();
+
+    // keeps task counters
+    private List<AllTasks> tasks = new  ArrayList<AllTasks>();
 
 
     public HiveCliJobExecutor(String wid, String rmUrl, String historyServer, int pollInterval){
@@ -120,6 +123,8 @@ public class HiveCliJobExecutor extends Thread{
     public void run(){
         System.out.println("Workload ID: " + workloadId);
 
+        HistoricalTaskCounters historicalTaskCounters = new HistoricalTaskCounters(historyServerUrl);
+
         // process until job id extractor is terminated and job queue is empty
         while(  jobsProcessed!=totalJobs ) {
             System.out.println("Queue Size=" + jobQueue.size() + "\t Jobs Processed=" +jobsProcessed + "\t Total Jobs:" + totalJobs );
@@ -151,11 +156,18 @@ public class HiveCliJobExecutor extends Thread{
                 Map<String, BigInteger> jobCounters = getJobCounters(jobId);
 
                 if(jobCounters!=null) {
-                    long latency = new HistoricalTaskCounters(historyServerUrl).computeLatency(jobId);
+                    long latency = historicalTaskCounters.computeLatency(jobId);
+
+                    System.out.println("Getting Tasks Counters ...");
+                    AllTasks allTasks = historicalTaskCounters.getTasksCounters(jobId);
+                    if(allTasks!=null)
+                        tasks.add(allTasks);
 
                     // all counters aggregation for learning module
                     aggregateAllCounters(jobCounters);
-                    saveWorkloadCounters(jobId, elapsedTime, latency, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
+
+
+                    //saveWorkloadCounters(jobId, elapsedTime, latency, jobCounters, app.getApp().getStartTimeAsString(), app.getApp().getFinishTimeAsString(), false);
 
                     if(jobsProcessed==0)
                         startTime = app.getApp().getStartTimeAsString();
@@ -182,13 +194,12 @@ public class HiveCliJobExecutor extends Thread{
 
         }// main while loop
 
-        if(totalJobs >= 1) {
-            System.out.println("Saving Aggregated Counters For " + jobsProcessed + " Jobs");
 
-            saveWorkloadCounters(aggregateJobId, totalElapsedTime, totalLatency, aggregatedCounters, startTime, finishTime, true);
-            workloadManager.close();
-            System.out.println("Finished All Tasks ... " + jobsProcessed);
-        }
+        allCounters.put("Execution_Time", BigInteger.valueOf(totalElapsedTime));
+        allCounters.put("Latency", BigInteger.valueOf(totalLatency));
+        System.out.println("Execution Time: " + totalElapsedTime + "\t Latency: " + totalLatency);
+        System.out.println("Done processing " + jobsProcessed + " Jobs");
+
 
     }
 
@@ -568,5 +579,13 @@ public class HiveCliJobExecutor extends Thread{
 
     public String getWorkloadId() {
         return workloadId;
+    }
+
+    public List<AllTasks> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<AllTasks> tasks) {
+        this.tasks = tasks;
     }
 }

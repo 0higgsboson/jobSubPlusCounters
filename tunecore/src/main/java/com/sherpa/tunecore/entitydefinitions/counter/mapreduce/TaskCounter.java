@@ -1,5 +1,6 @@
 package com.sherpa.tunecore.entitydefinitions.counter.mapreduce;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import lombok.Data;
@@ -8,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaskCounter {
+public class TaskCounter  implements Serializable {
 
 	private String name;
 	private BigInteger value;

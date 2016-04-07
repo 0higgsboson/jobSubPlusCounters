@@ -1,17 +1,19 @@
 package com.sherpa.tunecore.entitydefinitions.job.mapreduce;
 
+import com.sherpa.tunecore.entitydefinitions.counter.mapreduce.AllJobTaskCounters;
 import lombok.Data;
 
-import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Task {
+public class Task  implements Serializable {
 
-	private DateTime startTime;
-	private DateTime finishTime;
+	private long startTime;
+	private long finishTime;
 	private String elapsedTime;
 	
 	private float progress;
@@ -20,6 +22,8 @@ public class Task {
 	private String type;
 
 	private String successfulAttempt;
+
+	private AllJobTaskCounters taskCounters;
 
 
 	public long getLongElapsedTime(){
@@ -33,19 +37,19 @@ public class Task {
 	}
 
 
-	public DateTime getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(DateTime startTime) {
+	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
 
-	public DateTime getFinishTime() {
+	public long getFinishTime() {
 		return finishTime;
 	}
 
-	public void setFinishTime(DateTime finishTime) {
+	public void setFinishTime(long finishTime) {
 		this.finishTime = finishTime;
 	}
 
@@ -95,5 +99,13 @@ public class Task {
 
 	public void setSuccessfulAttempt(String successfulAttempt) {
 		this.successfulAttempt = successfulAttempt;
+	}
+
+	public AllJobTaskCounters getTaskCounters() {
+		return taskCounters;
+	}
+
+	public void setTaskCounters(AllJobTaskCounters taskCounters) {
+		this.taskCounters = taskCounters;
 	}
 }

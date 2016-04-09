@@ -24,6 +24,6 @@ workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
 
 
 
-
+# Set executable file names for Tenzing & CA installed on Tenzing & CA machines,  executable files not required locally 
 tenzing_executable_file=Tenzing-1.0-jar-with-dependencies.jar
 client_agent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar

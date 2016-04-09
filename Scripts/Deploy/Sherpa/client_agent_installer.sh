@@ -50,8 +50,8 @@ pdcp -r -w ${client_agent_host}   "${client_agent_property_file}"    "/opt/sherp
 pdcp -r -w ${client_agent_host}   "${client_agent_executable_file}"  "${client_agent_install_dir}/"
 
 print "Killing existing processes ..."
-pdcp -r -w ${client_agent_host}  "kill.sh"   "${client_agent_install_dir}/"
-pdsh -w    ${client_agent_host}   "${client_agent_install_dir}/kill.sh"
+pdcp -r -w ${client_agent_host}  "ca_kill.sh"   "${client_agent_install_dir}/"
+pdsh -w    ${client_agent_host}   "${client_agent_install_dir}/ca_kill.sh"
 
 
 

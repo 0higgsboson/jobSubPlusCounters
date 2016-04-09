@@ -44,8 +44,7 @@ fi
 
 if [[ "${updateTenzing}" = "yes"  || "${reset}" = "yes" ]];
 then
-      pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Tenzing > ${tenzing_install_dir}/tenzing.log &"
-     # pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
+      pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService > ${tenzing_install_dir}/tenzing.log &"
 else
     echo "Skipping Tenzing Start ..."
 fi
@@ -78,8 +77,7 @@ fi
 
 if [[ "${updateCA}" = "yes"  || "${reset}" = "yes" ]];
 then
-    #pdsh -w ${clientagent_host}   "nohup java -jar  ${clientagent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar  > ${clientagent_install_dir}/client-agent.log &"
-    pdsh -w ${client_agent_host}   "nohup java -cp  ${client_agent_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &"
+    pdsh -w ${client_agent_host}   "nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &"
 
 else
     echo "Skipping Client Agent Start ..."

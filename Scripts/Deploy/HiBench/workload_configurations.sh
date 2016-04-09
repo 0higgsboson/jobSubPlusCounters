@@ -20,3 +20,10 @@ suffix=02-04-2016
 
 costObjectivesList=("Memory" "Latency" "CPU")
 workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
+
+
+
+
+
+tenzing_executable_file=Tenzing-1.0-jar-with-dependencies.jar
+client_agent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar

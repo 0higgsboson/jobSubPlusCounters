@@ -58,8 +58,8 @@ print "Starting Up Tenzing ..."
 #pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
 #pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Db > ${tenzing_install_dir}/db.log &"
 
-pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Tenzing > ${tenzing_install_dir}/tenzing.log &"
-pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar com.sherpa.common.tzctprotocol.agent.clientservice.AgentService Db > ${tenzing_install_dir}/db.log &"
+pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService    > ${tenzing_install_dir}/tenzing.log &"
+pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db > ${tenzing_install_dir}/db.log &"
 
 
 

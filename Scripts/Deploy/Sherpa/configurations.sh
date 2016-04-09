@@ -56,7 +56,7 @@ client_agent_install_dir=/opt/sherpa/ClientAgent/
 
 client_agent_property_file=sherpa.properties
 
-client_agent_executable_file=TzCtCommon-1.0-jar-with-dependencies.jar
+client_agent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar
 
 
 
@@ -71,7 +71,7 @@ tenzing_install_dir=/opt/sherpa/Tenzing/
 
 tenzing_property_file=sherpa.properties
 
-tenzing_executable_file=TzCtCommon-1.0-jar-with-dependencies.jar
+tenzing_executable_file=Tenzing-1.0-jar-with-dependencies.jar
 
 tuned_params_file=tunedparams.json
 

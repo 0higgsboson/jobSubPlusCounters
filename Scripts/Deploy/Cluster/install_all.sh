@@ -10,6 +10,8 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
+set -e
+
 hosts_file=$1
 
 ./hadoop_multinode_installer.sh     ${hosts_file}

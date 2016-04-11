@@ -8,8 +8,9 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-hosts_file=$1
+set -e
 
+hosts_file=$1
 
 # Save Script Working Dir
 CWD=`dirname "$0"`

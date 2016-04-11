@@ -10,6 +10,7 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
+set -e
 
 # includes configurations
 source configurations.sh

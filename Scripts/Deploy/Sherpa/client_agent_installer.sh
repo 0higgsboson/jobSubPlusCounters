@@ -3,6 +3,8 @@
 # Assumptions
 # SSH keys should be set up already
 
+set -e
+
 # Save Script Working Dir
 CWD=`dirname "$0"`
 CWD=`cd "$CWD"; pwd`

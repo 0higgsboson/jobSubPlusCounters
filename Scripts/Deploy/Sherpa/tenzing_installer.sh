@@ -3,6 +3,8 @@
 # Assumptions
 # SSH keys should be set up already
 
+set -e
+
 # Save Script Working Dir
 CWD=`dirname "$0"`
 CWD=`cd "$CWD"; pwd`
@@ -48,10 +50,17 @@ print "Copying files to ${tenzing_host}"
 pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
 pdcp -r -w ${tenzing_host}   "${tenzing_executable_file}"  "${tenzing_install_dir}/"
 pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
+pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
+pdcp -r -w ${tenzing_host}   "${db_install_file}"          "${tenzing_install_dir}/"
+
 
 print "Killing existing processes ..."
 pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   "${tenzing_install_dir}/"
 pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/tenzing_kill.sh"
+
+print "Installing Mongo DB ..."
+pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/${db_install_file}"
+
 
 
 print "Starting Up Tenzing ..."

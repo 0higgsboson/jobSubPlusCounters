@@ -75,6 +75,7 @@ tenzing_executable_file=Tenzing-1.0-jar-with-dependencies.jar
 
 tuned_params_file=tunedparams.json
 
+db_install_file=db_installer.sh
 
 
 #--------------------------------------------------------------------------------------------------------

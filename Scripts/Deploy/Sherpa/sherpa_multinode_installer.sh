@@ -3,6 +3,8 @@
 # Assumptions
 # 1. For un-attended installation, copy ssh public key into github
 
+set -e
+
 if [ "$#" -ne 1 ]; then
     echo "Usage: hosts_file_path"
     exit

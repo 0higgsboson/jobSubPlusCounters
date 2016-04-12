@@ -10,7 +10,7 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-set -e
+#set -e
 
 hosts_file=$1
 

@@ -10,7 +10,7 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-set -e
+#set -e
 
 # includes configurations
 source configurations.sh
@@ -43,7 +43,13 @@ printHeader "Installing Hive ${HIVE_VERSION}"
 cd $hive_dir
 
 print "Downloading Apache Hive ${HIVE_VERSION} ..."
-wget http://www.eu.apache.org/dist/hive/stable/apache-hive-${HIVE_VERSION}-bin.tar.gz
+#wget http://www.eu.apache.org/dist/hive/stable/apache-hive-${HIVE_VERSION}-bin.tar.gz
+
+git clone git://${GIT_SERVER}/apache-hive-${HIVE_VERSION}-bin.git
+cp apache-hive-${HIVE_VERSION}-bin/apache-hive-${HIVE_VERSION}-bin.tar.gz   apache-hive-${HIVE_VERSION}-bin.tar.gz
+rm -r apache-hive-${HIVE_VERSION}-bin/
+
+
 tar -xzvf apache-hive-${HIVE_VERSION}-bin.tar.gz
 cd apache-hive-${HIVE_VERSION}-bin
 

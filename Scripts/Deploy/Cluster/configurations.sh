@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GIT_SERVER=130.211.164.139
+
 # Common Configurations
 installation_base_dir=/root
 scripts_dir="${installation_base_dir}/scripts/"

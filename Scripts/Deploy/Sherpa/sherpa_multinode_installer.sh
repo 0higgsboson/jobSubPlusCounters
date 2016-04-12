@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Assumptions
-# 1. For un-attended installation, copy ssh public key into github
+#
+# Installs MR & Hive Clients on all hosts specified in a hosts file
+#
 
-set -e
+#set -e
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: hosts_file_path"
@@ -23,6 +24,45 @@ source "${CWD}"/utils.sh
 source /etc/environment
 
 
+if [[ "$AUTH_TYPE" = "ssh"  ]];
+then
+    echo "SSH based cloning ..."
+    if [[ "$HADOOP_VERSION" = "2.7.1"  ]];
+    then
+        MR_REPO_URL=git@github.com:0higgsboson/hadoop2.7.git
+    else
+        MR_REPO_URL=git@github.com:0higgsboson/mrClient.git
+    fi
+    HIVE_REPO_URL=git@github.com:0higgsboson/hiveClientSherpa.git
+    JOBSUBPLUS_REPO_URL=git@github.com:0higgsboson/jobSubPlusCounters.git
+    TZCTCOMMON_REPO_URL=git@github.com:0higgsboson/TzCtCommon.git
+    TENZING_REPO_URL=git@github.com:0higgsboson/Tenzing.git
+    CLIENTAGENT_REPO_URL=git@github.com:0higgsboson/ClientAgent.git
+else
+   echo "User/Password based cloning ..."
+   if [[ "$HADOOP_VERSION" = "2.7.1"  ]];
+    then
+        MR_REPO_URL=https://github.com/0higgsboson/hadoop2.7.git
+    else
+        MR_REPO_URL=https://github.com/0higgsboson/mrClient.git
+    fi
+    HIVE_REPO_URL=https://github.com/0higgsboson/hiveClientSherpa.git
+    JOBSUBPLUS_REPO_URL=https://github.com/0higgsboson/jobSubPlusCounters.git
+    TZCTCOMMON_REPO_URL=https://github.com/0higgsboson/TzCtCommon.git
+    TENZING_REPO_URL=https://github.com/0higgsboson/Tenzing.git
+    CLIENTAGENT_REPO_URL=https://github.com/0higgsboson/ClientAgent.git
+fi
+
+if [[ "$HADOOP_VERSION" = "2.7.1"  ]];
+then
+    MR_SRC_DIR=hadoop2.7
+    ACTIVE_PROFILE=H2.7.1
+else
+    MR_SRC_DIR=mrClient
+    ACTIVE_PROFILE=H2.6
+fi
+
+
 # Create Directory Structure
 print "Creating dir structure ..."
 mkdir -p $mr_client_src_dir
@@ -30,6 +70,8 @@ mkdir -p $hive_client_src_dir
 mkdir -p $hadoop_src_dir
 mkdir -p $sherpa_src_dir
 mkdir -p $common_src_dir
+mkdir -p $tenzing_src_dir
+mkdir -p $clientagent_src_dir
 
 
 print "Updating ..."
@@ -67,12 +109,11 @@ print "Defining Java Home ..."
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
 
 
-#
-
 print "Installing PDSH ..."
 apt-get -y install pdsh
 pdsh -w ^${hosts_list}   "apt-get -y install pdsh"
 
+# Defines shell for pdsh to avoid connection refused exceptions
 export PDSH_RCMD_TYPE=ssh
 pdsh -w ^${hosts_file}    "export PDSH_RCMD_TYPE=ssh"
 
@@ -85,77 +126,110 @@ then
     # Cloning Sherpa Performance Project
     print "Cloning Sherpa Performance Project"
     cd $sherpa_src_dir
-    git clone https://github.com/0higgsboson/jobSubPlusCounters.git
+    git clone ${JOBSUBPLUS_REPO_URL}
 
 
     # Cloning TzCtCommon
     print "Cloning TzCtCommon Project"
     cd ${common_src_dir}
-    git clone https://github.com/0higgsboson/TzCtCommon.git
+    git clone ${TZCTCOMMON_REPO_URL}
 
 
     # Cloning custom Hive Code
-    print "Cloning custom Hive Code"
+    print "Cloning custom Hive Project"
     cd $hive_client_src_dir
-    git clone https://github.com/0higgsboson/hiveClientSherpa.git
+    git clone ${HIVE_REPO_URL}
 
     # Cloning custom MR Code
-    print "Cloning custom MR Code"
+    print "Cloning custom MR Project"
     cd $mr_client_src_dir
     git clone ${MR_REPO_URL}
+
+
+     # Cloning Tenzing Code
+    print "Cloning Tenzing Project"
+    cd ${tenzing_src_dir}
+    git clone ${TENZING_REPO_URL}
+
+
+     # Cloning CA Code
+    print "Cloning Client Agent Project"
+    cd ${clientagent_src_dir}
+    git clone ${CLIENTAGENT_REPO_URL}
 
 fi
 
 
-##########################################################   Installing Sherpa Project    ####################################################################
-printHeader "Installing Sherpa Project"
+#
+#   Installing TzCtCommon
+# ======================================================================================================================================
 
-#print "Compiling Sherpa Project"
-#cd $sherpa_src_dir/jobSubPlusCounters
-#mvn clean install -DskipTests -P${ACTIVE_PROFILE}
-
-print "Compiling TzCtCommon Project"
+printHeader "Installing TzCtCommon Project"
 cd ${common_src_dir}/TzCtCommon/
 mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
 
 
-##########################################################   Installing & Testing Hive Client    ####################################################################
-printHeader "Installing Hive Client"
+#
+#   Packaging Tenzing
+# ======================================================================================================================================
 
-print "Installing Hive Client"
+printHeader "Packaging Tenzing"
+cd ${tenzing_src_dir}/Tenzing/
+mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
+
+
+
+#
+#   Packaging Client Agent
+# ======================================================================================================================================
+
+printHeader "Packaging Client Agent"
+cd ${clientagent_src_dir}/ClientAgent/
+mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
+
+
+
+
+#
+#   Installing Hive Client
+# ======================================================================================================================================
+
+printHeader "Installing Hive Client"
 cd $hive_client_src_dir/hiveClientSherpa
-# Using install instead of package on Dev env may lead to cyclic dependency issue, always use package unless there is some special reason
 mvn clean package -pl ql,cli  -Phadoop-2  -DskipTests
 
 # Copies custom jars into Hive's lib dir
-print "Copying jars into Hive's lib dir ..."
+print "Copying Jars ..."
 pdcp -r -w ^${hosts_file}   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli-1.2.1.jar" "${hive_home}/lib/hive-cli-1.2.1.jar"
 pdcp -r -w ^${hosts_file}   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec-1.2.1.jar" "${hive_home}/lib/hive-exec-1.2.1.jar"
-#pdcp -r -w ^${hosts_file}   "${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar"  "${hive_home}/lib/tunecore-1.0-SNAPSHOT-jar-with-dependencies.jar"
 pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar" "${hive_home}/lib/TzCtCommon-1.0-jar-with-dependencies.jar"
 pdcp -r -w ^${hosts_file}    "${CWD}/sherpa.properties"    "/opt/sherpa.properties"
 
-
 # Fixes hive error
 pdsh -w ^${hosts_file}   "rm ${hadoop_home}/share/hadoop/yarn/lib/jline-0.9.94.jar"
+echo "Hive Client Deployed ..."
 
 
 
-##########################################################   Installing & Testing MR Client    ####################################################################
+
+#
+#   Installing MR Client
+# ======================================================================================================================================
+
 printHeader "Installing MR Client"
-
-print "Compiling MR Client"
-cd ${mr_client_src_dir}/${SRC_DIR}
-# Using install instead of package on Dev env may lead to cyclic dependency issue, always use package unless there is some special reason
+cd ${mr_client_src_dir}/${MR_SRC_DIR}
 mvn clean package -Pdist -DskipTests
 
 
 print "Copying Jars ..."
-pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"  "${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"
-#pdcp -r -w ^${hosts_file}   "${sherpa_src_dir}/jobSubPlusCounters/tunecore/target/tunecore-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
+pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"  "${hadoop_home}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"
 pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar" "${hadoop_home}/share/hadoop/mapreduce/lib/"
-
 pdcp -r -w ^${hosts_file}   "${CWD}/sherpa.properties" "/opt/sherpa.properties"
 
+echo "MR Client Deployed ..."
+echo "!!! Restart Hadoop Services ..."
 
-echo "Done with installation ..."
+
+# Copying Tenzing & CA Jars into CWD
+cp  ${tenzing_src_dir}/Tenzing/target/Tenzing-1.0-jar-with-dependencies.jar                ${CWD}/
+cp  ${clientagent_src_dir}/ClientAgent/target/ClientAgent-1.0-jar-with-dependencies.jar    ${CWD}/

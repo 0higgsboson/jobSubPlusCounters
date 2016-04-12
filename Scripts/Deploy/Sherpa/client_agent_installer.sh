@@ -3,7 +3,7 @@
 # Assumptions
 # SSH keys should be set up already
 
-set -e
+#set -e
 
 # Save Script Working Dir
 CWD=`dirname "$0"`

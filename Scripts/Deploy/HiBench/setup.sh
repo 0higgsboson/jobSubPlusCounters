@@ -27,8 +27,8 @@ cd ${installation_base_dir}
 
 
 # Clones HiBench Project
-echo "git clone https://github.com/intel-hadoop/HiBench.git"
-git clone ${hibench_url}
+#git clone ${hibench_url}
+git clone git://${GIT_SERVER}/HiBench.git
 cd HiBench
 
 # Builds the project

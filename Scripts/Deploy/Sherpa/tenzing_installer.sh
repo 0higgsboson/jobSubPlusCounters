@@ -3,7 +3,7 @@
 # Assumptions
 # SSH keys should be set up already
 
-set -e
+#set -e
 
 # Save Script Working Dir
 CWD=`dirname "$0"`
@@ -58,9 +58,16 @@ print "Killing existing processes ..."
 pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   "${tenzing_install_dir}/"
 pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/tenzing_kill.sh"
 
-print "Installing Mongo DB ..."
-pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/${db_install_file}"
 
+print "Mongo DB Install:"
+if [[ "$db_install" != "yes"  ]];
+then
+    echo "Install flag is turned off !!!"
+    echo "Skipping Mongo DB Installation ..."
+else
+    echo "Installing Mongo DB ..."
+    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/${db_install_file}"
+fi
 
 
 print "Starting Up Tenzing ..."

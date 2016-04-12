@@ -10,7 +10,7 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-set -e
+#set -e
 
 # includes configurations
 source configurations.sh
@@ -56,7 +56,11 @@ printHeader "Installing Hadoop"
 print "Downloading Hadoop ${HADOOP_VERSION} ..."
 
 cd $hadoop_dir
-wget https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+#wget https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+git clone git://${GIT_SERVER}/hadoop-${HADOOP_VERSION}.git
+cp hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz hadoop-${HADOOP_VERSION}.tar.gz
+rm -r hadoop-${HADOOP_VERSION}/
+
 tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz
 cd hadoop-${HADOOP_VERSION}
 

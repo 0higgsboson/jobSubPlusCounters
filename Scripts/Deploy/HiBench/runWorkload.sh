@@ -77,7 +77,7 @@ fi
 
 if [[ "${updateCA}" = "yes"  || "${reset}" = "yes" ]];
 then
-    pdsh -w ${client_agent_host}   "nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &"
+    pdsh -w ${clientagent_host}   "nohup java -cp  ${clientagent_install_dir}/${clientagent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${clientagent_install_dir}/client-agent.log &"
 
 else
     echo "Skipping Client Agent Start ..."

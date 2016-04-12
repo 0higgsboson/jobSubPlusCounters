@@ -18,10 +18,12 @@ export PDSH_RCMD_TYPE=ssh
 print "Updating Tenzing ..."
 if [[ "${updateTenzing}" = "yes"  ]];
 then
-    pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   ${tenzing_install_dir}/
+    pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   "${tenzing_install_dir}/"
     pdsh -w ${tenzing_host} "${tenzing_install_dir}/tenzing_kill.sh"
-    pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/tunedparams.json"
-    pdcp -r -w ${tenzing_host}  "${tuned_params_file}"   ${tenzing_install_dir}/
+
+    pdsh -w    ${tenzing_host} "rm ${tenzing_install_dir}/tunedparams.json"
+    pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
+
     pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
 else
     echo "Skipping Tenzing update ..."
@@ -32,11 +34,14 @@ then
     print "Reseting Tenzing Db ..."
     pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   ${tenzing_install_dir}/
     pdsh -w ${tenzing_host} "${tenzing_install_dir}/tenzing_kill.sh"
+
     pdcp -r -w ${tenzing_host}  "resetDb.js"   ${tenzing_install_dir}/
     pdsh -w ${tenzing_host} "mongo < ${tenzing_install_dir}/resetDb.js"
+
     pdsh -w ${tenzing_host} "rm ${tenzing_install_dir}/SherpaSequenceNos.txt"
     pdsh -w ${tenzing_host} "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
 
+    pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
 else
     echo "Skipping Tenzing reset ..."
 fi
@@ -82,12 +87,6 @@ then
 else
     echo "Skipping Client Agent Start ..."
 fi
-
-
-
-
-
-
 
 
 

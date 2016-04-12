@@ -10,7 +10,7 @@ clientagent_install_dir=/opt/sherpa/ClientAgent/
 
 dataProfile=large
 #tuned_params_file=/root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/Deploy/HiBench/tunedparams.json
-tuned_params_file=/opt/tunedparams.json
+tuned_params_file=tunedparams.json
 
 reset=no
 updateCA=no

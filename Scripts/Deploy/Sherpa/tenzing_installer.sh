@@ -50,7 +50,9 @@ print "Copying files to ${tenzing_host}"
 pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
 pdcp -r -w ${tenzing_host}   "${tenzing_executable_file}"  "${tenzing_install_dir}/"
 pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
-pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
+#pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
+pdsh    -w ${tenzing_host}   "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
+
 pdcp -r -w ${tenzing_host}   "${db_install_file}"          "${tenzing_install_dir}/"
 
 

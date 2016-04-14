@@ -47,14 +47,14 @@ fileExists  $SHERPA_PROPERTY_FILE
 
 
 echo "Deploying MR Client ..."
-cp ${SHERPA_MR_JAR_NAME}             ${HADOOP_LIB_DIR}/
-cp ${SHERPA_COMMON_JAR_NAME}         ${HADOOP_LIB_DIR}/
-cp ${SHERPA_PROPERTY_FILE}           "/opt/sherpa.properties"
+cp --backup=numbered ${SHERPA_MR_JAR_NAME}             ${HADOOP_LIB_DIR}/
+cp --backup=numbered ${SHERPA_COMMON_JAR_NAME}         ${HADOOP_LIB_DIR}/
+cp --backup=numbered ${SHERPA_PROPERTY_FILE}           "/opt/sherpa.properties"
 echo "Done Deploying MR Client ..."
 
 
 echo "Deploying Hive Client ..."
-cp ${SHERPA_HIVE_CLI_JAR_NAME}             ${HIVE_LIB_DIR}/
-cp ${SHERPA_HIVE_EXEC_JAR_NAME}            ${HIVE_LIB_DIR}/
-cp ${SHERPA_COMMON_JAR_NAME}               ${HIVE_LIB_DIR}/
+cp --backup=numbered ${SHERPA_HIVE_CLI_JAR_NAME}             ${HIVE_LIB_DIR}/
+cp --backup=numbered ${SHERPA_HIVE_EXEC_JAR_NAME}            ${HIVE_LIB_DIR}/
+cp --backup=numbered ${SHERPA_COMMON_JAR_NAME}               ${HIVE_LIB_DIR}/
 echo "Done Deploying Hive Client ..."

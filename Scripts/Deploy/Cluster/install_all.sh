@@ -22,7 +22,7 @@ hosts_file=$1
 
 ./hive_multinode_installer.sh       ${hosts_file}
 
-./spark_multinode_installer.sh      ${hosts_file}
+#./spark_multinode_installer.sh      ${hosts_file}
 
 
 printf "\n\n Installed All Services "

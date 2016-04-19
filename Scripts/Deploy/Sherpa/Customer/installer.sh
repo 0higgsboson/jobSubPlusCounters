@@ -8,10 +8,12 @@
 #
 # Mandatory Configurations
 #--------------------------------------------------------------------------------------------------------------------
-HADOOP_VERSION=2.7.1
-HIVE_VERSION=1.2.1
-HADOOP_LIB_DIR=/root/cluster/hadoop/hadoop-2.7.1/share/hadoop/mapreduce/lib/
-HIVE_LIB_DIR=/root/cluster/hive/apache-hive-1.2.1-bin/lib/
+# Write permissions required on following dir
+INSTALL_DIR=/opt/sherpa/lib/
+# Sherpa's Hadoop Version
+SHERPA_HADOOP_VERSION=2.7.1
+# Sherpa's Hive Version
+SHERPA_HIVE_VERSION=1.2.1
 #--------------------------------------------------------------------------------------------------------------------
 
 
@@ -19,9 +21,9 @@ HIVE_LIB_DIR=/root/cluster/hive/apache-hive-1.2.1-bin/lib/
 # Sherpa Configurations
 #--------------------------------------------------------------------------------------------------------------------
 SHERPA_COMMON_JAR_NAME=TzCtCommon-1.0-jar-with-dependencies.jar
-SHERPA_MR_JAR_NAME=hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar
-SHERPA_HIVE_CLI_JAR_NAME=hive-cli-${HIVE_VERSION}.jar
-SHERPA_HIVE_EXEC_JAR_NAME=hive-exec-${HIVE_VERSION}.jar
+SHERPA_MR_JAR_NAME=hadoop-mapreduce-client-core-${SHERPA_HADOOP_VERSION}.jar
+SHERPA_HIVE_CLI_JAR_NAME=hive-cli-${SHERPA_HIVE_VERSION}.jar
+SHERPA_HIVE_EXEC_JAR_NAME=hive-exec-${SHERPA_HIVE_VERSION}.jar
 SHERPA_PROPERTY_FILE=sherpa.properties
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -46,15 +48,17 @@ fileExists  $SHERPA_HIVE_EXEC_JAR_NAME
 fileExists  $SHERPA_PROPERTY_FILE
 
 
+mkdir -p ${INSTALL_DIR}
+
 echo "Deploying MR Client ..."
-cp --backup=numbered ${SHERPA_MR_JAR_NAME}             ${HADOOP_LIB_DIR}/
-cp --backup=numbered ${SHERPA_COMMON_JAR_NAME}         ${HADOOP_LIB_DIR}/
-cp --backup=numbered ${SHERPA_PROPERTY_FILE}           "/opt/sherpa.properties"
+cp  ${SHERPA_MR_JAR_NAME}             ${INSTALL_DIR}/
+cp  ${SHERPA_COMMON_JAR_NAME}         ${INSTALL_DIR}/
+cp  ${SHERPA_PROPERTY_FILE}           "/opt/sherpa.properties"
 echo "Done Deploying MR Client ..."
 
 
 echo "Deploying Hive Client ..."
-cp --backup=numbered ${SHERPA_HIVE_CLI_JAR_NAME}             ${HIVE_LIB_DIR}/
-cp --backup=numbered ${SHERPA_HIVE_EXEC_JAR_NAME}            ${HIVE_LIB_DIR}/
-cp --backup=numbered ${SHERPA_COMMON_JAR_NAME}               ${HIVE_LIB_DIR}/
+cp  ${SHERPA_HIVE_CLI_JAR_NAME}             ${INSTALL_DIR}/
+cp  ${SHERPA_HIVE_EXEC_JAR_NAME}            ${INSTALL_DIR}/
+cp  ${SHERPA_COMMON_JAR_NAME}               ${INSTALL_DIR}/
 echo "Done Deploying Hive Client ..."

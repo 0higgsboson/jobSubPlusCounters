@@ -11,13 +11,14 @@ source ${CWD}/../../utils.sh
 PSM=true
 tag="NA"
 
-if [ $# -eq 3 ]
+if [ $# -eq 4 ]
   then
     PSM=$1
     tag=$2
     costObjective=$3
+    queue_name=$4
    else
-      echo "Error: number of arguments not match"
+      echo "Error: number of arguments did not match"
       exit
 fi
 
@@ -25,7 +26,7 @@ cd ${installation_base_dir}/HiBench/workloads/wordcount/mapreduce/bin/
 rm temp.sh
 cp run.sh temp.sh
 
-str1="-D PSManaged=$PSM -D Tag=$tag -D SherpaCostObj=${costObjective} "
+str1="-D PSManaged=$PSM -D Tag=$tag -D SherpaCostObj=${costObjective} -D mapreduce.job.queuename=${queue_name} "
 str2='${INPUT_HDFS} ${OUTPUT_HDFS}'
 str3=$str1$str2
 

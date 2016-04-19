@@ -50,7 +50,7 @@ cp apache-hive-${HIVE_VERSION}-bin/apache-hive-${HIVE_VERSION}-bin.tar.gz   apac
 rm -r apache-hive-${HIVE_VERSION}-bin/
 
 
-tar -xzvf apache-hive-${HIVE_VERSION}-bin.tar.gz
+tar -xzf apache-hive-${HIVE_VERSION}-bin.tar.gz
 cd apache-hive-${HIVE_VERSION}-bin
 
 cp conf/hive-env.sh.template conf/hive-env.sh

@@ -19,7 +19,7 @@ LOCAL_SERVER_MONGO_DATABASE="sherpa"
 # History Server Mongo DB configurations
 HISTORY_SERVER_MONGO_HOST="datawarehouse-vm"
 HISTORY_SERVER_MONGO_PORT="27017"
-HISTORY_SERVER_MONGO_DATABASE="sherpa"
+HISTORY_SERVER_MONGO_DATABASE="${LOCAL_SERVER_MONGO_HOST}"
 
 # Appends timestamp to backup
 TIMESTAMP=`date +%F-%H%M`
@@ -61,7 +61,7 @@ echo "Backup uploading done ..."
 
 echo "Restoring backup on history server ..."
 ssh ${SSH_USER}@${HISTORY_SERVER_MONGO_HOST} "cd ${DIR};
-                                             mongorestore  --db ${HISTORY_SERVER_MONGO_DATABASE}  ${FILE}/${HISTORY_SERVER_MONGO_DATABASE}"
+                                             mongorestore  --db ${HISTORY_SERVER_MONGO_DATABASE}  ${FILE}/${LOCAL_SERVER_MONGO_DATABASE}"
 echo "Backup restored on history server ..."
 
 cd ..

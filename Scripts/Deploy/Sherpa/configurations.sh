@@ -3,11 +3,17 @@
 # Configurations
 #======================================================================================
 
+# Write permissions required on following dir
+INSTALL_DIR=/opt/sherpa/lib/
+
+
 # Hadoop Version  (2.7.1 or 2.6.0)
-HADOOP_VERSION=2.7.1
+HADOOP_VERSION=2.7.2
+
+HIVE_VERSION=1.2.1
 
 # Set to yes to clone repo's
-CLONE_REPOS=no
+CLONE_REPOS=yes
 
 # Set to ssh and push your key into github ssh keys for ssh based clone
 # Set to anything other than ssh for user/password based repo clone
@@ -38,7 +44,7 @@ clientagent_src_dir="${installation_base_dir}/clientagent_src"
 client_agent_install=yes
 
 # hostname where to install client agent
-client_agent_host=test-w2
+client_agent_host=client-agent
 
 client_agent_install_dir=/opt/sherpa/ClientAgent/
 
@@ -52,7 +58,7 @@ client_agent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar
 tenzing_install=yes
 
 # hostname where to install tenzing
-tenzing_host=test-w1
+tenzing_host=tenzing
 
 tenzing_install_dir=/opt/sherpa/Tenzing/
 

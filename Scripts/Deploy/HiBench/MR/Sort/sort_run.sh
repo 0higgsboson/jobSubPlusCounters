@@ -11,13 +11,14 @@ source ${CWD}/../../utils.sh
 PSM=true
 tag="NA"
 
-if [ $# -eq 3 ]
+if [ $# -eq 4 ]
   then
     PSM=$1
     tag=$2
     costObjective=$3
+    queue_name=$4
   else
-    echo "Error: number of args not match"
+    echo "Error: number of args did not match"
     exit
 fi
 
@@ -27,9 +28,9 @@ cp run.sh temp.sh
 
 if [ "$PSM" = "true" ]
 then
-    replaceText 'sort'  "sort -D PSManaged=true -D Tag=${tag}  -D SherpaCostObj=${costObjective} " temp.sh
+    replaceText 'sort'  "sort -D PSManaged=true -D Tag=${tag}  -D SherpaCostObj=${costObjective} -D mapreduce.job.queuename=${queue_name} " temp.sh
 else
-    replaceText 'sort'  "sort -D PSManaged=false -D Tag=${tag}  -D SherpaCostObj=${costObjective} " temp.sh
+    replaceText 'sort'  "sort -D PSManaged=false -D Tag=${tag}  -D SherpaCostObj=${costObjective} -D mapreduce.job.queuename=${queue_name} " temp.sh
 fi
 
 ./temp.sh

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GIT_SERVER=130.211.164.139
+SETUP_QUEUES=yes
 
 # Common Configurations
 installation_base_dir=/root
@@ -8,7 +9,7 @@ scripts_dir="${installation_base_dir}/scripts/"
 
 
 # Hadoop Configurations
-HADOOP_VERSION=2.7.1
+HADOOP_VERSION=2.7.2
 #HADOOP_VERSION=2.6.0
 yarn_data_dir=/mnt/yarn
 hadoop_dir="${installation_base_dir}/cluster/hadoop/"

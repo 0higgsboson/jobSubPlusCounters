@@ -12,6 +12,12 @@ fi
 
 #set -e
 
+# Save Script Working Dir
+CWD=`dirname "$0"`
+CWD=`cd "$CWD"; pwd`
+
+
+
 # includes configurations
 source configurations.sh
 
@@ -61,7 +67,7 @@ git clone git://${GIT_SERVER}/hadoop-${HADOOP_VERSION}.git
 cp hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz hadoop-${HADOOP_VERSION}.tar.gz
 rm -r hadoop-${HADOOP_VERSION}/
 
-tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz
+tar -xzf hadoop-${HADOOP_VERSION}.tar.gz
 cd hadoop-${HADOOP_VERSION}
 
 print "Setting up configuration files ..."
@@ -244,6 +250,17 @@ echo "<configuration>
 
       </configuration>
 " >> etc/hadoop/yarn-site.xml
+
+
+if [[ "$SETUP_QUEUES" != "yes"  ]];
+then
+    echo "Skipping Queues ..."
+else
+    echo "Setting up Queues ..."
+    rm etc/hadoop/capacity-scheduler.xml
+    cp ${CWD}/capacity-scheduler.xml   etc/hadoop/capacity-scheduler.xml
+fi
+
 
 sed -i -e '1iexport JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64\' etc/hadoop/hadoop-env.sh
 

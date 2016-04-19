@@ -126,8 +126,8 @@ do
 
                     echo "Meta Dir: ${workloadMetaDir}"
 
-                   ./run.sh "${workload}" false 1              "${tag}"  "${workloadMetaDir}"  "${costObjective}"
-                   ./run.sh "${workload}" true "${iterations}" "${tag}"  "${workloadMetaDir}"  "${costObjective}"
+                   ./run.sh "${workload}" false 1              "${tag}"  "${workloadMetaDir}"  "${costObjective}"  "${queue_name}"
+                   ./run.sh "${workload}" true "${iterations}" "${tag}"  "${workloadMetaDir}"  "${costObjective}"  "${queue_name}"
 
 #                    printf "\n Generating Spreadsheet"
 #                    cd /root/sherpa/jobSubPub_src/jobSubPlusCounters/reports

@@ -21,7 +21,7 @@ if [ $# -eq 5 ]
     costObjective=$4
     queue_name=$5
   else
-    echo "Usage: four arguements are required:  workload_name (true|false) tag cost_objective  queue_name"
+    echo "Usage: five arguements are required:  workload_name (true|false) tag cost_objective  queue_name"
     echo "true means PSManaged flag will be set, otherwise not"
     exit
 fi

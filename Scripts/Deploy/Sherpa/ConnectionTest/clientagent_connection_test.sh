@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+# This script should be run on client machine
+# It tests connectivity between client & CA
+#
+
+
+
 file="/opt/sherpa.properties"
 GIT_SERVER=130.211.164.139
 

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+#
+# This script should be run on CA machine
+# It tests connectivity between CA & Tenzing
+#
+
+
+
 file="/opt/sherpa.properties"
 GIT_SERVER=130.211.164.139
 

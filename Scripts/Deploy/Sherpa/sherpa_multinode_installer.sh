@@ -222,7 +222,14 @@ mvn clean package -Pdist -DskipTests
 
 print "Copying Jars ..."
 pdsh -w ^${hosts_file}   "mkdir -p ${INSTALL_DIR}"
-pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"    "${INSTALL_DIR}/"
+
+if [[ $HADOOP_VERSION =~ .*2.7.* ]]
+then
+    pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.7.1.jar"    "${INSTALL_DIR}/"
+else
+    pdcp -r -w ^${hosts_file}   "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"    "${INSTALL_DIR}/"
+fi
+
 pdcp -r -w ^${hosts_file}   "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar"                    "${INSTALL_DIR}/"
 pdcp -r -w ^${hosts_file}   "${CWD}/sherpa.properties" "/opt/sherpa.properties"
 

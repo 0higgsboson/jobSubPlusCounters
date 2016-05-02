@@ -86,7 +86,7 @@ printf "\n\n"
 
 
 
-
+apt-get install git
 echo "Checking Service Handler Connection ..."
 echo "------------------------------------------------------------------------"
 if [ ! -f  "connectiontest/TzCtCommon-1.0-jar-with-dependencies.jar" ];

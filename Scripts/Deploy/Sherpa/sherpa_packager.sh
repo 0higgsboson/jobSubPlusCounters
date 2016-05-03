@@ -160,7 +160,13 @@ rm sherpa.tar.gz
 mkdir sherpa
 
 print "Copying Jars ..."
-cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"  ${PACKAGE_DIR}/sherpa/
+
+if [[ $HADOOP_VERSION =~ .*2.7.* ]]
+then
+    cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.7.1.jar"  ${PACKAGE_DIR}/sherpa/
+else
+    cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-${HADOOP_VERSION}.jar"  ${PACKAGE_DIR}/sherpa/
+fi
 
 cp   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli-1.2.1.jar"                       ${PACKAGE_DIR}/sherpa/
 cp   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec-1.2.1.jar"                       ${PACKAGE_DIR}/sherpa/

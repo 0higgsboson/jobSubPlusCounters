@@ -73,17 +73,33 @@ fi
 
 
 print "Starting Up Tenzing ..."
-#pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Tenzing > ${tenzing_install_dir}/tenzing.log &"
-#pdsh -w ${tenzing_host}   "nohup java -jar  ${tenzing_install_dir}/TzCtCommon-1.0-jar-with-dependencies.jar Db > ${tenzing_install_dir}/db.log &"
-
-pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService    > ${tenzing_install_dir}/tenzing.log &"
-pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db > ${tenzing_install_dir}/db.log &"
 
 
+if [[ "${SUPERVISE_PROCESS}" = "yes"  ]];
+then
+
+    rm ${tenzing_install_dir}/tenzing_start.sh
+    echo "#!/bin/bash" >> ${tenzing_install_dir}/tenzing_start.sh
+    echo "java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService"    >> ${tenzing_install_dir}/tenzing_start.sh
+    echo "java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db" >> ${tenzing_install_dir}/tenzing_start.sh
+    chmod +x ${tenzing_install_dir}/tenzing_start.sh
+
+    ./supervisor_setup.sh "tenzing" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log
+
+
+else
+    pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService    >> ${tenzing_install_dir}/tenzing_out.log &"
+    pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db >> ${tenzing_install_dir}/db.log &"
+fi
 
 
 
 
-pdsh -w ${tenzing_host}   "netstat -anp | grep 3052"
+
+
+
+
+
+
 
 echo "Tenzing Installed Successfully ..."

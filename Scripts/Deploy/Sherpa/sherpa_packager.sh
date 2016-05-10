@@ -178,6 +178,8 @@ cp  "${CWD}/sherpa.properties"                                                  
 cp  "${CWD}/Customer/ca_kill.sh"                                                                   ${PACKAGE_DIR}/sherpa/
 cp  "${CWD}/Customer/client_agent_installer.sh"                                                    ${PACKAGE_DIR}/sherpa/
 cp  "${CWD}/Customer/installer.sh"                                                                 ${PACKAGE_DIR}/sherpa/
+cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/sherpa/
+
 tar -czvf sherpa.tar.gz sherpa/
 rm -r sherpa
 

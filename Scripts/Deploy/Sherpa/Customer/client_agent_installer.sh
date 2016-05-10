@@ -7,6 +7,9 @@
 # Client Agent Configurations
 #----------------------------------------------------------------------------------------------------------------------
 
+# Manages & restarts (on exit or reboot) process using supervisor
+SUPERVISE_PROCESS=yes
+
 # Write permissions required on following dir
 client_agent_install_dir=/opt/sherpa/ClientAgent/
 client_agent_property_file=sherpa.properties
@@ -49,5 +52,20 @@ echo "Killing existing processes ..."
 
 
 echo "Starting Up Client Agent ..."
-nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/client-agent.log &
+
+if [[ "${SUPERVISE_PROCESS}" = "yes"  ]];
+then
+
+    rm ${client_agent_install_dir}/ca_start.sh
+    echo "#!/bin/bash" >> ${client_agent_install_dir}/ca_start.sh
+    echo "java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService" >> ${client_agent_install_dir}/ca_start.sh
+    chmod +x ${client_agent_install_dir}/ca_start.sh
+
+    ./supervisor_setup.sh "client_agent" ${client_agent_install_dir}/ca_start.sh ${client_agent_install_dir}/clientagent_error.log ${client_agent_install_dir}/clientagent_out.log
+
+else
+    nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/clientagent_out.log &
+fi
+
+
 echo "Client Agent Installed Successfully ..."

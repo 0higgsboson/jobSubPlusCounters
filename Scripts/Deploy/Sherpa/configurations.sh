@@ -19,6 +19,10 @@ CLONE_REPOS=yes
 # Set to anything other than ssh for user/password based repo clone
 AUTH_TYPE=ssh
 
+# Manages & restarts (on exit or reboot) process using supervisor
+SUPERVISE_PROCESS=yes
+
+
 
 # Paths & Env Variables
 #======================================================================================

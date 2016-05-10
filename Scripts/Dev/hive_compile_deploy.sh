@@ -52,3 +52,8 @@ cp ql/target/hive-exec-1.2.1.jar ${hive_home}/lib/hive-exec-1.2.1.jar
 
 echo "cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar /root/cluster/hive/apache-hive-1.2.1-bin/lib/"
 cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar /root/cluster/hive/apache-hive-1.2.1-bin/lib/
+
+
+cp cli/target/hive-cli-1.2.1.jar /opt/sherpa/lib/
+cp ql/target/hive-exec-1.2.1.jar /opt/sherpa/lib/
+cp ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar /opt/sherpa/lib/

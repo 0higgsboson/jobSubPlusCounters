@@ -27,6 +27,14 @@ source utils.sh
 # defines hosts_file and master variables, these two variables will be used throughout the script
 setupMasterNode "$1"
 
+scriptHost=`hostname`
+if [[ "${master}" != "${scriptHost}"  ]];
+then
+    echo " Error: Script should be run on master node"
+    exit
+fi
+
+
 # Setting up pdsh utility
 installPdsh "${hosts_file}" "${master}"
 

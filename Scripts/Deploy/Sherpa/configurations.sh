@@ -14,6 +14,7 @@ HIVE_VERSION=1.2.1
 
 # Set to yes to clone repo's
 CLONE_REPOS=yes
+BRANCH_NAME=master
 
 # Set to ssh and push your key into github ssh keys for ssh based clone
 # Set to anything other than ssh for user/password based repo clone

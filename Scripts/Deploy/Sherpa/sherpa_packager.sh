@@ -72,7 +72,7 @@ function fetchCode(){
     if [ -d "${clone_dir}/${repo_name}/" ]; then
         echo "Pulling latest code ..."
         cd ${clone_dir}/${repo_name}/
-        git pull origin master
+        git pull origin ${BRANCH_NAME}
     else
         echo "Cloning repo ..."
         cd ${clone_dir}

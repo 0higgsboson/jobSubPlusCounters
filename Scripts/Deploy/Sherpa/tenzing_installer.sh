@@ -54,6 +54,8 @@ pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_di
 pdsh    -w ${tenzing_host}   "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
 
 pdcp -r -w ${tenzing_host}   "${db_install_file}"          "${tenzing_install_dir}/"
+pdcp -r -w ${tenzing_host}   "supervisor_setup.sh"          "${tenzing_install_dir}/"
+
 
 
 print "Killing existing processes ..."
@@ -78,13 +80,13 @@ print "Starting Up Tenzing ..."
 if [[ "${SUPERVISE_PROCESS}" = "yes"  ]];
 then
 
-    rm ${tenzing_install_dir}/tenzing_start.sh
-    echo "#!/bin/bash" >> ${tenzing_install_dir}/tenzing_start.sh
-    echo "java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService"    >> ${tenzing_install_dir}/tenzing_start.sh
-    echo "java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db" >> ${tenzing_install_dir}/tenzing_start.sh
-    chmod +x ${tenzing_install_dir}/tenzing_start.sh
+    pdsh -w    ${tenzing_host}   "rm ${tenzing_install_dir}/tenzing_start.sh"
+    pdsh -w    ${tenzing_host}   "echo \"#!/bin/bash\" >> ${tenzing_install_dir}/tenzing_start.sh"
+    pdsh -w    ${tenzing_host}   "echo \"java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService\"    >> ${tenzing_install_dir}/tenzing_start.sh"
+    pdsh -w    ${tenzing_host}   "echo \"java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db\" >> ${tenzing_install_dir}/tenzing_start.sh"
+    pdsh -w    ${tenzing_host}   "chmod +x ${tenzing_install_dir}/tenzing_start.sh"
 
-    ./supervisor_setup.sh "tenzing" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log
+    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/supervisor_setup.sh \"tenzing\" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log"
 
 
 else

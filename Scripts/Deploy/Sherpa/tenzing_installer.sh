@@ -86,7 +86,7 @@ then
     pdsh -w    ${tenzing_host}   "echo \"java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db\" >> ${tenzing_install_dir}/tenzing_start.sh"
     pdsh -w    ${tenzing_host}   "chmod +x ${tenzing_install_dir}/tenzing_start.sh"
 
-    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/supervisor_setup.sh \"tenzing\" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log"
+    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/supervisor_setup.sh \"TenzingService_Supervisor\" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log"
 
 
 else

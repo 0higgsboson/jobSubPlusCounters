@@ -61,7 +61,7 @@ then
     echo "java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService" >> ${client_agent_install_dir}/ca_start.sh
     chmod +x ${client_agent_install_dir}/ca_start.sh
 
-    ./supervisor_setup.sh "client_agent" ${client_agent_install_dir}/ca_start.sh ${client_agent_install_dir}/clientagent_error.log ${client_agent_install_dir}/clientagent_out.log
+    ./supervisor_setup.sh "ClientAgent_Supervisor" ${client_agent_install_dir}/ca_start.sh ${client_agent_install_dir}/clientagent_error.log ${client_agent_install_dir}/clientagent_out.log
 
 else
     nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/clientagent_out.log &

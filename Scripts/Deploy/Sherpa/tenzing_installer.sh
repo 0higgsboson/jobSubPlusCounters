@@ -1,9 +1,30 @@
 #!/bin/bash
 
-# Assumptions
-# SSH keys should be set up already
+# Installs Tenzing War File in Tomcat Web Container
+# Assumes tenzing-services.war, tunedparams.json & sherpa.properties files are present in the current working directory
 
-#set -e
+
+#
+# Checks file exists, exits script on file not found
+# Takes file path as argument
+#
+
+function fileExists(){
+    file=$1
+    if [ ! -f  "${file}" ];
+    then
+        echo "Error: file ${file} does not exist."
+        exit
+    fi
+}
+
+
+# Make sure required files exist
+fileExists  "tenzing-services.war"
+fileExists  "sherpa.properties"
+fileExists  "tunedparams.json"
+
+
 
 # Save Script Working Dir
 CWD=`dirname "$0"`
@@ -14,94 +35,105 @@ source "${CWD}"/configurations.sh
 source "${CWD}"/utils.sh
 
 
-if [ -z ${tenzing_install} ]; then
-	echo "Please set tenzing_install variable"
-    exit
-fi
+file="sherpa.properties"
 
-if [[ "$tenzing_install" != "yes"  ]];
+echo "Reading Configuration File ..."
+if [ -f "$file" ]
 then
-    print "Install flag is turned off !!!"
-    echo "Skipping ..."
-    exit
+  while IFS='=' read -r key value
+  do
+    key=$(echo $key | tr '.' '_')
+    eval "${key}='${value}'"
+  done < "$file"
+else
+  echo "$file not found."
+  echo "Error: Sherpa configuration file is missing ..."
+  exit
 fi
 
-if [ -z ${tenzing_host} ]; then
-	echo "Please set tenzing_host variable"
+
+if [ -z ${tenzing_hostname} ]; then
+	echo "Error: Please set tenzing.hostname configuration in ${file} file"
     exit
+else
+    echo "Tenzing Host: ${tenzing_hostname}"
 fi
 
-if [ ! -f  "${tenzing_executable_file}" ];
+
+if [ -z ${tenzing_port} ]; then
+	echo "Error: Please set tenzing.port configuration in ${file} file"
+    exit
+else
+    echo "Tenzing Port: ${tenzing_port}"
+fi
+
+
+if [ -z ${tenzing_basepath} ]; then
+	echo "Error: Please set tenzing.basepath configuration in ${file} file"
+    exit
+else
+    echo "Tenzing Dir: ${tenzing_basepath}"
+fi
+
+
+if [ -z ${tomcat_install_dir} ]; then
+	echo "Error: Please set tomcat.install.dir configuration in ${file} file"
+    exit
+else
+    echo "Tomcat Install Dir: ${tomcat_install_dir}"
+fi
+
+
+if [ -z ${tomcat_version} ]; then
+	echo "Error: Please set tomcat.version configuration in ${file} file"
+    exit
+else
+    echo "Tomcat Version: ${tomcat_version}"
+fi
+
+
+tomcat_home=${tomcat_install_dir}/apache-tomcat-${tomcat_version}/
+
+
+echo "Creating dir structure ..."
+mkdir -p  ${tenzing_basepath}
+
+
+if [ -f  "${tomcat_home}/webapps/tenzing-services.war" ];
 then
-   echo "Error: file ${tenzing_executable_file} does not exist."
-   exit
+    echo "Removing existing services ..."
+    rm ${tomcat_home}/webapps/tenzing-services.war
+    rm -r ${tomcat_home}/webapps/tenzing-services
 fi
 
 
-installPdshSingleNode ${tenzing_host}
-installJava ${tenzing_host}
 
-print "Creating dir structure"
-pdsh -w ${tenzing_host}   "mkdir -p  ${tenzing_install_dir}"
+echo "Copying files ..."
+cp "sherpa.properties"    "/opt/sherpa.properties"
+cp "tunedparams.json"  ${tenzing_basepath}/
+touch ${tenzing_basepath}/SherpaSequenceNos.txt
+cp "tenzing-services.war" ${tomcat_home}/webapps/
 
-print "Copying files to ${tenzing_host}"
-#pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "${tenzing_install_dir}/"
+echo "Waiting 20 sec for services to get up ..."
+sleep 20
 
-pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
-pdcp -r -w ${tenzing_host}   "${tenzing_executable_file}"  "${tenzing_install_dir}/"
-pdcp -r -w ${tenzing_host}   "${tuned_params_file}"        "${tenzing_install_dir}/"
-#pdcp -r -w ${tenzing_host}   "${tenzing_property_file}"    "/opt/sherpa.properties"
-pdsh    -w ${tenzing_host}   "touch ${tenzing_install_dir}/SherpaSequenceNos.txt"
+echo "URL: http://${tenzing_hostname}:${tenzing_port}/tenzing-services/api/1.0/version/"
+response=`curl http://${tenzing_hostname}:${tenzing_port}/tenzing-services/api/1.0/version/`
 
-pdcp -r -w ${tenzing_host}   "${db_install_file}"          "${tenzing_install_dir}/"
-pdcp -r -w ${tenzing_host}   "supervisor_setup.sh"          "${tenzing_install_dir}/"
-
-
-
-print "Killing existing processes ..."
-pdcp -r -w ${tenzing_host}  "tenzing_kill.sh"   "${tenzing_install_dir}/"
-pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/tenzing_kill.sh"
+if [  ${response} == "1.0" ]; then
+    echo "Tenzing Started Successfully ..."
+else
+    echo "Tenzing did not respond, check tomcat logs ..."
+fi
 
 
-print "Mongo DB Install:"
-if [[ "$db_install" != "yes"  ]];
+echo "Mongo DB Install: ${db_install}"
+if [[ "${db_install}" != "yes"  ]];
 then
     echo "Install flag is turned off !!!"
     echo "Skipping Mongo DB Installation ..."
 else
     echo "Installing Mongo DB ..."
-    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/${db_install_file}"
+    ./Mongo/db_installer.sh
 fi
 
-
-print "Starting Up Tenzing ..."
-
-
-if [[ "${SUPERVISE_PROCESS}" = "yes"  ]];
-then
-
-    pdsh -w    ${tenzing_host}   "rm ${tenzing_install_dir}/tenzing_start.sh"
-    pdsh -w    ${tenzing_host}   "echo \"#!/bin/bash\" >> ${tenzing_install_dir}/tenzing_start.sh"
-    pdsh -w    ${tenzing_host}   "echo \"java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService\"    >> ${tenzing_install_dir}/tenzing_start.sh"
-    pdsh -w    ${tenzing_host}   "echo \"java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db\" >> ${tenzing_install_dir}/tenzing_start.sh"
-    pdsh -w    ${tenzing_host}   "chmod +x ${tenzing_install_dir}/tenzing_start.sh"
-
-    pdsh -w    ${tenzing_host}   "${tenzing_install_dir}/supervisor_setup.sh \"TenzingService_Supervisor\" ${tenzing_install_dir}/tenzing_start.sh ${tenzing_install_dir}/tenzing_error.log ${tenzing_install_dir}/tenzing_out.log"
-
-
-else
-    pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService    >> ${tenzing_install_dir}/tenzing_out.log &"
-    pdsh -w ${tenzing_host}   "nohup java -cp  ${tenzing_install_dir}/${tenzing_executable_file} com.sherpa.tenzing.remoting.TenzingService Db >> ${tenzing_install_dir}/db.log &"
-fi
-
-
-
-
-
-
-
-
-
-
-
-echo "Tenzing Installed Successfully ..."

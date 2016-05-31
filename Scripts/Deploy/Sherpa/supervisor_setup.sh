@@ -11,18 +11,22 @@ if [ $# -eq 4 ]
     exit
 fi
 
-SUPERVISOR_CONF_DIR=/etc/supervisor/conf.d/
-conf_file="${SUPERVISOR_CONF_DIR}/${program_name}.conf"
+if [ ! -f  "/etc/redhat-release" ];
+then
+    # For Ubuntu
+    SUPERVISOR_CONF_DIR=/etc/supervisor/conf.d/
+    conf_file="${SUPERVISOR_CONF_DIR}/${program_name}.conf"
+else
+    # For RHEL
+    SUPERVISOR_CONF_DIR=/etc/supervisord.d/
+    conf_file="${SUPERVISOR_CONF_DIR}/${program_name}.ini"
+fi
 
-echo "Installing Supervisor ..."
-apt-get install -y supervisor
 
 echo "Removing existing conf file if any ..."
-rm ${conf_file}
-
 supervisorctl stop   ${program_name}
 supervisorctl remove ${program_name}
-
+rm ${conf_file}
 
 
 echo "Creating supervisor conf file: ${conf_file} ..."
@@ -33,6 +37,10 @@ echo "autostart=true"  >> ${conf_file}
 echo "autorestart=true"  >> ${conf_file}
 echo "stderr_logfile=${std_err_file}"  >> ${conf_file}
 echo "stdout_logfile=${std_out_file}"  >> ${conf_file}
+echo "startsecs=5" >> ${conf_file}
+echo "stopsignal=INT" >> ${conf_file}
+echo "redirect_stderr=true" >> ${conf_file}
+
 
 echo "Updating Supervisor ..."
 supervisorctl reread

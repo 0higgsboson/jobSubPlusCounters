@@ -1,5 +1,5 @@
 {
-"mapreduce.max.split.size":{"name":"mapreduce.max.split.size","value":"100000000","type":"INT","minVal":"1000000","maxVal":"512000000","stepSize":"10000000"},
+"mapreduce.max.split.size":{"name":"mapreduce.input.fileinputformat.split.maxsize","value":"100000000","type":"INT","minVal":"1000000","maxVal":"512000000","stepSize":"10000000"},
 "mapreduce.map.cpu.vcores":{"name":"mapreduce.map.cpu.vcores","value":"3","type":"INT","minVal":"1","maxVal":"4","stepSize":"1"},
 "mapreduce.reduce.cpu.vcores":{"name":"mapreduce.reduce.cpu.vcores","value":"1","type":"INT","minVal":"1","maxVal":"4","stepSize":"1"},
 "mapreduce.map.memory.mb":{"name":"mapreduce.map.memory.mb","value":"512","type":"INT","minVal":"128","maxVal":"2048","stepSize":"64"},

@@ -1,5 +1,30 @@
 #!/bin/bash
 
+function runCommand(){
+    # takes command as input
+    if [ ! -f  "/etc/redhat-release" ];
+    then
+        apt-get $1
+    else
+        yum  $1
+    fi
+}
+
+function runJavaInstallCommand(){
+    # takes command as input
+    if [ ! -f  "/etc/redhat-release" ];
+    then
+        apt-get -y install  openjdk-7-jre
+        apt-get -y install  openjdk-7-jdk
+    else
+        yum -y install java-1.7.0-openjdk-devel
+    fi
+}
+
+
+
+
+
 # Printing Functions
 function print(){
   printf "\n"

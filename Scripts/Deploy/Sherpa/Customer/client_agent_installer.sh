@@ -1,21 +1,7 @@
 #!/bin/bash
 
-# Assumptions
-# Java 1.7 is installed & available on path
-
-
-# Client Agent Configurations
-#----------------------------------------------------------------------------------------------------------------------
-
-# Manages & restarts (on exit or reboot) process using supervisor
-SUPERVISE_PROCESS=yes
-
-# Write permissions required on following dir
-client_agent_install_dir=/opt/sherpa/ClientAgent/
-client_agent_property_file=sherpa.properties
-client_agent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar
-client_agent_kill_script=ca_kill.sh
-#----------------------------------------------------------------------------------------------------------------------
+# Installs Client Agent War File in Tomcat Web Container
+# Assumes ca-services.war & sherpa.properties files are present in the current working directory
 
 
 #
@@ -33,39 +19,99 @@ function fileExists(){
 
 
 # Make sure required files exist
-fileExists  ${client_agent_executable_file}
-fileExists  ${client_agent_property_file}
-fileExists  ${client_agent_kill_script}
-
-echo "Creating dir structure ..."
-mkdir -p  ${client_agent_install_dir}
-
-echo "Copying files ..."
-cp   "${client_agent_property_file}"    "/opt/sherpa.properties"
-cp   "${client_agent_executable_file}"  "${client_agent_install_dir}/"
-cp   "${client_agent_kill_script}"      "${client_agent_install_dir}/"
-
-
-echo "Killing existing processes ..."
-"${client_agent_install_dir}/${client_agent_kill_script}"
+fileExists  "ca-services.war"
+fileExists  "sherpa.properties"
 
 
 
-echo "Starting Up Client Agent ..."
+file="sherpa.properties"
 
-if [[ "${SUPERVISE_PROCESS}" = "yes"  ]];
+echo "Reading Configuration File ..."
+if [ -f "$file" ]
 then
-
-    rm ${client_agent_install_dir}/ca_start.sh
-    echo "#!/bin/bash" >> ${client_agent_install_dir}/ca_start.sh
-    echo "java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService" >> ${client_agent_install_dir}/ca_start.sh
-    chmod +x ${client_agent_install_dir}/ca_start.sh
-
-    ./supervisor_setup.sh "ClientAgent_Supervisor" ${client_agent_install_dir}/ca_start.sh ${client_agent_install_dir}/clientagent_error.log ${client_agent_install_dir}/clientagent_out.log
-
+  while IFS='=' read -r key value
+  do
+    key=$(echo $key | tr '.' '_')
+    eval "${key}='${value}'"
+  done < "$file"
 else
-    nohup java -cp  ${client_agent_install_dir}/${client_agent_executable_file} com.sherpa.clientagent.clientservice.AgentService > ${client_agent_install_dir}/clientagent_out.log &
+  echo "$file not found."
+  echo "Error: Sherpa configuration file is missing ..."
+  exit
 fi
 
 
-echo "Client Agent Installed Successfully ..."
+if [ -z ${client_agent_hostname} ]; then
+	echo "Error: Please set client.agent.hostname configuration in ${file} file"
+    exit
+else
+    echo "Client Agent Host: ${client_agent_hostname}"
+fi
+
+
+
+
+
+if [ -z ${clientagent_port} ]; then
+	echo "Error: Please set clientagent.port configuration in ${file} file"
+    exit
+else
+    echo "Client Agent Port: ${clientagent_port}"
+fi
+
+
+if [ -z ${clientagent_basepath} ]; then
+	echo "Error: Please set clientagent.basepath configuration in ${file} file"
+    exit
+else
+    echo "Client Agent Dir: ${clientagent_basepath}"
+fi
+
+
+if [ -z ${tomcat_install_dir} ]; then
+	echo "Error: Please set tomcat.install.dir configuration in ${file} file"
+    exit
+else
+    echo "Tomcat Install Dir: ${tomcat_install_dir}"
+fi
+
+
+if [ -z ${tomcat_version} ]; then
+	echo "Error: Please set tomcat.version configuration in ${file} file"
+    exit
+else
+    echo "Tomcat Version: ${tomcat_version}"
+fi
+
+
+tomcat_home=${tomcat_install_dir}/apache-tomcat-${tomcat_version}/
+
+
+echo "Creating dir structure ..."
+mkdir -p  ${clientagent_basepath}
+
+
+if [ -f  "${tomcat_home}/webapps/ca-services.war" ];
+then
+    echo "Removing existing services ..."
+    rm ${tomcat_home}/webapps/ca-services.war
+    rm -r ${tomcat_home}/webapps/ca-services
+fi
+
+
+
+echo "Copying files ..."
+cp "sherpa.properties"    "/opt/sherpa.properties"
+cp "ca-services.war" ${tomcat_home}/webapps/
+
+echo "Waiting 20 sec for services to get up ..."
+sleep 20
+
+
+response=`curl http://${client_agent_hostname}:${clientagent_port}/ca-services/api/1.0/version/`
+if [  ${response} == "1.0" ]; then
+    echo "Client Agent Started Successfully ..."
+else
+    echo "Client Agent did not respond, check tomcat logs ..."
+fi
+

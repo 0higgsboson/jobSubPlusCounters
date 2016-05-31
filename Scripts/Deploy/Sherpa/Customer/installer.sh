@@ -8,18 +8,18 @@
 #
 # Mandatory Configurations
 #--------------------------------------------------------------------------------------------------------------------
-# Write permissions required on following dir
+# Write permissions required on following dir for current user, read permissions should be granted to Hadoop user
 INSTALL_DIR=/opt/sherpa/lib/
-# Sherpa's Hadoop Version
-SHERPA_HADOOP_VERSION=2.7.1
-# Sherpa's Hive Version
-SHERPA_HIVE_VERSION=1.2.1
 #--------------------------------------------------------------------------------------------------------------------
 
 
 #
 # Sherpa Configurations
 #--------------------------------------------------------------------------------------------------------------------
+# Sherpa's Hadoop Version
+SHERPA_HADOOP_VERSION=2.7.1
+# Sherpa's Hive Version
+SHERPA_HIVE_VERSION=1.2.1
 SHERPA_COMMON_JAR_NAME=TzCtCommon-1.0-jar-with-dependencies.jar
 SHERPA_MR_JAR_NAME=hadoop-mapreduce-client-core-${SHERPA_HADOOP_VERSION}.jar
 SHERPA_HIVE_CLI_JAR_NAME=hive-cli-${SHERPA_HIVE_VERSION}.jar

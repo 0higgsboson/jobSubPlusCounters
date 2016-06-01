@@ -78,8 +78,8 @@ mkdir -p $tenzing_src_dir
 mkdir -p $clientagent_src_dir
 
 
-print "Updating ..."
-runCommand "update"
+#print "Updating ..."
+#runCommand "update"
 
 print "Installing Java ..."
 runJavaInstallCommand
@@ -266,6 +266,7 @@ elif [ "${command}" == "tzpkg" ]; then
     print "Copying Tenzing Files ..."
 
     cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services.war                            ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/tenzing_installer.sh"                                                                  ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/tunedparams.json"                                                                      ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/Mongo/db_installer.sh"                                                                 ${PACKAGE_DIR}/tenzing/

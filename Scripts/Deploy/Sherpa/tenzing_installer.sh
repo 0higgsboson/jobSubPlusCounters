@@ -1,7 +1,14 @@
 #!/bin/bash
 
 # Installs Tenzing War File in Tomcat Web Container
-# Assumes tenzing-services.war, tunedparams.json & sherpa.properties files are present in the current working directory
+# Assumes tenzing-services.war, tunedparams.json, db_installer.sh & sherpa.properties files are present in the current working directory
+
+
+INSTALL_DB=yes
+
+
+
+
 
 
 #
@@ -127,13 +134,11 @@ else
 fi
 
 
-echo "Mongo DB Install: ${db_install}"
-if [[ "${db_install}" != "yes"  ]];
+if [[ "${INSTALL_DB}" != "yes"  ]];
 then
-    echo "Install flag is turned off !!!"
     echo "Skipping Mongo DB Installation ..."
 else
     echo "Installing Mongo DB ..."
-    ./Mongo/db_installer.sh
+    ./db_installer.sh
 fi
 

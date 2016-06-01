@@ -1,19 +1,29 @@
 #!/bin/bash
 #set -e
 
-if [ "$#" -ne 2 ]; then
+if [ "$#" -lt 2 ]; then
     echo "Usage: command [arguments]"
-    echo "./sherpa_installer package hadoop_version"
-    echo "./sherpa_installer install hadoop_version"
+    echo "./sherpa_installer package hadoop_version [build_code]        Packages CA & Client installers for customers "
+    echo "./sherpa_installer install hadoop_version [build_code]        Install MR & Hive Clients "
+    echo "./sherpa_installer tzpkg hadoop_version   [build_code]        Packages Tenzing "
     echo "Supported hadoop versions : 2.7.* | 2.6.* "
+    echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
 fi
 
+
 command=$1
 HADOOP_VERSION=$2
+if [ "$#" -eq 3 ]; then
+    build_code=$3
+else
+    build_code=yes
+fi
 
-if [[ "${command}" != "package" && "${command}" != "install" ]]; then
-    echo "Error: Command not supported ..."
+
+
+if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tzpkg" ]]; then
+    echo "Error: Supported commands are [package | install | tzpkg]..."
     exit
 fi
 
@@ -126,53 +136,56 @@ then
 fi
 
 
-#
-#   Installing TzCtCommon
-# ======================================================================================================================================
-
-printHeader "Installing TzCtCommon Project"
-cd ${common_src_dir}/TzCtCommon/
-mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
 
 
-#
-#   Packaging Tenzing
-# ======================================================================================================================================
+if [[ "${build_code}" = "yes"  ]]; then
+    #
+    #   Installing TzCtCommon
+    # ======================================================================================================================================
 
-printHeader "Packaging Tenzing"
-cd ${tenzing_src_dir}/Tenzing/
-mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
-
-
-
-#
-#   Packaging Client Agent
-# ======================================================================================================================================
-
-printHeader "Packaging Client Agent"
-cd ${clientagent_src_dir}/ClientAgent/
-mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
+    printHeader "Installing TzCtCommon Project"
+    cd ${common_src_dir}/TzCtCommon/
+    mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
 
 
+    #
+    #   Packaging Tenzing
+    # ======================================================================================================================================
+
+    printHeader "Packaging Tenzing"
+    cd ${tenzing_src_dir}/Tenzing/
+    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
+
+    #
+    #   Packaging Client Agent
+    # ======================================================================================================================================
+
+    printHeader "Packaging Client Agent"
+    cd ${clientagent_src_dir}/ClientAgent/
+    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
 
-#
-#   Installing Hive Client
-# ======================================================================================================================================
+    #
+    #   Installing Hive Client
+    # ======================================================================================================================================
 
-printHeader "Packaging Hive Client"
-cd $hive_client_src_dir/hiveClientSherpa
-mvn clean package -pl ql,cli  -Phadoop-2  -DskipTests
+    printHeader "Packaging Hive Client"
+    cd $hive_client_src_dir/hiveClientSherpa
+    mvn clean package -pl ql,cli  -Phadoop-2  -DskipTests
 
 
 
-#
-#   Installing MR Client
-# ======================================================================================================================================
+    #
+    #   Installing MR Client
+    # ======================================================================================================================================
 
-printHeader "Packaging MR Client"
-cd ${mr_client_src_dir}/${MR_SRC_DIR}
-mvn clean package -Pdist -DskipTests
+    printHeader "Packaging MR Client"
+    cd ${mr_client_src_dir}/${MR_SRC_DIR}
+    mvn clean package -Pdist -DskipTests
+else
+    echo "Skipping code compilation ..."
+fi
+
 
 
 
@@ -200,7 +213,7 @@ if [ "${command}" == "install" ]; then
 
 
 elif [ "${command}" == "package" ]; then
-    echo "Packaging Sherpa Artifacts ..."
+    echo "Packaging Sherpa CA & Client Artifacts ..."
 
     mkdir -p ${PACKAGE_DIR}
     cd ${PACKAGE_DIR}
@@ -236,5 +249,36 @@ elif [ "${command}" == "package" ]; then
     rm -r sherpa
 
     echo "Done packaging sherpa artifacts ..."
+
+
+
+
+
+elif [ "${command}" == "tzpkg" ]; then
+    echo "Packaging Tenzing Artifacts ..."
+
+    mkdir -p ${PACKAGE_DIR}
+    cd ${PACKAGE_DIR}
+    rm -r tenzing
+    rm tenzing.tar.gz
+    mkdir tenzing
+
+    print "Copying Tenzing Files ..."
+
+    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services.war                            ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/tunedparams.json"                                                                      ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/Mongo/db_installer.sh"                                                                 ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/tenzing/
+
+
+    tar -czvf tenzing.tar.gz tenzing/
+    rm -r tenzing
+
+    echo "Done packaging tenzing artifacts ..."
+
+
+
 
 fi

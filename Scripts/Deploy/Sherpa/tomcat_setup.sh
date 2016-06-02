@@ -97,6 +97,25 @@ mkdir -p  ${install_dir}
 mkdir -p ${tomcat_install_dir}
 cd ${tomcat_install_dir}
 
+
+if [  -f  "/etc/redhat-release" ];
+then
+    sudo yum -y install wget
+fi
+
+
+
+if [ ! -f  "/etc/redhat-release" ];
+then
+    apt-get -y install  openjdk-7-jre
+    apt-get -y install  openjdk-7-jdk
+else
+    yum -y install java-1.7.0-openjdk-devel
+fi
+
+
+
+
 echo "Downloading Tomcat apache-tomcat-${tomcat_version} ..."
 wget http://www-us.apache.org/dist/tomcat/tomcat-8/v${tomcat_version}/bin/apache-tomcat-${tomcat_version}.tar.gz
 tar -xzvf apache-tomcat-${tomcat_version}.tar.gz
@@ -118,7 +137,14 @@ if [ ! -f  "/etc/redhat-release" ];
 then
     apt-get install -y supervisor
 else
-    yum install -y supervisor
+    #yum install -y supervisor
+    yum install python-setuptools
+    easy_install supervisor
+    echo_supervisord_conf > /etc/supervisord.conf
+    mkdir /etc/supervisord.d/
+    echo "[include]
+files = /etc/supervisord.d/*.ini"  >> /etc/supervisord.conf
+    supervisord
 fi
 echo "Done Installing Supervisor ..."
 

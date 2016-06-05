@@ -145,6 +145,9 @@ else
     echo "[include]
 files = /etc/supervisord.d/*.ini"  >> /etc/supervisord.conf
     supervisord
+
+    cp supervisor_init.sh  /etc/rc.d/init.d/supervisord
+
 fi
 echo "Done Installing Supervisor ..."
 

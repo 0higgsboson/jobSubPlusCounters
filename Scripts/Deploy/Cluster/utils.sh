@@ -38,7 +38,13 @@ function installPdsh(){
 
   # Setting up pdsh utility
   print "Setting up PDSH command on all hosts"
-  sudo apt-get -y install pdsh
+    if [ ! -f  "/etc/redhat-release" ];
+    then
+        sudo apt-get -y install pdsh
+      else
+        sudo yum -y install pdsh
+    fi
+
   export PDSH_RCMD_TYPE=ssh
 
   # installs on all nodes excluding master

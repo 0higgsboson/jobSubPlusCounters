@@ -15,7 +15,7 @@ if [ $# -eq 2 ]
     fieldName=$1
     fieldValue=$2
   else
-    echo "Usage:  Two arguements are required  fieldName[workloadID, jobName] fieldValue"
+    echo "Usage:  Two arguements are required  fieldName[workloadID, jobName, tag] fieldValue"
     exit
 fi
 
@@ -31,6 +31,13 @@ then
     echo "use ${DB_NAME}"                                                                              >> ${scriptFileName}
     echo "db.getCollection('${COLLECTION_NAME}').remove({\"jobMetaData.jobName\":\"${fieldValue}\"})"  >> ${scriptFileName}
     mongo <    ${scriptFileName}
+
+elif [[ "${fieldName}" = "tag"  ]];
+then
+    echo "use ${DB_NAME}"                                                                              >> ${scriptFileName}
+    echo "db.getCollection('${COLLECTION_NAME}').remove({\"jobMetaData.tag\":\"${fieldValue}\"})"  >> ${scriptFileName}
+    mongo <    ${scriptFileName}
+
 
 else
     echo "Field name not supported ..."

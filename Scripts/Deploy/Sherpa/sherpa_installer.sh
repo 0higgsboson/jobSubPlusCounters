@@ -5,7 +5,7 @@ if [ "$#" -lt 2 ]; then
     echo "Usage: command [arguments]"
     echo "./sherpa_installer package hadoop_version [build_code]        Packages CA & Client installers for customers "
     echo "./sherpa_installer install hadoop_version [build_code]        Install MR & Hive Clients "
-    echo "./sherpa_installer tzpkg hadoop_version   [build_code]        Packages Tenzing "
+    echo "./sherpa_installer tenzing hadoop_version   [build_code]      Packages Tenzing "
     echo "Supported hadoop versions : 2.7.* | 2.6.* "
     echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
@@ -22,8 +22,8 @@ fi
 
 
 
-if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tzpkg" ]]; then
-    echo "Error: Supported commands are [package | install | tzpkg]..."
+if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing" ]]; then
+    echo "Error: Supported commands are [package | install | tenzing]..."
     exit
 fi
 
@@ -219,7 +219,8 @@ elif [ "${command}" == "package" ]; then
     cd ${PACKAGE_DIR}
     rm -r sherpa
     rm sherpa.tar.gz
-    mkdir sherpa
+    mkdir -p sherpa
+
 
     print "Copying Files ..."
 
@@ -242,7 +243,25 @@ elif [ "${command}" == "package" ]; then
     cp  "${CWD}/Customer/client_agent_installer.sh"                                                    ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/Customer/installer.sh"                                                                 ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/tomcat_setup.sh"                                                            ${PACKAGE_DIR}/sherpa/
+    cp  "${CWD}/supervisor_init.sh"                                                                   ${PACKAGE_DIR}/sherpa/
+    cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/sherpa/
+
+
+#    mkdir -p sherpa/MR
+#    mkdir -p sherpa/Hive/Cli
+#    mkdir -p sherpa/Hive/Ql
+#
+#    cp "${mr_client_src_dir}/${MR_SRC_DIR}/pom.xml"                                                    ${PACKAGE_DIR}/sherpa/MR/
+#    cp "${mr_client_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/Job.java"         ${PACKAGE_DIR}/sherpa/MR/
+#    cp "${mr_client_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/SherpaJob.java"   ${PACKAGE_DIR}/sherpa/MR/
+#
+#
+#    cp "${hive_client_src_dir}/hiveClientSherpa/cli/pom.xml"                                             ${PACKAGE_DIR}/sherpa/Hive/Cli/
+#    cp "${hive_client_src_dir}/hiveClientSherpa/cli/src/java/org/apache/hadoop/hive/cli/CliDriver.java"  ${PACKAGE_DIR}/sherpa/Hive/Cli/
+#
+#
+#    cp "${hive_client_src_dir}/hiveClientSherpa/ql/pom.xml"                                                       ${PACKAGE_DIR}/sherpa/Hive/Ql/
+#    cp "${hive_client_src_dir}/hiveClientSherpa/ql/src/java/org/apache/hadoop/hive/ql/session/SessionState.java"  ${PACKAGE_DIR}/sherpa/Hive/Ql/
 
 
     tar -czvf sherpa.tar.gz sherpa/
@@ -254,7 +273,7 @@ elif [ "${command}" == "package" ]; then
 
 
 
-elif [ "${command}" == "tzpkg" ]; then
+elif [ "${command}" == "tenzing" ]; then
     echo "Packaging Tenzing Artifacts ..."
 
     mkdir -p ${PACKAGE_DIR}
@@ -271,6 +290,7 @@ elif [ "${command}" == "tzpkg" ]; then
     cp  "${CWD}/tunedparams.json"                                                                      ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/Mongo/db_installer.sh"                                                                 ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/tenzing/
+    cp  "${CWD}/supervisor_init.sh"                                                                    ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/tenzing/
 
 

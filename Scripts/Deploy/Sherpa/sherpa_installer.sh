@@ -315,34 +315,4 @@ elif [ "${command}" == "tenzing" ]; then
 
 
 
-
-elif [ "${command}" == "deploy" ]; then
-    echo "Deploying Artifacts At ${deployment_path}..."
-
-    mkdir -p ${deployment_path}
-    rm -r ${deployment_path}/*
-
-    print "Copying Tenzing Files ..."
-
-    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                           ${deployment_path}/
-
-    if [[ ${HADOOP_VERSION} == *"2.7"* ]]
-    then
-        cp ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar            ${deployment_path}/
-    else
-        cp ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar            ${deployment_path}/
-    fi
-
-    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                          ${deployment_path}/
-    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                        ${deployment_path}/
-
-    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                          ${deployment_path}/
-
-
-    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*-jar-with-dependencies.jar                 ${deployment_path}/
-
-
-    echo "Done deploying artifacts ..."
-
-
 fi

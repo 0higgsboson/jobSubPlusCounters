@@ -5,7 +5,9 @@ if [ "$#" -lt 2 ]; then
     echo "Usage: command [arguments]"
     echo "./sherpa_installer package hadoop_version [build_code]        Packages CA & Client installers for customers "
     echo "./sherpa_installer install hadoop_version [build_code]        Install MR & Hive Clients "
-    echo "./sherpa_installer tenzing hadoop_version   [build_code]      Packages Tenzing "
+    echo "./sherpa_installer tenzing hadoop_version [build_code]      Packages Tenzing "
+    echo "./sherpa_installer deploy   hadoop_version deployment_path"
+
     echo "Supported hadoop versions : 2.7.* | 2.6.* "
     echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
@@ -14,16 +16,23 @@ fi
 
 command=$1
 HADOOP_VERSION=$2
-if [ "$#" -eq 3 ]; then
-    build_code=$3
+if [ "$#" -ge 3 ]; then
+    if [[ "$command" = "deploy"  ]];
+    then
+        build_code=yes
+        CLONE_REPOS=yes
+        deployment_path=$3
+    else
+        build_code=$3
+    fi
 else
     build_code=yes
 fi
 
 
 
-if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing" ]]; then
-    echo "Error: Supported commands are [package | install | tenzing]..."
+if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing"  && "${command}" != "deploy" ]]; then
+    echo "Error: Supported commands are [package | install | tenzing | deploy ]  ..."
     exit
 fi
 
@@ -106,7 +115,6 @@ function fetchCode(){
         git clone ${repo_url}
         git checkout ${BRANCH_NAME}
     fi
-
 }
 
 ##########################################################   Cloning Repo's    ####################################################################
@@ -153,7 +161,10 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging Tenzing"
-    cd ${tenzing_src_dir}/Tenzing/
+    cd ${tenzing_src_dir}/Tenzing/tenzing-core/
+    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
+
+    cd ${tenzing_src_dir}/Tenzing/RestServices/
     mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
     #
@@ -161,9 +172,11 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging Client Agent"
-    cd ${clientagent_src_dir}/ClientAgent/
+    cd ${clientagent_src_dir}/ClientAgent/ca-core/
     mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
+    cd ${clientagent_src_dir}/ClientAgent/ca-services/
+    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
     #
     #   Installing Hive Client
@@ -300,6 +313,36 @@ elif [ "${command}" == "tenzing" ]; then
     echo "Done packaging tenzing artifacts ..."
 
 
+
+
+
+elif [ "${command}" == "deploy" ]; then
+    echo "Deploying Artifacts At ${deployment_path}..."
+
+    mkdir -p ${deployment_path}
+    rm -r ${deployment_path}/*
+
+    print "Copying Tenzing Files ..."
+
+    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                           ${deployment_path}/
+
+    if [[ ${HADOOP_VERSION} == *"2.7"* ]]
+    then
+        cp ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar            ${deployment_path}/
+    else
+        cp ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar            ${deployment_path}/
+    fi
+
+    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                          ${deployment_path}/
+    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                        ${deployment_path}/
+
+    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                          ${deployment_path}/
+
+
+    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*-jar-with-dependencies.jar                 ${deployment_path}/
+
+
+    echo "Done deploying artifacts ..."
 
 
 fi

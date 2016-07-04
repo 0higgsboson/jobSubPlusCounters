@@ -8,7 +8,7 @@ clientagent_host=client-agent
 clientagent_port=2552
 clientagent_install_dir=/opt/sherpa/ClientAgent/
 
-queue_name=twentyfive
+queue_name=default
 dataProfile=large
 #tuned_params_file=/root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/Deploy/HiBench/tunedparams.json
 tuned_params_file=tunedparams.json

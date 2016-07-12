@@ -39,10 +39,18 @@ Follow these steps to set up Hadoop Cluster
 
 
 4- Edit sherpa.properties file and update settings  (This file would be created by script, its on task list)
-5- Place executable jar file for Client Agent ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
-6- Place executable jar file for Tenzing ( default name TzCtCommon-1.0-jar-with-dependencies.jar )
-7- a) Install Sherpa Clients By:  ./sherpa_multinode_installer.sh host_file
-   b) Install Tenzing By: ./tenzing_installer.sh
-   c) Install CA By       ./client-agent_installer.sh
 
-   Please Install in the order specified
+5- Run sherpa_installer in the sequence below:
+        ./sherpa_installer package [2.7.1]  -- Packages CA & Client installers for customers
+            Extract tar file to which ever node you want to install MR and hive cts.
+                Then run the client isntaller.sh
+            Extract tar file to which ever node you want to install CA on, not a random node / NN.
+                There are two shell scripts.
+                    one for tomcat
+                    second for CA.
+        ./sherpa_installer tenzing  [2.7.1] -- Packages Tenzing
+            Extract tar file to which ever node you want to install CA on, not a random node / NN.
+                There are two shell scripts.
+                    one for tomcat
+                    second for Tenzing.
+

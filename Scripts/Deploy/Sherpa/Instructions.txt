@@ -51,10 +51,21 @@ Follow these steps to set up Hadoop Cluster
         ./sherpa_installer tenzing  [2.7.1] -- Packages Tenzing
             Extract tar file to which ever node you want to install CA on, not a random node / NN.
                 There are two shell scripts.
-                    one for tomcat
-                    second for Tenzing.
+                    1- run tomcat set up
+                    2- set INSTALL_DB=yes in tenzing-installer.sh script
+                    3- run tenzing-installer.sh script
+                    4- edit /etc/mongod.conf and comment out the following line  bindIp: 127.0.0.1 Restart Mongo Db
+                            service mongod restart
 
-6. Update the following env settings to hadoop-env.sh
+6. After installing mongo (part of tenzing installer).. if mongodb host is mentioned as localhost in the sherpa.properties file then its fine, if some host name is mentioned then mongodb binding has to be changed to 0.0.0.0 in the mongo configuration file
+        #Notes
+        # After installation is complete, Open
+        # vi /etc/mongod.conf
+        # and comment out the following line
+        # bindIp: 127.0.0.1
+        # Restart Mongo Db
+        # service mongod restart
+
+7. Update the following env settings to hadoop-env.sh
         export HADOOP_USER_CLASSPATH_FIRST=true
         export HADOOP_CLASSPATH=/opt/sherpa/lib/*:$HADOOP_CLASSPATH
-        

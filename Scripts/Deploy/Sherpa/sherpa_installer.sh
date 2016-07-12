@@ -5,9 +5,7 @@ if [ "$#" -lt 2 ]; then
     echo "Usage: command [arguments]"
     echo "./sherpa_installer package hadoop_version [build_code]        Packages CA & Client installers for customers "
     echo "./sherpa_installer install hadoop_version [build_code]        Install MR & Hive Clients "
-    echo "./sherpa_installer tenzing hadoop_version [build_code]      Packages Tenzing "
-    echo "./sherpa_installer deploy   hadoop_version deployment_path"
-
+    echo "./sherpa_installer tenzing hadoop_version   [build_code]      Packages Tenzing "
     echo "Supported hadoop versions : 2.7.* | 2.6.* "
     echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
@@ -16,23 +14,16 @@ fi
 
 command=$1
 HADOOP_VERSION=$2
-if [ "$#" -ge 3 ]; then
-    if [[ "$command" = "deploy"  ]];
-    then
-        build_code=yes
-        CLONE_REPOS=yes
-        deployment_path=$3
-    else
-        build_code=$3
-    fi
+if [ "$#" -eq 3 ]; then
+    build_code=$3
 else
     build_code=yes
 fi
 
 
 
-if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing"  && "${command}" != "deploy" ]]; then
-    echo "Error: Supported commands are [package | install | tenzing | deploy ]  ..."
+if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing" ]]; then
+    echo "Error: Supported commands are [package | install | tenzing]..."
     exit
 fi
 
@@ -115,6 +106,7 @@ function fetchCode(){
         git clone ${repo_url}
         git checkout ${BRANCH_NAME}
     fi
+
 }
 
 ##########################################################   Cloning Repo's    ####################################################################
@@ -161,10 +153,7 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging Tenzing"
-    cd ${tenzing_src_dir}/Tenzing/tenzing-core/
-    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
-
-    cd ${tenzing_src_dir}/Tenzing/RestServices/
+    cd ${tenzing_src_dir}/Tenzing/
     mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
     #
@@ -172,11 +161,9 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging Client Agent"
-    cd ${clientagent_src_dir}/ClientAgent/ca-core/
+    cd ${clientagent_src_dir}/ClientAgent/
     mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
-    cd ${clientagent_src_dir}/ClientAgent/ca-services/
-    mvn clean package -DskipTests  -P${ACTIVE_PROFILE}
 
     #
     #   Installing Hive Client

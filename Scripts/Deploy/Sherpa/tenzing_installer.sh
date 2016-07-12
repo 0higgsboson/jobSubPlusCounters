@@ -9,8 +9,6 @@ INSTALL_DB=no
 
 
 
-
-
 #
 # Checks file exists, exits script on file not found
 # Takes file path as argument
@@ -27,7 +25,7 @@ function fileExists(){
 
 
 # Make sure required files exist
-fileExists  "tenzing-services.war"
+#fileExists  "tenzing-services.war"
 fileExists  "sherpa.properties"
 fileExists  "tunedparams.json"
 
@@ -119,7 +117,7 @@ echo "Copying files ..."
 cp "sherpa.properties"    "/opt/sherpa.properties"
 cp "tunedparams.json"  ${tenzing_basepath}/
 touch ${tenzing_basepath}/SherpaSequenceNos.txt
-cp "tenzing-services.war" ${tomcat_home}/webapps/
+cp "tenzing-services*.war" ${tomcat_home}/webapps/tenzing-services.war
 
 echo "Waiting 20 sec for services to get up ..."
 sleep 20

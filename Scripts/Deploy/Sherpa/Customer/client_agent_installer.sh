@@ -19,7 +19,7 @@ function fileExists(){
 
 
 # Make sure required files exist
-fileExists  "ca-services.war"
+#fileExists  "ca-services*.war"
 fileExists  "sherpa.properties"
 
 
@@ -102,7 +102,7 @@ fi
 
 echo "Copying files ..."
 cp "sherpa.properties"    "/opt/sherpa.properties"
-cp "ca-services.war" ${tomcat_home}/webapps/
+cp "ca-services*.war" ${tomcat_home}/webapps/ca-services.war
 
 echo "Waiting 20 sec for services to get up ..."
 sleep 20

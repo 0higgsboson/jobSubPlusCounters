@@ -191,25 +191,16 @@ fi
 
 if [ "${command}" == "install" ]; then
 
-    print "Installing Hive Client..."
+    print "Installing MR & Hive Clients ..."
     mkdir -p ${INSTALL_DIR}
 
-    cp  ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli-${HIVE_VERSION}.jar                               ${INSTALL_DIR}/
-    cp  ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec-${HIVE_VERSION}.jar                               ${INSTALL_DIR}/
-    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar                                  ${INSTALL_DIR}/
+    cp  ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                               ${INSTALL_DIR}/
+    cp  ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                               ${INSTALL_DIR}/
+    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar                       ${INSTALL_DIR}/
     cp   ${CWD}/sherpa.properties    /opt/sherpa.properties
-    echo "Hive Client Installed ..."
 
-    print "Installing MR Client..."
-    if [[ ${HADOOP_VERSION} == *"2.7"* ]]
-    then
-       cp   ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.7.1.jar                         ${INSTALL_DIR}/
-    else
-       cp   ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.6.0.jar                         ${INSTALL_DIR}/
-    fi
-    echo "MR Client Installed ..."
-
-
+    cp   ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client*.jar                        ${INSTALL_DIR}/
+    echo "Installation Done ..."
 
 
 elif [ "${command}" == "package" ]; then
@@ -223,22 +214,15 @@ elif [ "${command}" == "package" ]; then
 
 
     print "Copying Files ..."
+    cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar"              ${PACKAGE_DIR}/sherpa/
 
-    if [[ ${HADOOP_VERSION} == *"2.7"* ]]
-    then
-        cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.7.1.jar"          ${PACKAGE_DIR}/sherpa/
-    else
-        cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-2.6.0.jar"          ${PACKAGE_DIR}/sherpa/
-    fi
+    cp   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar"                       ${PACKAGE_DIR}/sherpa/
+    cp   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar"                       ${PACKAGE_DIR}/sherpa/
 
-    cp   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli-1.2.1.jar"                       ${PACKAGE_DIR}/sherpa/
-    cp   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec-1.2.1.jar"                       ${PACKAGE_DIR}/sherpa/
-
-    cp  ${clientagent_src_dir}/ClientAgent/ca-core/target/ca-core-1.0-jar-with-dependencies.jar        ${PACKAGE_DIR}/sherpa/
-    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services.war                          ${PACKAGE_DIR}/sherpa/
+    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                    ${PACKAGE_DIR}/sherpa/
 
 
-    cp  "${common_src_dir}/TzCtCommon/target/TzCtCommon-1.0-jar-with-dependencies.jar"                 ${PACKAGE_DIR}/sherpa/
+    cp  "${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar"                 ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/Customer/client_agent_installer.sh"                                                    ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/Customer/installer.sh"                                                                 ${PACKAGE_DIR}/sherpa/
@@ -246,7 +230,7 @@ elif [ "${command}" == "package" ]; then
     cp  "${CWD}/supervisor_init.sh"                                                                   ${PACKAGE_DIR}/sherpa/
     cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/sherpa/
 
-
+# For Source Code Packaging
 #    mkdir -p sherpa/MR
 #    mkdir -p sherpa/Hive/Cli
 #    mkdir -p sherpa/Hive/Ql
@@ -284,7 +268,7 @@ elif [ "${command}" == "tenzing" ]; then
 
     print "Copying Tenzing Files ..."
 
-    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services.war                            ${PACKAGE_DIR}/tenzing/
+    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                           ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/tenzing_installer.sh"                                                                  ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/tenzing/
     cp  "${CWD}/tunedparams.json"                                                                      ${PACKAGE_DIR}/tenzing/

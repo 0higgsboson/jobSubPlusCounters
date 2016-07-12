@@ -54,3 +54,7 @@ Follow these steps to set up Hadoop Cluster
                     one for tomcat
                     second for Tenzing.
 
+6. Update the following env settings to hadoop-env.sh
+        export HADOOP_USER_CLASSPATH_FIRST=true
+        export HADOOP_CLASSPATH=/opt/sherpa/lib/*:$HADOOP_CLASSPATH
+        

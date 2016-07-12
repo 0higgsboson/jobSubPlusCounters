@@ -6,3 +6,5 @@ Follow these steps to set up Hadoop Cluster
 4- Run: ./install-all.sh hosts_file
 
 5- Clean up if the installer doesn't go all the way through:  If there are any hadoop daemons running (jps), kill them.  Then delete /root/cluster & /root/scripts.  Then reinstall.
+
+6- Before you can begin using cluster, need to source source /etc/environment, which contains paths to hive, hadoop, etc homes.

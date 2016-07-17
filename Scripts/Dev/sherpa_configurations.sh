@@ -9,7 +9,7 @@ activeProfile=H2.7.1
 #  Configurations
 #------------------------------------------------------------
   # define following directories without ending slash /
-installation_base_dir=/root/sherpa
+installation_base_dir=/root/code/sherpa
 hive_home=/root/cluster/hive/apache-hive-1.2.1-bin
 hadoop_home=/root/cluster/hadoop/hadoop-${HADOOP_VERSION}
 scripts_home=/root/scripts

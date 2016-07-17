@@ -256,6 +256,14 @@ echo "<configuration>
           <value>${master}:8090</value>
         </property>
 
+        <property>
+          <name>yarn.timeline-service.webapp.address</name>
+          <value>${master}:8188</value>
+        </property>
+
+
+
+
       </configuration>
 " >> etc/hadoop/yarn-site.xml
 

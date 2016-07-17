@@ -40,6 +40,7 @@ print "Copying jars into Hive's lib dir ..."
 rm ${hive_home}/lib/hive-cli*.jar
 rm ${hive_home}/lib/hive-exec*.jar
 
-cp cli/target/hive-cli*.jar /opt/sherpa/lib/hive-cli.jar
-cp ql/target/hive-exec*.jar /opt/sherpa/lib/hive-exec.jar
+rm -r /opt/sherpa/lib/*
+cp cli/target/hive-cli*.jar /opt/sherpa/lib/
+cp ql/target/hive-exec*.jar /opt/sherpa/lib/
 cp ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar /opt/sherpa/lib/TzCtCommon-jar-with-dependencies.jar

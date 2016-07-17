@@ -214,21 +214,30 @@ elif [ "${command}" == "package" ]; then
 
 
     print "Copying Files ..."
-    cp "${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar"              ${PACKAGE_DIR}/sherpa/
+    cp  ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-sources.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-tests.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-test-sources.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-javadoc.jar
 
-    cp   "${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar"                       ${PACKAGE_DIR}/sherpa/
-    cp   "${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar"                       ${PACKAGE_DIR}/sherpa/
-
-    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                    ${PACKAGE_DIR}/sherpa/
 
 
-    cp  "${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar"                 ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/Customer/client_agent_installer.sh"                                                    ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/Customer/installer.sh"                                                                 ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/supervisor_init.sh"                                                                   ${PACKAGE_DIR}/sherpa/
-    cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/sherpa/
+
+    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                       ${PACKAGE_DIR}/sherpa/
+    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                       ${PACKAGE_DIR}/sherpa/
+    rm ${PACKAGE_DIR}/sherpa/hive-exec-*core.jar
+    rm ${PACKAGE_DIR}/sherpa/hive-exec-*tests.jar
+
+
+    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                  ${PACKAGE_DIR}/sherpa/
+
+    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar                ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/sherpa.properties                                                                ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/Customer/client_agent_installer.sh                                               ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/Customer/installer.sh                                                            ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/supervisor_setup.sh                                                              ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/supervisor_init.sh                                                               ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/tomcat_setup.sh                                                                  ${PACKAGE_DIR}/sherpa/
 
 # For Source Code Packaging
 #    mkdir -p sherpa/MR
@@ -268,14 +277,14 @@ elif [ "${command}" == "tenzing" ]; then
 
     print "Copying Tenzing Files ..."
 
-    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                           ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/tenzing_installer.sh"                                                                  ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/sherpa.properties"                                                                     ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/tunedparams.json"                                                                      ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/Mongo/db_installer.sh"                                                                 ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/supervisor_setup.sh"                                                                   ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/supervisor_init.sh"                                                                    ${PACKAGE_DIR}/tenzing/
-    cp  "${CWD}/tomcat_setup.sh"                                                                       ${PACKAGE_DIR}/tenzing/
+    cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                         ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/tenzing_installer.sh                                                                  ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/sherpa.properties                                                                     ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/tunedparams.json                                                                      ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/Mongo/db_installer.sh                                                                 ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/supervisor_setup.sh                                                                   ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/supervisor_init.sh                                                                    ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/tomcat_setup.sh                                                                       ${PACKAGE_DIR}/tenzing/
 
 
     tar -czvf tenzing.tar.gz tenzing/

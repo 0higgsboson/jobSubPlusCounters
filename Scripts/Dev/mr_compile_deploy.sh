@@ -30,5 +30,6 @@ printHeader "Deploying MR Client"
 cd ${mr_client_src_dir}/
 
 print "Copying Jars ..."
-cp ${mr_client_src_dir}/target/hadoop-mapreduce-client-core*.jar /opt/sherpa/lib/hadoop-mapreduce-client-core.jar
+rm -r /opt/sherpa/lib/*
+cp ${mr_client_src_dir}/target/hadoop-mapreduce-client-core*.jar /opt/sherpa/lib/
 cp ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar /opt/sherpa/lib/TzCtCommon-jar-with-dependencies.jar

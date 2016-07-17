@@ -11,12 +11,12 @@ fi
 repo_name=$1
 echo "Syncing Repo ${repo_name}"
 
-src_jobsubplus=/root/sherpa/jobSubPub_src/jobSubPlusCounters/
-src_tzctcommon=/root/sherpa/tzCtCommon/TzCtCommon/
-src_tenzing=/root/sherpa/tenzing_src/Tenzing/
-src_ca=/root/sherpa/clientagent_src/ClientAgent/
-src_mr=/root/sherpa/mr_client_src/hadoop2.7/
-src_hive=/root/sherpa/hive_client_src/hiveClientSherpa/
+src_jobsubplus=/root/code/sherpa/jobSubPub_src/jobSubPlusCounters/
+src_tzctcommon=/root/code/sherpa/tzCtCommon/TzCtCommon/
+src_tenzing=/root/code/sherpa/tenzing_src/Tenzing/
+src_ca=/root/code/sherpa/clientagent_src/ClientAgent/
+src_mr=/root/code/sherpa/mr_client_src/hadoop2.7/
+src_hive=/root/code/sherpa/hive_client_src/hiveClientSherpa/
 
 dst_jobsubplus=/root/sherpa/jobSubPub_src/jobSubPlusCounters/
 dst_tzctcommon=/root/sherpa/tzCtCommon/TzCtCommon/

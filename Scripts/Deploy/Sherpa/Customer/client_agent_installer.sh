@@ -102,9 +102,9 @@ fi
 
 echo "Copying files ..."
 cp "sherpa.properties"    "/opt/sherpa.properties"
-cp "ca-services*.war" ${tomcat_home}/webapps/ca-services.war
+cp ca-services*.war ${tomcat_home}/webapps/ca-services.war
 
-echo "Waiting 20 sec for services to get up ..."
+echo "Waiting 30 sec for services to go up ..."
 sleep 20
 
 

@@ -117,10 +117,10 @@ echo "Copying files ..."
 cp "sherpa.properties"    "/opt/sherpa.properties"
 cp "tunedparams.json"  ${tenzing_basepath}/
 touch ${tenzing_basepath}/SherpaSequenceNos.txt
-cp "tenzing-services*.war" ${tomcat_home}/webapps/tenzing-services.war
+cp tenzing-services*.war ${tomcat_home}/webapps/tenzing-services.war
 
-echo "Waiting 20 sec for services to get up ..."
-sleep 20
+echo "Waiting 20 sec for services to go up ..."
+sleep 30
 
 echo "URL: http://${tenzing_hostname}:${tenzing_port}/tenzing-services/api/1.0/version/"
 response=`curl http://${tenzing_hostname}:${tenzing_port}/tenzing-services/api/1.0/version/`

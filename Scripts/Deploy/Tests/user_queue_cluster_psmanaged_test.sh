@@ -48,6 +48,8 @@ function clean(){
   removeFile ${conf_dir}/user.conf
   removeFile ${conf_dir}/queue.conf
   removeFile ${conf_dir}/cluster.conf
+  removeFile ${CA_HOME}/ca_configs.json
+
 }
 
 

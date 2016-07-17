@@ -10,6 +10,7 @@ INSTALL_DIR=/opt/sherpa/lib/
 
 
 mkdir -p ${INSTALL_DIR}
+rm    -r ${INSTALL_DIR}/*
 
 echo "Deploying MR Client ..."
 cp  hadoop-mapreduce-client-core*.jar             ${INSTALL_DIR}/

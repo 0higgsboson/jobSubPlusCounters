@@ -4,7 +4,7 @@
 # Assumes tenzing-services.war, tunedparams.json, db_installer.sh & sherpa.properties files are present in the current working directory
 
 
-INSTALL_DB=no
+INSTALL_DB=yes
 
 
 

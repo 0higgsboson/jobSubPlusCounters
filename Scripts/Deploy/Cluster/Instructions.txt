@@ -1,6 +1,12 @@
 Follow these steps to set up Hadoop Cluster
 1- Set up ssh keys, master node should have ssh access to itself and to all worker nodes
-2.1- Make sure the host names can be pinged from one node to another.  If not, append the /etc/hosts file
+2.1- Make sure the cluster hosts are reachable using host name.  
+      If not, append the /etc/hosts file.  
+      Make sure that the public IP address of the host is listed first in the hosts file so services run on the public interface.
 2- Create a hosts file, first node will be treated as master node.  Use host names instead of ip addresses
 3- Change configurations.sh file as per your requirements
 4- Run: ./install-all.sh hosts_file
+5- Clean up if the installer doesn't go all the way through:  
+  If there are any hadoop daemons running (jps), stop them.  
+  Then delete /root/cluster & /root/scripts.  Then reinstall.
+6- Before you can begin using cluster, source /etc/environment, which contains paths to hive, hadoop, etc homes.

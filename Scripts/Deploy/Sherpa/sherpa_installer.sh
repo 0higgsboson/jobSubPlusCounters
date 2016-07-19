@@ -233,6 +233,9 @@ elif [ "${command}" == "package" ]; then
 
     cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar                ${PACKAGE_DIR}/sherpa/
     cp  ${CWD}/sherpa.properties                                                                ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/log4j.properties                                                                 ${PACKAGE_DIR}/sherpa/
+
+
     cp  ${CWD}/Customer/client_agent_installer.sh                                               ${PACKAGE_DIR}/sherpa/
     cp  ${CWD}/Customer/installer.sh                                                            ${PACKAGE_DIR}/sherpa/
     cp  ${CWD}/supervisor_setup.sh                                                              ${PACKAGE_DIR}/sherpa/
@@ -280,6 +283,9 @@ elif [ "${command}" == "tenzing" ]; then
     cp  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war                         ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/tenzing_installer.sh                                                                  ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/sherpa.properties                                                                     ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/log4j.properties                                                                      ${PACKAGE_DIR}/tenzing/
+
+
     cp  ${CWD}/tunedparams.json                                                                      ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/Mongo/db_installer.sh                                                                 ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/supervisor_setup.sh                                                                   ${PACKAGE_DIR}/tenzing/

@@ -15,7 +15,9 @@ rm    -r ${INSTALL_DIR}/*
 echo "Deploying MR Client ..."
 cp  hadoop-mapreduce-client-core*.jar             ${INSTALL_DIR}/
 cp  TzCtCommon*jar-with-dependencies.jar          ${INSTALL_DIR}/
-cp  sherpa.properties                             "/opt/sherpa.properties"
+cp  sherpa.properties                             /opt/sherpa.properties
+cp  log4j.properties                              /opt/log4j.properties
+
 echo "Done Deploying MR Client ..."
 
 

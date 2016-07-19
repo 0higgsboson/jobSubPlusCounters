@@ -114,7 +114,9 @@ fi
 
 
 echo "Copying files ..."
-cp "sherpa.properties"    "/opt/sherpa.properties"
+cp sherpa.properties    /opt/sherpa.properties
+cp log4j.properties     /opt/log4j.properties
+
 cp "tunedparams.json"  ${tenzing_basepath}/
 touch ${tenzing_basepath}/SherpaSequenceNos.txt
 cp tenzing-services*.war ${tomcat_home}/webapps/tenzing-services.war

@@ -109,6 +109,42 @@ function fetchCode(){
 
 }
 
+
+
+function addBuildNumberToFile(){
+    #takes base dir and file as arguement
+    base_dir=$1
+    file=$2
+    echo "Adding Build Numbers To File: $file"
+    file_name=$(basename "$file")
+    file_extension="${file_name##*.}"
+    file_name_without_extension="${file_name%.*}"
+    mv ${file}  ${base_dir}/${file_name_without_extension}_Build_${build_number}.${file_extension}
+}
+
+
+
+function addBuildNumber(){
+   #takes base dir as arguement
+   base_dir=$1
+
+   build_number=$(shuf -i 1-10000 -n 1)
+
+   for file in "${base_dir}"/*.jar
+   do
+        addBuildNumberToFile  ${base_dir}/  $file
+   done
+
+
+   for file in "${base_dir}"/*.war
+   do
+        addBuildNumberToFile  ${base_dir}/  $file
+   done
+
+}
+
+
+
 ##########################################################   Cloning Repo's    ####################################################################
 
 if [[ "$CLONE_REPOS" = "yes"  ]];
@@ -242,6 +278,12 @@ elif [ "${command}" == "package" ]; then
     cp  ${CWD}/supervisor_init.sh                                                               ${PACKAGE_DIR}/sherpa/
     cp  ${CWD}/tomcat_setup.sh                                                                  ${PACKAGE_DIR}/sherpa/
 
+
+    addBuildNumber ${PACKAGE_DIR}/sherpa
+
+
+
+
 # For Source Code Packaging
 #    mkdir -p sherpa/MR
 #    mkdir -p sherpa/Hive/Cli
@@ -292,6 +334,7 @@ elif [ "${command}" == "tenzing" ]; then
     cp  ${CWD}/supervisor_init.sh                                                                    ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/tomcat_setup.sh                                                                       ${PACKAGE_DIR}/tenzing/
 
+    addBuildNumber ${PACKAGE_DIR}/tenzing
 
     tar -czvf tenzing.tar.gz tenzing/
     rm -r tenzing

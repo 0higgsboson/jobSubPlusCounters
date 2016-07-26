@@ -4,8 +4,9 @@
 if [ "$#" -lt 2 ]; then
     echo "Usage: command [arguments]"
     echo "./sherpa_installer package hadoop_version [build_code]        Packages CA & Client installers for customers "
+    echo "./sherpa_installer hdp     hadoop_version [build_code]        Packages CA & Client installers for HDP distro "
     echo "./sherpa_installer install hadoop_version [build_code]        Install MR & Hive Clients "
-    echo "./sherpa_installer tenzing hadoop_version   [build_code]      Packages Tenzing "
+    echo "./sherpa_installer tenzing hadoop_version [build_code]        Packages Tenzing "
     echo "Supported hadoop versions : 2.7.* | 2.6.* "
     echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
@@ -22,8 +23,8 @@ fi
 
 
 
-if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing" ]]; then
-    echo "Error: Supported commands are [package | install | tenzing]..."
+if [[ "${command}" != "package" && "${command}" != "install" && "${command}" != "tenzing"  && "${command}" != "hdp" ]]; then
+    echo "Error: Supported commands are [package | hdp | install | tenzing]..."
     exit
 fi
 
@@ -144,6 +145,47 @@ function addBuildNumber(){
 }
 
 
+function prepareDefaultPackage(){
+
+    mkdir -p ${PACKAGE_DIR}
+    cd ${PACKAGE_DIR}
+    rm -r sherpa
+    rm sherpa.tar.gz
+    mkdir -p sherpa
+
+
+    print "Copying Files ..."
+    cp  ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-sources.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-tests.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-test-sources.jar
+    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-javadoc.jar
+
+
+
+
+    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                       ${PACKAGE_DIR}/sherpa/
+    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                       ${PACKAGE_DIR}/sherpa/
+    rm ${PACKAGE_DIR}/sherpa/hive-exec-*core.jar
+    rm ${PACKAGE_DIR}/sherpa/hive-exec-*tests.jar
+
+
+    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                  ${PACKAGE_DIR}/sherpa/
+
+    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar                ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/sherpa.properties                                                                ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/log4j.properties                                                                 ${PACKAGE_DIR}/sherpa/
+
+
+    cp  ${CWD}/Customer/client_agent_installer.sh                                               ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/Customer/installer.sh                                                            ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/supervisor_setup.sh                                                              ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/supervisor_init.sh                                                               ${PACKAGE_DIR}/sherpa/
+    cp  ${CWD}/tomcat_setup.sh                                                                  ${PACKAGE_DIR}/sherpa/
+
+}
+
+
 
 ##########################################################   Cloning Repo's    ####################################################################
 
@@ -207,7 +249,7 @@ if [[ "${build_code}" = "yes"  ]]; then
 
     printHeader "Packaging Hive Client"
     cd $hive_client_src_dir/hiveClientSherpa
-    mvn clean package -pl ql,cli  -Phadoop-2  -DskipTests
+    mvn clean package -pl ql,cli,metastore  -Phadoop-2  -DskipTests
 
 
 
@@ -242,43 +284,7 @@ if [ "${command}" == "install" ]; then
 elif [ "${command}" == "package" ]; then
     echo "Packaging Sherpa CA & Client Artifacts ..."
 
-    mkdir -p ${PACKAGE_DIR}
-    cd ${PACKAGE_DIR}
-    rm -r sherpa
-    rm sherpa.tar.gz
-    mkdir -p sherpa
-
-
-    print "Copying Files ..."
-    cp  ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
-    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-sources.jar
-    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-tests.jar
-    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-test-sources.jar
-    rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-javadoc.jar
-
-
-
-
-    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                       ${PACKAGE_DIR}/sherpa/
-    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                       ${PACKAGE_DIR}/sherpa/
-    rm ${PACKAGE_DIR}/sherpa/hive-exec-*core.jar
-    rm ${PACKAGE_DIR}/sherpa/hive-exec-*tests.jar
-
-
-    cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                  ${PACKAGE_DIR}/sherpa/
-
-    cp  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies.jar                ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/sherpa.properties                                                                ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/log4j.properties                                                                 ${PACKAGE_DIR}/sherpa/
-
-
-    cp  ${CWD}/Customer/client_agent_installer.sh                                               ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/Customer/installer.sh                                                            ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/supervisor_setup.sh                                                              ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/supervisor_init.sh                                                               ${PACKAGE_DIR}/sherpa/
-    cp  ${CWD}/tomcat_setup.sh                                                                  ${PACKAGE_DIR}/sherpa/
-
-
+    prepareDefaultPackage
     addBuildNumber ${PACKAGE_DIR}/sherpa
 
 
@@ -307,6 +313,20 @@ elif [ "${command}" == "package" ]; then
 
     echo "Done packaging sherpa artifacts ..."
 
+
+elif [ "${command}" == "hdp" ]; then
+    echo "Packaging Sherpa CA & Client Artifacts ..."
+
+    prepareDefaultPackage
+    cp   ${hive_client_src_dir}/hiveClientSherpa/metastore/target/hive-metastore*.jar                       ${PACKAGE_DIR}/sherpa/
+    rm  ${PACKAGE_DIR}/sherpa/hive-metastore*tests*.jar
+
+    addBuildNumber ${PACKAGE_DIR}/sherpa
+
+    tar -czvf sherpa.tar.gz sherpa/
+    rm -r sherpa
+
+    echo "Done packaging sherpa artifacts ..."
 
 
 

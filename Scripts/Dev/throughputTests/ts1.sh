@@ -4,6 +4,6 @@ now=$(date +"%Y_%d_%m_%H_%M_%s")
 examplesJar="/root/cluster/hadoop/hadoop-2.7.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar"
 echo "Output directory name : /nas/backup_$now.sql"
 # yarn jar /root/sherpa-old/hadoop_src/hadoop-2.7.1-src/hadoop-mapreduce-project/target/hadoop-mapreduce-2.7.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar wordcount -D PSManaged=true -D Tag=wordcount-MR-example-0075 /input/ /output/$now 
-yarn jar $examplesJar terasort -D PSManaged=false -D Tag=terasort-unmanaged-007 /tsinput1GB/ /tsoutput/$now 
+yarn jar $examplesJar terasort -D PSManaged=false -D Tag=terasort-021 /tsinput10GB/ /tsoutput/$now 
 hadoop fs -rm /tsoutput/$now/*
 

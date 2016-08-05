@@ -18,3 +18,863 @@ submission  9
 Tue Aug  2 02:11:51 UTC 2016
 submission  10
 Tue Aug  2 02:12:00 UTC 2016
+
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,8 CPUs)
+
+Processing archive: gutenberg_txt.7z
+
+file gutenberg_txt.tar
+already exists. Overwrite with 
+gutenberg_txt.tar?
+(Y)es / (N)o / (A)lways / (S)kip all / A(u)to rename all / (Q)uit? file gutenberg_txt.tar
+already exists. Overwrite with 
+gutenberg_txt.tar?
+(Y)es / (N)o / (A)lways / (S)kip all / A(u)to rename all / (Q)uit? 
+
+Error:
+Error reading input stream
+dtrx: ERROR: could not handle gutenberg_txt.tar
+dtrx: ERROR: treating as tar file failed: [Errno 9] Bad file descriptor
+dtrx: ERROR: Error output from this process:
+tar: Unexpected EOF in archive
+tar: Unexpected EOF in archive
+tar: Error is not recoverable: exiting now
+gutenberg_txt.tar contains one directory but its name doesn't match.
+ Expected: gutenberg_txt
+   Actual: gutenberg/
+You can:
+ * extract the directory _I_nside a new directory named gutenberg_txt
+ * extract the directory and _R_ename it gutenberg_txt
+ * extract the directory _H_ere
+What do you want to do?  (I/r/h) submission  1
+Wed Aug  3 09:27:23 UTC 2016
+Unmanaged
+submission  1
+Wed Aug  3 09:27:47 UTC 2016
+Unmanaged
+submission  2
+Wed Aug  3 09:34:23 UTC 2016
+Managed
+submission  2
+Wed Aug  3 09:34:47 UTC 2016
+Managed
+submission  3
+Wed Aug  3 09:41:23 UTC 2016
+Managed
+submission  3
+Wed Aug  3 09:41:47 UTC 2016
+Managed
+submission  4
+Wed Aug  3 09:48:23 UTC 2016
+Managed
+submission  4
+Wed Aug  3 09:48:47 UTC 2016
+Managed
+submission  5
+Wed Aug  3 09:55:23 UTC 2016
+Managed
+submission  5
+Wed Aug  3 09:55:47 UTC 2016
+Managed
+submission  6
+Wed Aug  3 10:02:23 UTC 2016
+Unmanaged
+submission  6
+Wed Aug  3 10:02:47 UTC 2016
+Managed
+submission  7
+Wed Aug  3 10:09:23 UTC 2016
+Managed
+submission  7
+Wed Aug  3 10:09:47 UTC 2016
+Managed
+submission  8
+Wed Aug  3 10:16:23 UTC 2016
+Managed
+submission  8
+Wed Aug  3 10:16:47 UTC 2016
+Managed
+submission  9
+Wed Aug  3 10:23:23 UTC 2016
+Managed
+submission  9
+Wed Aug  3 10:23:47 UTC 2016
+Managed
+submission  10
+Wed Aug  3 10:30:23 UTC 2016
+Managed
+submission  10
+Wed Aug  3 10:30:47 UTC 2016
+Managed
+submission  11
+Wed Aug  3 10:37:23 UTC 2016
+Unmanaged
+submission  11
+Wed Aug  3 10:37:47 UTC 2016
+Unmanaged
+submission  12
+Wed Aug  3 10:44:23 UTC 2016
+Managed
+submission  12
+Wed Aug  3 10:44:47 UTC 2016
+Managed
+submission  13
+Wed Aug  3 10:51:23 UTC 2016
+Managed
+submission  13
+Wed Aug  3 10:51:47 UTC 2016
+Managed
+submission  14
+Wed Aug  3 10:58:23 UTC 2016
+Managed
+submission  14
+Wed Aug  3 10:58:47 UTC 2016
+Managed
+submission  15
+Wed Aug  3 11:05:23 UTC 2016
+Managed
+submission  15
+Wed Aug  3 11:05:47 UTC 2016
+Managed
+submission  16
+Wed Aug  3 11:12:23 UTC 2016
+Unmanaged
+submission  16
+Wed Aug  3 11:12:47 UTC 2016
+Managed
+submission  17
+Wed Aug  3 11:19:23 UTC 2016
+Managed
+submission  17
+Wed Aug  3 11:19:47 UTC 2016
+Managed
+submission  18
+Wed Aug  3 11:26:23 UTC 2016
+Managed
+submission  18
+Wed Aug  3 11:26:47 UTC 2016
+Managed
+submission  19
+Wed Aug  3 11:33:23 UTC 2016
+Managed
+submission  19
+Wed Aug  3 11:33:47 UTC 2016
+Managed
+submission  20
+Wed Aug  3 11:40:23 UTC 2016
+Managed
+submission  20
+Wed Aug  3 11:40:47 UTC 2016
+Managed
+submission  21
+Wed Aug  3 11:47:23 UTC 2016
+Unmanaged
+submission  21
+Wed Aug  3 11:47:47 UTC 2016
+Unmanaged
+submission  22
+Wed Aug  3 11:54:23 UTC 2016
+Managed
+submission  22
+Wed Aug  3 11:54:47 UTC 2016
+Managed
+submission  23
+Wed Aug  3 12:01:23 UTC 2016
+Managed
+submission  23
+Wed Aug  3 12:01:47 UTC 2016
+Managed
+submission  24
+Wed Aug  3 12:08:23 UTC 2016
+Managed
+submission  24
+Wed Aug  3 12:08:47 UTC 2016
+Managed
+submission  25
+Wed Aug  3 12:15:23 UTC 2016
+Managed
+submission  25
+Wed Aug  3 12:15:47 UTC 2016
+Managed
+submission  26
+Wed Aug  3 12:22:23 UTC 2016
+Unmanaged
+submission  26
+Wed Aug  3 12:22:47 UTC 2016
+Managed
+submission  27
+Wed Aug  3 12:29:23 UTC 2016
+Managed
+submission  27
+Wed Aug  3 12:29:47 UTC 2016
+Managed
+submission  28
+Wed Aug  3 12:36:23 UTC 2016
+Managed
+submission  28
+Wed Aug  3 12:36:47 UTC 2016
+Managed
+submission  29
+Wed Aug  3 12:43:23 UTC 2016
+Managed
+submission  29
+Wed Aug  3 12:43:47 UTC 2016
+Managed
+submission  30
+Wed Aug  3 12:50:23 UTC 2016
+Managed
+submission  30
+Wed Aug  3 12:50:47 UTC 2016
+Managed
+submission  31
+Wed Aug  3 12:57:23 UTC 2016
+Unmanaged
+submission  31
+Wed Aug  3 12:57:47 UTC 2016
+Unmanaged
+submission  32
+Wed Aug  3 13:04:23 UTC 2016
+Managed
+submission  32
+Wed Aug  3 13:04:47 UTC 2016
+Managed
+submission  33
+Wed Aug  3 13:11:23 UTC 2016
+Managed
+submission  33
+Wed Aug  3 13:11:47 UTC 2016
+Managed
+submission  34
+Wed Aug  3 13:18:23 UTC 2016
+Managed
+submission  34
+Wed Aug  3 13:18:47 UTC 2016
+Managed
+submission  35
+Wed Aug  3 13:25:23 UTC 2016
+Managed
+submission  35
+Wed Aug  3 13:25:47 UTC 2016
+Managed
+submission  36
+Wed Aug  3 13:32:23 UTC 2016
+Unmanaged
+submission  36
+Wed Aug  3 13:32:47 UTC 2016
+Managed
+submission  37
+Wed Aug  3 13:39:23 UTC 2016
+Managed
+submission  37
+Wed Aug  3 13:39:47 UTC 2016
+Managed
+submission  38
+Wed Aug  3 13:46:23 UTC 2016
+Managed
+submission  38
+Wed Aug  3 13:46:47 UTC 2016
+Managed
+submission  39
+Wed Aug  3 13:53:23 UTC 2016
+Managed
+submission  39
+Wed Aug  3 13:53:47 UTC 2016
+Managed
+submission  40
+Wed Aug  3 14:00:23 UTC 2016
+Managed
+submission  40
+Wed Aug  3 14:00:47 UTC 2016
+Managed
+submission  41
+Wed Aug  3 14:07:23 UTC 2016
+Unmanaged
+submission  41
+Wed Aug  3 14:07:47 UTC 2016
+Unmanaged
+submission  42
+Wed Aug  3 14:14:23 UTC 2016
+Managed
+submission  42
+Wed Aug  3 14:14:47 UTC 2016
+Managed
+submission  43
+Wed Aug  3 14:21:23 UTC 2016
+Managed
+submission  43
+Wed Aug  3 14:21:47 UTC 2016
+Managed
+submission  44
+Wed Aug  3 14:28:23 UTC 2016
+Managed
+submission  44
+Wed Aug  3 14:28:47 UTC 2016
+Managed
+submission  45
+Wed Aug  3 14:35:23 UTC 2016
+Managed
+submission  45
+Wed Aug  3 14:35:47 UTC 2016
+Managed
+submission  46
+Wed Aug  3 14:42:23 UTC 2016
+Unmanaged
+submission  46
+Wed Aug  3 14:42:47 UTC 2016
+Managed
+submission  47
+Wed Aug  3 14:49:23 UTC 2016
+Managed
+submission  47
+Wed Aug  3 14:49:47 UTC 2016
+Managed
+submission  48
+Wed Aug  3 14:56:23 UTC 2016
+Managed
+submission  48
+Wed Aug  3 14:56:47 UTC 2016
+Managed
+submission  49
+Wed Aug  3 15:03:23 UTC 2016
+Managed
+submission  49
+Wed Aug  3 15:03:47 UTC 2016
+Managed
+submission  50
+Wed Aug  3 15:10:23 UTC 2016
+Managed
+submission  50
+Wed Aug  3 15:10:47 UTC 2016
+Managed
+submission  51
+Wed Aug  3 15:17:23 UTC 2016
+Unmanaged
+submission  51
+Wed Aug  3 15:17:47 UTC 2016
+Unmanaged
+submission  52
+Wed Aug  3 15:24:23 UTC 2016
+Managed
+submission  52
+Wed Aug  3 15:24:47 UTC 2016
+Managed
+submission  53
+Wed Aug  3 15:31:23 UTC 2016
+Managed
+submission  53
+Wed Aug  3 15:31:47 UTC 2016
+Managed
+submission  54
+Wed Aug  3 15:38:23 UTC 2016
+Managed
+submission  54
+Wed Aug  3 15:38:47 UTC 2016
+Managed
+submission  55
+Wed Aug  3 15:45:23 UTC 2016
+Managed
+submission  55
+Wed Aug  3 15:45:47 UTC 2016
+Managed
+submission  56
+Wed Aug  3 15:52:23 UTC 2016
+Unmanaged
+submission  56
+Wed Aug  3 15:52:47 UTC 2016
+Managed
+submission  57
+Wed Aug  3 15:59:23 UTC 2016
+Managed
+submission  57
+Wed Aug  3 15:59:47 UTC 2016
+Managed
+submission  58
+Wed Aug  3 16:06:23 UTC 2016
+Managed
+submission  58
+Wed Aug  3 16:06:47 UTC 2016
+Managed
+submission  59
+Wed Aug  3 16:13:23 UTC 2016
+Managed
+submission  59
+Wed Aug  3 16:13:47 UTC 2016
+Managed
+submission  60
+Wed Aug  3 16:20:23 UTC 2016
+Managed
+submission  60
+Wed Aug  3 16:20:47 UTC 2016
+Managed
+submission  61
+Wed Aug  3 16:27:23 UTC 2016
+Unmanaged
+submission  61
+Wed Aug  3 16:27:47 UTC 2016
+Unmanaged
+submission  62
+Wed Aug  3 16:34:23 UTC 2016
+Managed
+submission  62
+Wed Aug  3 16:34:47 UTC 2016
+Managed
+submission  63
+Wed Aug  3 16:41:23 UTC 2016
+Managed
+submission  63
+Wed Aug  3 16:41:47 UTC 2016
+Managed
+submission  64
+Wed Aug  3 16:48:23 UTC 2016
+Managed
+submission  64
+Wed Aug  3 16:48:47 UTC 2016
+Managed
+submission  65
+Wed Aug  3 16:55:23 UTC 2016
+Managed
+submission  65
+Wed Aug  3 16:55:47 UTC 2016
+Managed
+submission  66
+Wed Aug  3 17:02:23 UTC 2016
+Unmanaged
+submission  66
+Wed Aug  3 17:02:47 UTC 2016
+Managed
+submission  67
+Wed Aug  3 17:09:23 UTC 2016
+Managed
+submission  67
+Wed Aug  3 17:09:47 UTC 2016
+Managed
+submission  68
+Wed Aug  3 17:16:23 UTC 2016
+Managed
+submission  68
+Wed Aug  3 17:16:47 UTC 2016
+Managed
+submission  69
+Wed Aug  3 17:23:23 UTC 2016
+Managed
+submission  69
+Wed Aug  3 17:23:47 UTC 2016
+Managed
+submission  70
+Wed Aug  3 17:30:23 UTC 2016
+Managed
+submission  70
+Wed Aug  3 17:30:47 UTC 2016
+Managed
+submission  71
+Wed Aug  3 17:37:23 UTC 2016
+Unmanaged
+submission  71
+Wed Aug  3 17:37:47 UTC 2016
+Unmanaged
+submission  72
+Wed Aug  3 17:44:23 UTC 2016
+Managed
+submission  72
+Wed Aug  3 17:44:47 UTC 2016
+Managed
+submission  73
+Wed Aug  3 17:51:23 UTC 2016
+Managed
+submission  73
+Wed Aug  3 17:51:47 UTC 2016
+Managed
+submission  74
+Wed Aug  3 17:58:23 UTC 2016
+Managed
+submission  74
+Wed Aug  3 17:58:47 UTC 2016
+Managed
+submission  75
+Wed Aug  3 18:05:23 UTC 2016
+Managed
+submission  75
+Wed Aug  3 18:05:47 UTC 2016
+Managed
+submission  76
+Wed Aug  3 18:12:23 UTC 2016
+Unmanaged
+submission  76
+Wed Aug  3 18:12:47 UTC 2016
+Managed
+submission  77
+Wed Aug  3 18:19:23 UTC 2016
+Managed
+submission  77
+Wed Aug  3 18:19:47 UTC 2016
+Managed
+submission  78
+Wed Aug  3 18:26:23 UTC 2016
+Managed
+submission  78
+Wed Aug  3 18:26:47 UTC 2016
+Managed
+submission  79
+Wed Aug  3 18:33:23 UTC 2016
+Managed
+submission  79
+Wed Aug  3 18:33:47 UTC 2016
+Managed
+submission  80
+Wed Aug  3 18:40:23 UTC 2016
+Managed
+submission  80
+Wed Aug  3 18:40:47 UTC 2016
+Managed
+submission  81
+Wed Aug  3 18:47:23 UTC 2016
+Unmanaged
+submission  81
+Wed Aug  3 18:47:47 UTC 2016
+Unmanaged
+submission  82
+Wed Aug  3 18:54:23 UTC 2016
+Managed
+submission  82
+Wed Aug  3 18:54:47 UTC 2016
+Managed
+submission  83
+Wed Aug  3 19:01:23 UTC 2016
+Managed
+submission  83
+Wed Aug  3 19:01:47 UTC 2016
+Managed
+submission  84
+Wed Aug  3 19:08:23 UTC 2016
+Managed
+submission  84
+Wed Aug  3 19:08:47 UTC 2016
+Managed
+submission  85
+Wed Aug  3 19:15:23 UTC 2016
+Managed
+submission  85
+Wed Aug  3 19:15:47 UTC 2016
+Managed
+submission  86
+Wed Aug  3 19:22:23 UTC 2016
+Unmanaged
+submission  86
+Wed Aug  3 19:22:47 UTC 2016
+Managed
+submission  87
+Wed Aug  3 19:29:23 UTC 2016
+Managed
+submission  87
+Wed Aug  3 19:29:47 UTC 2016
+Managed
+submission  88
+Wed Aug  3 19:36:23 UTC 2016
+Managed
+submission  88
+Wed Aug  3 19:36:47 UTC 2016
+Managed
+submission  89
+Wed Aug  3 19:43:23 UTC 2016
+Managed
+submission  89
+Wed Aug  3 19:43:47 UTC 2016
+Managed
+submission  90
+Wed Aug  3 19:50:23 UTC 2016
+Managed
+submission  90
+Wed Aug  3 19:50:47 UTC 2016
+Managed
+submission  91
+Wed Aug  3 19:57:23 UTC 2016
+Unmanaged
+submission  91
+Wed Aug  3 19:57:47 UTC 2016
+Unmanaged
+submission  92
+Wed Aug  3 20:04:23 UTC 2016
+Managed
+submission  92
+Wed Aug  3 20:04:47 UTC 2016
+Managed
+submission  93
+Wed Aug  3 20:11:23 UTC 2016
+Managed
+submission  93
+Wed Aug  3 20:11:47 UTC 2016
+Managed
+submission  94
+Wed Aug  3 20:18:23 UTC 2016
+Managed
+submission  94
+Wed Aug  3 20:18:47 UTC 2016
+Managed
+submission  95
+Wed Aug  3 20:25:23 UTC 2016
+Managed
+submission  95
+Wed Aug  3 20:25:47 UTC 2016
+Managed
+submission  96
+Wed Aug  3 20:32:23 UTC 2016
+Unmanaged
+submission  96
+Wed Aug  3 20:32:47 UTC 2016
+Managed
+submission  97
+Wed Aug  3 20:39:23 UTC 2016
+Managed
+submission  97
+Wed Aug  3 20:39:47 UTC 2016
+Managed
+submission  98
+Wed Aug  3 20:46:23 UTC 2016
+Managed
+submission  98
+Wed Aug  3 20:46:47 UTC 2016
+Managed
+submission  99
+Wed Aug  3 20:53:23 UTC 2016
+Managed
+submission  99
+Wed Aug  3 20:53:47 UTC 2016
+Managed
+submission  100
+Wed Aug  3 21:00:23 UTC 2016
+Managed
+submission  100
+Wed Aug  3 21:00:47 UTC 2016
+Managed
+submission  1
+Fri Aug  5 02:32:45 UTC 2016
+Unmanaged
+submission  2
+Fri Aug  5 02:39:45 UTC 2016
+Managed
+submission  3
+Fri Aug  5 02:46:45 UTC 2016
+Managed
+submission  4
+Fri Aug  5 02:53:45 UTC 2016
+Managed
+submission  5
+Fri Aug  5 03:00:45 UTC 2016
+Managed
+submission  6
+Fri Aug  5 03:07:45 UTC 2016
+Managed
+submission  7
+Fri Aug  5 03:14:45 UTC 2016
+Managed
+submission  8
+Fri Aug  5 03:21:45 UTC 2016
+Managed
+submission  9
+Fri Aug  5 03:28:45 UTC 2016
+Managed
+submission  10
+Fri Aug  5 03:35:45 UTC 2016
+Managed
+submission  11
+Fri Aug  5 03:42:45 UTC 2016
+Unmanaged
+submission  12
+Fri Aug  5 03:49:45 UTC 2016
+Managed
+submission  13
+Fri Aug  5 03:56:45 UTC 2016
+Managed
+submission  14
+Fri Aug  5 04:03:45 UTC 2016
+Managed
+submission  15
+Fri Aug  5 04:10:45 UTC 2016
+Managed
+submission  16
+Fri Aug  5 04:17:45 UTC 2016
+Managed
+submission  17
+Fri Aug  5 04:24:45 UTC 2016
+Managed
+submission  18
+Fri Aug  5 04:31:45 UTC 2016
+Managed
+submission  19
+Fri Aug  5 04:38:45 UTC 2016
+Managed
+submission  20
+Fri Aug  5 04:45:45 UTC 2016
+Managed
+submission  21
+Fri Aug  5 04:52:45 UTC 2016
+Unmanaged
+submission  22
+Fri Aug  5 04:59:45 UTC 2016
+Managed
+submission  23
+Fri Aug  5 05:06:45 UTC 2016
+Managed
+submission  24
+Fri Aug  5 05:13:45 UTC 2016
+Managed
+submission  25
+Fri Aug  5 05:20:45 UTC 2016
+Managed
+submission  26
+Fri Aug  5 05:27:45 UTC 2016
+Managed
+submission  27
+Fri Aug  5 05:34:45 UTC 2016
+Managed
+submission  28
+Fri Aug  5 05:41:45 UTC 2016
+Managed
+submission  29
+Fri Aug  5 05:48:45 UTC 2016
+Managed
+submission  30
+Fri Aug  5 05:55:45 UTC 2016
+Managed
+submission  31
+Fri Aug  5 06:02:45 UTC 2016
+Unmanaged
+submission  32
+Fri Aug  5 06:09:45 UTC 2016
+Managed
+submission  33
+Fri Aug  5 06:16:45 UTC 2016
+Managed
+submission  34
+Fri Aug  5 06:23:45 UTC 2016
+Managed
+submission  35
+Fri Aug  5 06:30:45 UTC 2016
+Managed
+submission  36
+Fri Aug  5 06:37:45 UTC 2016
+Managed
+submission  37
+Fri Aug  5 06:44:45 UTC 2016
+Managed
+submission  38
+Fri Aug  5 06:51:45 UTC 2016
+Managed
+submission  39
+Fri Aug  5 06:58:45 UTC 2016
+Managed
+submission  40
+Fri Aug  5 07:05:45 UTC 2016
+Managed
+submission  41
+Fri Aug  5 07:12:45 UTC 2016
+Unmanaged
+submission  42
+Fri Aug  5 07:19:45 UTC 2016
+Managed
+submission  43
+Fri Aug  5 07:26:45 UTC 2016
+Managed
+submission  44
+Fri Aug  5 07:33:45 UTC 2016
+Managed
+submission  45
+Fri Aug  5 07:40:45 UTC 2016
+Managed
+submission  46
+Fri Aug  5 07:47:45 UTC 2016
+Managed
+submission  47
+Fri Aug  5 07:54:45 UTC 2016
+Managed
+submission  48
+Fri Aug  5 08:01:45 UTC 2016
+Managed
+submission  49
+Fri Aug  5 08:08:45 UTC 2016
+Managed
+submission  50
+Fri Aug  5 08:15:45 UTC 2016
+Managed
+submission  51
+Fri Aug  5 08:22:45 UTC 2016
+Unmanaged
+submission  52
+Fri Aug  5 08:29:45 UTC 2016
+Managed
+submission  53
+Fri Aug  5 08:36:45 UTC 2016
+Managed
+submission  54
+Fri Aug  5 08:43:45 UTC 2016
+Managed
+submission  55
+Fri Aug  5 08:50:45 UTC 2016
+Managed
+submission  56
+Fri Aug  5 08:57:45 UTC 2016
+Managed
+submission  57
+Fri Aug  5 09:04:45 UTC 2016
+Managed
+submission  58
+Fri Aug  5 09:11:45 UTC 2016
+Managed
+terasort-036-10GB-1
+submission  1
+Fri Aug  5 10:25:13 UTC 2016
+nohup yarn jar /root/cluster/hadoop/hadoop-2.7.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar terasort -D PSManaged=true  -D mapreduce.terasort.simplepartitioner=true -D Tag=terasort-036-10GB-1 /tsinput10GB/ /tsoutput/1 > /dev/null & 2>&1
+Managed
+16/08/05 10:25:14 INFO terasort.TeraSort: starting
+16/08/05 10:25:15 INFO utils.SystemPropertiesLoader: Loading Properties from: /opt/sherpa.properties
+16/08/05 10:25:15 INFO utils.SystemPropertiesLoader: System Properties loaded from defined path ...
+16/08/05 10:25:15 INFO utils.SystemPropertiesLoader: Properties: {cluster.id=sherpa, auth.user.name.addtoquery=no, tenzing.hostname=ip-172-31-43-74, auth.user.name=root, auth.cookie.path=, auth.cookie.set=false, clientagent.heartbeat.max.extrawait.sec=10, log.configuration.file=/opt/log4j.properties, clientagent.heartbeat.faliure.count=1, tenzing.port=80, job.taskcounters.enabled=false, tomcat.version=8.0.36, hadoop.version=2.7.1, clientagent.port=80, auth.type=no, tenzing.basepath=/opt/sherpa/Tenzing/, clientagent.message.retry.time=20, clientagent.message.delivery.attempts=3, db.mongo.port=27017, clientagent.sync.retry.time=10, clientagent.nontunedjobinterval=0, jobhistoryserver.useexternalprogram=no, client.agent.hostname=ip-172-31-32-212, db.mongo.host=ip-172-31-43-74, clientagent.heartbeat.interval.mins=100, tomcat.install.dir=/opt/tomcat/, clientagent.basepath=/opt/sherpa/ClientAgent/}
+org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory hdfs://ec2-52-43-101-64.us-west-2.compute.amazonaws.com:9000/tsoutput/1 already exists
+	at org.apache.hadoop.examples.terasort.TeraOutputFormat.checkOutputSpecs(TeraOutputFormat.java:114)
+	at org.apache.hadoop.mapreduce.JobSubmitter.checkSpecs(JobSubmitter.java:266)
+	at org.apache.hadoop.mapreduce.JobSubmitter.submitJobInternal(JobSubmitter.java:139)
+	at org.apache.hadoop.mapreduce.Job$10.run(Job.java:1304)
+	at org.apache.hadoop.mapreduce.Job$10.run(Job.java:1301)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1657)
+	at org.apache.hadoop.mapreduce.Job.submit(Job.java:1301)
+	at org.apache.hadoop.mapreduce.SherpaJob.waitForCompletion(SherpaJob.java:272)
+	at org.apache.hadoop.mapreduce.Job.waitForCompletion(Job.java:1343)
+	at org.apache.hadoop.examples.terasort.TeraSort.run(TeraSort.java:316)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.hadoop.examples.terasort.TeraSort.main(TeraSort.java:325)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+java.lang.NullPointerException
+	at org.apache.hadoop.mapreduce.SherpaJob.waitForCompletion(SherpaJob.java:381)
+	at org.apache.hadoop.mapreduce.Job.waitForCompletion(Job.java:1343)
+	at org.apache.hadoop.examples.terasort.TeraSort.run(TeraSort.java:316)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.hadoop.examples.terasort.TeraSort.main(TeraSort.java:325)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)

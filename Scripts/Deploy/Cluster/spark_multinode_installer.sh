@@ -41,9 +41,9 @@ printHeader "Installing Spark ${SPARK_VERSION}"
 cd $spark_dir
 
 print "Downloading Apache Spark ${SPARK_VERSION} ..."
-wget http://www.eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.6.tgz
-tar -xzvf spark-${SPARK_VERSION}-bin-hadoop2.6.tgz
-cd spark-${SPARK_VERSION}-bin-hadoop2.6
+wget http://www.eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+tar -xzvf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+cd spark-${SPARK_VERSION}-bin-hadoop2.7
 
 print "Setting up Spark configuration files ..."
 echo "
@@ -61,8 +61,8 @@ cp ${hosts_file} conf/slaves
 
 # Copies Spark Files to all hosts
 print "Copying Spark Files to All Hosts ..."
-pdsh -w ^${hosts_file} -x ${master} "mkdir -p ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6"
-pdcp -r -w ^${hosts_file} -x ${master} ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/ ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/
+pdsh -w ^${hosts_file} -x ${master} "mkdir -p ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7"
+pdcp -r -w ^${hosts_file} -x ${master} ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/ ${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/
 
 
 
@@ -70,14 +70,14 @@ pdcp -r -w ^${hosts_file} -x ${master} ${spark_dir}/spark-${SPARK_VERSION}-bin-h
 print "Creating Spark Start/Stop Scripts ..."
 rm ${scripts_dir}/spark_start.sh
 touch ${scripts_dir}/spark_start.sh
-echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/sbin/start-master.sh"                                  >> ${scripts_dir}/spark_start.sh
-echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/sbin/start-slaves.sh"                                  >> ${scripts_dir}/spark_start.sh
-echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/sbin/start-history-server.sh"                          >> ${scripts_dir}/spark_start.sh
+echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/sbin/start-master.sh"                                  >> ${scripts_dir}/spark_start.sh
+echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/sbin/start-slaves.sh"                                  >> ${scripts_dir}/spark_start.sh
+echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/sbin/start-history-server.sh"                          >> ${scripts_dir}/spark_start.sh
 chmod +x ${scripts_dir}/spark_start.sh
 
 rm ${scripts_dir}/spark_stop.sh
 touch ${scripts_dir}/spark_stop.sh
-echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/sbin/stop-all.sh"                                  >> ${scripts_dir}/spark_stop.sh
+echo "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/sbin/stop-all.sh"                                  >> ${scripts_dir}/spark_stop.sh
 chmod +x ${scripts_dir}/spark_stop.sh
 
 
@@ -95,10 +95,10 @@ ${scripts_dir}/spark_start.sh
 print "Setting up Path & Environment Variables ..."
 
 # defines SPARK_HOME
-defineEnvironmentVar "SPARK_HOME" "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/"
+defineEnvironmentVar "SPARK_HOME" "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/"
 
 # adds Spark bin to Path variable
-addToPath "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.6/bin/"
+addToPath "${spark_dir}/spark-${SPARK_VERSION}-bin-hadoop2.7/bin/"
 
 
 jps

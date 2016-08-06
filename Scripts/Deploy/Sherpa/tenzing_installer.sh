@@ -24,6 +24,18 @@ function fileExists(){
 }
 
 
+
+if [[ "${INSTALL_DB}" != "yes"  ]];
+then
+    echo "Skipping Mongo DB Installation ..."
+else
+    echo "Installing Mongo DB ..."
+    ./db_installer.sh
+fi
+
+
+
+
 # Make sure required files exist
 #fileExists  "tenzing-services.war"
 fileExists  "sherpa.properties"
@@ -133,12 +145,4 @@ else
     echo "Tenzing did not respond, check tomcat logs ..."
 fi
 
-
-if [[ "${INSTALL_DB}" != "yes"  ]];
-then
-    echo "Skipping Mongo DB Installation ..."
-else
-    echo "Installing Mongo DB ..."
-    ./db_installer.sh
-fi
 

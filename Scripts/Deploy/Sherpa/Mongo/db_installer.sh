@@ -58,6 +58,8 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.2.asc" > /etc/yum.repos.d/mon
 sudo yum install -y mongodb-org
 mkdir -p /data/db
 #sudo service mongod start
+
+sed -i "s~bindIp: 127.0.0.1~#bindIp: 127.0.0.1~" /etc/mongod.conf
 mongod --fork --logpath mongo.log
 
 fi

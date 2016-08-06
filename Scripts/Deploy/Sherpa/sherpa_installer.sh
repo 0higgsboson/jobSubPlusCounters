@@ -1,13 +1,23 @@
 #!/bin/bash
 #set -e
 
+# Save Script Working Dir
+CWD=`dirname "$0"`
+CWD=`cd "$CWD"; pwd`
+
+
+# load configurations & utils functions
+source "${CWD}"/configurations.sh
+source "${CWD}"/utils.sh
+
+
 
 function printUsage(){
     echo "Usage: command [arguments]"
     echo "./sherpa_installer package distro_name hadoop_version [build_code]      Packages CA & Client installers for customers "
     echo "./sherpa_installer tenzing hadoop_version [build_code]                  Packages Tenzing "
 
-    echo "Supported hadoop versions : 2.7.* | 2.6.* "
+    echo "Supported hadoop versions : 2.7.* | 2.6.* | hdp 2.3.6"
     echo "Setting build code to yes will build the jars, set it to no when code already built and jars/wars files are present, defaults to yes"
     exit
 }
@@ -18,11 +28,21 @@ if [ "$#" -lt 2 ]; then
 fi
 
 
+git_protocol=https://github.com/
+if [[ "$AUTH_TYPE" = "ssh"  ]];
+then
+    git_protocol=git@github.com:
+fi
+
+
+
 command=$1
 if [[ "${command}" != "package"  && "${command}" != "tenzing"  ]]; then
     echo "Error: Supported commands are [ package |  tenzing ]..."
     exit
 fi
+
+
 
 
 
@@ -39,6 +59,44 @@ if [[ "${command}" = "package"   ]]; then
         build_code=yes
     fi
 
+    if [[ ${DISTRO_NAME} == "apache" ]]; then
+        echo "Apache Distro ..."
+
+        if [[ ${HADOOP_VERSION} == *"2.7"* ]]; then
+            MR_REPO_URL=${git_protocol}0higgsboson/hadoop2.7.git
+            MR_SRC_DIR=hadoop2.7
+            ACTIVE_PROFILE=H2.7.1
+        else
+            MR_REPO_URL=${git_protocol}0higgsboson/mrClient.git
+            MR_SRC_DIR=mrClient
+            ACTIVE_PROFILE=H2.6
+        fi
+
+        HIVE_REPO_URL=${git_protocol}0higgsboson/hiveClientSherpa.git
+        HIVE_SRC_DIR=hiveClientSherpa
+        clients_src_dir="${CHECK_IN_BASE_DIR}/apache"
+
+
+
+    elif [[ ${DISTRO_NAME} == "hdp" ]]; then
+        echo "HDP Distro ..."
+
+        if [[ ${HADOOP_VERSION} == "2.3.6" ]]; then
+            MR_REPO_URL=${git_protocol}performance-sherpa/HDP-mr-client-2.3.6.git
+            HIVE_REPO_URL=${git_protocol}performance-sherpa/HDP-hive.git
+            MR_SRC_DIR=HDP-mr-client-2.3.6
+            HIVE_SRC_DIR=HDP-hive
+            ACTIVE_PROFILE=H2.7.1
+            clients_src_dir="${CHECK_IN_BASE_DIR}/hdp"
+
+        else
+            echo "Error: HDP version not supported ..."
+            exit 1
+        fi
+
+    fi
+
+
 elif [[ "${command}" = "tenzing"   ]]; then
     HADOOP_VERSION=$2
     if [ "$#" -eq 3 ]; then
@@ -47,52 +105,19 @@ elif [[ "${command}" = "tenzing"   ]]; then
         build_code=yes
     fi
 
-
-
-
 fi
 
 
 
 
 
-
-
-
-# Save Script Working Dir
-CWD=`dirname "$0"`
-CWD=`cd "$CWD"; pwd`
-
-
-# load configurations & utils functions
-source "${CWD}"/configurations.sh
-source "${CWD}"/utils.sh
-
-
-mr_client_src_dir="${CHECK_IN_BASE_DIR}/mr_client_src/"
-hive_client_src_dir="${CHECK_IN_BASE_DIR}/hive_client_src"
 jobSubPlus_src_dir="${CHECK_IN_BASE_DIR}/jobSubPub_src"
 common_src_dir="${CHECK_IN_BASE_DIR}/tzCtCommon"
 tenzing_src_dir="${CHECK_IN_BASE_DIR}/tenzing_src"
 clientagent_src_dir="${CHECK_IN_BASE_DIR}/clientagent_src"
 
 
-git_protocol=https://github.com/
-if [[ "$AUTH_TYPE" = "ssh"  ]];
-then
-    git_protocol=git@github.com:
-fi
 
-if [[ ${HADOOP_VERSION} == *"2.7"* ]]; then
-    MR_REPO_URL=${git_protocol}0higgsboson/hadoop2.7.git
-    MR_SRC_DIR=hadoop2.7
-    ACTIVE_PROFILE=H2.7.1
-else
-    MR_REPO_URL=${git_protocol}0higgsboson/mrClient.git
-    MR_SRC_DIR=mrClient
-    ACTIVE_PROFILE=H2.6
-fi
-HIVE_REPO_URL=${git_protocol}0higgsboson/hiveClientSherpa.git
 JOBSUBPLUS_REPO_URL=${git_protocol}0higgsboson/jobSubPlusCounters.git
 TZCTCOMMON_REPO_URL=${git_protocol}0higgsboson/TzCtCommon.git
 TENZING_REPO_URL=${git_protocol}0higgsboson/Tenzing.git
@@ -102,11 +127,11 @@ CLIENTAGENT_REPO_URL=${git_protocol}0higgsboson/ClientAgent.git
 
 # Create Directory Structure
 print "Creating dir structure ..."
-mkdir -p $mr_client_src_dir
-mkdir -p $hive_client_src_dir
 mkdir -p $common_src_dir
 mkdir -p $tenzing_src_dir
 mkdir -p $clientagent_src_dir
+mkdir -p $clients_src_dir
+
 
 
 #print "Updating ..."
@@ -122,11 +147,26 @@ runCommand "-y install git"
 print "Checking maven install.."
 runCommand "-y install maven"
 
+# Installing proto buff 2.5
+sudo apt-get install build-essential
+wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
+tar xzvf protobuf-2.5.0.tar.gz
+cd  protobuf-2.5.0
+./configure
+make
+make check
+sudo make install
+sudo ldconfig
+protoc --version
+cd ..
+
+
 function fetchCode(){
     clone_dir=$1
     repo_name=$2
     repo_url=$3
 
+    echo "Repo: ${repo_url}"
     if [ -d "${clone_dir}/${repo_name}/" ]; then
         echo "Pulling latest code ..."
         cd ${clone_dir}/${repo_name}/
@@ -175,7 +215,7 @@ function addBuildNumber(){
 }
 
 
-function prepareApachePackage(){
+function preparePackage(){
 
     mkdir -p ${PACKAGE_DIR}
     cd ${PACKAGE_DIR}
@@ -185,7 +225,7 @@ function prepareApachePackage(){
 
 
     print "Copying Files ..."
-    cp  ${mr_client_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
+    cp  ${clients_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
     rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-sources.jar
     rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-tests.jar
     rm  ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*-test-sources.jar
@@ -194,8 +234,8 @@ function prepareApachePackage(){
 
 
 
-    cp   ${hive_client_src_dir}/hiveClientSherpa/cli/target/hive-cli*.jar                       ${PACKAGE_DIR}/sherpa/
-    cp   ${hive_client_src_dir}/hiveClientSherpa/ql/target/hive-exec*.jar                       ${PACKAGE_DIR}/sherpa/
+    cp ${clients_src_dir}/${HIVE_SRC_DIR}/cli/target/hive-cli*.jar                          ${PACKAGE_DIR}/sherpa/
+    cp ${clients_src_dir}/${HIVE_SRC_DIR}/ql/target/hive-exec*.jar                          ${PACKAGE_DIR}/sherpa/
     rm ${PACKAGE_DIR}/sherpa/hive-exec-*core.jar
     rm ${PACKAGE_DIR}/sherpa/hive-exec-*tests.jar
 
@@ -224,17 +264,17 @@ function addSourceCodeToPackage(){
     mkdir -p sherpa/Hive/Cli
     mkdir -p sherpa/Hive/Ql
 
-    cp "${mr_client_src_dir}/${MR_SRC_DIR}/pom.xml"                                                    ${PACKAGE_DIR}/sherpa/MR/
-    cp "${mr_client_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/Job.java"         ${PACKAGE_DIR}/sherpa/MR/
-    cp "${mr_client_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/SherpaJob.java"   ${PACKAGE_DIR}/sherpa/MR/
+    cp "${clients_src_dir}/${MR_SRC_DIR}/pom.xml"                                                    ${PACKAGE_DIR}/sherpa/MR/
+    cp "${clients_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/Job.java"         ${PACKAGE_DIR}/sherpa/MR/
+    cp "${clients_src_dir}/${MR_SRC_DIR}/src/main/java/org/apache/hadoop/mapreduce/SherpaJob.java"   ${PACKAGE_DIR}/sherpa/MR/
 
 
-    cp "${hive_client_src_dir}/hiveClientSherpa/cli/pom.xml"                                             ${PACKAGE_DIR}/sherpa/Hive/Cli/
-    cp "${hive_client_src_dir}/hiveClientSherpa/cli/src/java/org/apache/hadoop/hive/cli/CliDriver.java"  ${PACKAGE_DIR}/sherpa/Hive/Cli/
+    cp "${clients_src_dir}/${HIVE_SRC_DIR}/cli/pom.xml"                                             ${PACKAGE_DIR}/sherpa/Hive/Cli/
+    cp "${clients_src_dir}/${HIVE_SRC_DIR}/cli/src/java/org/apache/hadoop/hive/cli/CliDriver.java"  ${PACKAGE_DIR}/sherpa/Hive/Cli/
 
 
-    cp "${hive_client_src_dir}/hiveClientSherpa/ql/pom.xml"                                                       ${PACKAGE_DIR}/sherpa/Hive/Ql/
-    cp "${hive_client_src_dir}/hiveClientSherpa/ql/src/java/org/apache/hadoop/hive/ql/session/SessionState.java"  ${PACKAGE_DIR}/sherpa/Hive/Ql/
+    cp "${clients_src_dir}/${HIVE_SRC_DIR}/ql/pom.xml"                                                       ${PACKAGE_DIR}/sherpa/Hive/Ql/
+    cp "${clients_src_dir}/${HIVE_SRC_DIR}/ql/src/java/org/apache/hadoop/hive/ql/session/SessionState.java"  ${PACKAGE_DIR}/sherpa/Hive/Ql/
 
 }
 
@@ -252,10 +292,10 @@ then
     fetchCode ${common_src_dir} TzCtCommon ${TZCTCOMMON_REPO_URL}
 
     print "Cloning Custom Hive Project"
-    fetchCode ${hive_client_src_dir} hiveClientSherpa ${HIVE_REPO_URL}
+    fetchCode ${clients_src_dir} ${HIVE_SRC_DIR} ${HIVE_REPO_URL}
 
     print "Cloning custom MR Project"
-    fetchCode ${mr_client_src_dir} ${MR_SRC_DIR} ${MR_REPO_URL}
+    fetchCode ${clients_src_dir} ${MR_SRC_DIR} ${MR_REPO_URL}
 
     print "Cloning Tenzing Project"
     fetchCode ${tenzing_src_dir} Tenzing ${TENZING_REPO_URL}
@@ -300,7 +340,7 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging Hive Client"
-    cd $hive_client_src_dir/hiveClientSherpa
+    cd ${clients_src_dir}/${HIVE_SRC_DIR}
     mvn clean package -pl ql,cli,metastore  -Phadoop-2  -DskipTests
 
 
@@ -310,8 +350,16 @@ if [[ "${build_code}" = "yes"  ]]; then
     # ======================================================================================================================================
 
     printHeader "Packaging MR Client"
-    cd ${mr_client_src_dir}/${MR_SRC_DIR}
-    mvn clean package -Pdist -DskipTests
+    cd ${clients_src_dir}/${MR_SRC_DIR}
+    if [[ ${DISTRO_NAME} == "apache" ]]; then
+        mvn clean package -Pdist -DskipTests
+    else
+        cd hadoop-mapreduce-project/hadoop-mapreduce-client
+        mvn clean package -Pdist -DskipTests
+    fi
+
+
+
 else
     echo "Skipping code compilation ..."
 fi
@@ -322,13 +370,13 @@ fi
 
 if [ "${command}" == "package" ]; then
     echo "Packaging Sherpa CA & Client Artifacts ..."
+    preparePackage
+
     if [ "${DISTRO_NAME}" == "hdp" ]; then
-            prepareApachePackage
-            cp   ${hive_client_src_dir}/hiveClientSherpa/metastore/target/hive-metastore*.jar                       ${PACKAGE_DIR}/sherpa/
-            rm  ${PACKAGE_DIR}/sherpa/hive-metastore*tests*.jar
-    else
-            prepareApachePackage
+        cp   ${clients_src_dir}/${HIVE_SRC_DIR}/metastore/target/hive-metastore*.jar                       ${PACKAGE_DIR}/sherpa/
+        rm  ${PACKAGE_DIR}/sherpa/hive-metastore*tests*.jar
     fi
+
     addBuildNumber ${PACKAGE_DIR}/sherpa
     tar -czvf sherpa.tar.gz sherpa/
     rm -r sherpa

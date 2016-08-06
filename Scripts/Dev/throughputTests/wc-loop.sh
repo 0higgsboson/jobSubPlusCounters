@@ -1,10 +1,18 @@
 #!/bin/bash
 
-for i in `seq 1 360` ;
+for i in `seq 1 100` ;
 do
     echo "submission " $i
     date
-    sleep 35 
-    nohup /root/data1/wc-mr-01.sh > /dev/null 2>&1 &
+    if (( $i%10 == 1)) 
+    then 
+      nohup /root/jobSubPlusCounters/Scripts/Dev/throughputTests/wc1.sh > /dev/null 2>&1 &
+      echo "Unmanaged"
+    else
+      nohup /root/jobSubPlusCounters/Scripts/Dev/throughputTests/wc2.sh > /dev/null 2>&1 &
+      echo "Managed"
+    fi
+    sleep 420 
 done
+
 

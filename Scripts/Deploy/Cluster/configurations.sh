@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GIT_SERVER=130.211.164.139
+USE_GIT_SERVER=no
 SETUP_QUEUES=no
 
 # Common Configurations

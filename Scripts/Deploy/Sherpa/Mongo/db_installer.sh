@@ -30,6 +30,7 @@ then
 
     sudo apt-get update
     sudo apt-get install -y mongodb-org
+    sed -i "s~bindIp: 127.0.0.1~#bindIp: 127.0.0.1~" /etc/mongod.conf
     sudo service mongod start
 
     curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -

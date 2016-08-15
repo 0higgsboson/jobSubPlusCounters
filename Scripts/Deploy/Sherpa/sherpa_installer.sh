@@ -147,19 +147,24 @@ runCommand "-y install git"
 print "Checking maven install.."
 runCommand "-y install maven"
 
-# Installing proto buff 2.5
-sudo apt-get install build-essential
-wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-tar xzvf protobuf-2.5.0.tar.gz
-cd  protobuf-2.5.0
-./configure
-make
-make check
-sudo make install
-sudo ldconfig
-protoc --version
-cd ..
 
+proto=$(protoc --version)
+if [[ $proto != "libprotoc"*  ]]; then
+    # Installing proto buff 2.5
+    sudo apt-get install build-essential
+    wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
+    tar xzvf protobuf-2.5.0.tar.gz
+    cd  protobuf-2.5.0
+    ./configure
+    make
+    make check
+    sudo make install
+    sudo ldconfig
+    protoc --version
+    cd ..
+else
+    echo "Protocol buffer already installed ..."
+fi
 
 function fetchCode(){
     clone_dir=$1

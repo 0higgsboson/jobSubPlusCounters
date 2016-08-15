@@ -70,10 +70,13 @@ printHeader "Installing Hadoop"
 print "Downloading Hadoop ${HADOOP_VERSION} ..."
 
 cd $hadoop_dir
-#wget https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
-git clone git://${GIT_SERVER}/hadoop-${HADOOP_VERSION}.git
-cp hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz hadoop-${HADOOP_VERSION}.tar.gz
-rm -r hadoop-${HADOOP_VERSION}/
+if [[ ${USE_GIT_SERVER} == "no"  ]]; then
+    wget https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+else
+    git clone git://${GIT_SERVER}/hadoop-${HADOOP_VERSION}.git
+    cp hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz hadoop-${HADOOP_VERSION}.tar.gz
+    rm -r hadoop-${HADOOP_VERSION}/
+fi
 
 tar -xzf hadoop-${HADOOP_VERSION}.tar.gz
 cd hadoop-${HADOOP_VERSION}

@@ -1,0 +1,4935 @@
+[
+  {
+  "clusterID": "sherpa",
+  "conf": {
+    "mapreduce_reduce_shuffle_parallelcopies": "5",
+    "mapreduce_input_fileinputformat_split_maxsize": "",
+    "mapreduce_map_sort_spill_percent": "0.80",
+    "mapreduce_reduce_memory_mb": "1024",
+    "mapreduce_reduce_merge_inmem_threshold": "1000",
+    "java_heap_size_reduce": "",
+    "mapreduce_map_memory_mb": "1024",
+    "mapreduce_reduce_shuffle_merge_percent": "0.66",
+    "mapreduce_task_io_sort_mb": "100",
+    "java_heap_size_map": "",
+    "mapreduce_map_cpu_vcores": "1",
+    "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+    "mapreduce_reduce_input_buffer_percent": "0.0",
+    "mapreduce_job_reduces": "1",
+    "mapreduce_reduce_cpu_vcores": "1",
+    "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+    "mapreduce_tasktracker_indexcache_mb": "10"
+  },
+  "counters": {
+    "BYTES_WRITTEN_MAP": {
+      "value": 0
+    },
+    "BAD_ID_REDUCE": {
+      "value": 0
+    },
+    "BYTES_READ_MAP": {
+      "value": 1409
+    },
+    "FILE_BYTES_WRITTEN_REDUCE": {
+      "value": 121571
+    },
+    "HDFS_BYTES_READ_MAP": {
+      "value": 1528
+    },
+    "VCORES_MILLIS_MAPS_TOTAL": {
+      "value": 2155
+    },
+    "GC_TIME_MILLIS_REDUCE": {
+      "value": 30
+    },
+    "MERGED_MAP_OUTPUTS_REDUCE": {
+      "value": 1
+    },
+    "HDFS_WRITE_OPS_MAP": {
+      "value": 0
+    },
+    "DATA_LOCAL_MAPS_TOTAL": {
+      "value": 1
+    },
+    "WRONG_REDUCE_MAP": {
+      "value": 0
+    },
+    "SLOTS_MILLIS_REDUCES_TOTAL": {
+      "value": 2360
+    },
+    "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+      "value": 0
+    },
+    "SPILLED_RECORDS_MAP": {
+      "value": 33
+    },
+    "CONNECTION_MAP": {
+      "value": 0
+    },
+    "VCORES_MILLIS_REDUCES_REDUCE": {
+      "value": 0
+    },
+    "HDFS_WRITE_OPS_REDUCE": {
+      "value": 2
+    },
+    "REDUCE_SHUFFLE_BYTES_MAP": {
+      "value": 0
+    },
+    "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+      "value": 1746
+    },
+    "FILE_BYTES_READ_MAP": {
+      "value": 0
+    },
+    "HDFS_BYTES_WRITTEN_MAP": {
+      "value": 0
+    },
+    "COMBINE_OUTPUT_RECORDS_TOTAL": {
+      "value": 0
+    },
+    "COMBINE_OUTPUT_RECORDS_MAP": {
+      "value": 0
+    },
+    "REDUCE_INPUT_RECORDS_MAP": {
+      "value": 0
+    },
+    "FILE_READ_OPS_REDUCE": {
+      "value": 0
+    },
+    "DATA_LOCAL_MAPS_REDUCE": {
+      "value": 0
+    },
+    "VCORES_MILLIS_MAPS_MAP": {
+      "value": 0
+    },
+    "BYTES_READ_TOTAL": {
+      "value": 1409
+    },
+    "WRONG_REDUCE_REDUCE": {
+      "value": 0
+    },
+    "VCORES_MILLIS_MAPS_REDUCE": {
+      "value": 0
+    },
+    "PHYSICAL_MEMORY_BYTES_TOTAL": {
+      "value": 431828992
+    },
+    "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+      "value": 1
+    },
+    "FAILED_SHUFFLE_MAP": {
+      "value": 0
+    },
+    "MAP_OUTPUT_RECORDS_REDUCE": {
+      "value": 0
+    },
+    "FILE_WRITE_OPS_REDUCE": {
+      "value": 0
+    },
+    "SPLIT_RAW_BYTES_TOTAL": {
+      "value": 119
+    },
+    "MILLIS_MAPS_TOTAL": {
+      "value": 2155
+    },
+    "HDFS_BYTES_READ_REDUCE": {
+      "value": 0
+    },
+    "COMBINE_INPUT_RECORDS_MAP": {
+      "value": 0
+    },
+    "REDUCE_OUTPUT_RECORDS_REDUCE": {
+      "value": 33
+    },
+    "FAILED_SHUFFLE_REDUCE": {
+      "value": 0
+    },
+    "MILLIS_MAPS_MAP": {
+      "value": 0
+    },
+    "VCORES_MILLIS_REDUCES_TOTAL": {
+      "value": 2360
+    },
+    "BYTES_WRITTEN_REDUCE": {
+      "value": 1547
+    },
+    "MAP_OUTPUT_BYTES_TOTAL": {
+      "value": 1674
+    },
+    "WRONG_LENGTH_MAP": {
+      "value": 0
+    },
+    "MB_MILLIS_MAPS_REDUCE": {
+      "value": 0
+    },
+    "BAD_ID_MAP": {
+      "value": 0
+    },
+    "SHUFFLED_MAPS_TOTAL": {
+      "value": 1
+    },
+    "SPLIT_RAW_BYTES_MAP": {
+      "value": 119
+    },
+    "IO_ERROR_MAP": {
+      "value": 0
+    },
+    "REDUCE_INPUT_RECORDS_REDUCE": {
+      "value": 33
+    },
+    "COMMITTED_HEAP_BYTES_TOTAL": {
+      "value": 402653184
+    },
+    "TOTAL_LAUNCHED_MAPS_TOTAL": {
+      "value": 1
+    },
+    "BYTES_READ_REDUCE": {
+      "value": 0
+    },
+    "WRONG_MAP_TOTAL": {
+      "value": 0
+    },
+    "MAP_INPUT_RECORDS_TOTAL": {
+      "value": 33
+    },
+    "FILE_BYTES_WRITTEN_MAP": {
+      "value": 121626
+    },
+    "WRONG_REDUCE_TOTAL": {
+      "value": 0
+    },
+    "FILE_WRITE_OPS_MAP": {
+      "value": 0
+    },
+    "FILE_BYTES_READ_REDUCE": {
+      "value": 1746
+    },
+    "Execution_Time": {
+      "value": 9464
+    },
+    "MERGED_MAP_OUTPUTS_MAP": {
+      "value": 0
+    },
+    "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+      "value": 1746
+    },
+    "MB_MILLIS_MAPS_MAP": {
+      "value": 0
+    },
+    "CPU_MILLISECONDS_TOTAL": {
+      "value": 1060
+    },
+    "MERGED_MAP_OUTPUTS_TOTAL": {
+      "value": 1
+    },
+    "SLOTS_MILLIS_REDUCES_MAP": {
+      "value": 0
+    },
+    "HDFS_READ_OPS_REDUCE": {
+      "value": 3
+    },
+    "BYTES_WRITTEN_TOTAL": {
+      "value": 1547
+    },
+    "GC_TIME_MILLIS_TOTAL": {
+      "value": 45
+    },
+    "HDFS_WRITE_OPS_TOTAL": {
+      "value": 2
+    },
+    "COMMITTED_HEAP_BYTES_REDUCE": {
+      "value": 201326592
+    },
+    "SLOTS_MILLIS_MAPS_MAP": {
+      "value": 0
+    },
+    "REDUCE_INPUT_GROUPS_MAP": {
+      "value": 0
+    },
+    "FILE_BYTES_WRITTEN_TOTAL": {
+      "value": 243197
+    },
+    "MB_MILLIS_REDUCES_MAP": {
+      "value": 0
+    },
+    "WRONG_MAP_MAP": {
+      "value": 0
+    },
+    "VIRTUAL_MEMORY_BYTES_REDUCE": {
+      "value": 863244288
+    },
+    "TOTAL_LAUNCHED_MAPS_MAP": {
+      "value": 0
+    },
+    "MAP_OUTPUT_RECORDS_TOTAL": {
+      "value": 33
+    },
+    "GC_TIME_MILLIS_MAP": {
+      "value": 15
+    },
+    "SHUFFLED_MAPS_REDUCE": {
+      "value": 1
+    },
+    "REDUCE_OUTPUT_RECORDS_MAP": {
+      "value": 0
+    },
+    "COMBINE_OUTPUT_RECORDS_REDUCE": {
+      "value": 0
+    },
+    "FAILED_SHUFFLE_TOTAL": {
+      "value": 0
+    },
+    "HDFS_LARGE_READ_OPS_TOTAL": {
+      "value": 0
+    },
+    "COMMITTED_HEAP_BYTES_MAP": {
+      "value": 201326592
+    },
+    "COMBINE_INPUT_RECORDS_REDUCE": {
+      "value": 0
+    },
+    "MB_MILLIS_REDUCES_TOTAL": {
+      "value": 2416640
+    },
+    "MAP_OUTPUT_BYTES_REDUCE": {
+      "value": 0
+    },
+    "FILE_LARGE_READ_OPS_MAP": {
+      "value": 0
+    },
+    "TOTAL_LAUNCHED_REDUCES_MAP": {
+      "value": 0
+    },
+    "SPILLED_RECORDS_REDUCE": {
+      "value": 33
+    },
+    "CONNECTION_REDUCE": {
+      "value": 0
+    },
+    "FILE_READ_OPS_MAP": {
+      "value": 0
+    },
+    "DATA_LOCAL_MAPS_MAP": {
+      "value": 0
+    },
+    "MILLIS_MAPS_REDUCE": {
+      "value": 0
+    },
+    "FILE_LARGE_READ_OPS_REDUCE": {
+      "value": 0
+    },
+    "FILE_BYTES_READ_TOTAL": {
+      "value": 1746
+    },
+    "MAP_INPUT_RECORDS_MAP": {
+      "value": 33
+    },
+    "CPU_MILLISECONDS_MAP": {
+      "value": 300
+    },
+    "REDUCE_INPUT_GROUPS_TOTAL": {
+      "value": 33
+    },
+    "REDUCE_INPUT_RECORDS_TOTAL": {
+      "value": 33
+    },
+    "COMBINE_INPUT_RECORDS_TOTAL": {
+      "value": 0
+    },
+    "IO_ERROR_REDUCE": {
+      "value": 0
+    },
+    "HDFS_BYTES_WRITTEN_TOTAL": {
+      "value": 1547
+    },
+    "SPLIT_RAW_BYTES_REDUCE": {
+      "value": 0
+    },
+    "TOTAL_LAUNCHED_MAPS_REDUCE": {
+      "value": 0
+    },
+    "REDUCE_SHUFFLE_BYTES_REDUCE": {
+      "value": 1746
+    },
+    "MILLIS_REDUCES_MAP": {
+      "value": 0
+    },
+    "VCORES_MILLIS_REDUCES_MAP": {
+      "value": 0
+    },
+    "WRONG_LENGTH_TOTAL": {
+      "value": 0
+    },
+    "IO_ERROR_TOTAL": {
+      "value": 0
+    },
+    "REDUCE_SHUFFLE_BYTES_TOTAL": {
+      "value": 1746
+    },
+    "WRONG_LENGTH_REDUCE": {
+      "value": 0
+    },
+    "VIRTUAL_MEMORY_BYTES_TOTAL": {
+      "value": 1714081792
+    },
+    "SLOTS_MILLIS_MAPS_REDUCE": {
+      "value": 0
+    },
+    "CONNECTION_TOTAL": {
+      "value": 0
+    },
+    "HDFS_LARGE_READ_OPS_REDUCE": {
+      "value": 0
+    },
+    "WRONG_MAP_REDUCE": {
+      "value": 0
+    },
+    "MAP_OUTPUT_RECORDS_MAP": {
+      "value": 33
+    },
+    "CPU_MILLISECONDS_REDUCE": {
+      "value": 760
+    },
+    "FILE_LARGE_READ_OPS_TOTAL": {
+      "value": 0
+    },
+    "PHYSICAL_MEMORY_BYTES_REDUCE": {
+      "value": 167608320
+    },
+    "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+      "value": 0
+    },
+    "HDFS_BYTES_READ_TOTAL": {
+      "value": 1528
+    },
+    "FILE_READ_OPS_TOTAL": {
+      "value": 0
+    },
+    "SLOTS_MILLIS_MAPS_TOTAL": {
+      "value": 2155
+    },
+    "HDFS_LARGE_READ_OPS_MAP": {
+      "value": 0
+    },
+    "MAP_OUTPUT_BYTES_MAP": {
+      "value": 1674
+    },
+    "MILLIS_REDUCES_TOTAL": {
+      "value": 2360
+    },
+    "MAP_INPUT_RECORDS_REDUCE": {
+      "value": 0
+    },
+    "HDFS_READ_OPS_TOTAL": {
+      "value": 6
+    },
+    "MILLIS_REDUCES_REDUCE": {
+      "value": 0
+    },
+    "SHUFFLED_MAPS_MAP": {
+      "value": 0
+    },
+    "REDUCE_OUTPUT_RECORDS_TOTAL": {
+      "value": 33
+    },
+    "VIRTUAL_MEMORY_BYTES_MAP": {
+      "value": 850837504
+    },
+    "REDUCE_INPUT_GROUPS_REDUCE": {
+      "value": 33
+    },
+    "PHYSICAL_MEMORY_BYTES_MAP": {
+      "value": 264220672
+    },
+    "MB_MILLIS_MAPS_TOTAL": {
+      "value": 2206720
+    },
+    "SPILLED_RECORDS_TOTAL": {
+      "value": 66
+    },
+    "HDFS_BYTES_WRITTEN_REDUCE": {
+      "value": 1547
+    },
+    "MB_MILLIS_REDUCES_REDUCE": {
+      "value": 0
+    },
+    "SLOTS_MILLIS_REDUCES_REDUCE": {
+      "value": 0
+    },
+    "FILE_WRITE_OPS_TOTAL": {
+      "value": 0
+    },
+    "BAD_ID_TOTAL": {
+      "value": 0
+    },
+    "HDFS_READ_OPS_MAP": {
+      "value": 3
+    }
+  },
+  "workloadID": "tc_1",
+  "jobMetaData": {
+    "executionTime": 9464,
+    "latency": 4515,
+    "startTime": "2016-07-01 00:00:00",
+    "finishTime": "2016-07-01 00:05:00",
+    "jobID": "job_1469083239011_0008",
+    "tag": "NA",
+    "computeEngineType": "mr",
+    "sherpaTuned": "No",
+    "costObjective": "",
+    "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+    "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+    "user": "root",
+    "queue": "default"
+  },
+  "state": "SUCCESS",
+  "tunedParamsTypes": "TUNED",
+  "servedToClientCount": 0,
+  "isBestConfig": "false",
+  "originator": "Client",
+  "clientSeqNo": 1,
+  "tenzingSeqNo": 0,
+  "cost": 0,
+  "attempts": 0
+},
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-02 07:00:00",
+      "finishTime": "2016-07-02 07:50:00",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-02 09:00:00",
+      "finishTime": "2016-07-02 10:02:00",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-03 11:00:00",
+      "finishTime": "2016-07-03 11:23:00",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1_2",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1_2",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1_2",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  },
+  {
+    "clusterID": "sherpa",
+    "conf": {
+      "mapreduce_reduce_shuffle_parallelcopies": "5",
+      "mapreduce_input_fileinputformat_split_maxsize": "",
+      "mapreduce_map_sort_spill_percent": "0.80",
+      "mapreduce_reduce_memory_mb": "1024",
+      "mapreduce_reduce_merge_inmem_threshold": "1000",
+      "java_heap_size_reduce": "",
+      "mapreduce_map_memory_mb": "1024",
+      "mapreduce_reduce_shuffle_merge_percent": "0.66",
+      "mapreduce_task_io_sort_mb": "100",
+      "java_heap_size_map": "",
+      "mapreduce_map_cpu_vcores": "1",
+      "mapreduce_job_reduce_slowstart_completedmaps": "0.05",
+      "mapreduce_reduce_input_buffer_percent": "0.0",
+      "mapreduce_job_reduces": "1",
+      "mapreduce_reduce_cpu_vcores": "1",
+      "mapreduce_reduce_shuffle_input_buffer_percent": "0.70",
+      "mapreduce_tasktracker_indexcache_mb": "10"
+    },
+    "counters": {
+      "BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "BAD_ID_REDUCE": {
+        "value": 0
+      },
+      "BYTES_READ_MAP": {
+        "value": 1409
+      },
+      "FILE_BYTES_WRITTEN_REDUCE": {
+        "value": 121571
+      },
+      "HDFS_BYTES_READ_MAP": {
+        "value": 1528
+      },
+      "VCORES_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "GC_TIME_MILLIS_REDUCE": {
+        "value": 30
+      },
+      "MERGED_MAP_OUTPUTS_REDUCE": {
+        "value": 1
+      },
+      "HDFS_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_TOTAL": {
+        "value": 1
+      },
+      "WRONG_REDUCE_MAP": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "TOTAL_LAUNCHED_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_MAP": {
+        "value": 33
+      },
+      "CONNECTION_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_WRITE_OPS_REDUCE": {
+        "value": 2
+      },
+      "REDUCE_SHUFFLE_BYTES_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "FILE_BYTES_READ_MAP": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "FILE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "BYTES_READ_TOTAL": {
+        "value": 1409
+      },
+      "WRONG_REDUCE_REDUCE": {
+        "value": 0
+      },
+      "VCORES_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_TOTAL": {
+        "value": 431828992
+      },
+      "TOTAL_LAUNCHED_REDUCES_TOTAL": {
+        "value": 1
+      },
+      "FAILED_SHUFFLE_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_REDUCE": {
+        "value": 0
+      },
+      "SPLIT_RAW_BYTES_TOTAL": {
+        "value": 119
+      },
+      "MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "COMBINE_INPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "FAILED_SHUFFLE_REDUCE": {
+        "value": 0
+      },
+      "MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MAP_OUTPUT_BYTES_TOTAL": {
+        "value": 1674
+      },
+      "WRONG_LENGTH_MAP": {
+        "value": 0
+      },
+      "MB_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "BAD_ID_MAP": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "SPLIT_RAW_BYTES_MAP": {
+        "value": 119
+      },
+      "IO_ERROR_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "COMMITTED_HEAP_BYTES_TOTAL": {
+        "value": 402653184
+      },
+      "TOTAL_LAUNCHED_MAPS_TOTAL": {
+        "value": 1
+      },
+      "BYTES_READ_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_TOTAL": {
+        "value": 0
+      },
+      "MAP_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "FILE_BYTES_WRITTEN_MAP": {
+        "value": 121626
+      },
+      "WRONG_REDUCE_TOTAL": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_REDUCE": {
+        "value": 1746
+      },
+      "Execution_Time": {
+        "value": 9464
+      },
+      "MERGED_MAP_OUTPUTS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_MAP": {
+        "value": 1746
+      },
+      "MB_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "CPU_MILLISECONDS_TOTAL": {
+        "value": 1060
+      },
+      "MERGED_MAP_OUTPUTS_TOTAL": {
+        "value": 1
+      },
+      "SLOTS_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_REDUCE": {
+        "value": 3
+      },
+      "BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "GC_TIME_MILLIS_TOTAL": {
+        "value": 45
+      },
+      "HDFS_WRITE_OPS_TOTAL": {
+        "value": 2
+      },
+      "COMMITTED_HEAP_BYTES_REDUCE": {
+        "value": 201326592
+      },
+      "SLOTS_MILLIS_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_INPUT_GROUPS_MAP": {
+        "value": 0
+      },
+      "FILE_BYTES_WRITTEN_TOTAL": {
+        "value": 243197
+      },
+      "MB_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_MAP_MAP": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_REDUCE": {
+        "value": 863244288
+      },
+      "TOTAL_LAUNCHED_MAPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "GC_TIME_MILLIS_MAP": {
+        "value": 15
+      },
+      "SHUFFLED_MAPS_REDUCE": {
+        "value": 1
+      },
+      "REDUCE_OUTPUT_RECORDS_MAP": {
+        "value": 0
+      },
+      "COMBINE_OUTPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "FAILED_SHUFFLE_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "COMMITTED_HEAP_BYTES_MAP": {
+        "value": 201326592
+      },
+      "COMBINE_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "MB_MILLIS_REDUCES_TOTAL": {
+        "value": 2416640
+      },
+      "MAP_OUTPUT_BYTES_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_REDUCES_MAP": {
+        "value": 0
+      },
+      "SPILLED_RECORDS_REDUCE": {
+        "value": 33
+      },
+      "CONNECTION_REDUCE": {
+        "value": 0
+      },
+      "FILE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "DATA_LOCAL_MAPS_MAP": {
+        "value": 0
+      },
+      "MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "FILE_BYTES_READ_TOTAL": {
+        "value": 1746
+      },
+      "MAP_INPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_MAP": {
+        "value": 300
+      },
+      "REDUCE_INPUT_GROUPS_TOTAL": {
+        "value": 33
+      },
+      "REDUCE_INPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "COMBINE_INPUT_RECORDS_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_WRITTEN_TOTAL": {
+        "value": 1547
+      },
+      "SPLIT_RAW_BYTES_REDUCE": {
+        "value": 0
+      },
+      "TOTAL_LAUNCHED_MAPS_REDUCE": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_REDUCE": {
+        "value": 1746
+      },
+      "MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "VCORES_MILLIS_REDUCES_MAP": {
+        "value": 0
+      },
+      "WRONG_LENGTH_TOTAL": {
+        "value": 0
+      },
+      "IO_ERROR_TOTAL": {
+        "value": 0
+      },
+      "REDUCE_SHUFFLE_BYTES_TOTAL": {
+        "value": 1746
+      },
+      "WRONG_LENGTH_REDUCE": {
+        "value": 0
+      },
+      "VIRTUAL_MEMORY_BYTES_TOTAL": {
+        "value": 1714081792
+      },
+      "SLOTS_MILLIS_MAPS_REDUCE": {
+        "value": 0
+      },
+      "CONNECTION_TOTAL": {
+        "value": 0
+      },
+      "HDFS_LARGE_READ_OPS_REDUCE": {
+        "value": 0
+      },
+      "WRONG_MAP_REDUCE": {
+        "value": 0
+      },
+      "MAP_OUTPUT_RECORDS_MAP": {
+        "value": 33
+      },
+      "CPU_MILLISECONDS_REDUCE": {
+        "value": 760
+      },
+      "FILE_LARGE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "PHYSICAL_MEMORY_BYTES_REDUCE": {
+        "value": 167608320
+      },
+      "MAP_OUTPUT_MATERIALIZED_BYTES_REDUCE": {
+        "value": 0
+      },
+      "HDFS_BYTES_READ_TOTAL": {
+        "value": 1528
+      },
+      "FILE_READ_OPS_TOTAL": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_MAPS_TOTAL": {
+        "value": 2155
+      },
+      "HDFS_LARGE_READ_OPS_MAP": {
+        "value": 0
+      },
+      "MAP_OUTPUT_BYTES_MAP": {
+        "value": 1674
+      },
+      "MILLIS_REDUCES_TOTAL": {
+        "value": 2360
+      },
+      "MAP_INPUT_RECORDS_REDUCE": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_TOTAL": {
+        "value": 6
+      },
+      "MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SHUFFLED_MAPS_MAP": {
+        "value": 0
+      },
+      "REDUCE_OUTPUT_RECORDS_TOTAL": {
+        "value": 33
+      },
+      "VIRTUAL_MEMORY_BYTES_MAP": {
+        "value": 850837504
+      },
+      "REDUCE_INPUT_GROUPS_REDUCE": {
+        "value": 33
+      },
+      "PHYSICAL_MEMORY_BYTES_MAP": {
+        "value": 264220672
+      },
+      "MB_MILLIS_MAPS_TOTAL": {
+        "value": 2206720
+      },
+      "SPILLED_RECORDS_TOTAL": {
+        "value": 66
+      },
+      "HDFS_BYTES_WRITTEN_REDUCE": {
+        "value": 1547
+      },
+      "MB_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "SLOTS_MILLIS_REDUCES_REDUCE": {
+        "value": 0
+      },
+      "FILE_WRITE_OPS_TOTAL": {
+        "value": 0
+      },
+      "BAD_ID_TOTAL": {
+        "value": 0
+      },
+      "HDFS_READ_OPS_MAP": {
+        "value": 3
+      }
+    },
+    "workloadID": "tc_1_2",
+    "jobMetaData": {
+      "executionTime": 9464,
+      "latency": 4515,
+      "startTime": "2016-07-21 11:11:07",
+      "finishTime": "2016-07-21 11:11:16",
+      "jobID": "job_1469083239011_0008",
+      "tag": "NA",
+      "computeEngineType": "mr",
+      "sherpaTuned": "No",
+      "costObjective": "",
+      "jobUrl": "http://ip-172-31-36-31:19888/ws/v1/history/mapreduce/jobs/job_1469083239011_0008/counters",
+      "jobName": "oozie:action:T=map-reduce:W=map-reduce-wf:A=mr-node:ID=0000004-160721061716385-oozie-root-W",
+      "user": "root",
+      "queue": "default"
+    },
+    "state": "SUCCESS",
+    "tunedParamsTypes": "TUNED",
+    "servedToClientCount": 0,
+    "isBestConfig": "false",
+    "originator": "Client",
+    "clientSeqNo": 1,
+    "tenzingSeqNo": 0,
+    "cost": 0,
+    "attempts": 0
+  }
+
+
+]

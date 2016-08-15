@@ -43,12 +43,13 @@ printHeader "Installing Hive ${HIVE_VERSION}"
 cd $hive_dir
 
 print "Downloading Apache Hive ${HIVE_VERSION} ..."
-#wget http://www.eu.apache.org/dist/hive/stable/apache-hive-${HIVE_VERSION}-bin.tar.gz
-
-git clone git://${GIT_SERVER}/apache-hive-${HIVE_VERSION}-bin.git
-cp apache-hive-${HIVE_VERSION}-bin/apache-hive-${HIVE_VERSION}-bin.tar.gz   apache-hive-${HIVE_VERSION}-bin.tar.gz
-rm -r apache-hive-${HIVE_VERSION}-bin/
-
+if [[ ${USE_GIT_SERVER} == "no"  ]]; then
+    wget http://www.eu.apache.org/dist/hive/stable/apache-hive-${HIVE_VERSION}-bin.tar.gz
+else
+    git clone git://${GIT_SERVER}/apache-hive-${HIVE_VERSION}-bin.git
+    cp apache-hive-${HIVE_VERSION}-bin/apache-hive-${HIVE_VERSION}-bin.tar.gz   apache-hive-${HIVE_VERSION}-bin.tar.gz
+    rm -r apache-hive-${HIVE_VERSION}-bin/
+fi
 
 tar -xzf apache-hive-${HIVE_VERSION}-bin.tar.gz
 cd apache-hive-${HIVE_VERSION}-bin

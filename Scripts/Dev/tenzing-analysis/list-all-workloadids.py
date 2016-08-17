@@ -8,12 +8,7 @@ cursor = coll.find({},
                     {"_id":0, "workloadID":1, "jobMetaData.tag":1
                     })
 
-s = set()
 for job in cursor:
-     if job['workloadID'] in s:
-          continue
-     else:
-          s.add(job['workloadID'])
-          print job['workloadID'], "....", job['jobMetaData']['tag']
+     print job['workloadID'], "....", job['jobMetaData']['tag']
 
 

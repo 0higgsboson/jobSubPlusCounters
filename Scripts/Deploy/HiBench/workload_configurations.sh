@@ -1,15 +1,15 @@
 #!/bin/bash
 
-tenzing_host=tenzing
-tenzing_port=3052
+tenzing_host=ip-172-31-5-67
+tenzing_port=80
 tenzing_install_dir=/opt/sherpa/Tenzing/
 
-clientagent_host=client-agent
-clientagent_port=2552
+clientagent_host=ip-172-31-5-68
+clientagent_port=80
 clientagent_install_dir=/opt/sherpa/ClientAgent/
 
 queue_name=default
-dataProfile=large
+dataProfilesList=("tiny" "small" "large")
 #tuned_params_file=/root/sherpa/jobSubPub_src/jobSubPlusCounters/Scripts/Deploy/HiBench/tunedparams.json
 tuned_params_file=tunedparams.json
 
@@ -17,10 +17,11 @@ reset=no
 updateCA=no
 updateTenzing=no
 
-suffix=02-04-2016
+suffix=08-19-2016
 
-costObjectivesList=("Memory" "Latency" "CPU")
-workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
+costObjectivesList=("Memory")
+#workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
+workloadsList=("terasort" "wordcount" "sort" "aggregation" "join")
 
 
 

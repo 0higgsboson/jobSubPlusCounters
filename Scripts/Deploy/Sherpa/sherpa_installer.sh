@@ -111,7 +111,7 @@ fi
 
 
 
-jobSubPlus_src_dir="${CHECK_IN_BASE_DIR}/jobSubPub_src"
+jobSubPlus_src_dir="${CHECK_IN_BASE_DIR}/jobSubPlus_src"
 common_src_dir="${CHECK_IN_BASE_DIR}/tzCtCommon"
 tenzing_src_dir="${CHECK_IN_BASE_DIR}/tenzing_src"
 clientagent_src_dir="${CHECK_IN_BASE_DIR}/clientagent_src"
@@ -131,6 +131,7 @@ mkdir -p $common_src_dir
 mkdir -p $tenzing_src_dir
 mkdir -p $clientagent_src_dir
 mkdir -p $clients_src_dir
+mkdir -p $jubSubPlus_src_dir
 
 
 
@@ -148,17 +149,17 @@ print "Checking maven install.."
 runCommand "-y install maven"
 
 # Installing proto buff 2.5
-sudo apt-get install build-essential
-wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-tar xzvf protobuf-2.5.0.tar.gz
-cd  protobuf-2.5.0
-./configure
-make
-make check
-sudo make install
-sudo ldconfig
-protoc --version
-cd ..
+#sudo apt-get install build-essential
+#wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
+#tar xzvf protobuf-2.5.0.tar.gz
+#cd  protobuf-2.5.0
+#./configure
+#make
+#make check
+#sudo make install
+#sudo ldconfig
+#protoc --version
+#cd ..
 
 
 function fetchCode(){

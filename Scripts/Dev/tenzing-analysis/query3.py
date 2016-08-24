@@ -37,6 +37,7 @@ for job in cursor:
      if 'jobMetaData' in job:
           if 'latency' in job['jobMetaData']:
                print "Latency (s) = ", job['jobMetaData']['latency'] / 1000
+          print "Sherpa Tuned: ", job['jobMetaData']['sherpaTuned']
      print
 #     print job['conf']
 #     print job['counters']['VCORES_MILLIS_MAPS_TOTAL']

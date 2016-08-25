@@ -131,7 +131,7 @@ mkdir -p $common_src_dir
 mkdir -p $tenzing_src_dir
 mkdir -p $clientagent_src_dir
 mkdir -p $clients_src_dir
-mkdir -p $jubSubPlus_src_dir
+mkdir -p $jobSubPlus_src_dir
 
 
 

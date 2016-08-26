@@ -9,7 +9,7 @@ PACKAGE_DIR=/opt/sherpa/package
 CHECK_IN_BASE_DIR=/root/sherpa
 
 # Set to yes to clone repo's
-CLONE_REPOS=no
+CLONE_REPOS=yes
 
 # Name of sherpa branch to be used for clone/pull for installation
 BRANCH_NAME=master

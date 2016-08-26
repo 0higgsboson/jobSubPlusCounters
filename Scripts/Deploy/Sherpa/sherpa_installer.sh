@@ -149,18 +149,23 @@ print "Checking maven install.."
 runCommand "-y install maven"
 
 # Installing proto buff 2.5
-#sudo apt-get install build-essential
-#wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
-#tar xzvf protobuf-2.5.0.tar.gz
-#cd  protobuf-2.5.0
-#./configure
-#make
-#make check
-#sudo make install
-#sudo ldconfig
-#protoc --version
-#cd ..
-
+protoc_installed=`protoc --version 2> /dev/null | awk '{print $2}'`
+if [ -z $protoc_installed -o "$protoc_installed" != "2.5.0" ]; then
+    sudo apt-get install build-essential
+    wget https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+#    wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
+    tar xzvf protobuf-2.5.0.tar.gz
+    cd  protobuf-2.5.0
+    ./configure
+    make
+    make check
+    sudo make install
+    sudo ldconfig
+    protoc --version
+    cd ..
+else
+    echo "Protobuf $protoc_installed already installed"
+fi
 
 function fetchCode(){
     clone_dir=$1
@@ -175,8 +180,7 @@ function fetchCode(){
     else
         echo "Cloning repo ..."
         cd ${clone_dir}
-        git clone ${repo_url}
-        git checkout ${BRANCH_NAME}
+        git clone ${repo_url} --branch ${BRANCH_NAME}
     fi
 
 }
@@ -318,6 +322,7 @@ if [[ "${build_code}" = "yes"  ]]; then
     cd ${common_src_dir}/TzCtCommon/
     mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
 
+exit
 
     #
     #   Packaging Tenzing

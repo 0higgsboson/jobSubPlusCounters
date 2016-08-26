@@ -149,6 +149,7 @@ print "Checking maven install.."
 runCommand "-y install maven"
 
 # Installing proto buff 2.5
+print "Installing Protobuf ..."
 protoc_installed=`protoc --version 2> /dev/null | awk '{print $2}'`
 if [ -z $protoc_installed -o "$protoc_installed" != "2.5.0" ]; then
     sudo apt-get install build-essential
@@ -321,8 +322,6 @@ if [[ "${build_code}" = "yes"  ]]; then
     printHeader "Installing TzCtCommon Project"
     cd ${common_src_dir}/TzCtCommon/
     mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
-
-exit
 
     #
     #   Packaging Tenzing

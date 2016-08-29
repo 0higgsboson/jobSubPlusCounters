@@ -1,16 +1,17 @@
 #!/bin/bash
 
 iters=30
+
 now=$(date +"%Y_%d_%m_%H_%M_%S")
 output_file="out-ts-loop-small-default-then-best-"${now}".txt"
 echo "# of iterations: "$iters > ${output_file}
 
 function wait_until_no_jobs() {
-    while [ `(hadoop job -list 2>/dev/null | grep 'Total jobs' | awk --field-separator : '{print $2;}')` -eq "0" ]
+    while [ `(hadoop job -list 2>/dev/null | grep 'Total jobs' | awk -F : '{print $2;}')` -eq "0" ]
       do
         sleep 1
       done
-    while [ `(hadoop job -list 2>/dev/null | grep 'Total jobs' | awk --field-separator : '{print $2;}')` -ne "0" ]
+    while [ `(hadoop job -list 2>/dev/null | grep 'Total jobs' | awk -F : '{print $2;}')` -ne "0" ]
       do
         sleep 1
       done
@@ -24,7 +25,7 @@ for i in `seq 1 ${iters}` ;
 do
     echo "submission " $i
     date
-    nohup /root/jobSubPlusCounters/Scripts/Dev/throughputTests/ts-small-default.sh > /dev/null 2>&1 &
+    nohup ./ts-small-default.sh > /dev/null 2>&1 &
     sleep 1
 done
 
@@ -43,7 +44,7 @@ for i in `seq 1 ${iters}` ;
 do
     echo "submission " $i
     date
-    nohup /root/jobSubPlusCounters/Scripts/Dev/throughputTests/ts-small-best.sh > /dev/null 2>&1 &
+    nohup ./throughputTests/ts-small-best.sh > /dev/null 2>&1 &
     sleep 1
 done
 wait_until_no_jobs

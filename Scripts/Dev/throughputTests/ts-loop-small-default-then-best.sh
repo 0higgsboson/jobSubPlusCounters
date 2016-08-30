@@ -44,7 +44,7 @@ for i in `seq 1 ${iters}` ;
 do
     echo "submission " $i
     date
-    nohup ./throughputTests/ts-small-best.sh > /dev/null 2>&1 &
+    nohup ./ts-small-best.sh > /dev/null 2>&1 &
     sleep 1
 done
 wait_until_no_jobs

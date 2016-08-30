@@ -34,9 +34,11 @@ for job in cursor:
                print "VCores  = ", job['counters']['VCORES_MILLIS_MAPS_TOTAL']['value'] + job['counters']['VCORES_MILLIS_REDUCES_TOTAL']['value']
           if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
                print "Memory (GB-s) = ", (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000
+          if 'Latency' in job['counters']:
+               print "Latency in counters: ", job['counters']['Latency']
      if 'jobMetaData' in job:
           if 'latency' in job['jobMetaData']:
-               print "Latency (s) = ", job['jobMetaData']['latency'] / 1000
+               print "Latency in jobMetaData (s) = ", job['jobMetaData']['latency'] / 1000
           print "Sherpa Tuned: ", job['jobMetaData']['sherpaTuned']
      print
 #     print job['conf']

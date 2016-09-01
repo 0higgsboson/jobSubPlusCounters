@@ -151,7 +151,7 @@ runCommand "-y install maven"
 # Installing proto buff 2.5
 print "Installing Protobuf ..."
 protoc_installed=`protoc --version 2> /dev/null | awk '{print $2}'`
-if [ -z $protoc_installed -o "$protoc_installed" != "2.5.0" ]; then
+if [ -z "$protoc_installed" -o "$protoc_installed" != "2.5.0" ]; then
     sudo apt-get install build-essential
     wget https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
 #    wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz

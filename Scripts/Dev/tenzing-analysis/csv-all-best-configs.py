@@ -1,0 +1,85 @@
+#!/usr/bin/python
+import pymongo
+from pymongo import MongoClient
+import collections
+
+client = MongoClient() 
+db = client.sherpa
+coll = db.reports
+tzcoll = db.tenzings
+cursor = coll.find({},
+                    {"_id":0, "workloadID":1, "jobMetaData.tag":1
+                    })
+
+s = set()
+csvtable = collections.OrderedDict()
+firstLine = True
+for job in cursor:
+     if job['workloadID'] in s:
+          continue
+     elif job['jobMetaData']['tag'] == 'NA':
+          continue
+     else:
+          s.add(job['workloadID'])
+#          print job['workloadID'], "....", job['jobMetaData']['tag']
+          workloadID = job['workloadID']
+          tag = job['jobMetaData']['tag']
+          tz = tzcoll.find_one({"workloadID":workloadID})
+          if 'bestConfig' in tz:
+               if firstLine:
+                    csvtable['0'] = collections.OrderedDict()
+                    csvtable['0']['workloadID'] = 'workloadID'
+                    csvtable['0']['tag'] = 'Tag'
+               csvtable[workloadID] = collections.OrderedDict()
+               csvtable[workloadID]['workloadID'] = workloadID
+               csvtable[workloadID]['tag'] = tag
+               bestConfig = tz['bestConfig']['tunedParams']
+               for confName, confValue in bestConfig.iteritems():
+                    if firstLine:
+                         csvtable['0'][confName] = confName
+                    csvtable[workloadID][confName] = confValue['value']
+               if firstLine:
+                    csvtable['0']['Cost'] = "Cost"
+                    csvtable['0']['CostObjective'] = "CostObjective"
+                    csvtable['0']['Memory'] = "Memory"
+                    csvtable['0']['CPU'] = "CPU"
+                    csvtable['0']['Latency'] = "Latency"
+                    firstLine = False
+               csvtable[workloadID]['Cost'] = tz['bestConfig']['cost']
+               csvtable[workloadID]['CostObjective'] = tz['costObjective']
+               job = tz['bestConfig']
+               if 'counters' in job:
+                    if 'CPU_MILLISECONDS_MAP' in job['counters'] and 'CPU_MILLISECONDS_REDUCE' in job['counters']:
+                         csvtable[workloadID]['CPU'] = job['counters']['CPU_MILLISECONDS_MAP']['value'] + job['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                    if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
+                         csvtable[workloadID]['Memory'] = (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000
+                    if 'jobMetaData' in job:
+                         if 'latency' in job['jobMetaData']:
+                              csvtable[workloadID]['Latency'] = job['jobMetaData']['latency'] / 1000
+for rowName, row in csvtable.iteritems():
+     firstItem = True
+     for key in csvtable['0']:
+          if key in row:
+               value = str(row[key])
+          else:
+               value = "-1"
+          if firstItem:
+               rowstr = value
+               firstItem = False
+          else:
+               rowstr += ", " + value
+     print rowstr
+
+
+     
+
+
+
+
+
+
+
+
+
+
+

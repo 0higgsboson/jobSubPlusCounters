@@ -24,7 +24,7 @@ source configurations.sh
 # includes utils functions
 source utils.sh
 
-# defines hosts_file and master variables, these two variables will be used throughout the script
+# defines hosts_file and master variables, these two variables will be used through out the script
 setupMasterNode "$1"
 
 scriptHost=`hostname`
@@ -73,9 +73,8 @@ cd $hadoop_dir
 if [[ ${USE_GIT_SERVER} == "no"  ]]; then
     wget https://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 else
-    git clone git://${GIT_SERVER}/hadoop-${HADOOP_VERSION}.git
-    cp hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz hadoop-${HADOOP_VERSION}.tar.gz
-    rm -r hadoop-${HADOOP_VERSION}/
+    git clone git@github.com:performance-sherpa/ThirdParty.git
+    cat ThirdParty/hadoop-${HADOOP_VERSION}.git/hadoop-${HADOOP_VERSION}.tar.gz.a* >> hadoop-${HADOOP_VERSION}.tar.gz
 fi
 
 tar -xzf hadoop-${HADOOP_VERSION}.tar.gz

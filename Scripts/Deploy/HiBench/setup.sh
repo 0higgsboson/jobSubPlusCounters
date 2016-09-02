@@ -28,7 +28,8 @@ cd ${installation_base_dir}
 
 # Clones HiBench Project
 #git clone ${hibench_url}
-git clone git://${GIT_SERVER}/HiBench.git
+git clone git@github.com:performance-sherpa/ThirdParty.git
+mv ThirdParty/HiBench.git HiBench
 cd HiBench
 
 # Builds the project

@@ -92,6 +92,8 @@ fi
 
 for workload in "${workloadsList[@]}"
 do
+     for dataProfile in "${dataProfilesList[@]}"
+     do
          if [[ "${workload}" = "sort" || "${workload}" = "terasort" || "${workload}" = "wordcount" || "${workload}" = "kmeans" || "${workload}" = "bayes" ]]
          then
               echo "MR workload ..."
@@ -140,6 +142,8 @@ do
 
         #cost objectives
         done
+     # data profiles
+     done
 # workloads
 done
 

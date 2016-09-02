@@ -19,8 +19,8 @@ updateTenzing=no
 
 costObjectivesList=("Memory")
 #workloadsList=("sort" "wordcount" "kmeans" "bayes" "scan" "join" "aggregation")
-#workloadsList=("terasort" "wordcount" "sort" "aggregation" "join")
-workloadsList=("terasort")
+workloadsList=("wordcount" "sort" "aggregation" "join")
+#workloadsList=("terasort")
 
 
 
@@ -28,13 +28,3 @@ workloadsList=("terasort")
 # Set executable file names for Tenzing & CA installed on Tenzing & CA machines,  executable files not required locally 
 tenzing_executable_file=Tenzing-1.0-jar-with-dependencies.jar
 clientagent_executable_file=ClientAgent-1.0-jar-with-dependencies.jar
-suffix=08-26-2016-1
-suffix=08-26-2016-2
-suffix=08-26-2016-3
-suffix=08-26-2016-4
-suffix=08-26-2016-5
-suffix=08-26-2016-6
-suffix=08-26-2016-7
-suffix=08-26-2016-8
-suffix=08-26-2016-9
-suffix=08-26-2016-10

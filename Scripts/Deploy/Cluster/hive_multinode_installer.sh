@@ -46,9 +46,8 @@ print "Downloading Apache Hive ${HIVE_VERSION} ..."
 if [[ ${USE_GIT_SERVER} == "no"  ]]; then
     wget http://www.eu.apache.org/dist/hive/stable/apache-hive-${HIVE_VERSION}-bin.tar.gz
 else
-    git clone git://${GIT_SERVER}/apache-hive-${HIVE_VERSION}-bin.git
-    cp apache-hive-${HIVE_VERSION}-bin/apache-hive-${HIVE_VERSION}-bin.tar.gz   apache-hive-${HIVE_VERSION}-bin.tar.gz
-    rm -r apache-hive-${HIVE_VERSION}-bin/
+    git clone git@github.com:performance-sherpa/ThirdParty.git
+    cp ThirdParty/apache-hive-${HIVE_VERSION}-bin.git/apache-hive-${HIVE_VERSION}-bin.tar.gz    apache-hive-${HIVE_VERSION}-bin.tar.gz
 fi
 
 tar -xzf apache-hive-${HIVE_VERSION}-bin.tar.gz

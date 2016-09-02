@@ -12,7 +12,6 @@ CA_HOSTNAME=SherpaDevVM
 TENZING_HOSTNAME=SherpaDevVM
 
 
-hibench_dir=/root/jobSubPlusCounters/Scripts/Deploy/HiBench/
 client_install_dir=/opt/sherpa/lib
 ca_install_dir=/opt/sherpa/ClientAgent
 ca_tomcat_dir=/opt/tomcat
@@ -23,8 +22,8 @@ jobsubplus_src_dir=/root/sherpa/jobSubPub_src/
 common_src_dir=/root/sherpa/tzCtCommon/
 tenzing_src_dir=/root/sherpa/tenzing_src/
 clientagent_src_dir=/root/sherpa/clientagent_src/
-mr_client_src_dir=/root/sherpa/apache/
-hive_client_src_dir=/root/sherpa/apache/
+mr_client_src_dir=/root/sherpa/mr_client_src/
+hive_client_src_dir=/root/sherpa/hive_client_src/
 
 
 
@@ -78,16 +77,15 @@ fi
 
 echo "Updating & Building Code ..."
 echo "--------------------------------------------------------------------"
-${CWD}/sherpa_installer.sh package apache 2.7.1
+./sherpa_installer.sh package apache 2.7.1 yes
 echo  "Done Building Code"
 echo ""
 
 
 echo "Updating Client ...."
 echo "--------------------------------------------------------------------"
-pdsh -w ${CLIENT_HOSTNAME} "rm -r ${client_install_dir}/"
-pdsh -w ${CLIENT_HOSTNAME} "mkdir -p ${client_install_dir}/"
-
+pdsh -w ${CLIENT_HOSTNAME} "rm -r ${client_install_dir}"
+pdsh -w ${CLIENT_HOSTNAME} "mkdir -p ${client_install_dir}"
 pdcp -w ${CLIENT_HOSTNAME}  ${common_src_dir}/TzCtCommon/target/TzCtCommon*jar-with-dependencies*.jar   ${client_install_dir}/
 
 if [[ ${HADOOP_VERSION} == *"2.7"* ]]
@@ -109,11 +107,10 @@ echo ""
 echo "Updating Tenzing ...."
 echo "--------------------------------------------------------------------"
 pdsh -w ${TENZING_HOSTNAME} "supervisorctl stop Tomcat"
-sleep 10
 pdsh -w ${TENZING_HOSTNAME} "rm -rf  ${tenzing_tomcat_dir}/apache-tomcat-${TOMCAT_VERSION}/webapps/tenzing-services*"
 pdcp -w ${TENZING_HOSTNAME}  ${tenzing_src_dir}/Tenzing/RestServices/target/tenzing-services*.war   ${tenzing_tomcat_dir}/apache-tomcat-${TOMCAT_VERSION}/webapps/tenzing-services.war
 pdsh -w ${TENZING_HOSTNAME} "supervisorctl start Tomcat"
-sleep 20
+
 echo "Done Updating Tenzing..."
 echo ""
 
@@ -123,20 +120,17 @@ echo ""
 echo "Updating CA ...."
 echo "--------------------------------------------------------------------"
 pdsh -w ${CA_HOSTNAME} "supervisorctl stop Tomcat"
-sleep 10
 pdsh -w ${CA_HOSTNAME} "rm -rf  ${ca_tomcat_dir}/apache-tomcat-${TOMCAT_VERSION}/webapps/ca-services*"
 pdcp -w ${CA_HOSTNAME}  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war   ${ca_tomcat_dir}/apache-tomcat-${TOMCAT_VERSION}/webapps/ca-services.war
 pdsh -w ${CA_HOSTNAME} "supervisorctl start Tomcat"
-sleep 20
+
 echo "Done Updating CA..."
 echo ""
 
 
-datetime=$(date +"%Y-%m-%d")
+datetime=$(date +"%Y-%m-%d-%H-%M-%S")
 #${CWD}/../HiBench/Throughput/hibench_throughput.sh sort       ${DATA_PROFILE} 1 51 ${datetime}
 #${CWD}/../HiBench/Throughput/hibench_throughput.sh terasort   ${DATA_PROFILE} 1 51 ${datetime}
 #${CWD}/../HiBench/Throughput/hibench_throughput.sh wordcount  ${DATA_PROFILE} 1 51 ${datetime}
 
-cd ${hibench_dir}
-./runWorkload.sh ${datetime}
 

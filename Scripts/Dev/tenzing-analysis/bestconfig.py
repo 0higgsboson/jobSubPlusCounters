@@ -16,8 +16,8 @@ tzcursor = tzcoll.find({"workloadID":workloadID})
                        
 for tz in tzcursor:
 #   print tz['workloadID']
+#   print tz['costObjective']
    bestConfig = tz['bestConfig']['tunedParams']
-#    print bestConfig
    s = ""
    if format == "csv":
        s += '"name", "value"\n'
@@ -28,4 +28,10 @@ for tz in tzcursor:
            s += '"' + confName + '",' + confValue['value'] + "\n"
        else:
            s += confName + " = " + confValue['value'] + "\n"
+   if format == "csv":
+      s += '"cost",' + str(tz['bestConfig']['cost']) + "\n"
+   elif format != "-D":
+      s += "----------------------------\n"
+      s+= "cost = " + str(tz['bestConfig']['cost'])
    print s
+   

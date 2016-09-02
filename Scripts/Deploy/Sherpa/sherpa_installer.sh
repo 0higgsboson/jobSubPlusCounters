@@ -111,7 +111,7 @@ fi
 
 
 
-jobSubPlus_src_dir="${CHECK_IN_BASE_DIR}/jobSubPub_src"
+jobSubPlus_src_dir="${CHECK_IN_BASE_DIR}/jobSubPlus_src"
 common_src_dir="${CHECK_IN_BASE_DIR}/tzCtCommon"
 tenzing_src_dir="${CHECK_IN_BASE_DIR}/tenzing_src"
 clientagent_src_dir="${CHECK_IN_BASE_DIR}/clientagent_src"
@@ -131,6 +131,7 @@ mkdir -p $common_src_dir
 mkdir -p $tenzing_src_dir
 mkdir -p $clientagent_src_dir
 mkdir -p $clients_src_dir
+mkdir -p $jobSubPlus_src_dir
 
 
 
@@ -147,12 +148,13 @@ runCommand "-y install git"
 print "Checking maven install.."
 runCommand "-y install maven"
 
-
-proto=$(protoc --version)
-if [[ $proto != "libprotoc"*  ]]; then
-    # Installing proto buff 2.5
+# Installing proto buff 2.5
+print "Installing Protobuf ..."
+protoc_installed=`protoc --version 2> /dev/null | awk '{print $2}'`
+if [ -z "$protoc_installed" -o "$protoc_installed" != "2.5.0" ]; then
     sudo apt-get install build-essential
-    wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
+    wget https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+#    wget http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
     tar xzvf protobuf-2.5.0.tar.gz
     cd  protobuf-2.5.0
     ./configure
@@ -163,7 +165,7 @@ if [[ $proto != "libprotoc"*  ]]; then
     protoc --version
     cd ..
 else
-    echo "Protocol buffer already installed ..."
+    echo "Protobuf $protoc_installed already installed"
 fi
 
 function fetchCode(){
@@ -179,8 +181,7 @@ function fetchCode(){
     else
         echo "Cloning repo ..."
         cd ${clone_dir}
-        git clone ${repo_url}
-        git checkout ${BRANCH_NAME}
+        git clone ${repo_url} --branch ${BRANCH_NAME}
     fi
 
 }
@@ -321,7 +322,6 @@ if [[ "${build_code}" = "yes"  ]]; then
     printHeader "Installing TzCtCommon Project"
     cd ${common_src_dir}/TzCtCommon/
     mvn clean install -DskipTests  -P${ACTIVE_PROFILE}
-
 
     #
     #   Packaging Tenzing

@@ -1,0 +1,12 @@
+{
+"hive.tez.container.size":{"name":"hive.tez.container.size","value":"1024","type":"INT","minVal":"256","maxVal":"2048","stepSize":"256"},
+"tez.runtime.io.sort.mb":{"name":"tez.runtime.io.sort.mb","value":"128","type":"INT","minVal":"64","maxVal":"190","stepSize":"10"},
+"hive.auto.convert.join.noconditionaltask.size":{"name":"hive.auto.convert.join.noconditionaltask.size","value":"128","type":"INT","minVal":"64","maxVal":"200","stepSize":"10"},
+"tez.container.max.java.heap.fraction":{"name":"tez.container.max.java.heap.fraction","value":"0.8","type":"DOUBLE","minVal":"0.7","maxVal":"0.95","stepSize":"0.01"},
+"tez.runtime.io.sort.factor":{"name":"tez.runtime.io.sort.factor","value":"10","type":"INT","minVal":"5","maxVal":"20","stepSize":"1"},
+"tez.runtime.sort.spill.percent":{"name":"tez.runtime.sort.spill.percent","value":"0.8","type":"DOUBLE","minVal":"0.6","maxVal":"0.9","stepSize":"0.01"},
+"tez.runtime.unordered.output. buffer.size-mb":{"name":"tez.runtime.unordered.output. buffer.size-mb","value":"100","type":"INT","minVal":"64","maxVal":"128","stepSize":"1"},
+"tez.shuffle-vertex-manager.max-src-fraction":{"name":"tez.shuffle-vertex-manager.max-src-fraction","value":"0.4","type":"DOUBLE","minVal":"0.3","maxVal":"0.6","stepSize":"0.01"},
+"tez.grouping.min-size":{"name":"tez.grouping.min-size","value":"16777216","type":"INT","minVal":"16777216","maxVal":"536870912","stepSize":"1024"},
+"tez.grouping.max-size":{"name":"tez.grouping.max-size","value":"1073741824","type":"INT","minVal":"134217728","maxVal":"1073741824","stepSize":"1024"}
+}

@@ -124,7 +124,7 @@ for job in cursor:
                     csvtable[prevWID]['Latency'] += csvtable[workloadID]['Latency']
                     csvtable[prevWID]['Default_Latency'] += csvtable[workloadID]['Default_Latency']
                     csvtable[prevWID]['Gain'] = computeGain(csvtable[prevWID])
-                    del csvtable[workloadID]
+                    csvtable[workloadID]['Tag'] = "DUP_" + csvtable[workloadID]['Tag']
                else:
                     d[tag] = workloadID
 # print header
@@ -149,25 +149,20 @@ for workload in workloads:
                     found = False
                     for workloadID, row in csvtable.iteritems():
                          tag = row['Tag']
-                         if tag.find(tagPrefix) == 0:
-                              found = True
-                              break
-                    if not found:
-                         continue
-                    firstItem = True
-                    for key in csvtable['0']:
-                         if key in row:
-                              value = str(row[key])
-                         else:
-                              value = "-1"
-                         if firstItem:
-                              rowstr = value
-                              firstItem = False
-                         else:
-                              rowstr += ", " + value
-                    print rowstr
+#                         print tagPrefix, "   ....   ", tag
+                         if tag.find(tagPrefix) == 0 or tag.find("DUP_" + tagPrefix) == 0:
+                              firstItem = True
+                              for key in csvtable['0']:
+                                   if key in row:
+                                        value = str(row[key])
+                                   else:
+                                        value = "-1"
+                                   if firstItem:
+                                        rowstr = value
+                                        firstItem = False
+                                   else:
+                                        rowstr += ", " + value
+                              print rowstr
                     if iterno == -1:
                          break
-
-
 

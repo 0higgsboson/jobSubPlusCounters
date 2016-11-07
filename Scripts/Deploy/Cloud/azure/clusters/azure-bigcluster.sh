@@ -1,0 +1,9 @@
+#!/bin/bash
+cluster="azure-bigcluster"
+nodes=50
+loc="westus"
+group="Cluster3"
+vnet=$group-vnet
+nsg="$group-nsg"
+vm_type="Standard_D4_v2"
+public_key="/root/.ssh/id_rsa.pub"

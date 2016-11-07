@@ -1,0 +1,9 @@
+#!/bin/bash
+cluster="azure-id1"
+nodes=10
+loc="westcentralus"
+group="Cluster1"
+vnet=$group-vnet
+nsg="$group-nsg"
+vm_type="Standard_D4_v2"
+public_key="/root/.ssh/id_rsa.pub"

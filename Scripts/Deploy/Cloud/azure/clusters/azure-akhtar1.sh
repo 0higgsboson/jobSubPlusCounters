@@ -1,0 +1,9 @@
+#!/bin/bash
+cluster="azure-akhtar1"
+nodes=5
+loc="westcentralus"
+group="Cluster2"
+vnet=$group-vnet
+nsg="$group-nsg"
+vm_type="Standard_D4_v2"
+public_key="./azure-akhtar"

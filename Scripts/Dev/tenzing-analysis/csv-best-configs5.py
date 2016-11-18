@@ -21,13 +21,12 @@ def computeGain(r):
 
 
 #workloads = ["terasort", "sort", "wordcount", "aggregation", "join"]
-workloads = ["aggregation"]
-dataSizes = ["100MB", "1GB", "10GB"]
+workloads = ["terasort", "aggregation", "wordcount"]
+dataSizes = ["1GB"]
 costObjectives = ["CPU", "Memory", "Latency"]
-suffix = "newtag-efficacy-10-24-2016"
-
-low = -1
-high = 5
+suffix = "newtag-snowflake-11-02-2016-"
+low = 1
+high = 4
 
 client = MongoClient() 
 db = client.sherpa
@@ -116,13 +115,14 @@ for job in cursor:
                if tag in d:
                     prevWID = d[tag]
 #                    print "##### Consolidating workload ", workloadID, " and ", prevWID
-                    csvtable[prevWID]['Cost'] += csvtable[workloadID]['Cost']
-                    csvtable[prevWID]['Memory'] += csvtable[workloadID]['Memory']
-                    csvtable[prevWID]['Default_Memory'] += csvtable[workloadID]['Default_Memory']
-                    csvtable[prevWID]['CPU'] += csvtable[workloadID]['CPU']
-                    csvtable[prevWID]['Default_CPU'] += csvtable[workloadID]['Default_CPU']
-                    csvtable[prevWID]['Latency'] += csvtable[workloadID]['Latency']
-                    csvtable[prevWID]['Default_Latency'] += csvtable[workloadID]['Default_Latency']
+                    div = 1.0
+                    csvtable[prevWID]['Cost'] += csvtable[workloadID]['Cost'] / div
+                    csvtable[prevWID]['Memory'] += csvtable[workloadID]['Memory'] / div
+                    csvtable[prevWID]['Default_Memory'] += csvtable[workloadID]['Default_Memory'] / div
+                    csvtable[prevWID]['CPU'] += csvtable[workloadID]['CPU'] / div
+                    csvtable[prevWID]['Default_CPU'] += csvtable[workloadID]['Default_CPU'] / div
+                    csvtable[prevWID]['Latency'] += csvtable[workloadID]['Latency'] / div
+                    csvtable[prevWID]['Default_Latency'] += csvtable[workloadID]['Default_Latency'] / div
                     csvtable[prevWID]['Gain'] = computeGain(csvtable[prevWID])
                     csvtable[workloadID]['Tag'] = "DUP_" + csvtable[workloadID]['Tag']
                else:

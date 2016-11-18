@@ -9,5 +9,5 @@ for i in `seq 1 $nodes`;
         str=""
     fi
     hostname=$cluster-$str$i
-    azure vm stop -vv -g $group -n $hostname
+    azure vm deallocate -vv -g $group -n $hostname
   done

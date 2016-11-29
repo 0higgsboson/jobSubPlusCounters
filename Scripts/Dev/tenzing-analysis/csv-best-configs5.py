@@ -21,12 +21,14 @@ def computeGain(r):
 
 
 #workloads = ["terasort", "sort", "wordcount", "aggregation", "join"]
-workloads = ["terasort", "aggregation", "wordcount"]
-dataSizes = ["1GB"]
+#workloads = ["terasort", "sort", "wordcount"]
+#workloads = ["aggregation", "join"]
+workloads = ["scan"]
+dataSizes = ["100MB", "1GB", "10GB"]
 costObjectives = ["CPU", "Memory", "Latency"]
-suffix = "newtag-snowflake-11-02-2016-"
-low = 1
-high = 4
+suffix = "newtag-efficacy-11-29-2016"
+low = -1
+high = 9
 
 client = MongoClient() 
 db = client.sherpa
@@ -87,10 +89,16 @@ for job in cursor:
                job = tz['bestConfig']
 #               print job
                if 'counters' in job:
-                    if 'CPU_MILLISECONDS_MAP' in job['counters'] and 'CPU_MILLISECONDS_REDUCE' in job['counters']:
-                         csvtable[workloadID]['CPU'] = job['counters']['CPU_MILLISECONDS_MAP']['value'] + job['counters']['CPU_MILLISECONDS_REDUCE']['value']
-                    if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
-                         csvtable[workloadID]['Memory'] = (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000.00
+                    csvtable[workloadID]['CPU'] = 0
+                    if 'CPU_MILLISECONDS_MAP' in job['counters']:
+                         csvtable[workloadID]['CPU'] += job['counters']['CPU_MILLISECONDS_MAP']['value']
+                    if 'CPU_MILLISECONDS_REDUCE' in job['counters']:
+                         csvtable[workloadID]['CPU'] += job['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                    csvtable[workloadID]['Memory'] = 0
+                    if 'MB_MILLIS_MAPS_TOTAL' in job['counters']:
+                         csvtable[workloadID]['Memory'] += job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] / 1000000.00
+                    if 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
+                         csvtable[workloadID]['Memory'] += job['counters']['MB_MILLIS_REDUCES_TOTAL']['value'] / 1000000.00
                     if 'jobMetaData' in job:
                          if 'latency' in job['jobMetaData']:
                               csvtable[workloadID]['Latency'] = job['jobMetaData']['latency'] / 1000.00
@@ -98,12 +106,16 @@ for job in cursor:
                    {"_id":0, "originator":1, "conf":1, "clientSeqNo":1, "counters":1, "state":1, "jobMetaData":1})
                if defaultjob:
                     if 'counters' in defaultjob:
-                         if 'MB_MILLIS_MAPS_TOTAL' in defaultjob['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in defaultjob['counters']:
-                              csvtable[workloadID]['Default_Memory'] = (defaultjob['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + defaultjob['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000.00
+                         if 'MB_MILLIS_MAPS_TOTAL' in defaultjob['counters']:
+                              csvtable[workloadID]['Default_Memory'] = defaultjob['counters']['MB_MILLIS_MAPS_TOTAL']['value'] / 1000000.00
+                              if 'MB_MILLIS_REDUCES_TOTAL' in defaultjob['counters']:
+                                   csvtable[workloadID]['Default_Memory'] += defaultjob['counters']['MB_MILLIS_REDUCES_TOTAL']['value'] / 1000000.00
                          else:
                               csvtable[workloadID]['Default_Memory'] = 0
-                         if 'CPU_MILLISECONDS_MAP' in defaultjob['counters'] and 'CPU_MILLISECONDS_REDUCE' in defaultjob['counters']:
-                              csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS_MAP']['value'] + defaultjob['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                         if 'CPU_MILLISECONDS_MAP' in defaultjob['counters']:
+                              csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS_MAP']['value']
+                              if 'CPU_MILLISECONDS_REDUCE' in defaultjob['counters']:
+                                   csvtable[workloadID]['Default_CPU'] += defaultjob['counters']['CPU_MILLISECONDS_REDUCE']['value']
                          else:
                               csvtable[workloadID]['Default_CPU'] = 0
                          if 'jobMetaData' in defaultjob:
@@ -114,7 +126,7 @@ for job in cursor:
                          csvtable[workloadID]['Gain'] = computeGain(csvtable[workloadID])
                if tag in d:
                     prevWID = d[tag]
-#                    print "##### Consolidating workload ", workloadID, " and ", prevWID
+                    #                    print "##### Consolidating workload ", workloadID, " and ", prevWID
                     div = 1.0
                     csvtable[prevWID]['Cost'] += csvtable[workloadID]['Cost'] / div
                     csvtable[prevWID]['Memory'] += csvtable[workloadID]['Memory'] / div

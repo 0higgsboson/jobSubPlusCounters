@@ -28,7 +28,7 @@ dataSizes = ["1GB"]
 costObjectives = ["CPU", "Memory", "Latency"]
 suffix = "newtag-snowflake-11-30-2016-"
 low = 1
-high = 2
+high = 3
 
 client = MongoClient() 
 db = client.sherpa
@@ -199,17 +199,16 @@ for workload in workloads:
                     rowstr = "Std Dev / Avg, "
                     col = "C"
                     for i in range(0,cols):
-                         rowstr += ",=STDEV.P("+col+str(min)+":"+col+str(max)+") / "+col+str(row)
+                         rowstr += ",=STDEV.P("+col+str(min)+":"+col+str(max)+")/"+col+str(row)
                          if col == 'Z':
                               break
                          else:
                               col = chr(ord(col)+1)
                     print rowstr
                     rowstr = "Std Dev / Range, "
-                    row+=1
                     col = "C"
                     for i in range(0,cols):
-                         rowstr += ",="+col+str(row)+" / " + col + str(rangeRow)
+                         rowstr += ",="+col+str(row)+"*" + col + str(row+1) + "/" + col + str(rangeRow)
                          if col == 'Z':
                               break
                          else:

@@ -23,12 +23,12 @@ def computeGain(r):
 #workloads = ["terasort", "sort", "wordcount", "aggregation", "join"]
 #workloads = ["terasort", "sort", "wordcount"]
 #workloads = ["aggregation", "join"]
-workloads = ["scan"]
-dataSizes = ["100MB", "1GB", "10GB"]
+workloads = ["aggregation", "join", "scan"]
+dataSizes = ["1GB"]
 costObjectives = ["CPU", "Memory", "Latency"]
-suffix = "newtag-efficacy-11-29-2016"
-low = -1
-high = 9
+suffix = "newtag-snowflake-11-30-2016-"
+low = 1
+high = 2
 
 client = MongoClient() 
 db = client.sherpa
@@ -148,6 +148,10 @@ for key,value in csvtable['0'].iteritems():
      else:
           rowstr += ", " + str(value)
 print rowstr
+print "Range"
+print "Min Values"
+rowcount = 3
+rangeRow = 2
 
 #print rows
 for workload in workloads:
@@ -177,4 +181,37 @@ for workload in workloads:
                               print rowstr
                     if iterno == -1:
                          break
-
+               if iterno != -1 and high != low:
+                    min = rowcount + 1
+                    max = rowcount + 1 + high - low
+                    rowcount += high - low + 4
+                    cols = len(row['Tag']) - 1
+                    col = "C"
+                    row = max + 1
+                    rowstr = "Average, "
+                    for i in range(0,cols):
+                         rowstr += ",=AVERAGE("+col+str(min)+":"+col+str(max)+")"
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr
+                    rowstr = "Std Dev / Avg, "
+                    col = "C"
+                    for i in range(0,cols):
+                         rowstr += ",=STDEV.P("+col+str(min)+":"+col+str(max)+") / "+col+str(row)
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr
+                    rowstr = "Std Dev / Range, "
+                    row+=1
+                    col = "C"
+                    for i in range(0,cols):
+                         rowstr += ",="+col+str(row)+" / " + col + str(rangeRow)
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr

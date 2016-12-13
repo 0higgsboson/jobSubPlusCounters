@@ -11,4 +11,6 @@ for i in `seq 1 $nodes`;
     fi
     hostname=$cluster-$str$i
     azure vm delete -q -g $group -n $hostname
+    azure network nic delete -q -g $group -n $hostname-nic
+    azure network public-ip delete -q -g $group -n $hostname-pip
   done

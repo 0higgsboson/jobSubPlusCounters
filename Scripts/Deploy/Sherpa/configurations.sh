@@ -23,6 +23,8 @@ SUPERVISE_PROCESS=yes
 
 HIVE_VERSION=1.2.1
 
+#Java configuration
+JAVA_VERSION=7
 
 # Mongo DB Configurations
 #======================================================================================

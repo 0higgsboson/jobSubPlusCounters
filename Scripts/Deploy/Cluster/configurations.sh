@@ -8,6 +8,9 @@ SETUP_QUEUES=no
 installation_base_dir=/root
 scripts_dir="${installation_base_dir}/scripts/"
 
+#Java configuration
+JAVA_VERSION=7
+
 
 # Hadoop Configurations
 HADOOP_VERSION=2.7.1

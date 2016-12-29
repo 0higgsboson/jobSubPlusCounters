@@ -72,7 +72,7 @@ elif [[ ${DISTRO_NAME} == "hdp" ]]; then
          HIVE_SRC_DIR=HDP-hive
          ACTIVE_PROFILE=H2.4.2
          clients_src_dir="${CHECK_IN_BASE_DIR}/hdp"
-         BRANCH_NAME=HDP-2.4.2.40-tag
+         TAG_NAME=HDP-2.4.2.40-tag
      else
          echo "Error: HDP version not supported ..."
          exit 1
@@ -145,6 +145,24 @@ function fetchCode(){
         echo "Cloning repo ..."
         cd ${clone_dir}
         git clone ${repo_url} --branch ${BRANCH_NAME}
+    fi
+
+}
+
+function fetchCodeHDP(){
+    clone_dir=$1
+    repo_name=$2
+    repo_url=$3
+
+    echo "Repo: ${repo_url}"
+    if [ -d "${clone_dir}/${repo_name}/" ]; then
+        echo "Pulling latest code ..."
+        cd ${clone_dir}/${repo_name}/
+        git pull origin ${TAG_NAME}
+    else
+        echo "Cloning repo ..."
+        cd ${clone_dir}
+        git clone ${repo_url} --branch ${TAG_NAME}
     fi
 
 }
@@ -259,8 +277,13 @@ then
     print "Cloning Custom Hive Project"
     fetchCode ${clients_src_dir} ${HIVE_SRC_DIR} ${HIVE_REPO_URL}
 
-    print "Cloning custom MR Project"
-    fetchCode ${clients_src_dir} ${MR_SRC_DIR} ${MR_REPO_URL}
+    if [[ ${DISTRO_NAME} == "hdp" &&  ${HADOOP_VERSION} == "2.4.2" ]]; then
+       print "Cloning custom MR Project"
+       fetchCodeHDP ${clients_src_dir} ${MR_SRC_DIR} ${MR_REPO_URL}
+    else
+       print "Cloning custom MR Project"
+       fetchCode ${clients_src_dir} ${MR_SRC_DIR} ${MR_REPO_URL}
+    fi
 
     print "Cloning Client Agent Project"
     fetchCode ${clientagent_src_dir} ClientAgent ${CLIENTAGENT_REPO_URL}

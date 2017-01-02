@@ -344,6 +344,9 @@ preparePackage
 if [ "${DISTRO_NAME}" == "hdp" ]; then
     cp   ${clients_src_dir}/${HIVE_SRC_DIR}/metastore/target/hive-metastore*.jar                       ${PACKAGE_DIR}/sherpa/
     rm  ${PACKAGE_DIR}/sherpa/hive-metastore*tests*.jar
+
+    rm ${PACKAGE_DIR}/sherpa/hadoop-mapreduce-client-core*.jar
+    cp  ${clients_src_dir}/${MR_SRC_DIR}/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/target/hadoop-mapreduce-client-core*.jar             ${PACKAGE_DIR}/sherpa/
 fi
 
 addBuildNumber ${PACKAGE_DIR}/sherpa

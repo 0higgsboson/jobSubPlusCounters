@@ -111,11 +111,11 @@ echo "<configuration>
          <value>file:${yarn_data_dir}/data/hdfs/nn</value>
        </property>
        <property>
-         <name>fs.checkpoint.dir</name>
+         <name>dfs.namenode.checkpoint.dir</name>
          <value>file:${yarn_data_dir}/data/hdfs/snn</value>
        </property>
        <property>
-         <name>fs.checkpoint.edits.dir</name>
+         <name>dfs.namenode.checkpoint.edits.dir</name>
          <value>file:${yarn_data_dir}/data/hdfs/snn</value>
        </property>
        <property>

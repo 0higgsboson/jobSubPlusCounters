@@ -263,7 +263,11 @@ echo "<configuration>
           <value>${master}:8188</value>
         </property>
 
-
+	<property>
+		<name>yarn.nodemanager.vmem-pmem-ratio</name>
+		<value>4</value>
+		<description>Ratio between virtual memory to physical memory when setting memory limits for containers</description>
+	</property>
 
 
       </configuration>

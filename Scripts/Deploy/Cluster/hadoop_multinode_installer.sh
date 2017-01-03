@@ -284,8 +284,11 @@ else
 fi
 
 
-sed -i -e '1iexport JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64\' etc/hadoop/hadoop-env.sh
-
+if [[ "$JAVA_VERSION" -eq 7  ]]; then
+    sed -i -e '1iexport JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64\' etc/hadoop/hadoop-env.sh
+elif [[ "$JAVA_VERSION" -eq 8  ]]; then
+    sed -i -e '1iexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\' etc/hadoop/hadoop-env.sh
+fi
 
 echo "${master}" >> etc/hadoop/master
 rm etc/hadoop/slaves

@@ -107,8 +107,29 @@ fi
 
 if [ ! -f  "/etc/redhat-release" ];
 then
-    apt-get -y install  openjdk-7-jre
-    apt-get -y install  openjdk-7-jdk
+    if [[ "${java_version}" -eq 8  ]]; then
+
+        sudo add-apt-repository ppa:openjdk-r/ppa
+        sudo apt-get update
+        sudo apt-get -y install openjdk-8-jre
+        sudo apt-get -y install openjdk-8-jdk
+
+        sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
+
+        JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+
+    elif [[ "${java_version}" -eq 7  ]]; then
+        sudo apt-get update
+        sudo apt-get -y install openjdk-7-jre
+        sudo apt-get -y install openjdk-7-jdk
+
+        sudo update-java-alternatives -s java-1.7.0-openjdk-amd64
+
+        JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+    fi
+
+    grep -q -F "export JAVA_HOME=" /etc/environment || echo "export JAVA_HOME=$JAVA_HOME" >> /etc/environment
+    sed -i 's;export JAVA_HOME=.*$;export JAVA_HOME='$JAVA_HOME';' /etc/environment
 else
     yum -y install java-1.7.0-openjdk-devel
 fi

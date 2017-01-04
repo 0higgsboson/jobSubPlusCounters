@@ -61,7 +61,7 @@ except:
     oldPIPcost = 0
     m += " No prior data point found!\n"
 
-m += " " + time.strftime("%d/%m/%Y %H:%M") + "\n"
+m += " " + time.strftime("%m/%d/%Y %H:%M") + "\n"
 m += " -----------------\n"
 deallocatedVMs = 0
 runningVMs = 0

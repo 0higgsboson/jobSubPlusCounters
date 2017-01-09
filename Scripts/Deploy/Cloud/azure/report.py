@@ -7,9 +7,9 @@ from email.mime.text import MIMEText
 import datetime as dt
 
 
-def sendEmail(contents):
+def sendEmail(contents, subjectPrefix = ''):
     msg = MIMEText(contents)
-    msg['Subject'] = 'Azure usage report'
+    msg['Subject'] = subjectPrefix + 'Azure usage report'
     msg['From'] = me = 'ismail@theperformancesherpa.com'
 #    msg['To'] = 'ismail@theperformancesherpa.com'
 #    you =  ['ismail@theperformancesherpa.com']
@@ -125,16 +125,12 @@ lf.close()
 
 h = dt.datetime.now().hour
 epsilon = 1e-4
-if (h % 6 == 0) or \
-   (abs(cost - oldVMcost) > epsilon) or \
+if (abs(cost - oldVMcost) > epsilon) or \
    (abs(pipCost - oldPIPcost) > epsilon) :
-#    print cost - oldVMcost, " ", pipCost - oldPIPcost
+    sendEmail(m, "WARNING: ")
+elif h % 6 == 0:
     sendEmail(m)
-#else:
-#    sendEmail(" Nothing to report...\n")
 
-#print m
-#sendEmail(m)
 
 
 

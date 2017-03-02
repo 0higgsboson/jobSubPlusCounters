@@ -23,3 +23,5 @@ high=$(echo ${low_high} | awk -F" " '{print $3}');
 sed -i "s/high = .*/high = ${high}/" csv-best-configs5.py
 
 #python csv-best-configs5.py > csv-best-configs5.csv
+
+#python import_csv_google_sheet.py 

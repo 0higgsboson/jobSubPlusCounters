@@ -65,7 +65,6 @@ def main():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    #Need to edit the spreadsheetID
     spreadsheetId = '1jOR0MP5oiFWBypZO2RO2I-IOgXKbFPgcCQxFQz8niG8'
     rangeName = "Result "+datetime.now().strftime("%d/%m/%y")
 
@@ -81,17 +80,26 @@ def main():
 
     result = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheetId, body=body).execute()
 
-    #Check the file name
+    #rowcount = 0
     with open("csv-best-configs5.csv", "r") as ins:
         values = []
         for line in ins:
            values.append(line.rstrip('\n').split(','))
-
+           #rowcount += 1
+    
     body = {
             'values': values
            }
     result = service.spreadsheets().values().update(spreadsheetId=spreadsheetId, range=rangeName,
     valueInputOption='USER_ENTERED', body=body).execute()
+
+    body_append = {
+            'values': values[1:]
+           }
+
+    result = service.spreadsheets().values().append(
+    spreadsheetId=spreadsheetId, range='Total Results',
+    valueInputOption='USER_ENTERED', body=body_append).execute()
 
 if __name__ == '__main__':
     main()

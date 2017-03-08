@@ -10,6 +10,9 @@ from oauth2client.file import Storage
 
 from datetime import datetime
 
+import csv
+from reports_merge_data import merge_data
+
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -65,8 +68,10 @@ def main():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1jOR0MP5oiFWBypZO2RO2I-IOgXKbFPgcCQxFQz8niG8'
+    spreadsheetId = '1y0cRvvcAZLqgvuwmplLU8rjb9d1arHHhhuTP7c0g6qM'
+    #rangeName = 'Sheet1'
     rangeName = "Result "+datetime.now().strftime("%d/%m/%y")
+    finalRN = "Total Results"
 
     body = {
             "requests": [{
@@ -98,8 +103,55 @@ def main():
            }
 
     result = service.spreadsheets().values().append(
-    spreadsheetId=spreadsheetId, range='Total Results',
+    spreadsheetId=spreadsheetId, range=finalRN,
     valueInputOption='USER_ENTERED', body=body_append).execute()
+
+    #Redirect to csv file
+    result = service.spreadsheets().values().get(
+        spreadsheetId=spreadsheetId, range=finalRN).execute()
+    values = result.get('values', [])
+
+    if not values:
+        print('No data found.')
+    else:
+        #print('Name, Major:')
+        csv_file = open("merge_before_results.csv","w")
+        for row in values:
+            #print(row)
+            #print(','.join(row))
+            csv_file.write(','.join(row))
+            csv_file.write('\n')
+        csv_file.close()
+
+    merge_data()
+
+    #Know the column number
+    body = {
+            "requests": [
+                         {
+                           "updateCells": {
+                                           "range": {
+                                                     "sheetId": 116822524
+                                                    },
+                                           "fields": "userEnteredValue"
+                                          }
+                          }
+                         ]
+           }
+    result = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheetId, body=body).execute()
+
+    with open("merge_results.csv", "r") as ins:
+        values = []
+        for line in ins:
+           values.append(line.rstrip('\n').split(','))
+           
+    #print(values)
+    body = {
+            'values': values
+           }
+    result = service.spreadsheets().values().update(spreadsheetId=spreadsheetId, range=finalRN,
+    valueInputOption='USER_ENTERED', body=body).execute()
 
 if __name__ == '__main__':
     main()
+

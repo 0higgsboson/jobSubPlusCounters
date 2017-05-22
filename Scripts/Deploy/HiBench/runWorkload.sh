@@ -8,7 +8,7 @@ CWD=`cd "$CWD"; pwd`
 source ${CWD}/configurations.sh
 source ${CWD}/workload_configurations.sh
 source ${CWD}/utils.sh
-
+source ${CWD}/mail_info.sh
 
 
 export PDSH_RCMD_TYPE=ssh
@@ -139,6 +139,18 @@ do
 
                     echo "Meta Data saved at ${workloadMetaDir}"
                     printf "\n\n ********************************************** Done Testing *****************************************************\n"
+
+                    /usr/bin/mail -r "${sender}" -a "${contentType}" -s "Snowflake test completed for ${workload}" "${receiver}" <<EOF
+Hi Ismail,<br><br>
+The following snowflake test is completed.<br>
+Workload = ${workload}<br>
+Costobjective = ${costObjective}<br>
+Data Profile = ${dataProfile}<br>
+Tag = ${tag}<br>
+<br><br>
+Thanks,<br>
+Chinna.<br>
+EOF
 
         #cost objectives
         done

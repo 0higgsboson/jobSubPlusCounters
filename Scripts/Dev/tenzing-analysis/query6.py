@@ -12,11 +12,13 @@ db = client.sherpa
 coll = db.reports
 
 cursor = coll.find({"workloadID":workloadID}, 
-                   {"_id":0, "originator":1, "conf":1, "clientSeqNo":1, "counters":1, "state":1, "jobMetaData":1})
+                   {"_id":0, "originator":1, "conf":1, "clientSeqNo":1, "counters":1, "state":1, "jobMetaData":1,
+                    "memoryMetric":1, "cpuMetric":1, "latencyMetric":1, "throughputJobLevelMetric":1, "throughputTaskLevelMetric":1, "throughputTaskLevelMetric2":1})
 
 
 
 for job in cursor:
+     print "---------------------------------------------------------------------"
      print "ClientSeqNo: ", job['clientSeqNo']
      print "Originator: ", job['originator']
      print "State: ", job['state']
@@ -49,12 +51,25 @@ for job in cursor:
                print "Latency in counters: ", latency
           if cpu and mem and latency:
                print "Throughput Metric = ", cpu * mem / latency
-               print "Throughput Metric2 = ", cpu * mem
 #     if 'jobMetaData' in job:
 #          if 'latency' in job['jobMetaData']:
 #               print "Latency in jobMetaData (s) = ", job['jobMetaData']['latency'] / 1000
           print "Sherpa Tuned: ", job['jobMetaData']['sherpaTuned']
           print job['jobMetaData']
      print
+
+     print job
+
+     try:
+          print "Metrics:"
+          print job['memoryMetric']
+          print job['cpuMetric']
+          print job['latencyMetric']
+          print job['throughputJobLevelMetric']
+          print job['throughputTaskLevelMetric']
+          print job['throughputTaskLevelMetric2']
+     except:
+          print "metrics not found"
+
 #     print job['conf']
 #     print job['counters']['VCORES_MILLIS_MAPS_TOTAL']

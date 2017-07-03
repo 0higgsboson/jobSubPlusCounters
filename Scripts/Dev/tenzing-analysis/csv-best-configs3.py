@@ -2,15 +2,27 @@
 import pymongo
 from pymongo import MongoClient
 import collections
+from collections import OrderedDict
+import json
 
 #workloads = ["terasort", "sort", "aggregation", "join", "wordcount"]
-workloads = ["terasort", "sort", "wordcount", "join", "aggregation"]
-dataSizes = ["1GB", "10GB"]
-costObjectives = ["CPU", "Memory", "Latency"]
-suffix = "newtag-efficacy-10-24-2016"
+workloads = ["scan"]
+dataSizes = ["10GB"]
+costObjectives = ["Latency"]
+suffix = "06-02-2017-a-"
 
-low = -1
-high = 5
+low = 1
+high = 4
+
+tunedParams = "/opt/sherpa/Tenzing/tunedparams.json.hive-mr"
+
+with open(tunedParams) as paramsfile:
+     params = json.load(paramsfile)
+
+# print params
+
+
+
 
 client = MongoClient() 
 db = client.sherpa
@@ -20,6 +32,7 @@ cursor = coll.find({},
                     {"_id":0, "workloadID":1, "jobMetaData.tag":1
                     })
 
+
 s = set()
 csvtable = collections.OrderedDict()
 firstLine = True
@@ -28,13 +41,14 @@ for job in cursor:
           continue
      elif job['jobMetaData']['tag'].find(suffix) == -1:
           continue
-     elif job['jobMetaData']['tag'].find("scan") != -1:
-          continue
+#     elif job['jobMetaData']['tag'].find("scan") != -1:
+#          continue
      else:
           s.add(job['workloadID'])
 #          print job['workloadID'], "....", job['jobMetaData']['tag']
           workloadID = job['workloadID']
           tag = job['jobMetaData']['tag']
+#          print tag
           tz = tzcoll.find_one({"workloadID":workloadID})
           if 'bestConfig' in tz:
                if firstLine:
@@ -66,8 +80,12 @@ for job in cursor:
                if 'counters' in job:
                     if 'CPU_MILLISECONDS_MAP' in job['counters'] and 'CPU_MILLISECONDS_REDUCE' in job['counters']:
                          csvtable[workloadID]['CPU'] = job['counters']['CPU_MILLISECONDS_MAP']['value'] + job['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                    elif 'CPU_MILLISECONDS_MAP' in job['counters']:
+                         csvtable[workloadID]['CPU'] = job['counters']['CPU_MILLISECONDS_MAP']['value']
                     if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
                          csvtable[workloadID]['Memory'] = (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000.00
+                    elif 'MB_MILLIS_MAPS_TOTAL' in job['counters']:
+                         csvtable[workloadID]['Memory'] = job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] / 1000000.00
                     if 'jobMetaData' in job:
                          if 'latency' in job['jobMetaData']:
                               csvtable[workloadID]['Latency'] = job['jobMetaData']['latency'] / 1000.00
@@ -77,8 +95,12 @@ for job in cursor:
                     if 'counters' in defaultjob:
                          if 'MB_MILLIS_MAPS_TOTAL' in defaultjob['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in defaultjob['counters']:
                               csvtable[workloadID]['Default_Memory'] = (defaultjob['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + defaultjob['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000.00
+                         elif 'MB_MILLIS_MAPS_TOTAL' in defaultjob['counters']:
+                              csvtable[workloadID]['Default_Memory'] = defaultjob['counters']['MB_MILLIS_MAPS_TOTAL']['value'] / 1000000.00
                          if 'CPU_MILLISECONDS_MAP' in defaultjob['counters'] and 'CPU_MILLISECONDS_REDUCE' in defaultjob['counters']:
                               csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS_MAP']['value'] + defaultjob['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                         elif 'CPU_MILLISECONDS_MAP' in defaultjob['counters'] in defaultjob['counters']:
+                              csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS_MAP']['value']
                          if 'jobMetaData' in defaultjob:
                               if 'latency' in defaultjob['jobMetaData']:
                                    csvtable[workloadID]['Default_Latency'] = defaultjob['jobMetaData']['latency'] / 1000.00
@@ -101,6 +123,19 @@ for key,value in csvtable['0'].iteritems():
      else:
           rowstr += ", " + str(value)
 print rowstr
+
+#print ranges
+s = ""
+for key in csvtable['0']:
+     origkey = key.replace('_','.')
+     if origkey in params:
+          if params[origkey]['type'] == "DOUBLE":
+               s += str(float(params[origkey]['maxVal']) - float(params[origkey]['minVal']))
+          elif params[origkey]['type'] == "INT":
+               s+= str(int(params[origkey]['maxVal']) - int(params[origkey]['minVal']) - 1)
+     s+= ","
+#          print key, params[origkey]
+print s
 
 #print rows
 for workload in workloads:

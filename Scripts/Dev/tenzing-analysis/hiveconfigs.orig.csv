@@ -1,0 +1,8 @@
+Priority,Name,Type,Default,min,max,step size,Description,Notes
+,hive.map.aggr.hash.percentmemory,Float,0.5,0.4,0.8,0.05,Portion of total memory to be used by map-side group aggregation hash table.,
+,hive.map.aggr.hash.min.reduction,Float,0.5,0.5,1.1,0.05,Hash aggregation will be turned off if the ratio between hash table size and input rows is bigger than this number. Set to 1 to make sure hash aggregation is never turned off.,
+,hive.join.cache.size,Int,25000,10000,100000,1000,"How many rows in the joining tables (except the streaming table) should be cached in memory.
+",
+,hive.mapjoin.bucket.cache.size,Int,100,50,1000,10,How many values in each key in the map-joined table should be cached in memory.,
+,hive.mapjoin.followby.map.aggr.hash.percentmemory,Float,0.3,0.2,0.5,0.01,"Portion of total memory to be used by map-side group aggregation hash table, when this group by is followed by map join.",
+,hive.smbjoin.cache.rows,Int,10000,5000,50000,1000,How many rows with the same key value should be cached in memory per sort-merge-bucket joined table.,

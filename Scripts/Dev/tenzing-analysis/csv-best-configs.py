@@ -3,10 +3,11 @@ import pymongo
 from pymongo import MongoClient
 import collections
 
-workloads = ["terasort", "sort", "aggregation", "join", "wordcount"]
-dataSizes = ["tiny", "small", "large"]
+#workloads = ["aggregation", "join", "scan"]
+workloads = ["scan"]
+dataSizes = ["10GB"]
 costObjectives = ["Memory"]
-suffix = "08-18-2016"
+suffix = "06-01-2017"
 
 client = MongoClient() 
 db = client.sherpa
@@ -62,8 +63,8 @@ for job in cursor:
                     if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
                          csvtable[workloadID]['Memory'] = (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 1000000.00
                     if 'jobMetaData' in job:
-                         if 'latency' in job['jobMetaData']:
-                              csvtable[workloadID]['Latency'] = job['jobMetaData']['latency'] / 1000.00
+                         if 'executionTime' in job['jobMetaData']:
+                              csvtable[workloadID]['Latency'] = job['jobMetaData']['executionTime'] / 1000.00
                defaultjob = coll.find_one({"workloadID":workloadID, "originator":"Client"}, 
                    {"_id":0, "originator":1, "conf":1, "clientSeqNo":1, "counters":1, "state":1, "jobMetaData":1})
                if defaultjob:
@@ -73,9 +74,8 @@ for job in cursor:
                          if 'CPU_MILLISECONDS_MAP' in defaultjob['counters'] and 'CPU_MILLISECONDS_REDUCE' in defaultjob['counters']:
                               csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS_MAP']['value'] + defaultjob['counters']['CPU_MILLISECONDS_REDUCE']['value']
                          if 'jobMetaData' in defaultjob:
-                              if 'latency' in defaultjob['jobMetaData']:
-                                   csvtable[workloadID]['Default_Latency'] = defaultjob['jobMetaData']['latency'] / 1000.00
-
+                              if 'executionTime' in defaultjob['jobMetaData']:
+                                   csvtable[workloadID]['Default_Latency'] = defaultjob['jobMetaData']['executionTime'] / 1000.00
 
 # print header
 firstItem = True
@@ -92,11 +92,13 @@ for workload in workloads:
      for costObjective in costObjectives:
           for dataSize in dataSizes:
                tagPrefix = workload + "_" + costObjective + "_" + dataSize + "_" + suffix
+               print tagPrefix
                found = False
                for workloadID, row in csvtable.iteritems():
                     tag = row['Tag']
                     if tag.find(tagPrefix) == 0:
                          found = True
+                         print 'found'
                          break
                if not found:
                     continue

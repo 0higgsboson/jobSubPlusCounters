@@ -1,4 +1,4 @@
-#!/bin/bash
+1;95;0c#!/bin/bash
 #set -e
 
 # Save Script Working Dir
@@ -407,6 +407,7 @@ elif [ "${command}" == "tenzing" ]; then
 
 
     cp  ${CWD}/tunedparams.json                                                                      ${PACKAGE_DIR}/tenzing/
+    cp  ${CWD}/TenzingMetadata.txt                                                                   ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/Mongo/db_installer.sh                                                                 ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/supervisor_setup.sh                                                                   ${PACKAGE_DIR}/tenzing/
     cp  ${CWD}/supervisor_init.sh                                                                    ${PACKAGE_DIR}/tenzing/

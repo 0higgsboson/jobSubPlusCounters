@@ -1,42 +1,36 @@
 #!/usr/bin/python
 
+import sys
 import pymongo
 from pymongo import MongoClient
 from datetime import datetime
 import pytz
 from pytz import utc, timezone
 
-def real_cost(job):
-    costObj = 'Memory'
-    if 'jobMetaData' in job:
-        costObj = job['jobMetaData']['costObjective']
-        if costObj == 'Latency' and 'latency' in job['jobMetaData']:
-            return job['jobMetaData']['latency'] / 1000
-    if 'counters' in job:
-        if costObj == 'CPU':
-            cost = 0
-            if 'CPU_MILLISECONDS_MAP' in job['counters']:
-                cost = job['counters']['CPU_MILLISECONDS_MAP']['value']
-            if 'CPU_MILLISECONDS_REDUCE' in job['counters']:
-                cost += job['counters']['CPU_MILLISECONDS_REDUCE']['value']
-                return cost
-            if costObj == 'Memory':  
-                if 'MB_MILLIS_MAPS_TOTAL' in job['counters'] and 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
-                    return (job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] + job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']) / 60000000.0
-            if costObj == 'Latency':
-                if 'Latency' in job['counters']:
-                    return job['counters']['Latency']
-    return 0   
+costObj = 'Memory'
+
+if len(sys.argv) > 1:
+    costObj = sys.argv[1]
 
 def cost(job):
     cost = 0
     if 'counters' in job:
-        if 'MB_MILLIS_MAPS_TOTAL' in job['counters']:
-            cost = job['counters']['MB_MILLIS_MAPS_TOTAL']['value']
-        if 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
-            cost += job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']
-    return cost / 60000000.0
-
+        if costObj == 'CPU':
+            if 'CPU_MILLISECONDS_MAP' in job['counters']:
+                cost = job['counters']['CPU_MILLISECONDS_MAP']['value']
+            if 'CPU_MILLISECONDS_REDUCE' in job['counters']:
+                cost += job['counters']['CPU_MILLISECONDS_REDUCE']['value']
+            return cost / 60000.0
+        if costObj == 'Memory':  
+            if 'MB_MILLIS_MAPS_TOTAL' in job['counters']:
+                cost = job['counters']['MB_MILLIS_MAPS_TOTAL']['value']
+            if 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
+                cost += job['counters']['MB_MILLIS_REDUCES_TOTAL']['value']
+            return cost / 60000000.0
+        if costObj == 'Latency':
+                if 'Latency' in job['counters']:
+                    return job['counters']['Latency']['value']
+    return 0.0   
 
 
 
@@ -64,14 +58,17 @@ for job in cursor:
         timestamps[workloadID] = []
         nonTuned[workloadID] = dict()
         tuned[workloadID] = dict()
-    dt = datetime.strptime(job['jobMetaData']['startTime'], '%Y-%m-%d %H:%M:%S')
-    timestamp = (dt - datetime(1970, 1, 1)).total_seconds()
-    timestamps[workloadID].append(timestamp)
-    alltimestamps.append(timestamp)
-    if job['jobMetaData']['sherpaTuned'] == 'Yes':
-        allTuned[timestamp] = tuned[workloadID][timestamp] = cost(job)
-    else:
-        allNonTuned[timestamp] = nonTuned[workloadID][timestamp] = cost(job)
+    try:
+        dt = datetime.strptime(job['jobMetaData']['startTime'], '%Y-%m-%d %H:%M:%S')
+        timestamp = (dt - datetime(1970, 1, 1)).total_seconds()
+        timestamps[workloadID].append(timestamp)
+        alltimestamps.append(timestamp)
+        if job['jobMetaData']['sherpaTuned'] == 'Yes':
+            allTuned[timestamp] = tuned[workloadID][timestamp] = cost(job)
+        else:
+            allNonTuned[timestamp] = nonTuned[workloadID][timestamp] = cost(job)
+    except:
+        pass
 
 for w in timestamps:
     noTuned = 0
@@ -107,9 +104,12 @@ for w in timestamps:
 
 for w in timestamps:
     for ts in sorted(timestamps[w]):
-        s =  str(w) + "," + datetime.fromtimestamp(int(ts)).strftime('%Y-%m-%d %H:%M:%S') + "," + str(cTuned[w][ts]) + "," + str(cNonTuned[w][ts])
-#        s =  str(w) + "," + str(int(ts)) + "," + str(cTuned[w][ts]) + "," + str(cNonTuned[w][ts])
-        print s,"\r"
+        try: 
+            s =  str(w) + "," + datetime.fromtimestamp(int(ts)).strftime('%Y-%m-%d %H:%M:%S') + "," + str(cTuned[w][ts]) + "," + str(cNonTuned[w][ts])
+            print s,"\r"
+        except:
+            pass
+
 
 tunedLatest = 0
 nonTunedLatest = 0

@@ -88,12 +88,17 @@ for row in table:
                 if firstItem:
                     firstItem = False
                 else:
+                    if table[0][pos] == "jobMetaData_finishTime" or table[0][pos] == "jobMetaData_startTime":
+                        if str(element) == "":
+                            s = ""
+                            break
                     s += "\t"
 #                s += '"' + str(element) + '"'
                 s += str(element)
         except IndexError:
             pass
-    print s, "\r"
+    if s != "" :
+        print s, "\r"
 
 
 

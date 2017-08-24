@@ -31,8 +31,8 @@ def real_cost(job):
 def cost(job):
     if 'counters' in job:
         if 'Latency' in job['counters']:
-            return job['counters']['Latency']
-    return 0
+            return job['counters']['Latency']['value']
+    return 0.0
 
 
 

@@ -1,9 +1,0 @@
-{
-"spark.executor.instances":{"name":"spark.executor.instances","value":"4","type":"INT","minVal":"1","maxVal":"8","stepSize":"1"},
-"spark.executor.memory":{"name":"spark.executor.memory","value":"512","type":"INT","minVal":"512","maxVal":"2048","stepSize":"128"},
-"spark.executor.cores":{"name":"spark.executor.cores","value":"2","type":"INT","minVal":"1","maxVal":"4","stepSize":"1"},
-"spark.driver.memory":{"name":"spark.driver.memory","value":"512","type":"INT","minVal":"512","maxVal":"2048","stepSize":"128"},
-"spark.driver.cores":{"name":"spark.driver.cores","value":"1","type":"INT","minVal":"1","maxVal":"2","stepSize":"1"}
-}
-
-

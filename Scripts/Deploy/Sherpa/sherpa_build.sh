@@ -55,6 +55,21 @@ if [[ ${DISTRO_NAME} == "apache" ]]; then
      HIVE_SRC_DIR=hiveClientSherpa
      clients_src_dir="${CHECK_IN_BASE_DIR}/apache"
 
+elif [[ ${DISTRO_NAME} == "cdh" ]]; then
+     echo "CDH Distro ..."
+
+     if [[ ( ${HADOOP_VERSION} == "5.5" ) || ${HADOOP_VERSION} == "5.10" ]]; then
+         MR_REPO_URL=${git_protocol}performance-sherpa/CDH${HADOOP_VERSION}-mrclient.git
+         HIVE_REPO_URL=${git_protocol}performance-sherpa/CDH${HADOOP_VERSION}-hive.git
+         MR_SRC_DIR=CDH${HADOOP_VERSION}-mrclient
+         HIVE_SRC_DIR=CDH${HADOOP_VERSION}-hive
+         ACTIVE_PROFILE=H2.6.0
+         clients_src_dir="${CHECK_IN_BASE_DIR}/cdh"
+     else
+         echo "Error: CDH version not supported ..."
+         exit 1
+     fi
+
 elif [[ ${DISTRO_NAME} == "hdp" ]]; then
      echo "HDP Distro ..."
 
@@ -73,6 +88,13 @@ elif [[ ${DISTRO_NAME} == "hdp" ]]; then
          ACTIVE_PROFILE=H2.4.2
          clients_src_dir="${CHECK_IN_BASE_DIR}/hdp"
          TAG_NAME=HDP-2.4.2.40-tag
+     elif [[ ${HADOOP_VERSION} == "2.5" ]]; then
+         MR_REPO_URL=${git_protocol}performance-sherpa/HDP2.5-mrclient.git
+         HIVE_REPO_URL=${git_protocol}performance-sherpa/HDP2.5-hive.git
+         MR_SRC_DIR=HDP2.5-mrclient
+         HIVE_SRC_DIR=HDP2.5-hive
+         ACTIVE_PROFILE=H2.7.3
+         clients_src_dir="${CHECK_IN_BASE_DIR}/hdp"
      else
          echo "Error: HDP version not supported ..."
          exit 1
@@ -219,8 +241,13 @@ function preparePackage(){
 
     cp ${clients_src_dir}/${HIVE_SRC_DIR}/cli/target/hive-cli*.jar                          ${PACKAGE_DIR}/sherpa/
     cp ${clients_src_dir}/${HIVE_SRC_DIR}/ql/target/hive-exec*.jar                          ${PACKAGE_DIR}/sherpa/
+    cp ${clients_src_dir}/${HIVE_SRC_DIR}/service/target/hive-service*.jar                  ${PACKAGE_DIR}/sherpa/
+    cp ${clients_src_dir}/${HIVE_SRC_DIR}/common/target/hive-common*.jar                    ${PACKAGE_DIR}/sherpa/
+    cp ${clients_src_dir}/${HIVE_SRC_DIR}/metastore/target/hive-metastore*.jar              ${PACKAGE_DIR}/sherpa/
     rm ${PACKAGE_DIR}/sherpa/hive-exec-*core.jar
     rm ${PACKAGE_DIR}/sherpa/hive-exec-*tests.jar
+    rm ${PACKAGE_DIR}/sherpa/hive-metastore-*tests*.jar
+    rm ${PACKAGE_DIR}/sherpa/hive-service-*tests*.jar
 
 
     cp  ${clientagent_src_dir}/ClientAgent/ca-services/target/ca-services*.war                  ${PACKAGE_DIR}/sherpa/
@@ -316,7 +343,7 @@ if [[ "${build_code}" = "yes"  ]]; then
 
     printHeader "Packaging Hive Client"
     cd ${clients_src_dir}/${HIVE_SRC_DIR}
-    mvn clean package -pl ql,cli,metastore  -Phadoop-2  -DskipTests
+    mvn clean package -pl ql,cli,metastore,service,common  -Phadoop-2  -DskipTests
 
 
 
@@ -331,6 +358,9 @@ if [[ "${build_code}" = "yes"  ]]; then
     else
         cd hadoop-mapreduce-project/hadoop-mapreduce-client
         mvn clean package -Pdist -DskipTests
+        mkdir ${clients_src_dir}/${MR_SRC_DIR}/target/
+        rm ${clients_src_dir}/${MR_SRC_DIR}/target/hadoop-mapreduce-client-core-*
+        cp hadoop-mapreduce-client-core/target/hadoop-mapreduce-client-core-*.jar ${clients_src_dir}/${MR_SRC_DIR}/target/
     fi
 
 else

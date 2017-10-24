@@ -1,0 +1,180 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.sherpa</groupId>
+<artifactId>RunSQL</artifactId>
+<version>1.1-SNAPSHOT</version>
+
+<name>RunSQL</name>
+<description>Run Spark SQL statements</description>
+<packaging>jar</packaging>
+
+  <repositories>
+    <repository>
+      <id>cloudera</id>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+  </repositories>
+<pluginRepositories>
+<pluginRepository>
+    <id>scala-tools.org</id>
+    <name>Scala-tools Maven2 Repository</name>
+    <url>http://scala-tools.org/repo-releases</url>
+  </pluginRepository>
+</pluginRepositories>
+
+<build>
+  <resources>
+    <resource>
+      <directory>${basedir}/src/main/scala</directory>
+    </resource>
+  </resources>
+  <plugins>
+    <plugin>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.1</version>
+      <configuration>
+        <source>1.7</source>
+        <target>1.7</target>
+      </configuration>
+    </plugin>
+    <plugin>
+      <groupId>org.scala-tools</groupId>
+      <artifactId>maven-scala-plugin</artifactId>
+      <executions>
+        <execution>
+          <goals>
+            <goal>compile</goal>
+            <goal>testCompile</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    <plugin>
+      <groupId>net.alchim31.maven</groupId>
+      <artifactId>scala-maven-plugin</artifactId>
+      <executions>
+        <execution>
+          <goals>
+            <goal>compile</goal>
+            <goal>testCompile</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>attach-javadocs</id>
+          <goals>
+            <goal>doc-jar</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <sourceDir>src/main/scala</sourceDir>
+        <jvmArgs>
+          <jvmArg>-Xms64m</jvmArg>
+          <jvmArg>-Xmx1024m</jvmArg>
+        </jvmArgs>
+      </configuration>
+  </plugin>
+  <plugin>                                                                  
+      <groupId>org.apache.maven.plugins</groupId>                             
+      <artifactId>maven-dependency-plugin</artifactId>                        
+      <executions>                                                            
+        <!-- When using SPARK_PREPEND_CLASSES Spark classes compiled locally don't use
+             shaded deps. So here we store jars in their original form which are added
+             when the classpath is computed. 
+        -->                              
+        <execution>                                                           
+          <id>copy-dependencies</id>                                          
+          <phase>package</phase>                                              
+          <goals>                                                             
+            <goal>copy-dependencies</goal>                                    
+          </goals>                                                            
+          <configuration>                                                      
+            <outputDirectory>${project.build.directory}</outputDirectory>     
+            <overWriteReleases>false</overWriteReleases>                      
+            <overWriteSnapshots>false</overWriteSnapshots>                    
+            <overWriteIfNewer>true</overWriteIfNewer>                         
+            <useSubDirectoryPerType>true</useSubDirectoryPerType>             
+            <includeArtifactIds>                                              
+              guava
+            </includeArtifactIds>                                             
+            <silent>true</silent>                                             
+          </configuration>                                                    
+        </execution>                                                          
+      </executions>                                                           
+    </plugin>  
+    <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <version>2.4.1</version>
+      <configuration>
+        <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+      </configuration>
+      <executions>
+        <execution>
+          <id>make-assembly</id>
+          <phase>package</phase>
+          <goals>
+            <goal>single</goal>
+          </goals>
+        </execution>
+      </executions>
+  </plugin>
+  <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-source-plugin</artifactId>
+      <version>2.4</version>
+  </plugin>
+    <plugin>                                                                  
+        <groupId>org.apache.maven.plugins</groupId>                             
+        <artifactId>maven-shade-plugin</artifactId>                             
+        <version>2.2</version>  
+        <configuration>
+          <relocations>
+            <relocation>                                                        
+              <pattern>com.google.common</pattern>                              
+              <shadedPattern>org.spark-project.guava</shadedPattern>            
+              <excludes>                                                        
+                <!--                                                            
+                  These classes cannot be relocated, because the Java API exposes the
+                  "Optional" type; the others are referenced by the Optional class.
+                -->                                                             
+                <exclude>com/google/common/base/Absent*</exclude>               
+                <exclude>com/google/common/base/Function</exclude>              
+                <exclude>com/google/common/base/Optional*</exclude>             
+                <exclude>com/google/common/base/Present*</exclude>              
+                <exclude>com/google/common/base/Supplier</exclude>              
+              </excludes>                                                       
+            </relocation>                                                       
+          </relocations>                                                        
+        </configuration>   
+      </plugin>
+    </plugins>
+  </build>
+
+<properties>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <scala.version>2.11.8</scala.version>
+  <scala.binary.version>2.11</scala.binary.version>
+  <spark.version>2.1.0.cloudera2</spark.version>
+</properties>
+
+<dependencies>
+  <dependency>
+    <groupId>org.scala-lang</groupId>
+    <artifactId>scala-library</artifactId>
+    <version>${scala.version}</version>
+  </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.11</artifactId>
+      <version>2.1.0.cloudera2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-sql_2.11</artifactId>
+        <version>2.1.0.cloudera2</version>
+    </dependency>
+</dependencies>
+</project>

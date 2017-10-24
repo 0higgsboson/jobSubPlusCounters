@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# The following line (-p 72000 -v 600000) generates about 100MB of input data.  Scale both -p and -v proportionally for larger input
+#hadoop jar /root/HiBench/HiBench/src/autogen/target/autogen-5.0-SNAPSHOT-jar-with-dependencies.jar HiBench.DataGen -t hive -b hdfs://azure-cdh510-01:8020/user/root/SQLTest -n Input -m 12 -r 6 -p 72000 -v 600000 -o sequence
+
+hadoop jar ./autogen-5.0-SNAPSHOT-jar-with-dependencies.jar HiBench.DataGen -t hive -b /user/root/SQLTest -n Input -m 12 -r 6 -p 72000 -v 600000 -o sequence

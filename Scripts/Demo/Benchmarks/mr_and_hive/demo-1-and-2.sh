@@ -4,7 +4,7 @@ cat > ./workloads-demo.sh <<EOF
 #!/bin/bash
 
 workloads=("terasort")
-input_sizes=("10MB")
+input_sizes=("10GB")
 cost_objectives=("Memory")
 DATE=`date '+%Y-%m-%d-%H-%M-%S'`
 tag_base="demo_\${DATE}"

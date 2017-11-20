@@ -4,7 +4,7 @@ cat > ./workloads-demo.sh <<EOF
 #!/bin/bash
 
 workloads=("terasort")
-input_sizes=("1MB" "5MB" "10MB")
+input_sizes=("1GB" "5GB" "10GB")
 cost_objectives=("Latency")
 DATE=`date '+%Y-%m-%d-%H-%M-%S'`
 tag_base="demo_\${DATE}"

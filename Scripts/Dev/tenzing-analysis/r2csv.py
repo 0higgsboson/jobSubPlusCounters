@@ -30,6 +30,9 @@ cursor = set_cursor()
 for tz in cursor:
      build_header(header, "", tz)
 
+add_result_columns_to_header(header)
+
+
 header.sort()
 
 sf = open(sqlFile, "w")
@@ -51,6 +54,7 @@ cursor = set_cursor()
 for tz in cursor:
      row = [""] * len(header)
      add_row(row, pos, "", tz)
+     add_results_to_row(row,pos)
      print_row_to_file(f, row, separator=", ", newline="\r\n")
 
 f.close()

@@ -1,5 +1,0 @@
-Total number of applications (application-types: [] and states: [SUBMITTED, ACCEPTED, RUNNING]):3
-                Application-Id	    Application-Name	    Application-Type	      User	     Queue	             State	       Final-State	       Progress	                       Tracking-URL
-application_1517519565989_1727	              RunSQL	               SPARK	      root	root.users.root	           RUNNING	         UNDEFINED	            10%	               http://10.0.0.4:4040
-application_1517519565989_1726	              RunSQL	               SPARK	      root	root.users.root	           RUNNING	         UNDEFINED	            10%	               http://10.0.0.4:4042
-application_1517519565989_1728	              RunSQL	               SPARK	      root	root.users.root	           RUNNING	         UNDEFINED	            10%	               http://10.0.0.4:4043

@@ -1,6 +1,26 @@
 #!/bin/bash
 
-source configis.sh
+numParallelJobs=4
+numItersMax=120
+sleepSeconds=3
+sleepWaitForJobSubmission=20
+sleepBetweenRuns=600
+
+i=0
+
+echo 
+echo numParallelJobs = $numParallelJobs
+echo numItersMax = $numItersMax
+echo sleepSeconds = $sleepSeconds
+echo sleepWaitForJobSubmission = $sleepWaitForJobSubmission
+echo sleepBetweenRuns = $sleepBetweenRuns
+echo
+
+# sleep 400 # $sleepBetweenRuns
+
+# cp join.sql join$i.sql
+#sed -i "s/RUJ/RUJ$i/g" join$i.sql
+# exit;
 
 while true; do
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+/root/tenzing-analysis/list-workloadids.py > /root/tenzing-analysis/c; 
+tac /root/tenzing-analysis/c > /root/tenzing-analysis/c1; 
+cat /root/tenzing-analysis/c11 /root/tenzing-analysis/c1 > /root/tenzing-analysis/c22; 
+sendmail -vt < /root/tenzing-analysis/c22 ;
+

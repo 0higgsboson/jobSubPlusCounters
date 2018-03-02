@@ -1,0 +1,241 @@
+#!/usr/bin/python
+import pymongo
+from pymongo import MongoClient
+import collections
+
+import json
+
+def computeGain(r):
+     try:
+          if r['CostObjective'] == "Latency":
+               return r['Default_Latency'] / r['Latency']
+          elif r['CostObjective'] == "Memory":
+               return r['Default_Memory'] / r['Memory']
+          elif r['CostObjective'] == "CPU":
+               return (1.0 * r['Default_CPU']) / r['CPU']
+          elif r['CostObjective'] == "MemCPU":
+               return min(r['Default_CPU'] / r['CPU'], r['Default_Memory'] / r['Memory'])
+     except KeyError:
+          #print "Key Error: "
+          #print r
+          return 0
+     except ZeroDivisionError:
+          #print "ZeroDivisionError: "
+          #print r
+          return 0
+
+
+
+#workloads = ["terasort", "sort", "wordcount", "aggregation", "join"]
+#workloads = ["terasort", "sort", "wordcount"]
+#workloads = ["aggregation", "scan"]
+workloads = ["aggregation", "join", "scan"]
+#dataSizes = ["1GB"]
+dataSizes = ["1GB", "10GB"]
+costObjectives = ["CPU", "Memory", "Latency"]
+suffix = "snowflake-03-07-2017-"
+low = 1
+high = 4
+
+client = MongoClient() 
+db = client.sherpa
+coll = db.reports
+tzcoll = db.tenzings
+cursor = coll.find({},
+                    {"_id":0, "workloadID":1, "jobMetaData.tag":1
+                    })
+
+s = set()
+d = dict()
+csvtable = collections.OrderedDict()
+firstLine = True
+for job in cursor:
+     found = False
+     for w in workloads:
+          if job['jobMetaData']['tag'].find(w) != -1:
+               found = True
+               break
+     if not found:
+          continue
+     elif job['workloadID'] in s:
+          continue
+     elif job['jobMetaData']['tag'].find(suffix) == -1:
+          continue
+     else:
+          s.add(job['workloadID'])
+#          print job['workloadID'], "....", job['jobMetaData']['tag']
+          workloadID = job['workloadID']
+          tag = job['jobMetaData']['tag']
+          tz = tzcoll.find_one({"workloadID":workloadID})
+          if 'bestConfig' in tz:
+               if firstLine:
+                    csvtable['0'] = collections.OrderedDict()
+                    csvtable['0']['workloadID'] = 'workloadID'
+                    csvtable['0']['Tag'] = 'Tag'
+               csvtable[workloadID] = collections.OrderedDict()
+               csvtable[workloadID]['workloadID'] = workloadID
+               csvtable[workloadID]['Tag'] = tag
+               bestConfig = tz['bestConfig']['tunedParams']
+               for confName, confValue in bestConfig.iteritems():
+                    if firstLine:
+                         csvtable['0'][confName] = confName
+                    csvtable[workloadID][confName] = confValue['value']
+               if firstLine:
+                    csvtable['0']['Cost'] = "Cost"
+                    csvtable['0']['Memory'] = "Memory"
+                    csvtable['0']['Default_Memory'] = "Default_Memory"
+                    csvtable['0']['CPU'] = "CPU"
+                    csvtable['0']['Default_CPU'] = "Default_CPU"
+                    csvtable['0']['Latency'] = "Latency"
+                    csvtable['0']['Default_Latency'] = "Default_Latency"
+                    csvtable['0']['Gain'] = "Gain"
+                    csvtable['0']['CostObjective'] = "CostObjective"
+                    firstLine = False
+               csvtable[workloadID]['Cost'] = tz['bestConfig']['cost']
+               csvtable[workloadID]['CostObjective'] = tz['costObjective']
+               job = tz['bestConfig']
+#               print job
+               if 'counters' in job:
+                    csvtable[workloadID]['CPU'] = 0
+                    if 'CPU_MILLISECONDS' in job['counters']:
+                         csvtable[workloadID]['CPU'] += job['counters']['CPU_MILLISECONDS']['value']
+                    #if 'CPU_MILLISECONDS_MAP' in job['counters']:
+                    #     csvtable[workloadID]['CPU'] += job['counters']['CPU_MILLISECONDS_MAP']['value']
+                    #if 'CPU_MILLISECONDS_REDUCE' in job['counters']:
+                    #     csvtable[workloadID]['CPU'] += job['counters']['CPU_MILLISECONDS_REDUCE']['value']
+                    csvtable[workloadID]['Memory'] = 0
+                    if 'Memory_Bytes_Seconds' in job['counters']:
+                         csvtable[workloadID]['Memory'] = job['counters']['Memory_Bytes_Seconds']['value'] / 1000000.00
+
+                    #if 'MB_MILLIS_MAPS_TOTAL' in job['counters']:
+                    #     csvtable[workloadID]['Memory'] += job['counters']['MB_MILLIS_MAPS_TOTAL']['value'] / 1000000.00
+                    #if 'MB_MILLIS_REDUCES_TOTAL' in job['counters']:
+                    #     csvtable[workloadID]['Memory'] += job['counters']['MB_MILLIS_REDUCES_TOTAL']['value'] / 1000000.00
+                    if 'jobMetaData' in job:
+                         if 'latency' in job['jobMetaData']:
+                              csvtable[workloadID]['Latency'] = job['jobMetaData']['latency'] / 1000.00
+               defaultjob = coll.find_one({"workloadID":workloadID, "originator":"Client"}, 
+                   {"_id":0, "originator":1, "conf":1, "clientSeqNo":1, "counters":1, "state":1, "jobMetaData":1})
+               if defaultjob:
+                    if 'counters' in defaultjob:
+                         if 'Memory_Bytes_Seconds' in defaultjob['counters']:
+                              csvtable[workloadID]['Default_Memory'] = defaultjob['counters']['Memory_Bytes_Seconds']['value'] / 1000000.00
+                         else:
+                              csvtable[workloadID]['Default_Memory'] = 0
+                         if 'CPU_MILLISECONDS' in defaultjob['counters']:
+                              csvtable[workloadID]['Default_CPU'] = defaultjob['counters']['CPU_MILLISECONDS']['value']
+                         else:
+                              csvtable[workloadID]['Default_CPU'] = 0
+                         if 'jobMetaData' in defaultjob:
+                              if 'latency' in defaultjob['jobMetaData']:
+                                   csvtable[workloadID]['Default_Latency'] = defaultjob['jobMetaData']['latency'] / 1000.00
+                              else:
+                                   csvtable[workloadID]['Default_Latency'] = 0
+                         csvtable[workloadID]['Gain'] = computeGain(csvtable[workloadID])
+               if tag in d:
+                    prevWID = d[tag]
+                    #                    print "##### Consolidating workload ", workloadID, " and ", prevWID
+                    div = 1.0
+                    csvtable[prevWID]['Cost'] += csvtable[workloadID]['Cost'] / div
+                    csvtable[prevWID]['Memory'] += csvtable[workloadID]['Memory'] / div
+                    csvtable[prevWID]['Default_Memory'] += csvtable[workloadID]['Default_Memory'] / div
+                    csvtable[prevWID]['CPU'] += csvtable[workloadID]['CPU'] / div
+                    csvtable[prevWID]['Default_CPU'] += csvtable[workloadID]['Default_CPU'] / div
+                    csvtable[prevWID]['Latency'] += csvtable[workloadID]['Latency'] / div
+                    csvtable[prevWID]['Default_Latency'] += csvtable[workloadID]['Default_Latency'] / div
+                    csvtable[prevWID]['Gain'] = computeGain(csvtable[prevWID])
+                    csvtable[workloadID]['Tag'] = "DUP_" + csvtable[workloadID]['Tag']
+               else:
+                    d[tag] = workloadID
+# print header
+firstItem = True
+try:
+     for key,value in csvtable['0'].iteritems():
+          if firstItem:
+               rowstr = str(value)
+               firstItem = False
+          else:
+               rowstr += ", " + str(value)
+except:
+     print "Error"
+     print csvtable
+print rowstr
+#print "Range"
+with open('/opt/sherpa/Tenzing/tunedparams.json') as data_file:    
+    data = json.load(data_file)
+
+def getRange(tunedParam):
+    if data[tunedParam]['type'] == "DOUBLE" :
+       return float(data[tunedParam]['maxVal']) - float(data[tunedParam]['minVal'])
+    elif data[tunedParam]['type'] == "INT" :
+       return int(data[tunedParam]['maxVal']) - int(data[tunedParam]['minVal'])
+
+print "Range,,"+str(getRange('tez.runtime.io.sort.mb'))+","+str(getRange('hive.auto.convert.join.noconditionaltask.size'))+","+str(getRange('tez.shuffle-vertex-manager.max-src-fraction'))+","+str(getRange('tez.grouping.max-size'))+","+str(getRange('hive.tez.container.size'))+","+str(getRange('tez.container.max.java.heap.fraction'))+","+str(getRange('tez.runtime.sort.spill.percent'))+","+str(getRange('tez.runtime.io.sort.factor'))+","+str(getRange('tez.runtime.unordered.output. buffer.size-mb'))
+
+print "Min Values"
+rowcount = 3
+rangeRow = 2
+
+#print rows
+for workload in workloads:
+     for costObjective in costObjectives:
+          for dataSize in dataSizes:
+               for iterno in range(low, high+1) :
+                    if iterno == -1:
+                         tagPrefix = workload + "_" + costObjective + "_" + dataSize + "_" + suffix
+                    else:
+                         tagPrefix = workload + "_" + costObjective + "_" + dataSize + "_" + suffix + str(iterno)
+                    found = False
+                    for workloadID, row in csvtable.iteritems():
+                         tag = row['Tag']
+#                         print tagPrefix, "   ....   ", tag
+                         if tag.find(tagPrefix) == 0 or tag.find("DUP_" + tagPrefix) == 0:
+                              firstItem = True
+                              for key in csvtable['0']:
+                                   if key in row:
+                                        value = str(row[key])
+                                   else:
+                                        value = "-1"
+                                   if firstItem:
+                                        rowstr = value
+                                        firstItem = False
+                                   else:
+                                        rowstr += ", " + value
+                              print rowstr
+                    if iterno == -1:
+                         break
+               if iterno != -1 and high != low:
+                    min = rowcount + 1
+                    max = rowcount + 1 + high - low
+                    rowcount += high - low + 4
+                    cols = len(row['Tag']) - 1
+                    #print "cols len"+str(cols)
+                    col = "C"
+                    row = max + 1
+                    rowstr = "Average, "
+                    for i in range(0,cols):
+                         rowstr += ",=AVERAGE("+col+str(min)+":"+col+str(max)+")"
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr
+                    rowstr = "Std Dev / Avg, "
+                    col = "C"
+                    for i in range(0,cols):
+                         rowstr += ",=STDEVP("+col+str(min)+":"+col+str(max)+")/"+col+str(row)
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr
+                    rowstr = "Std Dev / Range, "
+                    col = "C"
+                    for i in range(0,cols):
+                         rowstr += ",="+col+str(row)+"*" + col + str(row+1) + "/" + col + str(rangeRow)
+                         if col == 'Z':
+                              break
+                         else:
+                              col = chr(ord(col)+1)
+                    print rowstr
+

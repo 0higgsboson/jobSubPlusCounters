@@ -1,0 +1,16 @@
+Priority,Name,Type,Default,Engines,Query Types,Set to,Description,Notes
+1,hive.hadoop.supports.splittable.combineinputformat,Boolean,FALSE,all,all,TRUE,Whether to combine small input files to lower the number of mappers. ,
+1,hive.optimize.index.filter,Boolean,FALSE,all,all,TRUE,Whether to enable automatic use of indexes.,
+1,hive.ignore.mapjoin.hint,Boolean,TRUE,all,Map join,FALSE,Whether Hive ignores the mapjoin hint.,
+1,hive.optimize.union.remove,Boolean,FALSE,all,Union,TRUE,"Whether to remove the union and push the operators between union and the filesink above union. This avoids an extra scan of the output by union. This is independently useful for union queries, and especially useful when hive.optimize.skewjoin.compiletime is set to true, since an extra union is inserted.
+The merge is triggered if either of hive.merge.mapfiles or hive.merge.mapredfiles is set to true. If the user has set hive.merge.mapfiles to true and hive.merge.mapredfiles to false, the idea was that the number of reducers are few, so the number of files anyway is small. However, with this optimization, we are increasing the number of files possibly by a big margin. So, we merge aggresively.
+",
+1,hive.exec.compress.output,Boolean,FALSE,all,all,TRUE,This controls whether the final outputs of a query (to a local/hdfs file or a Hive table) is compressed. The compression codec and other options are determined from Hadoop configuration variables mapred.output.compress* .,
+1,hive.exec.compress.intermediate,Boolean,FALSE,all,all,TRUE,This controls whether intermediate files produced by Hive between multiple map-reduce jobs are compressed. The compression codec and other options are determined from Hadoop configuration variables mapred.output.compress*.,
+1,hive.optimize.correlation,Boolean,FALSE,all,all,TRUE,Exploit intra-query correlations. For details see the Correlation Optimizer design document.,
+1,hive.optimize.sort.dynamic.partition,Boolean,FALSE,all,all,TRUE,"When enabled, dynamic partitioning column will be globally sorted. This way we can keep only one record writer open for each partition value in the reducer thereby reducing the memory pressure on reducers.",
+1,hive.cbo.returnpath.hiveop,Boolean,FALSE,all,Join,TRUE,"When true, this optimization to CBO Logical plan will add rule to introduce not null filtering on join keys.  Controls Calcite plan to Hive operator conversion.  Overrides hive.optimize.remove.identity.project when set to false.",
+1,hive.limit.optimize.enable,Boolean,FALSE,all,LIMIT,TRUE,Whether to enable to optimization to trying a smaller subset of data for simple LIMIT first.,
+1,hive.map.groupby.sorted,Boolean,FALSE,all,Group by,TRUE,"If the bucketing/sorting properties of the table exactly match the grouping key, whether to perform the group by in the mapper by using BucketizedHiveInputFormat. The only downside to this is that it limits the number of mappers to the number of files.",
+1,hive.vectorized.execution.enabled,Boolean,FALSE,all,all,TRUE,This flag should be set to true to enable vectorized mode of query execution.,
+1,hive.vectorized.execution.mapjoin.native.fast.hashtable.enabled,Boolean,FALSE,all,Map join,TRUE,This flag should be set to true to enable use of native fast vector map join hash tables in queries using MapJoin.,

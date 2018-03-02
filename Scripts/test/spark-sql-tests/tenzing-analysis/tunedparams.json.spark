@@ -1,0 +1,106 @@
+{
+    "spark.reducer.maxSizeInFlight": {
+        "name": "spark.reducer.maxSizeInFlight", 
+        "value": "48000000", 
+        "type": "INT", 
+        "minVal": "10000000", 
+        "maxVal": "200000000", 
+        "stepSize": "1000000"
+    }, 
+    "spark.shuffle.file.buffer": {
+        "name": "spark.shuffle.file.buffer", 
+        "value": "32000", 
+        "type": "INT", 
+        "minVal": "16000", 
+        "maxVal": "128000", 
+        "stepSize": "1000"
+    }, 
+    "spark.shuffle.sort.bypassMergeThreshold": {
+        "name": "spark.shuffle.sort.bypassMergeThreshold", 
+        "value": "200", 
+        "type": "INT", 
+        "minVal": "100", 
+        "maxVal": "400", 
+        "stepSize": "1"
+    }, 
+    "spark.io.compression.snappy.blockSize": {
+        "name": "spark.io.compression.snappy.blockSize", 
+        "value": "32000", 
+        "type": "INT", 
+        "minVal": "16000", 
+        "maxVal": "64000", 
+        "stepSize": "1000"
+    }, 
+    "spark.kryoserializer.buffer.max": {
+        "name": "spark.kryoserializer.buffer.max", 
+        "value": "64", 
+        "type": "INT", 
+        "minVal": "32", 
+        "maxVal": "128", 
+        "stepSize": "1"
+    }, 
+    "spark.kryoserializer.buffer": {
+        "name": "spark.kryoserializer.buffer", 
+        "value": "64000", 
+        "type": "INT", 
+        "minVal": "32000", 
+        "maxVal": "128000", 
+        "stepSize": "1000"
+    }, 
+    "spark.memory.fraction": {
+        "name": "spark.memory.fraction", 
+        "value": "0.75", 
+        "type": "DOUBLE", 
+        "minVal": "0.50", 
+        "maxVal": "0.80", 
+        "stepSize": "0.01"
+    }, 
+    "spark.memory.storageFraction": {
+        "name": "spark.memory.storageFraction", 
+        "value": "0.5", 
+        "type": "DOUBLE", 
+        "minVal": "0.10", 
+        "maxVal": "0.55", 
+        "stepSize": "0.01"
+    }, 
+    "spark.executor.cores": {
+        "name": "spark.executor.cores", 
+        "value": "1", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "3", 
+        "stepSize": "1"
+    }, 
+    "spark.storage.memoryMapThreshold": {
+        "name": "spark.storage.memoryMapThreshold", 
+        "value": "2000000", 
+        "type": "INT", 
+        "minVal": "1000000", 
+        "maxVal": "4000000", 
+        "stepSize": "500000"
+    }, 
+    "spark.executor.instances": {
+        "name": "spark.executor.instances", 
+        "value": "10", 
+        "type": "INT", 
+        "minVal": "5", 
+        "maxVal": "41", 
+        "stepSize": "1"
+    }, 
+    "spark.executor.memory": {
+        "name": "spark.executor.memory", 
+        "value": "1024", 
+        "type": "INT", 
+        "minVal": "1024", 
+        "maxVal": "4000", 
+        "stepSize": "1"
+    }, 
+    "spark.yarn.containerLauncherMaxThreads": {
+        "name": "spark.yarn.containerLauncherMaxThreads", 
+        "value": "25", 
+        "type": "INT", 
+        "minVal": "15", 
+        "maxVal": "30", 
+        "stepSize": "1"
+    }
+}

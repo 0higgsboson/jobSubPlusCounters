@@ -1,0 +1,250 @@
+{
+    "mapreduce.input.fileinputformat.split.maxsize": {
+        "name": "mapreduce.input.fileinputformat.split.maxsize", 
+        "value": "100000000", 
+        "type": "INT", 
+        "minVal": "30000000", 
+        "maxVal": "512000000", 
+        "stepSize": "10000000"
+    }, 
+    "mapreduce.map.cpu.vcores": {
+        "name": "mapreduce.map.cpu.vcores", 
+        "value": "3", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "4", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.reduce.cpu.vcores": {
+        "name": "mapreduce.reduce.cpu.vcores", 
+        "value": "1", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "4", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.map.memory.mb": {
+        "name": "mapreduce.map.memory.mb", 
+        "value": "512", 
+        "type": "INT", 
+        "minVal": "128", 
+        "maxVal": "2048", 
+        "stepSize": "64"
+    }, 
+    "mapreduce.reduce.memory.mb": {
+        "name": "mapreduce.reduce.memory.mb", 
+        "value": "512", 
+        "type": "INT", 
+        "minVal": "128", 
+        "maxVal": "2048", 
+        "stepSize": "64"
+    }, 
+    "mapreduce.job.reduces": {
+        "name": "mapreduce.job.reduces", 
+        "value": "3", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "240", 
+        "stepSize": "1"
+    }, 
+    "java.heap.size.map": {
+        "name": "java.heap.size.map", 
+        "value": "75", 
+        "type": "INT", 
+        "minVal": "70", 
+        "maxVal": "95", 
+        "stepSize": "1"
+    }, 
+    "java.heap.size.reduce": {
+        "name": "java.heap.size.reduce", 
+        "value": "75", 
+        "type": "INT", 
+        "minVal": "70", 
+        "maxVal": "95", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.task.io.sort.mb": {
+        "name": "mapreduce.task.io.sort.mb", 
+        "value": "10", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "100", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.map.sort.spill.percent": {
+        "name": "mapreduce.map.sort.spill.percent", 
+        "value": "0.8", 
+        "type": "DOUBLE", 
+        "minVal": "0.5", 
+        "maxVal": "0.95", 
+        "stepSize": "0.01"
+    }, 
+    "mapreduce.reduce.input.buffer.percent": {
+        "name": "mapreduce.reduce.input.buffer.percent", 
+        "value": "0.05", 
+        "type": "DOUBLE", 
+        "minVal": "0.0", 
+        "maxVal": "0.2", 
+        "stepSize": "0.01"
+    }, 
+    "mapreduce.reduce.merge.inmem.threshold": {
+        "name": "mapreduce.reduce.merge.inmem.threshold", 
+        "value": "1000", 
+        "type": "INT", 
+        "minVal": "0", 
+        "maxVal": "10000", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.job.reduce.slowstart.completedmaps": {
+        "name": "mapreduce.job.reduce.slowstart.completedmaps", 
+        "value": "0.05", 
+        "type": "DOUBLE", 
+        "minVal": "0.01", 
+        "maxVal": "0.5", 
+        "stepSize": "0.01"
+    }, 
+    "mapreduce.reduce.shuffle.merge.percent": {
+        "name": "mapreduce.reduce.shuffle.merge.percent", 
+        "value": "0.66", 
+        "type": "DOUBLE", 
+        "minVal": "0.4", 
+        "maxVal": "0.9", 
+        "stepSize": "0.01"
+    }, 
+    "mapreduce.reduce.shuffle.parallelcopies": {
+        "name": "mapreduce.reduce.shuffle.parallelcopies", 
+        "value": "5", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "20", 
+        "stepSize": "1"
+    }, 
+    "mapreduce.reduce.shuffle.input.buffer.percent": {
+        "name": "mapreduce.reduce.shuffle.input.buffer.percent", 
+        "value": "0.70", 
+        "type": "DOUBLE", 
+        "minVal": "0.5", 
+        "maxVal": "0.95", 
+        "stepSize": "0.01"
+    }, 
+    "mapreduce.tasktracker.indexcache.mb": {
+        "name": "mapreduce.tasktracker.indexcache.mb", 
+        "value": "10", 
+        "type": "INT", 
+        "minVal": "1", 
+        "maxVal": "100", 
+        "stepSize": "1"
+    }, 
+    "hive.groupby.mapaggr.checkinterval": {
+        "name": "hive.groupby.mapaggr.checkinterval", 
+        "value": "100000", 
+        "type": "INT", 
+        "minVal": "10000", 
+        "maxVal": "500000", 
+        "stepSize": "10000"
+    }, 
+    "hive.map.aggr.hash.percentmemory": {
+        "name": "hive.map.aggr.hash.percentmemory", 
+        "value": "0.5", 
+        "type": "DOUBLE", 
+        "minVal": "0.4", 
+        "maxVal": "0.8", 
+        "stepSize": "0.05"
+    }, 
+    "hive.map.aggr.hash.min.reduction": {
+        "name": "hive.map.aggr.hash.min.reduction", 
+        "value": "0.5", 
+        "type": "DOUBLE", 
+        "minVal": "0.5", 
+        "maxVal": "1.1", 
+        "stepSize": "0.05"
+    }, 
+    "hive.join.emit.interval": {
+        "name": "hive.join.emit.interval", 
+        "value": "1000", 
+        "type": "INT", 
+        "minVal": "100", 
+        "maxVal": "10000", 
+        "stepSize": "100"
+    }, 
+    "hive.join.cache.size": {
+        "name": "hive.join.cache.size", 
+        "value": "25000", 
+        "type": "INT", 
+        "minVal": "10000", 
+        "maxVal": "100000", 
+        "stepSize": "1000"
+    }, 
+    "hive.mapjoin.bucket.cache.size": {
+        "name": "hive.mapjoin.bucket.cache.size", 
+        "value": "100", 
+        "type": "INT", 
+        "minVal": "50", 
+        "maxVal": "1000", 
+        "stepSize": "10"
+    }, 
+    "hive.mapjoin.followby.map.aggr.hash.percentmemory": {
+        "name": "hive.mapjoin.followby.map.aggr.hash.percentmemory", 
+        "value": "0.3", 
+        "type": "DOUBLE", 
+        "minVal": "0.2", 
+        "maxVal": "0.5", 
+        "stepSize": "0.01"
+    }, 
+    "hive.mapjoin.smalltable.filesize": {
+        "name": "hive.mapjoin.smalltable.filesize", 
+        "value": "25000000", 
+        "type": "INT", 
+        "minVal": "5000000", 
+        "maxVal": "100000000", 
+        "stepSize": "5000000"
+    }, 
+    "hive.mapjoin.localtask.max.memory.usage": {
+        "name": "hive.mapjoin.localtask.max.memory.usage", 
+        "value": "0.9", 
+        "type": "DOUBLE", 
+        "minVal": "0.8", 
+        "maxVal": "0.95", 
+        "stepSize": "0.01"
+    }, 
+    "hive.mapjoin.followby.gby.localtask.max.memory.usage": {
+        "name": "hive.mapjoin.followby.gby.localtask.max.memory.usage", 
+        "value": "0.55", 
+        "type": "DOUBLE", 
+        "minVal": "0.4", 
+        "maxVal": "0.7", 
+        "stepSize": "0.01"
+    }, 
+    "hive.smbjoin.cache.rows": {
+        "name": "hive.smbjoin.cache.rows", 
+        "value": "10000", 
+        "type": "INT", 
+        "minVal": "5000", 
+        "maxVal": "50000", 
+        "stepSize": "1000"
+    }, 
+    "hive.merge.size.per.task": {
+        "name": "hive.merge.size.per.task", 
+        "value": "256000000", 
+        "type": "INT", 
+        "minVal": "50000000", 
+        "maxVal": "512000000", 
+        "stepSize": "10000000"
+    }, 
+    "hive.merge.smallfiles.avgsize": {
+        "name": "hive.merge.smallfiles.avgsize", 
+        "value": "16000000", 
+        "type": "INT", 
+        "minVal": "10000000", 
+        "maxVal": "256000000", 
+        "stepSize": "10000000"
+    }, 
+    "hive.auto.convert.join.noconditionaltask.size": {
+        "name": "hive.auto.convert.join.noconditionaltask.size", 
+        "value": "10000000", 
+        "type": "INT", 
+        "minVal": "5000000", 
+        "maxVal": "256000000", 
+        "stepSize": "5000000"
+    }
+}

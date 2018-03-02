@@ -1,0 +1,16 @@
+Priority,Name,Type,Default,min,max,step size,Description
+,hive.groupby.mapaggr.checkinterval,Int,100000,10000,500000,10000,Number of rows after which size of the grouping keys/aggregation classes is performed.  
+,hive.map.aggr.hash.percentmemory,Float,0.5,0.4,0.8,0.05,Portion of total memory to be used by map-side group aggregation hash table.
+,hive.map.aggr.hash.min.reduction,Float,0.5,0.5,1.1,0.05,Hash aggregation will be turned off if the ratio between hash table size and input rows is bigger than this number. Set to 1 to make sure hash aggregation is never turned off.
+,hive.join.emit.interval,Int,1000,100,10000,100,How many rows in the right-most join operand Hive should buffer before emitting the join result.
+,hive.join.cache.size,Int,25000,10000,100000,1000,"How many rows in the joining tables (except the streaming table) should be cached in memory.
+"
+,hive.mapjoin.bucket.cache.size,Int,100,50,1000,10,How many values in each key in the map-joined table should be cached in memory.
+,hive.mapjoin.followby.map.aggr.hash.percentmemory,Float,0.3,0.2,0.5,0.01,"Portion of total memory to be used by map-side group aggregation hash table, when this group by is followed by map join."
+,hive.mapjoin.smalltable.filesize,Int,25000000,5000000,100000000,5000000,"The threshold (in bytes) for the input file size of the small tables; if the file size is smaller than this threshold, it will try to convert the common join into map join."
+,hive.mapjoin.localtask.max.memory.usage,Float,0.9,0.8,0.95,0.01,"This number means how much memory the local task can take to hold the key/value into an in-memory hash table. If the local task's memory usage is more than this number, the local task will be aborted. It means the data of small table is too large to be held in memory."
+,hive.mapjoin.followby.gby.localtask.max.memory.usage,Float,0.55,0.4,0.7,0.01,"This number means how much memory the local task can take to hold the key/value into an in-memory hash table when this map join is followed by a group by. If the local task's memory usage is more than this number, the local task will abort by itself. It means the data of the small table is too large to be held in memory."
+,hive.smbjoin.cache.rows,Int,10000,5000,50000,1000,How many rows with the same key value should be cached in memory per sort-merge-bucket joined table.
+,hive.merge.size.per.task,Int,256000000,50000000,512000000,10000000,Size of merged files at the end of the job.
+,hive.merge.smallfiles.avgsize,Int,16000000,10000000,256000000,10000000,"When the average output file size of a job is less than this number, Hive will start an additional map-reduce job to merge the output files into bigger files. This is only done for map-only jobs if hive.merge.mapfiles is true, and for map-reduce jobs if hive.merge.mapredfiles is true."
+,hive.auto.convert.join.noconditionaltask.size,Int,10000000,5000000,256000000,5000000,"If hive.auto.convert.join.noconditionaltask is off, this parameter does not take effect. However, if it is on, and the sum of size for n-1 of the tables/partitions for an n-way join is smaller than this size, the join is directly converted to a mapjoin (there is no conditional task). "

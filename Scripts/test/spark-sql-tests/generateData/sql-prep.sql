@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS rankings;
+DROP TABLE IF EXISTS uservisits;
+CREATE EXTERNAL TABLE rankings (pageURL STRING, pageRank INT, avgDuration INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS SEQUENCEFILE LOCATION 'hdfs:/user/root/SQLTest/Input/rankings';
+CREATE EXTERNAL TABLE uservisits (sourceIP STRING,destURL STRING,visitDate STRING,adRevenue DOUBLE,userAgent STRING,countryCode STRING,languageCode STRING,searchWord STRING,duration INT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS SEQUENCEFILE LOCATION 'hdfs:/user/root/SQLTest/Input/uservisits';

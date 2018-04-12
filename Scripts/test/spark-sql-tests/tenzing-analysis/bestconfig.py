@@ -17,7 +17,9 @@ tzcursor = tzcoll.find({"workloadID":workloadID})
 for tz in tzcursor:
 #   print tz['workloadID']
 #   print tz['costObjective']
-   print "Client Seq No = ", tz['bestConfig']['clientSeqNo']
+  if "bestConfig" in tz:
+   if "clientSeqNo" in tz['bestConfig']:
+     print "Client Seq No = ", tz['bestConfig']['clientSeqNo']
    bestConfig = tz['bestConfig']['tunedParams']
    s = ""
    if format == "csv":
@@ -26,11 +28,20 @@ for tz in tzcursor:
       val = confValue['value']
       confName = confName.replace('_','.')
       if format == "-D":
-         s += " -D " + confName + "=" + val
+         if confName == "spark.executor.memory":
+            s += " -D " + confName + "=" + val + "M"
+         else:
+            s += " -D " + confName + "=" + val
       elif format == "csv":
-         s += '"' + confName + '",' + val + "\n"
+         if confName == "spark.executor.memory":
+            s += " -D " + confName + "=" + val + "M"
+         else:
+            s += '"' + confName + '",' + val + "\n"
       else:
-         s += confName + " = " + val + "\n"
+         if confName == "spark.executor.memory":
+            s += " -D " + confName + "=" + val + "M"
+         else:
+            s += confName + " = " + val + "\n"
    if format == "csv":
       s += '"cost",' + str(tz['bestConfig']['cost']) + "\n"
    elif format != "-D":
